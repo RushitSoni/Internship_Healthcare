@@ -8,7 +8,7 @@ var connectionString = builder.Configuration.GetConnectionString("Online_SurveyC
 builder.Services.AddDbContext<Online_SurveyContext>(options => options.UseSqlServer(connectionString));
 
 builder.Services.AddDefaultIdentity<Online_SurveyUser>(options => options.SignIn.RequireConfirmedAccount = true).AddEntityFrameworkStores<Online_SurveyContext>();
-
+// Hi There These is commit from Meet Gandhi.
 // Add services to the container.
 
 builder.Services.AddControllers();
