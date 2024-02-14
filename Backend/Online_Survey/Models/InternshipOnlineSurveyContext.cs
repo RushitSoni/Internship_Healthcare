@@ -15,9 +15,11 @@ public partial class InternshipOnlineSurveyContext : DbContext
     {
     }
 
-    public virtual DbSet<Table> Tables { get; set; }
+    public virtual DbSet<Company> Companies { get; set; }
 
-    public virtual DbSet<Table1> Table1s { get; set; }
+    public virtual DbSet<Department> Departments { get; set; }
+
+    public virtual DbSet<SurveyerDept> SurveyerDepts { get; set; }
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see https://go.microsoft.com/fwlink/?LinkId=723263.
@@ -25,22 +27,54 @@ public partial class InternshipOnlineSurveyContext : DbContext
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
-        modelBuilder.Entity<Table>(entity =>
+        modelBuilder.Entity<Company>(entity =>
         {
-            entity.HasKey(e => e.Id).HasName("PK__Table__3214EC07551B4BFD");
+            entity.HasKey(e => e.CompanyId).HasName("PK__Company__2D971CACA30DF15B");
 
-            entity.ToTable("Table");
+            entity.ToTable("Company");
 
-            entity.Property(e => e.Id).ValueGeneratedNever();
+            entity.Property(e => e.AdminId)
+                .IsRequired()
+                .HasMaxLength(450);
+            entity.Property(e => e.Name)
+                .IsRequired()
+                .HasMaxLength(100);
         });
 
-        modelBuilder.Entity<Table1>(entity =>
+        modelBuilder.Entity<Department>(entity =>
         {
-            entity.HasKey(e => e.Id).HasName("PK__Table1__3214EC078650053E");
+            entity.HasKey(e => e.DepartmentId).HasName("PK__Departme__B2079BED11F3BEEA");
 
-            entity.ToTable("Table1");
+            entity.ToTable("Department");
 
-            entity.Property(e => e.Id).ValueGeneratedNever();
+            entity.Property(e => e.Name)
+                .IsRequired()
+                .HasMaxLength(100);
+
+            entity.HasOne(d => d.Company).WithMany(p => p.Departments)
+                .HasForeignKey(d => d.CompanyId)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK_Department_Company");
+        });
+
+        modelBuilder.Entity<SurveyerDept>(entity =>
+        {
+            entity.HasKey(e => e.SurveyerDeptId).HasName("PK__Surveyer__0F84798DD2C318DA");
+
+            entity.ToTable("Surveyer_Dept");
+
+            entity.Property(e => e.SurveyerDeptId).HasColumnName("Surveyer_DeptId");
+            entity.Property(e => e.UserId)
+                .IsRequired()
+                .HasMaxLength(450);
+            entity.Property(e => e.UserName)
+                .IsRequired()
+                .HasMaxLength(256);
+
+            entity.HasOne(d => d.Dept).WithMany(p => p.SurveyerDepts)
+                .HasForeignKey(d => d.DeptId)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK_Surveyer_Dept_DeptId");
         });
 
         OnModelCreatingPartial(modelBuilder);
