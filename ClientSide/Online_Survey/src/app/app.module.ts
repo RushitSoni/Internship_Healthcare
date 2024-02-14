@@ -20,13 +20,15 @@ import { JwtInterceptor } from './shared/interceptors/jwt.interceptor';
     FooterComponent,
     HomeComponent,
     LandingPageComponent,
-    AdminComponent
+    AdminComponent,
+    
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     NgbModule,
-    SharedModule
+    SharedModule,
+    
   ],
   // providers: [
   //   provideClientHydration()

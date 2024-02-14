@@ -1,5 +1,6 @@
 export interface User{
     firstName: string
     lastName:string
+    id:string
     jwt:string
 }
