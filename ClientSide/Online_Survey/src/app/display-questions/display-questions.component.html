@@ -1,0 +1,31 @@
+<p>display-questions works!</p>
+
+<table class="table">
+    <tbody>
+    <tr>
+        <th>AdminID</th>
+        <th>AdminName</th>
+        <th>AdminEmail</th>
+    </tr>
+    <!-- Directives -->
+    <!-- *ngIf,*ngFor are structural directives(can modify the DOM element(i.e adding or removing)). -->
+    <!--  Attribute Based Directives -> Adds the attribute to the element(they cannot ADD or REMOVE the elemnt in the DOM)-->
+    <!-- use of ngClass -->
+    <!-- ngStyle is to give style.Also Accepts variables. -->
+        
+    <!-- Pipes -->
+    <!-- used for data transformation -->
+    <!-- original object remain as it is.It is only transformed for view. -->
+    <tr *ngFor="let ad of list_admin;">
+        <td>{{ad.adminId}}</td>
+        <td>{{ad.adminName}}</td>
+        <td>{{ad.adminEmail}}</td>
+    </tr>
+    </tbody>
+    </table>
+
+<button (click)="Login()" routerLink="/Login"> 
+    Login
+</button>   
+
+<app-add-questions></app-add-questions>

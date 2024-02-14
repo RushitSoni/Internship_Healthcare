@@ -1,0 +1,12 @@
+<p>add-questions works!</p>
+<form [formGroup]="form_question">
+    <label>Select the Question type:</label>
+    <label><input type="radio" value="1" formControlName="question_type">Multiple Choice Question</label>
+    <label><input type="radio" value="2" formControlName="question_type">Multiple Select Question</label>
+    <label><input type="radio" value="3" formControlName="question_type">Text Question</label>
+    <br>
+    <label>Add your question</label>
+    <input type="text" formControlName="question_text">
+    <br>
+
+</form>
