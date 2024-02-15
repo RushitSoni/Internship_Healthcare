@@ -1,0 +1,97 @@
+/* Second-page css */
+:host {
+  display: block;
+  /* background-color: #5D576B; Set the background color to blue */
+ background-color:  rgb(104, 0, 120); 
+  padding: 40px; /* Add padding for better visual appearance */
+}
+.Heading2 {
+  color: #BB853E;
+  font-size: 4vw;
+  text-align: center;
+  /* background-color: #5D576B; */
+  
+  padding: 30px 0;
+}
+
+.row1, .row2 {
+  display: flex;
+}
+
+.row1 {
+  margin-bottom: 2vw;
+}
+
+.column {
+  flex: 1;
+  padding: 20px;
+}
+
+.title {
+  display: flex;
+  align-items: center;
+}
+
+/* second-page logos*/
+
+.sp-logo {
+  width: 40px; /* Adjust the size of the logo */
+  margin-right: 10px;
+  margin-bottom: 20; /* Add some spacing between logo and title */
+}
+
+.p2 {
+  font-size: large;
+}
+
+.component-container {
+  background-color: #5D576B;
+}
+
+
+/* 
+/* 
+.Heading2{
+  font-weight: bold;
+  color: black;
+  margin-top: 5.5vw;
+  margin-bottom: 5vw;
+  font-size: 4vw;
+  text-align: center;
+  background-color: #5D576B;
+}
+
+.row1,.row2 {
+  display: flex;
+  
+}
+
+.row1{
+  margin-bottom: 2vw;
+}
+.column {
+  flex: 1;
+  padding: 20px;
+}
+
+.title {
+  display: flex;
+  align-items: center;
+}
+
+
+.sp-logo{
+  width: 40px; 
+  margin-right: 10px;
+  margin-bottom: 20; 
+}
+
+.p2{
+  font-size: large;
+  background-color: #5D576B;
+}
+
+.component-container {
+background-color: #5D576B;
+}
+*/

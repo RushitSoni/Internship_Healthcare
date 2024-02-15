@@ -1,5 +1,8 @@
 import { NgModule } from '@angular/core';
-import { BrowserModule, provideClientHydration } from '@angular/platform-browser';
+import {
+  BrowserModule,
+  provideClientHydration,
+} from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -12,6 +15,12 @@ import { AdminComponent } from './admin/admin.component';
 import { SharedModule } from './shared/shared.module';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { JwtInterceptor } from './shared/interceptors/jwt.interceptor';
+import { SecondPageComponent } from './second-page/second-page.component';
+import { UserSuccessStoriesComponent } from './user-success-stories/user-success-stories.component';
+import { SurveyStatisticsComponent } from './survey-statistics/survey-statistics.component';
+import { BlogComponent } from './blog/blog.component';
+import { SupportComponent } from './support/support.component';
+import { GetStartedComponent } from './get-started/get-started.component';
 
 @NgModule({
   declarations: [
@@ -21,22 +30,26 @@ import { JwtInterceptor } from './shared/interceptors/jwt.interceptor';
     HomeComponent,
     LandingPageComponent,
     AdminComponent,
+
+    
+    SecondPageComponent,
+    UserSuccessStoriesComponent,
+    SurveyStatisticsComponent,
+    BlogComponent,
+    SupportComponent,
+    GetStartedComponent
+
     
   ],
-  imports: [
-    BrowserModule,
-    AppRoutingModule,
-    NgbModule,
-    SharedModule,
-    
-  ],
+
+  imports: [BrowserModule, AppRoutingModule, NgbModule, SharedModule],
   // providers: [
   //   provideClientHydration()
   // ],
 
   providers: [
-    {provide:HTTP_INTERCEPTORS,useClass:JwtInterceptor,multi:true}
+    { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
   ],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}

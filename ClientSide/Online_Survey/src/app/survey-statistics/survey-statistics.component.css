@@ -1,0 +1,57 @@
+/* survey-statistics.component.css */
+
+:host {
+  display: block;
+  background-color: #2196f3; /* Set the background color to blue */
+  padding: 20px; /* Add padding for better visual appearance */
+}
+
+.SurveyStatisticsHeading {
+  color: white; /* Set text color to white for better contrast */
+  font-size: 4vw;
+  text-align: center;
+  padding: 10px 0;
+  margin-top: 5.5vw;
+  margin-bottom: 5vw;
+}
+
+.SubHeading {
+  color: white;
+  font-size: 1.5vw;
+  text-align: center;
+  margin-bottom: 2vw;
+}
+
+.SurveyInfo {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+.InfoBlock {
+  text-align: center;
+  padding: 10px;
+}
+
+.InfoHeading {
+  color: white;
+  font-size: 2vw;
+  font-weight: bold;
+  margin-bottom: 2.5vw;
+}
+
+.InfoSubHeading {
+  color: white;
+  font-size: 1.5vw;
+}
+
+.InfoDescription {
+  font-size: 1vw;
+  color: #d3cdcd; /* Set a subdued color for description */
+}
+
+.Line {
+    border-left: 2px solid grey; /* Set the color for the vertical line */
+  height: 50px; 
+  margin: 0 10px;
+  }
