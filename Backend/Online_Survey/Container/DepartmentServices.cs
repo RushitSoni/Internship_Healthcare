@@ -38,7 +38,7 @@ namespace Online_Survey.Container
 
 
                 response.ResponseCode = 201;
-                response.Result = data.Name;
+                response.Result = _department.DepartmentId.ToString();
 
             }
             catch (DbUpdateException ex)

@@ -79,9 +79,13 @@ public partial class InternshipOnlineSurveyContext : DbContext
 
         modelBuilder.Entity<SurveyTable>(entity =>
         {
+<<<<<<< HEAD
+            entity.ToTable("Surveyer_Dept");
+=======
             entity.HasKey(e => e.SurveyId).HasName("PK__Survey_t__6C05F07C35E3ED22");
 
             entity.ToTable("Survey_table");
+>>>>>>> bc548c0521cca6e16d8b6647a4705c53dbb1239c
 
             entity.Property(e => e.SurveyId).HasColumnName("Survey_id");
             entity.Property(e => e.DateCreated).HasColumnName("date_created");
@@ -91,8 +95,25 @@ public partial class InternshipOnlineSurveyContext : DbContext
             entity.Property(e => e.StartTime).HasColumnName("start_time");
             entity.Property(e => e.SurveyorId)
                 .IsRequired()
+<<<<<<< HEAD
+                .HasMaxLength(450);
+            entity.Property(e => e.UserName)
+                .IsRequired()
+                .HasMaxLength(256);
+
+            entity.HasOne(d => d.Company).WithMany(p => p.SurveyerDepts)
+                .HasForeignKey(d => d.CompanyId)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK_Surveyer_Dept_CompanyId");
+
+            entity.HasOne(d => d.Dept).WithMany(p => p.SurveyerDepts)
+                .HasForeignKey(d => d.DeptId)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK_Surveyer_Dept_DeptId");
+=======
                 .HasMaxLength(450)
                 .HasColumnName("Surveyor_id");
+>>>>>>> bc548c0521cca6e16d8b6647a4705c53dbb1239c
         });
 
         OnModelCreatingPartial(modelBuilder);

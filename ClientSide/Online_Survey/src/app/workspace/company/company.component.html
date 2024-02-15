@@ -11,13 +11,21 @@
             <label for="companyName">Company Name:</label>
             <input  formControlName="name" type="text" placeholder="Company Name" class="form-control"
              required>
-            <button type="submit">Create Company</button>
+            <button  class="mt-1" type="submit">Create Company</button>
         </form>
 
-
+        <h1>Role:Admin</h1>
         <ul>
             <li *ngFor="let company of companies">
-              <a [routerLink]="['/workspace/company', company.companyId]">{{ company.name }} {{company.companyId}}</a>
+              <a class="company-link" [routerLink]="['/workspace/company', company.companyId]">{{ company.name }} {{company.companyId}}</a>
+              <hr>
+            </li>
+        </ul>
+        <h1>Role: Surveyer</h1>
+        <ul>
+            <li *ngFor="let company of compsniesAsSurveyer">
+              <a class="company-link" [routerLink]="['/workspace/company', company.companyId]">{{ company.name }} {{company.companyId}}</a>
+              <hr>
             </li>
         </ul>
           

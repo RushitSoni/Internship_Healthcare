@@ -13,5 +13,9 @@ public partial class SurveyerDept
 
     public string UserName { get; set; }
 
+    public int CompanyId { get; set; }
+
+    public virtual Company Company { get; set; }
+
     public virtual Department Dept { get; set; }
 }
