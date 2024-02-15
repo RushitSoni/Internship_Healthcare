@@ -18,15 +18,15 @@ using System;
 using System.Linq;
 using System.Text;
 
-
+//Server=(localdb)\\mssqllocaldb; Database=Internship_Online_Survey; Trusted_Connection=True; TrustServerCertificate=true;
 
 var builder = WebApplication.CreateBuilder(args);
 
 
 builder.Services.AddTransient<ICompanyServices, CompanyServices>();
 builder.Services.AddTransient<IDepartmentServices,DepartmentServices>();
-builder.Services.AddTransient<ISurveyer_DeptServices, Surveyer_DeptServices>();
-
+builder.Services.AddTransient<ISurveyer_DeptServices, Surveyer_DeptServices>(); 
+builder.Services.AddTransient<IUserRepository, UserRepository>();
 //Connection
 var connectionString = builder.Configuration.GetConnectionString("Online_SurveyContextConnection") ?? throw new InvalidOperationException("Connection string 'Online_SurveyContextConnection' not found.");
 builder.Services.AddDbContext<InternshipOnlineSurveyContext>(options => options.UseSqlServer(connectionString));
