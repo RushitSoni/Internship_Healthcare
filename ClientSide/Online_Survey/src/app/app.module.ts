@@ -30,14 +30,18 @@ import { GetStartedComponent } from './get-started/get-started.component';
     HomeComponent,
     LandingPageComponent,
     AdminComponent,
-    FooterComponent,
+
+    
     SecondPageComponent,
     UserSuccessStoriesComponent,
     SurveyStatisticsComponent,
     BlogComponent,
     SupportComponent,
     GetStartedComponent
+
+    
   ],
+
   imports: [BrowserModule, AppRoutingModule, NgbModule, SharedModule],
   // providers: [
   //   provideClientHydration()
