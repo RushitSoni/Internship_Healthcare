@@ -59,8 +59,6 @@ public partial class InternshipOnlineSurveyContext : DbContext
 
         modelBuilder.Entity<SurveyerDept>(entity =>
         {
-            entity.HasKey(e => e.SurveyerDeptId).HasName("PK__Surveyer__0F84798DD2C318DA");
-
             entity.ToTable("Surveyer_Dept");
 
             entity.Property(e => e.SurveyerDeptId).HasColumnName("Surveyer_DeptId");
@@ -70,6 +68,11 @@ public partial class InternshipOnlineSurveyContext : DbContext
             entity.Property(e => e.UserName)
                 .IsRequired()
                 .HasMaxLength(256);
+
+            entity.HasOne(d => d.Company).WithMany(p => p.SurveyerDepts)
+                .HasForeignKey(d => d.CompanyId)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK_Surveyer_Dept_CompanyId");
 
             entity.HasOne(d => d.Dept).WithMany(p => p.SurveyerDepts)
                 .HasForeignKey(d => d.DeptId)

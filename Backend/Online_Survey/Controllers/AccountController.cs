@@ -8,6 +8,8 @@ using Online_Survey.Areas.Identity.Data;
 using Online_Survey.DTOs.Account;
 using Online_Survey.Services;
 using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Net.Http;
 using System.Security.Claims;
 using System.Threading.Tasks;
@@ -29,6 +31,14 @@ namespace Online_Survey.Controllers
             _userManager = userManager;
             
 
+        }
+
+        [HttpGet("users")]
+        public async Task<ActionResult<IEnumerable<UserDto>>> GetAllUsers()
+        {
+            var users = await _userManager.Users.ToListAsync();
+            var userDtos = users.Select(user => CreateApplicationUserDto(user)).ToList();
+            return Ok(userDtos);
         }
 
         [HttpPost("Login")]
@@ -115,6 +125,7 @@ namespace Online_Survey.Controllers
             {
                 FirstName = user.FirstName,
                 LastName = user.LastName,
+                UserName = user.UserName,
                 Id= user.Id,
                 JWT =  _jwtService.CreateJWT(user),
             };

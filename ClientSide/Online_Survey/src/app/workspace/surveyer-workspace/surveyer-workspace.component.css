@@ -16,3 +16,16 @@
     padding: 20px;
   }
   
+
+ul {
+  list-style: none; /* Remove index-points from lists */
+}
+
+hr {
+  margin: 2%;
+ margin-left: 0;
+}
+
+.surveyer-link {
+text-decoration: none; /* Remove underline from links */
+}
