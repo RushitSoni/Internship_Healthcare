@@ -12,4 +12,6 @@ public partial class Company
     public string AdminId { get; set; }
 
     public virtual ICollection<Department> Departments { get; set; } = new List<Department>();
+
+    public virtual ICollection<SurveyerDept> SurveyerDepts { get; set; } = new List<SurveyerDept>();
 }

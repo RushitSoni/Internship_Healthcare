@@ -105,6 +105,8 @@ export class AddQuestionComponent  implements OnInit{
 
   OnComplete()
   {
+    this.UploadQuestion();
+    this.UploadOptions();
     this.router.navigate(['create/generate','complete'],{skipLocationChange: true});
   }
 }
