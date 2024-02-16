@@ -1,0 +1,15 @@
+<div class="create-container">
+    <div class="sidebar">
+        <ul>
+            <li><a [routerLink]="['/workspace', 'company']">Workspace</a></li>
+            <li><a [routerLink]="['/create','generate']">Create</a></li>
+        </ul>
+    </div>
+
+    <div class="create-content">
+        <button class="btn btn-primary" (click)="CreateSurvey()">
+            Generate a Survey
+        </button>
+    </div>
+</div>
+
