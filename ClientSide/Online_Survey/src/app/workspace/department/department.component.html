@@ -7,17 +7,18 @@
     </div>
   
     <div class="dept-content">
-        <form [formGroup]="departmentForm" (ngSubmit)="createDepartment()" autocomplete="off">
+        <form *ngIf="isAdmin"[formGroup]="departmentForm" (ngSubmit)="createDepartment()" autocomplete="off">
             <label for="departmentName">Company Name:</label>
             <input  formControlName="name" type="text" placeholder="Department Name" class="form-control"
              required>
-            <button type="submit">Create Department</button>
+            <button class="mt-1" type="submit">Create Department</button>
         </form>
 
 
         <ul>
             <li *ngFor="let dept of departments">
-              <a [routerLink]="['/workspace/company', companyId,dept.departmentId]">{{ dept.name }} {{dept.companyId}}</a>
+              <a class="dept-link"  [routerLink]="['/workspace/company', companyId,dept.departmentId]">{{ dept.name }} {{dept.companyId}}</a>
+              <hr>
             </li>
         </ul>
           
