@@ -1,0 +1,27 @@
+.create-container {
+display: flex;
+height: 100%;
+margin-left:1%
+}
+
+.sidebar {
+width: 20%;
+background-color: #f0f0f0;
+padding: 20px;
+min-height: 500px;
+}
+
+.create-content {
+width: 80%;
+padding: 20px;
+}
+
+.description_text
+{
+    height: 50%;
+}
+
+.custom-text{
+    width: 50%;
+    height: 85%;
+}
