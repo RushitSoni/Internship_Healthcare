@@ -42,6 +42,15 @@ export class AddQuestionComponent  implements OnInit{
     });
   }
 
+  reset()
+  {
+    this.form_question.reset({
+      question_text : "",
+      question_type : [''], // This will hold the selected question type
+      dynamicFields: this.fb_question.array([])
+    })
+  }
+
   get dynamicFields() {
     return this.form_question.get('dynamicFields') as FormArray;
   }
@@ -85,13 +94,12 @@ export class AddQuestionComponent  implements OnInit{
 
   AddQuestion()
   {
-    this.router.navigate([this.router.url]);
     this.question.QuestionText = this.form_question.get('question_text')?.value;
     this.question.QuestionOptionType = this.form_question.get('question_type')?.value;
     this.question.SurveyId = this.globalservice.SurveyId; 
     this.UploadQuestion();
     this.UploadOptions();
-    // this.router.navigate(['/generate','addquestion'], { skipLocationChange: true });
+    this.reset();
   }
 
   OnComplete()
