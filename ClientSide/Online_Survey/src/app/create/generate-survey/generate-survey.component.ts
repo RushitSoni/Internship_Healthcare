@@ -21,7 +21,7 @@ export class GenerateSurveyComponent implements OnInit{
 
   CreateSurvey()
   {
-    this.service.createSurvey(this.globalService.SurveyorId).subscribe((data)=>{
+    this.service.createSurvey('ccc5dff2-a4c6-4c9c-882a-130bab6a2d26').subscribe((data)=>{
       this.globalService.SurveyId = data;
     });
 

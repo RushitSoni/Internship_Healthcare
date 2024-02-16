@@ -1,7 +1,11 @@
 ﻿using AutoMapper;
+using Azure;
+using Elfie.Serialization;
+using Humanizer;
 using Microsoft.AspNetCore.Mvc;
 using Online_Survey.Data;
 using Online_Survey.DTO;
+using Online_Survey.DTOs.Survey;
 using Online_Survey.Models;
 using System;
 
@@ -39,13 +43,13 @@ namespace Online_Survey.Controllers
         }
 
         [HttpPost("CreateSurvey")]
-        public int CreateSurvey([FromBody] string surveyorid)
+        public int CreateSurvey(SurveyorIdDTO surveyorid)
         {
             DateOnly today = DateOnly.FromDateTime(DateTime.Today);
             TimeOnly time = TimeOnly.FromDateTime(DateTime.Now);
             SurveyDTO surveyDTO = new SurveyDTO()
             {
-                SurveyorId = surveyorid,
+                SurveyorId = surveyorid.SurveyorId,
                 DateCreated = today,
                 EndDate = today,
                 LaunchDate = today,
