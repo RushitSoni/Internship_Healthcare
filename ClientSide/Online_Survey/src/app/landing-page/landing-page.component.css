@@ -36,9 +36,11 @@ h1 {
     max-width: 100%;
     height: auto; /* Maintain aspect ratio */
   }
-  
-  .Heading1 {
-    margin-top: 15vw;
+  .Heading1{
+    margin-top: 10vw;
+  }
+  .Heading1, .Heading2, .Heading3 {
+    
     font-size: 4vw;
     line-height: 1.5;
     letter-spacing: 0.5px;

@@ -1,10 +1,5 @@
 <div class="dept-container">
-    <div class="sidebar">
-        <ul>
-            <li><a [routerLink]="['/workspace', 'company']">Workspace</a></li>
-            <li><a routerLink="/home">Create</a></li>
-        </ul>
-    </div>
+   <app-sidebar></app-sidebar>
   
     <div class="dept-content">
         <form [formGroup]="departmentForm" (ngSubmit)="createDepartment()" autocomplete="off">

@@ -21,6 +21,9 @@ import { SurveyStatisticsComponent } from './survey-statistics/survey-statistics
 import { BlogComponent } from './blog/blog.component';
 import { SupportComponent } from './support/support.component';
 import { GetStartedComponent } from './get-started/get-started.component';
+import { WorkspaceModule } from './workspace/workspace.module';
+
+
 
 @NgModule({
   declarations: [
@@ -42,7 +45,7 @@ import { GetStartedComponent } from './get-started/get-started.component';
     
   ],
 
-  imports: [BrowserModule, AppRoutingModule, NgbModule, SharedModule],
+  imports: [BrowserModule, AppRoutingModule, NgbModule, SharedModule,WorkspaceModule],
   // providers: [
   //   provideClientHydration()
   // ],

@@ -6,6 +6,7 @@ import { CompanyComponent } from './company/company.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { DepartmentComponent } from './department/department.component';
 import { SurveyerWorkspaceComponent } from './surveyer-workspace/surveyer-workspace.component';
+import { SidebarComponent } from './sidebar/sidebar.component';
 
 
 
@@ -14,15 +15,17 @@ import { SurveyerWorkspaceComponent } from './surveyer-workspace/surveyer-worksp
     CompanyComponent,
     DepartmentComponent,
     SurveyerWorkspaceComponent,
-  
+    SidebarComponent
+
    
   ],
   imports: [
     CommonModule,
     WorkspaceRoutingModule,
     ReactiveFormsModule,
-    FormsModule
-    
-  ]
+    FormsModule,
+  ],
+
+  exports: [SidebarComponent],
 })
 export class WorkspaceModule { }
