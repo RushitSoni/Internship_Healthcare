@@ -14,16 +14,17 @@ export class GenerateSurveyComponent implements OnInit{
   {
 
   }
+
   ngOnInit(): void {
-    throw new Error('Method not implemented.');
+    
   }
 
   CreateSurvey()
   {
-       this.service.createSurvey(this.globalService.SurveyorId).subscribe((data)=>{
-         this.globalService.SurveyId = data;
-       });
+    this.service.createSurvey(this.globalService.SurveyorId).subscribe((data)=>{
+      this.globalService.SurveyId = data;
+    });
 
-       this.router.navigate(['/create/generate','addquestion']);
+    this.router.navigate(['/create/generate','addquestion']);
   }
 }

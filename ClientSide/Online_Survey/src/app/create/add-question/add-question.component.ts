@@ -65,6 +65,10 @@ export class AddQuestionComponent  implements OnInit{
 
   UploadQuestion()
   {
+    this.question.QuestionText = this.form_question.get('question_text')?.value;
+    this.question.QuestionOptionType = this.form_question.get('question_type')?.value;
+    this.question.SurveyId = this.globalservice.SurveyId; 
+
     this.service.addQuestion(this.question).subscribe((data) => {
     if(data != 0)
     {
@@ -93,10 +97,7 @@ export class AddQuestionComponent  implements OnInit{
   }
 
   AddQuestion()
-  {
-    this.question.QuestionText = this.form_question.get('question_text')?.value;
-    this.question.QuestionOptionType = this.form_question.get('question_type')?.value;
-    this.question.SurveyId = this.globalservice.SurveyId; 
+  { 
     this.UploadQuestion();
     this.UploadOptions();
     this.reset();
@@ -104,6 +105,6 @@ export class AddQuestionComponent  implements OnInit{
 
   OnComplete()
   {
-    
+    this.router.navigate(['create/generate','complete'],{skipLocationChange: true});
   }
 }

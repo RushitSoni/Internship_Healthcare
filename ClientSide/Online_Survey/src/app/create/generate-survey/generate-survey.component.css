@@ -15,3 +15,13 @@ min-height: 500px;
 width: 80%;
 padding: 20px;
 }
+
+.description_text
+{
+    height: 50%;
+}
+
+.custom-text{
+    width: 50%;
+    height: 85%;
+}
