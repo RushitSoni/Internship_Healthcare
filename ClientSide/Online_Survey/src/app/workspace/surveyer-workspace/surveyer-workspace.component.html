@@ -3,9 +3,25 @@
   <app-sidebar></app-sidebar>
   
     <div class="surveyer-content">
-       <h1>{{departmentId}}</h1>
-      
-      
-       
+        <h6>{{departmentId}}</h6>
+        <ul>
+            <li *ngFor="let user of users">{{ user.userName }}</li>
+        </ul>
+    
+        <form *ngIf="isAdmin" [formGroup]="surveyerDeptForm" (ngSubmit)="createSurveyerDept()" autocomplete="off">
+            <label for="surveyerDeptName">Surveyer Department Name:</label>
+            <!-- Ensure formControlName is set to userName -->
+            <input formControlName="userName" type="text" placeholder="Surveyer Department Name" class="form-control" required>
+            <button class="mt-1" type="submit">Create Surveyer Department</button>
+        </form>
+    
+        <ul>
+            <li *ngFor="let surveyerDept of surveyerDepts">
+                <!-- Check if userName, companyId, and departmentId are being displayed correctly -->
+                <a class="surveyer-link" [routerLink]="['/home']">{{ surveyerDept.userName }} {{ surveyerDept.companyId }} {{ surveyerDept.deptId }}</a>
+                <hr>
+            </li>
+        </ul>
     </div>
+    
 </div>

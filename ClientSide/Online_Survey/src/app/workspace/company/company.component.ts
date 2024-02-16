@@ -7,6 +7,7 @@ import { Company } from '../../shared/Models/company';
 import { APIResponse } from '../../shared/Models/APIResponse';
 import { Subscription } from 'rxjs';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { SurveyerViaDept } from '../../shared/Models/surveyerViaDept';
 
 @Component({
   selector: 'app-company',
@@ -23,7 +24,9 @@ export class CompanyComponent implements OnInit {
   user: any ; // Change 'any' to the type of your user object if known
   userSubscription: Subscription | undefined;
   
-  companies: Company[] | undefined;
+  companies: Company[] =[];
+  compsniesAsSurveyer:Company[]=[]
+
 
 
   constructor(private workspaceService: WorkspaceService, private formBuilder: FormBuilder, public accountService: AccountService) { }
@@ -41,10 +44,11 @@ export class CompanyComponent implements OnInit {
 
     setTimeout(() => {
       this.loadCompanies(this.user.id);
-      
+      this.loadCompaniesAsSurveyer(this.user.id)
     }, 1000); // 2000 milliseconds = 2 seconds
  
     this.initializeForm()
+    
    
   }
   initializeForm() {
@@ -67,6 +71,27 @@ export class CompanyComponent implements OnInit {
       }
     );
   }
+
+
+ 
+  loadCompaniesAsSurveyer(userId: string): void {
+    this.workspaceService.getAllCompanies().subscribe((companies: Company[]) => {
+      this.workspaceService.getAllSurveyerDepts().subscribe((surveyers: SurveyerViaDept[]) => {
+        const userSurveyers = surveyers.filter(surveyer => surveyer.userId === userId);
+        const companyIds = userSurveyers.map(surveyer => surveyer.companyId);
+        const filteredCompanies = companies.filter(company => {
+          // Filter out companies that are not already in the `companies` array
+          return !this.companies.some(c => c.companyId === company.companyId) && companyIds.includes(company.companyId);
+        });
+        this.compsniesAsSurveyer = filteredCompanies;
+      }, error => {
+        console.error("Error in getAllSurveyerDepts():", error);
+      });
+    }, error => {
+      console.error("Error in getAllCompanies():", error);
+    });
+  }
+  
   
 
   createCompany(): void {
@@ -90,4 +115,6 @@ export class CompanyComponent implements OnInit {
         }
       });
   }
+
+
 }

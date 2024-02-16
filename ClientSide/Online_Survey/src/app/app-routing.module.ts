@@ -16,6 +16,7 @@ const routes: Routes = [
   //Implementing lazy loading
   {path:'account',loadChildren:()=>import('./account/account.module').then(module=>module.AccountModule)},
   {path:'workspace',loadChildren:()=>import('./workspace/workspace.module').then(module=>module.WorkspaceModule)},
+  {path:'create',loadChildren:()=>import('./create/create.module').then(module=>module.CreateModule)},
   {path:'not-found',component:NotFoundComponent},
   {path:'**',component:NotFoundComponent,pathMatch:'full'}
 ];

@@ -13,7 +13,7 @@ import { HomeComponent } from './home/home.component';
 import { LandingPageComponent } from './landing-page/landing-page.component';
 import { AdminComponent } from './admin/admin.component';
 import { SharedModule } from './shared/shared.module';
-import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { JwtInterceptor } from './shared/interceptors/jwt.interceptor';
 import { SecondPageComponent } from './second-page/second-page.component';
 import { UserSuccessStoriesComponent } from './user-success-stories/user-success-stories.component';
@@ -24,6 +24,7 @@ import { GetStartedComponent } from './get-started/get-started.component';
 import { WorkspaceModule } from './workspace/workspace.module';
 
 
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -45,7 +46,8 @@ import { WorkspaceModule } from './workspace/workspace.module';
     
   ],
 
-  imports: [BrowserModule, AppRoutingModule, NgbModule, SharedModule,WorkspaceModule],
+  
+  imports: [BrowserModule, AppRoutingModule, NgbModule, SharedModule,HttpClientModule,FormsModule,WorkspaceModule],
   // providers: [
   //   provideClientHydration()
   // ],

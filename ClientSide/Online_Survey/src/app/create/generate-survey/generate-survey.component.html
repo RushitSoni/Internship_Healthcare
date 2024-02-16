@@ -1,0 +1,19 @@
+<div class="create-container">
+    <div class="sidebar">
+        <ul>
+            <li><a [routerLink]="['/workspace', 'company']">Workspace</a></li>
+            <li><a [routerLink]="['/create','generate']">Create</a></li>
+        </ul>
+    </div>
+
+    <div class="create-content">
+        <div class="description_text">
+            <label>Write the Description for the Survey you want to generate...</label><br>
+            <textarea placeholder="Write description here." class="custom-text"></textarea>
+        </div>
+        <button class="btn btn-primary" (click)="CreateSurvey()">
+            Generate a Survey
+        </button>
+    </div>
+</div>
+
