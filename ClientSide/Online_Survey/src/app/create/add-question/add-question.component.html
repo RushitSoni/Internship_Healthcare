@@ -1,0 +1,27 @@
+<h1 style="text-align: center;color: rgb(46, 29, 234)">Enter Survey Questions</h1>
+<br>
+<form [formGroup]="form_question">
+        <div class="question-input">
+        <br>
+        <label>Enter Your Question</label>
+        <br>
+        <input type="text" class="input" formControlName="question_text" placeholder="Enter your question" style="margin-bottom: 2%;" required>
+        <br>
+        <label>Select the Question type:</label>
+        <label style="margin-left: 2%;"><input type="radio" value="1" formControlName="question_type">Multiple Choice Question</label>
+        <label style="margin-left: 2%;"><input type="radio" value="2" formControlName="question_type" >Multiple Select Question</label>
+        <label style="margin-left: 2%;"><input type="radio" value="3" formControlName="question_type" >Text Question</label>
+        <br>
+        <div *ngIf="form_question.get('question_type')?.value === '1' || form_question.get('question_type')?.value === '2'">
+        <button type="button" (click)="addDynamicField()" class="center">Add Dynamic Text Field</button>
+        <div formArrayName="dynamicFields">
+            <div *ngFor="let field of dynamicFields.controls; let i = index" style="display: flex;">
+                <input type="text" [formControlName]="i" placeholder="Add Options" class="input_options">
+                <button type="button" (click)="removeDynamicField(i)" class="center_remove">-</button>
+            </div>
+        </div>
+        </div>
+        <button (click)="AddQuestion()"  class="center">Next_Question</button>
+        <button (click)="OnComplete()"  class="center" style="margin-left: 31%;">Survey_Completed</button>
+    </div>
+</form>
