@@ -3,6 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { AddQuestionComponent } from './add-question/add-question.component';
 import { GenerateSurveyComponent } from './generate-survey/generate-survey.component';
 import { CompletionComponent } from './completion/completion.component';
+import { WorkspaceModule } from '../workspace/workspace.module';
 
 const routes: Routes = [
   {path: 'generate',component:GenerateSurveyComponent},
@@ -11,7 +12,9 @@ const routes: Routes = [
 ];
 
 @NgModule({
-  imports: [RouterModule.forChild(routes)],
+
+  
+  imports: [RouterModule.forChild(routes),WorkspaceModule],
   exports: [RouterModule]
 })
 export class CreateRoutingModule { }
