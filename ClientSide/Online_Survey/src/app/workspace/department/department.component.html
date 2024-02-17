@@ -1,24 +1,38 @@
 <div class="dept-container">
-   <app-sidebar></app-sidebar>
+    <app-sidebar></app-sidebar>
   
     <div class="dept-content">
-        <form *ngIf="isAdmin"[formGroup]="departmentForm" (ngSubmit)="createDepartment()" autocomplete="off">
-            <label for="departmentName">Company Name:</label>
-            <input  formControlName="name" type="text" placeholder="Department Name" class="form-control"
-             required>
-            <button class="mt-1" type="submit">Create Department</button>
+      <div class="form-section">
+        <form *ngIf="isAdmin" [formGroup]="departmentForm" (ngSubmit)="createDepartment()" autocomplete="off">
+          <label for="departmentName">Department Name:</label>
+          <input formControlName="name" type="text" placeholder="Department Name" class="form-control" required>
+          <button class="mt-1" type="submit">Create Department</button>
         </form>
-
-
-        <ul>
-            <li *ngFor="let dept of departments">
-              <a class="dept-link"  [routerLink]="['/workspace/company', companyId,dept.departmentId]">{{ dept.name }} {{dept.companyId}}</a>
-              <hr>
-            </li>
-        </ul>
-          
-      
-      
-       
+      </div>
+  
+      <div class="lists-section">
+        <!-- Table for List of Departments -->
+        <table class="dept-table">
+          <thead>
+            <tr>
+              <th>Department Name</th>
+              <th>Department ID</th>
+              <th>Company ID</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let dept of departments">
+              <td>
+                <a class="dept-link" [routerLink]="['/workspace/company', companyId, dept.departmentId]">
+                  {{ dept.name }}
+                </a>
+              </td>
+              <td>{{ dept.departmentId }}</td>
+              <td>{{ dept.companyId }}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
     </div>
-</div>
+  </div>
+  

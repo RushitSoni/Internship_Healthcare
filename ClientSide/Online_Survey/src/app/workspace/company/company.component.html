@@ -2,12 +2,8 @@
   <app-sidebar></app-sidebar>
 
   <div class="company-content">
-    <div class="input-group">
-      <form
-        [formGroup]="companyForm"
-        (ngSubmit)="createCompany()"
-        autocomplete="off"
-      >
+    <div class="form-section">
+      <form [formGroup]="companyForm" (ngSubmit)="createCompany()" autocomplete="off">
         <label for="companyName">Company Name:</label>
         <div class="input-wrapper">
           <input
@@ -23,16 +19,46 @@
           </button>
         </div>
       </form>
+    </div>
 
-      <ul>
-        <li *ngFor="let company of companies">
-          <a [routerLink]="['/workspace/company', company.companyId]"
-            >{{ company.name }} {{ company.companyId }}</a
-          >
-        </li>
-      </ul>
+    <div class="lists-section">
+      <!-- Table for Company List -->
+      <div class="table-container">
+        <table class="company-table">
+          <thead>
+            <tr>
+              <th>Company Name</th>
+              <th>Company ID</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let company of companies">
+              <td>
+                <a [routerLink]="['/workspace/company', company.companyId]">
+                  {{ company.name }}
+                </a>
+              </td>
+              <td>{{ company.companyId }}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
 
-      <p *ngIf="accountService.user$ | async as user">{{ user.id }}</p>
+      <!-- Table for User List -->
+      <div class="table-container">
+        <table class="user-table">
+          <thead>
+            <tr>
+              <th>User ID</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>{{ user.id }}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
     </div>
   </div>
 </div>

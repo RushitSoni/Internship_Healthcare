@@ -1,31 +1,65 @@
+/* Updated styles for surveyer container */
+
 .surveyer-container {
-    display: flex;
-    height: 100%;
-    margin-left:1%
-  }
-  
-  .sidebar {
-    width: 20%;
-    background-color: #f0f0f0;
-    padding: 20px;
-    min-height: 500px;
-  }
-  
-  .surveyer-content {
-    width: 80%;
-    padding: 20px;
-  }
-  
+  display: flex;
+  height: 100%;
+  margin-left: 1%;
+}
+
+.sidebar {
+  width: 20%;
+  background-color: #343a40;
+  padding: 20px;
+  min-height: 100vh;
+  color: #fff;
+}
+
+.surveyer-content {
+  width: 80%;
+  padding: 20px;
+}
+
+/* Common styles for lists and links */
 
 ul {
-  list-style: none; /* Remove index-points from lists */
+  list-style: none;
+  padding: 0;
 }
 
 hr {
   margin: 2%;
- margin-left: 0;
+  margin-left: 0;
 }
 
 .surveyer-link {
-text-decoration: none; /* Remove underline from links */
+  text-decoration: none;
+  color: #0066cc;
+}
+
+.surveyer-link:hover {
+  text-decoration: underline;
+}
+
+/* Table styles for List of Users and List of Surveyer Departments */
+
+.user-table,
+.surveyer-dept-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+}
+
+.user-table th,
+.user-table td,
+.surveyer-dept-table th,
+.surveyer-dept-table td {
+  border: 1px solid #ddd;
+  padding: 8px;
+  text-align: left;
+}
+
+.user-table th,
+.surveyer-dept-table th {
+  background-color: #f4f4f4;
+  font-weight: bold;
 }

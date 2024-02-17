@@ -1,14 +1,16 @@
 
 :host{
   margin-top: 10px;
-  background-color: #0D1117;
+  /* background-color: #0D1117; */
+  background-color: lavenderblush;
 }
 
 .input {
   display: flex;
   flex-direction: column;
   width: 200px;
-  background-color: #0D1117;
+  /* background-color: #0D1117; */
+  background-color: dimgrey;
   justify-content: center;
   border-radius: 5px
 }
