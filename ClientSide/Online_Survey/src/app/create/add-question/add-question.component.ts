@@ -67,6 +67,7 @@ export class AddQuestionComponent  implements OnInit{
   
   UploadOptions ()
   {
+    // Hello
     return new Promise<void>((resolve, reject) => {
       this.UploadQuestion().then((questionId) => {
         const textvalues = this.dynamicFields.value;
