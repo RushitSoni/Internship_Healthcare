@@ -92,48 +92,50 @@ export class DepartmentComponent implements OnInit {
   }
 
  
-createDepartment(): void {
+  createDepartment(): void {
+    const companyIdNumber: number = Number(this.companyId);
+    this.submitted = true;
+  
+    this.workspaceService.createDepartment(this.departmentForm.value)
+      .subscribe((response: APIResponse) => {
+        if (response.responseCode === 201) {
+          console.log('Department created successfully. ID:', response.result);
+          
+          // Create SurveyerViaDept for the department creator
+          console.log(response.result);
+          const deptIdNumber: number = Number(response.result);
+          const departmentCreatorSurveyer: SurveyerViaDept = {
+            userId: this.user.id, 
+            companyId: companyIdNumber,
+            deptId: deptIdNumber,
+            userName: this.user.userName
+          };
+          this.createSurveyerDeptForDepartmentCreator(departmentCreatorSurveyer);
+  
+          // Load departments after successful creation
+          this.loadDepartments(this.companyId, this.user.id);
+          
+        } else {
+          console.error('Error creating department:', response.errorMsg);
+          // Handle error, maybe show an error message to the user
+        }
+      });
+  }
+  
 
-
-  const companyIdNumber: number = Number(this.companyId);
-  this.submitted = true;
-
-  this.workspaceService.createDepartment(this.departmentForm.value)
-    .subscribe((response: APIResponse) => {
-      if (response.responseCode === 201) {
-        console.log('Department created successfully. ID:', response.result);
-        // Refresh the list of companies
-        this.loadDepartments(this.companyId,this.user.id);
-        
-
-        // Create SurveyerViaDept for the department creator
-        console.log(response.result)
-        const deptIdNumber :number=Number(response.result)
-        const departmentCreatorSurveyer: SurveyerViaDept = {
-          userId: this.user.id, 
-          companyId: companyIdNumber,
-          deptId: deptIdNumber,
-          userName:this.user.userName
-        };
-        this.createSurveyerDeptForDepartmentCreator(departmentCreatorSurveyer);
-      } else {
-        console.error('Error creating department:', response.errorMsg);
-        // Handle error, maybe show an error message to the user
-      }
-    });
-}
-
-createSurveyerDeptForDepartmentCreator(surveyer: SurveyerViaDept): void {
-  this.workspaceService.createSurveyerDept(surveyer)
-    .subscribe((response: APIResponse) => {
-      if (response.responseCode === 201) {
-        console.log('SurveyerViaDept created successfully. ID:', response.result);
-      } else {
-        console.error('Error creating SurveyerViaDept:', response.errorMsg);
-       
-      }
-    });
-}
+  createSurveyerDeptForDepartmentCreator(surveyer: SurveyerViaDept): void {
+    this.workspaceService.createSurveyerDept(surveyer)
+      .subscribe((response: APIResponse) => {
+        if (response.responseCode === 201) {
+          console.log('SurveyerViaDept created successfully. ID:', response.result);
+          // Call loadDepartments after SurveyerViaDept creation is successful
+          this.loadDepartments(this.companyId, this.user.id);
+        } else {
+          console.error('Error creating SurveyerViaDept:', response.errorMsg);
+        }
+      });
+  }
+  
 checkAdminRole(): void {
   // Assuming your user object has a role property indicating the user's role
   const companyIdNumber: number = Number(this.companyId);

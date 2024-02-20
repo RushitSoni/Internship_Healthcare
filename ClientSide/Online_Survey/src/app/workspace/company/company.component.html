@@ -17,20 +17,20 @@
         <h1>Role:Admin</h1>
         <ul>
             <li *ngFor="let company of companies">
-              <a class="company-link" [routerLink]="['/workspace/company', company.companyId]">{{ company.name }} {{company.companyId}}</a>
+              <a class="company-link" [routerLink]="['/workspace/company', company.companyId]">{{ company.name }} </a>
               <hr>
             </li>
         </ul>
         <h1>Role: Surveyer</h1>
         <ul>
             <li *ngFor="let company of compsniesAsSurveyer">
-              <a class="company-link" [routerLink]="['/workspace/company', company.companyId]">{{ company.name }} {{company.companyId}}</a>
+              <a class="company-link" [routerLink]="['/workspace/company', company.companyId]">{{ company.name }} </a>
               <hr>
             </li>
         </ul>
           
       
       
-        <p *ngIf="(accountService.user$ | async) as user">{{ user.id }} </p>
+        <!-- <p *ngIf="(accountService.user$ | async) as user">{{ user.id }} </p> -->
     </div>
 </div>

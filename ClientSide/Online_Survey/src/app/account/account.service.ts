@@ -11,7 +11,7 @@ import { User } from '../shared/Models/user';
   providedIn: 'root'
 })
 export class AccountService {
- 
+  
  
   private userSource = new ReplaySubject<User | null>(1)
   user$ = this.userSource.asObservable();

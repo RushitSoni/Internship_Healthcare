@@ -17,7 +17,7 @@
 
         <ul>
             <li *ngFor="let dept of departments">
-              <a class="dept-link"  [routerLink]="['/workspace/company', companyId,dept.departmentId]">{{ dept.name }} {{dept.companyId}}</a>
+              <a class="dept-link"  [routerLink]="['/workspace/company', companyId,dept.departmentId]">{{ dept.name }} </a>
               <hr>
             </li>
         </ul>
