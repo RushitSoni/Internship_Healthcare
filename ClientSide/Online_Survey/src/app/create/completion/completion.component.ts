@@ -1,10 +1,18 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-completion',
   templateUrl: './completion.component.html',
   styleUrl: './completion.component.css'
 })
-export class CompletionComponent {
+export class CompletionComponent implements OnInit {
+  ngOnInit(): void {
+    throw new Error('Method not implemented.');
+  }
 
+  GenerateLink()
+  {
+    
+  }
+  
 }

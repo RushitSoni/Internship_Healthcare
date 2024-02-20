@@ -7,7 +7,10 @@ using Online_Survey.Data;
 using Online_Survey.DTO;
 using Online_Survey.DTOs.Survey;
 using Online_Survey.Models;
+using Online_Survey.PocoClass;
 using System;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace Online_Survey.Controllers
 {
@@ -79,6 +82,37 @@ namespace Online_Survey.Controllers
                 _userRepository.SaveChange();
             }
 
+            return Ok();
+        }
+
+        [HttpGet("GetQuestionOption")]
+        public ActionResult GetQuestionwithOptions(int surveyId)
+        {
+            var questionwithoptions = _userRepository.QuestionOption();
+  
+            var result = questionwithoptions
+            .Where(q => q.SurveyId == surveyId)
+            .Select(q => new
+            {
+                q.QuestionId,
+                q.QuestionText,
+                q.QuestionOptionType,
+                Options = q.OptionTables
+                .Where(o => o.QuestionId == q.QuestionId)
+                .Select(o => new
+                {
+                    o.OptionId,
+                    o.OptionText,
+                    
+                }).ToList()
+            }).ToList();
+
+            return Ok(result);
+        }
+
+        [HttpGet("GetURL")]
+        public IActionResult GetURL()
+        {
             return Ok();
         }
     }
