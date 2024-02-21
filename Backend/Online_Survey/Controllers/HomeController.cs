@@ -85,12 +85,12 @@ namespace Online_Survey.Controllers
         }
 
         [HttpGet("GetQuestionOption")]
-        public ActionResult GetQuestionwithOptions(int surveyId)
+        public ActionResult GetQuestionwithOptions(SurveyIdDTO SurveyId)
         {
             var questionwithoptions = _userRepository.QuestionOption();
   
             var result = questionwithoptions
-            .Where(q => q.SurveyId == surveyId)
+            .Where(q => q.SurveyId == SurveyId.surveyId)
             .Select(q => new
             {
                 q.QuestionId,

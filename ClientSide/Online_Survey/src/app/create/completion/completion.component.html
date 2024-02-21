@@ -1,5 +1,33 @@
+<div>
+<div class="output-container">
+    <div *ngFor="let question of questions; let i = index" class="card">
+        <!-- Display the question number along with the question text -->
+        <p><strong>Question {{ i + 1 }}:</strong> {{ question.quesionText }}</p>
+        <!-- Rest of your output content -->
+        <p *ngIf="question.questionOptionType === 1">
+            Options:
+            <span *ngFor="let options of question.optionList">
+                <input type="radio" disabled="true">{{ options.optionText }}
+            </span>
+        </p>
+        <p *ngIf="question.questionOptionType === 2">
+            Options:
+            <span *ngFor="let options of question.optionList">
+                <input type="checkbox" disabled="true">{{ options.optionText }}
+            </span>
+        </p>
+        <p *ngIf="question.questionOptionType === 3">
+            <input type="text" disabled="true">
+        </p>
+        <p *ngIf="question.optionList && question.optionList.length > 0">
+            
+        </p>
+   </div>
+   
+</div>
 <div class="upper-class">
     <p>Link for your Survey:</p>
     <input type="text" [value]="inputUrl" [disabled]="true" style="width: 100%;">
     <button ngxClipboard [cbContent]="inputUrl" class="btn btn-primary">Copy</button>
+</div>
 </div>

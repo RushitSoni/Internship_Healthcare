@@ -1,7 +1,8 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from '../../environments/environment.development';
-import { Options, Question, SurveyTable } from '../shared/Models/Survey';
+import { Options, Question, QuestionOption, Survey, SurveyTable } from '../shared/Models/Survey';
+import { GlobalserviceService } from '../../globalservice/globalservice.service';
 
 @Injectable({
   providedIn: 'root'
@@ -11,7 +12,11 @@ export class CreateService {
   surveyorId : SurveyTable = {
     SurveyorId : ""
   }
-  constructor(private http : HttpClient) { }
+
+
+  constructor(private http : HttpClient,private globalservice : GlobalserviceService) { }
+
+ 
 
   createSurvey(surveyorid : String)
   {
@@ -30,7 +35,7 @@ export class CreateService {
     return this.http.post(`${environment.appUrl}/Home/AddOptions`,option_list);
   }
 
-  generateLink()
+  getData()
   {
     
   }
