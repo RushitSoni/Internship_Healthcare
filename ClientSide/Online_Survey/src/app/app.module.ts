@@ -25,6 +25,7 @@ import { WorkspaceModule } from './workspace/workspace.module';
 
 
 import { FormsModule } from '@angular/forms';
+import { WorkspaceModule } from './workspace/workspace.module';
 
 @NgModule({
   declarations: [
@@ -46,7 +47,6 @@ import { FormsModule } from '@angular/forms';
     
   ],
 
-  
   imports: [BrowserModule, AppRoutingModule, NgbModule, SharedModule,HttpClientModule,FormsModule,WorkspaceModule],
   // providers: [
   //   provideClientHydration()

@@ -1,10 +1,11 @@
+
 <div class="dept-container">
     <app-sidebar></app-sidebar>
   
     <div class="dept-content">
       <div class="form-section">
         <form *ngIf="isAdmin" [formGroup]="departmentForm" (ngSubmit)="createDepartment()" autocomplete="off">
-          <label for="departmentName">Department Name:</label>
+          <label for="departmentName">Company Name:</label>
           <input formControlName="name" type="text" placeholder="Department Name" class="form-control" required>
           <button class="mt-1" type="submit">Create Department</button>
         </form>
@@ -16,8 +17,7 @@
           <thead>
             <tr>
               <th>Department Name</th>
-              <th>Department ID</th>
-              <th>Company ID</th>
+  
             </tr>
           </thead>
           <tbody>
@@ -27,8 +27,7 @@
                   {{ dept.name }}
                 </a>
               </td>
-              <td>{{ dept.departmentId }}</td>
-              <td>{{ dept.companyId }}</td>
+  
             </tr>
           </tbody>
         </table>

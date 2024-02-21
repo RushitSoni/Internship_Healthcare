@@ -1,11 +1,11 @@
-<div class="surveyer-container">
+ <div class="surveyer-container">
     <app-sidebar></app-sidebar>
   
     <div class="surveyer-content">
       <h6>{{departmentId}}</h6>
   
       <!-- Table for List of Users -->
-      <table class="user-table">
+     <!--<table class="user-table">
         <thead>
           <tr>
             <th>User Name</th>
@@ -16,13 +16,13 @@
             <td>{{ user.userName }}</td>
           </tr>
         </tbody>
-      </table>
+      </table> --> 
   
       <!-- Form for Creating Surveyer Department -->
       <form *ngIf="isAdmin" [formGroup]="surveyerDeptForm" (ngSubmit)="createSurveyerDept()" autocomplete="off">
-        <label for="surveyerDeptName">Surveyer Department Name:</label>
+        <label for="surveyerDeptName">Surveyer  Name:</label>
         <input formControlName="userName" type="text" placeholder="Surveyer Department Name" class="form-control" required>
-        <button class="mt-1" type="submit">Create Surveyer Department</button>
+        <button class="mt-1" type="submit">Create Surveyer </button>
       </form>
   
       <!-- Table for List of Surveyer Departments -->
@@ -30,8 +30,7 @@
         <thead>
           <tr>
             <th>User Name</th>
-            <th>Company ID</th>
-            <th>Department ID</th>
+  
           </tr>
         </thead>
         <tbody>
@@ -41,11 +40,16 @@
                 {{ surveyerDept.userName }}
               </a>
             </td>
-            <td>{{ surveyerDept.companyId }}</td>
-            <td>{{ surveyerDept.deptId }}</td>
           </tr>
         </tbody>
       </table>
+
+
+
+      <button (click)="navigateToCreate()" class="btn btn-primary mt-5">
+        Create Survey
+      </button>
+
     </div>
   </div>
   

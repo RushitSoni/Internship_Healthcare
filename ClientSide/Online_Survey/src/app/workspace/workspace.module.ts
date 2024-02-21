@@ -16,17 +16,17 @@ import { SidebarComponent } from './sidebar/sidebar.component';
     CompanyComponent,
     DepartmentComponent,
     SurveyerWorkspaceComponent,
-    SidebarComponent
-
+    SidebarComponent,
+  
    
   ],
   imports: [
     CommonModule,
     WorkspaceRoutingModule,
     ReactiveFormsModule,
-    FormsModule,
+    FormsModule
+    
   ],
-
   exports: [SidebarComponent],
 })
 export class WorkspaceModule { }
