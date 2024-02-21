@@ -71,8 +71,9 @@ export class AddQuestionComponent  implements OnInit{
     return new Promise<void>((resolve, reject) => {
       this.UploadQuestion().then((questionId) => {
         const textvalues = this.dynamicFields.value;
-
-        // console.log(textvalues);
+        if(textvalues.length!=0)
+        {
+          // console.log(textvalues);
           for (let index in textvalues) {
             // console.log(textvalues[index]);
             // console.log('hi');
@@ -89,9 +90,10 @@ export class AddQuestionComponent  implements OnInit{
         
         this.service.addOptions(this.option_list).subscribe((data)=>{
           console.log(data);
-          resolve();
+          
         });
-
+        }
+        resolve();
       }).catch((error) => {
         console.error("Error uploading question:", error);
       });

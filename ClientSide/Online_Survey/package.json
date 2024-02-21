@@ -28,6 +28,7 @@
     "localstorage-polyfill": "^1.0.1",
     "ng-bootstrap": "^1.6.3",
     "ngx-bootstrap": "^10.3.0",
+    "ngx-clipboard": "^16.0.0",
     "rxjs": "~7.8.0",
     "tslib": "^2.3.0",
     "zone.js": "~0.14.3"

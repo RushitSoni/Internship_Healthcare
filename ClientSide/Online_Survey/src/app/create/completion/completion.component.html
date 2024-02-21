@@ -1,2 +1,5 @@
-<p>Survey Generated Successfully</p>
-<button (click)="GenerateLink()" class="btn btn-primary">Get Link</button>
+<div class="upper-class">
+    <p>Link for your Survey:</p>
+    <input type="text" [value]="inputUrl" [disabled]="true" style="width: 100%;">
+    <button ngxClipboard [cbContent]="inputUrl" class="btn btn-primary">Copy</button>
+</div>

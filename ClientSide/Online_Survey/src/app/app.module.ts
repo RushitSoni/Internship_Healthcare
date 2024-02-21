@@ -38,9 +38,7 @@ import { FormsModule } from '@angular/forms';
     SurveyStatisticsComponent,
     BlogComponent,
     SupportComponent,
-    GetStartedComponent
-
-    
+    GetStartedComponent,
   ],
 
   imports: [BrowserModule, AppRoutingModule, NgbModule, SharedModule,HttpClientModule,FormsModule],

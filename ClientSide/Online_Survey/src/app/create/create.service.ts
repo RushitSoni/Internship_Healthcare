@@ -29,4 +29,9 @@ export class CreateService {
   {
     return this.http.post(`${environment.appUrl}/Home/AddOptions`,option_list);
   }
+
+  generateLink()
+  {
+    
+  }
 }
