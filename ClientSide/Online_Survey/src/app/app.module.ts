@@ -22,6 +22,7 @@ import { BlogComponent } from './blog/blog.component';
 import { SupportComponent } from './support/support.component';
 import { GetStartedComponent } from './get-started/get-started.component';
 import { FormsModule } from '@angular/forms';
+import { WorkspaceModule } from './workspace/workspace.module';
 
 @NgModule({
   declarations: [
@@ -43,7 +44,7 @@ import { FormsModule } from '@angular/forms';
     
   ],
 
-  imports: [BrowserModule, AppRoutingModule, NgbModule, SharedModule,HttpClientModule,FormsModule],
+  imports: [BrowserModule, AppRoutingModule, NgbModule, SharedModule,HttpClientModule,FormsModule,WorkspaceModule],
   // providers: [
   //   provideClientHydration()
   // ],

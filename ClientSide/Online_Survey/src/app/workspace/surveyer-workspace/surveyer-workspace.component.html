@@ -1,40 +1,55 @@
-
-<div class="surveyer-container">
-    <div class="sidebar">
-        <ul>
-            <li><a [routerLink]="['/workspace', 'company']">Workspace</a></li>
-            <li><a routerLink="/home">Create</a></li>
-        </ul>
-    </div>
+ <div class="surveyer-container">
+    <app-sidebar></app-sidebar>
   
     <div class="surveyer-content">
-        <!-- <h6>{{departmentId}}</h6>
-        <ul>
-            <li *ngFor="let user of users">{{ user.userName }}</li>
-        </ul> -->
-    
-        <form *ngIf="isAdmin" [formGroup]="surveyerDeptForm" (ngSubmit)="createSurveyerDept()" autocomplete="off">
-            <label for="surveyerDeptName">Surveyer  Name:</label>
-            <!-- Ensure formControlName is set to userName -->
-            <input formControlName="userName" type="text" placeholder="Surveyer  Name" class="form-control" required>
-            <button class="mt-1" type="submit">Create Surveyer </button>
-        </form>
-    
-        <ul>
-            <li *ngFor="let surveyerDept of surveyerDepts">
-                <!-- Check if userName, companyId, and departmentId are being displayed correctly -->
-                <h6 class="surveyer-link">{{ surveyerDept.userName }} </h6>
-                <hr>
-            </li>
-        </ul>
+      <h6>{{departmentId}}</h6>
+  
+      <!-- Table for List of Users -->
+     <!--<table class="user-table">
+        <thead>
+          <tr>
+            <th>User Name</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let user of users">
+            <td>{{ user.userName }}</td>
+          </tr>
+        </tbody>
+      </table> --> 
+  
+      <!-- Form for Creating Surveyer Department -->
+      <form *ngIf="isAdmin" [formGroup]="surveyerDeptForm" (ngSubmit)="createSurveyerDept()" autocomplete="off">
+        <label for="surveyerDeptName">Surveyer  Name:</label>
+        <input formControlName="userName" type="text" placeholder="Surveyer Department Name" class="form-control" required>
+        <button class="mt-1" type="submit">Create Surveyer </button>
+      </form>
+  
+      <!-- Table for List of Surveyer Departments -->
+      <table class="surveyer-dept-table">
+        <thead>
+          <tr>
+            <th>User Name</th>
+  
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let surveyerDept of surveyerDepts">
+            <td>
+              <a class="surveyer-link" [routerLink]="['/home']">
+                {{ surveyerDept.userName }}
+              </a>
+            </td>
+          </tr>
+        </tbody>
+      </table>
 
 
-        <button (click)="navigateToCreate()" class="btn btn-primary">
-            Create Survey
-          </button>
+
+      <button (click)="navigateToCreate()" class="btn btn-primary mt-5">
+        Create Survey
+      </button>
+
     </div>
-    
-</div>
-
-
-
+  </div>
+  
