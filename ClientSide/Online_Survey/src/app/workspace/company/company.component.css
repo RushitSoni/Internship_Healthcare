@@ -1,29 +1,104 @@
+
+
+/* Updated styles for improved design */
+
 .company-container {
-    display: flex;
-    height: 100%;
-    margin-left:1%
-  }
-  
-  .sidebar {
-    width: 20%;
-    background-color: #f0f0f0;
-    padding: 20px;
-    min-height: 500px;
-  }
-  
-  .company-content {
-    width: 80%;
-    padding: 20px;
-  }
-  ul {
-    list-style: none; /* Remove index-points from lists */
+  display: flex;
+  height: 100vh;
+  margin-left: 1%;
 }
 
-hr {
-    margin: 2%;
-   margin-left: 0;
+.sidebar {
+  width: 20%;
+  background-color: #343a40;
+  padding: 20px;
+  min-height: 100vh;
+  color: #fff;
 }
+
+.company-content {
+  display: flex;
+  flex-direction: column; /* Adjusted to column layout */
+  width: 80%;
+  padding: 20px;
+}
+
+.input-group {
+  max-width: 300px;
+  margin: 0 auto;
+}
+
+.submit-button {
+  font-size: 12px; /* Adjusted font size */
+  padding: 10px;
+  border: none;
+  background: #2E2E2E;
+  border-radius: 8px;
+  transition: 0.3s;
+  color: #fff;
+  cursor: pointer;
+  width: 15%; /* Adjusted to full width */
+  margin-left: 10px; /* Added margin-top */
+  height: 45px;
+}
+
+.submit-button:hover {
+  background: linear-gradient(90deg, #FC466B 0%, #3F5EFB 100%);
+  transition: 0.3s;
+}
+
+#input-field {
+  background-color: #2E2E2E;
+  border-radius: 8px;
+  border: none;
+  margin-bottom: 20px;
+  width: 100%; /* Adjusted to full width */
+  padding: 10px;
+  color: #fff;
+  font-size: 14px;
+}
+
+.input-wrapper {
+  display: flex;
+  flex-direction: row; /* Adjusted to column layout */
+}
+
+
+
+
 
 .company-link {
   text-decoration: none; /* Remove underline from links */
+}
+
+
+.company-table,
+.user-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+}
+
+.company-table th,
+.company-table td,
+.user-table th,
+.user-table td {
+  border: 1px solid #ddd;
+  padding: 8px;
+  text-align: left;
+}
+
+.company-table th,
+.user-table th {
+  background-color: #f4f4f4;
+  font-weight: bold;
+}
+
+.company-table a {
+  text-decoration: none;
+  color: #0066cc;
+}
+
+.company-table a:hover {
+  text-decoration: underline;
 }
