@@ -1,10 +1,12 @@
 import { DOCUMENT } from '@angular/common';
-import { Component, Inject, OnInit, Renderer2 } from '@angular/core';
+import { Component, ElementRef, Inject, OnInit, Renderer2, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { take } from 'rxjs';
 import { AccountService } from '../account.service';
 import { User } from '../../shared/Models/user';
+import { CredentialResponse } from 'google-one-tap';
+import { jwtDecode } from 'jwt-decode';
 
 @Component({
   selector: 'app-register',
@@ -13,7 +15,7 @@ import { User } from '../../shared/Models/user';
 })
 export class RegisterComponent implements OnInit {
 
-
+  @ViewChild('googleButton',{static:true})  googleButton : ElementRef = new ElementRef({})
 
 
   registerForm : FormGroup =new FormGroup({})
@@ -39,6 +41,7 @@ export class RegisterComponent implements OnInit {
 
    
     this.initializeForm()
+    this.initializeGoogleButton()
   }
 
   ngAfterViewInit(){
@@ -98,6 +101,37 @@ export class RegisterComponent implements OnInit {
 
 
    
+  }
+
+  private initializeGoogleButton(){
+    (window as any).onGoogleLibraryLoad = ()=>{
+
+      //@ts-ignore
+
+      google.accounts.id.initialize({
+        client_id:'476915189475-pggc8ml41s2gor0l5thi1rct38lt1pt2.apps.googleusercontent.com',
+        callback:this.googleCallBack.bind(this),
+        auto_select:false,
+        cancel_on_tap_outside:true
+      })
+
+      //@ts-ignore
+
+      google.accounts.id.renderButton(
+        this.googleButton.nativeElement,
+        {
+          size:'large',shape:'rectangular',text:'signup_with',logo_alignment:'center'
+        }
+      )
+      
+  }}
+
+  private  async googleCallBack(response: CredentialResponse){
+        // console.log(response.credential)
+
+        const decodedToken: any = jwtDecode(response.credential)
+
+        this.router.navigateByUrl(`/account/register/third-party/google?access_token=${response.credential}&userId=${decodedToken.sub}&email=${decodedToken.email}`)
   }
 
 }
