@@ -44,6 +44,7 @@ builder.Services.AddSingleton(mapper);
 
 //JWT Service
 builder.Services.AddScoped<JWTServices>();
+builder.Services.AddScoped<EmailService>();
 
 //Defining Our IdentityCore Services
 
