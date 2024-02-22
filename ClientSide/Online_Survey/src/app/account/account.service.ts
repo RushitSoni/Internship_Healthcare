@@ -6,6 +6,8 @@ import { environment } from '../../environments/environment.development';
 import { ReplaySubject, map, of } from 'rxjs';
 import { Login } from '../shared/Models/login';
 import { User } from '../shared/Models/user';
+import { ResetPassword } from '../shared/Models/resetPassword';
+import { ConfirmEmail } from '../shared/Models/confirmEmailDto';
 
 @Injectable({
   providedIn: 'root'
@@ -84,7 +86,28 @@ export class AccountService {
   //   }
   // }
   
+  confirmEmail(model:ConfirmEmail){
+    return this.http.put(`${environment.appUrl}/api/account/confirm-email`,model)
+  }
 
+  resendEmailConfirmationLink(email:string){
+
+    return this.http.post(`${environment.appUrl}/api/account/resend-email-confirmation-link/${email}`,{})
+
+
+  }
+
+  forgotUsernameOrPassword(email:string){
+
+    return this.http.post(`${environment.appUrl}/api/account/forgot-username-or-password/${email}`,{})
+
+  }
+
+  resetPassword(model :ResetPassword){
+      return this.http.put(`${environment.appUrl}/api/account/reset-password`,model)
+  }
+
+  
   private setUser(user : User){
    localStorage.setItem(environment.userKey,JSON.stringify(user))
     this.userSource.next(user)
