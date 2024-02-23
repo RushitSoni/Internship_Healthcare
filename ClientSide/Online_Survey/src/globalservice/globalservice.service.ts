@@ -6,17 +6,17 @@ import { DOCUMENT } from '@angular/common';
 })
 export class GlobalserviceService  {
 
-  private surveyorId! : string;
+  private surveyorId : string='428161fa-697c-40bd-bedb-0668f89d938d';
   private surveyId! : number;
   private frontendUrl! : string;
   constructor() { }
 
   
   // setting and getting the surveyor id.
-  set SurveyorId(value: string)
-  {
-    this.surveyorId = value;
-  }
+  // set SurveyorId(value: string)
+  // {
+  //   this.surveyorId = value;
+  // }
 
   get SurveyorId() : string
   {

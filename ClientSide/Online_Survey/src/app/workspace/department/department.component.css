@@ -1,32 +1,97 @@
 .dept-container {
     display: flex;
-    height: 100%;
-    margin-left:1%
+    height: 100vh;
+    margin-left: 1%;
   }
   
   .sidebar {
     width: 20%;
-    background-color: #f0f0f0;
+    background-color: #343a40;
     padding: 20px;
-    min-height: 500px;
+    min-height: 100vh;
+    color: #fff;
   }
   
   .dept-content {
+    display: flex;
+    flex-direction: column;
     width: 80%;
     padding: 20px;
   }
-
-
-ul {
-    list-style: none; /* Remove index-points from lists */
-}
-
-hr {
-    margin: 2%;
-   margin-left: 0;
-}
-
-.dept-link {
-  text-decoration: none; /* Remove underline from links */
-}
+  
+  .form-section {
+    max-width: 300px;
+    margin: 0 auto;
+  }
+  
+  .form-section label,
+  .form-section input,
+  .form-section button {
+    margin-bottom: 10px;
+  }
+  
+  .submit-button {
+    font-size: 14px;
+    padding: 10px;
+    border: none;
+    background: #2E2E2E;
+    border-radius: 8px;
+    transition: 0.3s;
+    color: #fff;
+    cursor: pointer;
+    width: 100%;
+  }
+  
+  .submit-button:hover {
+    background: linear-gradient(90deg, #FC466B 0%, #3F5EFB 100%);
+    transition: 0.3s;
+  }
+  
+  #input-field {
+    background-color: #2E2E2E;
+    border-radius: 8px;
+    border: none;
+    margin-bottom: 20px;
+    width: 100%;
+    padding: 10px;
+    color: #fff;
+    font-size: 14px;
+  }
+  
+  .input-wrapper {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .lists-section {
+    margin-top: 20px;
+  }
+  
+  /* Table styles for List of Departments */
+  .dept-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+  }
+  
+  .dept-table th,
+  .dept-table td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: left;
+  }
+  
+  .dept-table th {
+    background-color: #f4f4f4;
+    font-weight: bold;
+  }
+  
+  .dept-link {
+    text-decoration: none;
+    color: #0066cc;
+  }
+  
+  .dept-link:hover {
+    text-decoration: underline;
+  }
   

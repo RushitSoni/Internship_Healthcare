@@ -1,16 +1,14 @@
 {
   "ExpandedNodes": [
-<<<<<<< HEAD
     "",
     "\\Backend",
     "\\Backend\\Online_Survey",
     "\\Backend\\Online_Survey\\Controllers",
     "\\Backend\\Online_Survey\\DTOs",
-    "\\Backend\\Online_Survey\\DTOs\\Account"
-=======
-    ""
->>>>>>> bc548c0521cca6e16d8b6647a4705c53dbb1239c
+    "\\Backend\\Online_Survey\\DTOs\\Account",
+    "\\Backend\\Online_Survey\\DTOs\\Survey",
+    "\\Backend\\Online_Survey\\Models"
   ],
-  "SelectedNode": "\\Online_Survey.sln",
+  "SelectedNode": "\\Backend\\Online_Survey\\Online_Survey.sln",
   "PreviewInSolutionExplorer": false
 }

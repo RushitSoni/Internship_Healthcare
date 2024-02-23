@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms'; // Import FormBuilder
 import { User } from '../../shared/Models/user';
 import { WorkspaceService } from '../workspace.service';
@@ -34,7 +34,8 @@ export class SurveyerWorkspaceComponent implements OnInit {
   constructor(private route: ActivatedRoute, 
               private workspaceService: WorkspaceService,
               private formBuilder: FormBuilder,
-              private accountService:AccountService) {} // Inject FormBuilder here
+              private accountService:AccountService
+              ,private router: Router) {} // Inject FormBuilder here
 
   ngOnInit(): void {
 
@@ -55,6 +56,7 @@ export class SurveyerWorkspaceComponent implements OnInit {
     this.loadUsers();
    
     this.initializeForm(); // Call initializeForm method
+    this.checkAdminRole()
   }
 
   loadUsers(): void {
@@ -145,5 +147,9 @@ checkAdminRole(): void {
     }
   );
   
+}
+
+navigateToCreate(){
+  this.router.navigateByUrl('/create/generate')
 }
 }

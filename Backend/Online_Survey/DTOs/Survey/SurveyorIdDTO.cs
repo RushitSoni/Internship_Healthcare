@@ -1,4 +1,6 @@
-﻿namespace Online_Survey.DTOs.Survey
+
+namespace Online_Survey.DTOs.Survey
+
 {
     public class SurveyorIdDTO
     {

@@ -69,8 +69,10 @@ namespace Online_Survey.Controllers
 
             throw new Exception("Oops! Survey cannot be created");
         }
+      
+        
 
-        [HttpPost("AddOptions")]
+                [HttpPost("AddOptions")]
         public IActionResult AddOptions(OptionDTO[] options)
         {
             foreach (OptionDTO optionDTO in options)

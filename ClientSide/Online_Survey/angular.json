@@ -78,6 +78,7 @@
         },
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
+       
           "configurations": {
             "production": {
               "buildTarget": "Online_Survey:build:production"
