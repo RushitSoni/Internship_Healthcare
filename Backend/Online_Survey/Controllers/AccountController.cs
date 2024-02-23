@@ -1,4 +1,5 @@
-﻿using Mailjet.Client.Resources;
+﻿using Google.Apis.Auth;
+using Mailjet.Client.Resources;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
@@ -230,6 +231,99 @@ namespace Online_Survey.Controllers
             }
 
         }
+        [HttpPost("login-with-third-party")]
+        public async Task<ActionResult<UserDto>> LoginWithThirdParty(LoginWithExternal model)
+        {
+            /* if (model.Provider.Equals(SD.Facebook))
+             {
+                 try
+                 {
+                     if (!FacebookValidatedAsync(model.AccessToken, model.UserId).GetAwaiter().GetResult())
+                     {
+                         return Unauthorized("Unable to login with facebook");
+                     }
+                 }
+                 catch (Exception)
+                 {
+                     return Unauthorized("Unable to login with facebook");
+                 }
+             }
+             else */
+
+            if (model.Provider.Equals(SD.Google))
+            {
+                try
+                {
+                    if (!GoogleValidatedAsync(model.AccessToken, model.UserId).GetAwaiter().GetResult())
+                    {
+                        return Unauthorized("Unable to login with google");
+                    }
+                }
+                catch (Exception)
+                {
+                    return Unauthorized("Unable to login with google");
+                }
+            }
+            else
+            {
+                return BadRequest("Invalid provider");
+            }
+
+            var user = await _userManager.Users.FirstOrDefaultAsync(x => x.UserName == model.UserId && x.Provider == model.Provider);
+            if (user == null) return Unauthorized("Unable to find your account");
+
+            return  CreateApplicationUserDto(user);
+        }
+        [HttpPost("register-with-third-party")]
+        public async Task<ActionResult<UserDto>> RegisterWithThirdParty(RegisterWithExternal model)
+        {
+            if (model.Provider.Equals(SD.Google))
+            {
+                try
+                {
+                    if (!GoogleValidatedAsync(model.AccessToken, model.UserId).GetAwaiter().GetResult())
+                    {
+                        return Unauthorized("Unable to register with google");
+                    }
+                }
+                catch (Exception)
+                {
+                    return Unauthorized("Unable to register with google");
+                }
+            }
+            else
+            {
+                return BadRequest("Invalid provider");
+            }
+
+            var existingUser = await _userManager.FindByNameAsync(model.UserId);
+            if (existingUser != null)
+            {
+                return BadRequest($"User  already exists.");
+            }
+
+            // Check if email already exists in database
+            var existingEmailUser = await _userManager.FindByEmailAsync(model.Email);
+            if (existingEmailUser != null)
+            {
+                return BadRequest($"Email address {model.Email} is already registered with another account.");
+            }
+
+            var userToAdd = new Online_SurveyUser
+            {
+                FirstName = model.FirstName.ToLower(),
+                LastName = model.LastName.ToLower(),
+                UserName = model.UserId,
+                Email = model.Email.ToLower(), // Store email address
+                Provider = model.Provider,
+            };
+
+            var result = await _userManager.CreateAsync(userToAdd);
+            if (!result.Succeeded) return BadRequest(result.Errors);
+
+            return CreateApplicationUserDto(userToAdd);
+        }
+
 
         [Authorize]
         [HttpGet("refresh-user-token")]
@@ -251,6 +345,7 @@ namespace Online_Survey.Controllers
                 UserName = user.UserName,
                 Id= user.Id,
                 JWT =  _jwtService.CreateJWT(user),
+
             };
         }
 
@@ -298,6 +393,40 @@ namespace Online_Survey.Controllers
 
             return await _emailService.SendEmailAsync(emailSend);
 
+        }
+
+        private async Task<bool> GoogleValidatedAsync(string accessToken, string userId)
+        {
+            var payload = await GoogleJsonWebSignature.ValidateAsync(accessToken);
+
+            if (!payload.Audience.Equals(_config["Google:ClientId"]))
+            {
+                return false;
+            }
+
+            if (!payload.Issuer.Equals("accounts.google.com") && !payload.Issuer.Equals("https://accounts.google.com"))
+            {
+                return false;
+            }
+
+            if (payload.ExpirationTimeSeconds == null)
+            {
+                return false;
+            }
+
+            DateTime now = DateTime.Now.ToUniversalTime();
+            DateTime expiration = DateTimeOffset.FromUnixTimeSeconds((long)payload.ExpirationTimeSeconds).DateTime;
+            if (now > expiration)
+            {
+                return false;
+            }
+
+            if (!payload.Subject.Equals(userId))
+            {
+                return false;
+            }
+
+            return true;
         }
 
         #endregion
