@@ -10,6 +10,7 @@ import { Router } from '@angular/router';
 })
 export class GenerateSurveyComponent implements OnInit{
 
+  set = false;
   constructor(private service: CreateService,private globalService: GlobalserviceService,private router : Router)
   {
 
@@ -26,5 +27,10 @@ export class GenerateSurveyComponent implements OnInit{
     });
 
     this.router.navigate(['/create/generate','addquestion']);
+  }
+
+  SetTime()
+  {
+    this.set = !this.set;
   }
 }

@@ -20,7 +20,7 @@ import { DisplayComponent } from './display/display.component';
     CommonModule,
     CreateRoutingModule,
     ReactiveFormsModule,
-    ClipboardModule
+    ClipboardModule,
   ]
 })
 export class CreateModule { }
