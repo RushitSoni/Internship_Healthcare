@@ -22,9 +22,9 @@ export interface Option_List
 
 export interface QuestionOption{
     questionId : number;
-    quesionText : string;
+    questionText : string;
     questionOptionType : number;
-    optionList : Option_List[];
+    options : Option_List[];
 }
 
 export interface Survey{

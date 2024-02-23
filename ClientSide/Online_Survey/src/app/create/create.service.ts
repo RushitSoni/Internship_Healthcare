@@ -37,9 +37,15 @@ export class CreateService {
 
   getData()
   {
-    var params = new HttpParams().set('surveyid',this.globalservice.SurveyId);
-    const data = this.http.get<QuestionOption[]>(`${environment.appUrl}/Home/GetQuestionOption`,{params});
-    console.log(data);
-    return data;
+    if(this.globalservice.SurveyId !== undefined)
+    {
+      var params = new HttpParams().set('surveyid',this.globalservice.SurveyId);
+      const data = this.http.get<QuestionOption[]>(`${environment.appUrl}/Home/GetQuestionOption`,{params});
+      console.log(data);
+      return data;
+    }
+
+    const quest : QuestionOption[] = []
+    return quest;
   }
 }
