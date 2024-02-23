@@ -4,6 +4,7 @@ import { Options, Question } from '../../shared/Models/Survey';
 import { GlobalserviceService } from '../../../globalservice/globalservice.service';
 import { Router } from '@angular/router';
 import { CreateService } from '../create.service';
+import { resolve } from 'path';
 
 
 @Component({
@@ -18,13 +19,7 @@ export class AddQuestionComponent  implements OnInit{
   constructor(private fb_question : FormBuilder,private globalservice : GlobalserviceService,private service : CreateService,private router: Router){
     
   }
-   
-  option : Options = 
-    {
-      OptionText : '',
-      QuestionId : 0,
-      SurveyId : 0
-    };
+
 
   option_list : Options[] = [];
 
@@ -42,15 +37,6 @@ export class AddQuestionComponent  implements OnInit{
     });
   }
 
-  reset()
-  {
-    this.form_question.reset({
-      question_text : "",
-      question_type : [''], // This will hold the selected question type
-      dynamicFields: this.fb_question.array([])
-    })
-  }
-
   get dynamicFields() {
     return this.form_question.get('dynamicFields') as FormArray;
   }
@@ -63,48 +49,81 @@ export class AddQuestionComponent  implements OnInit{
     this.dynamicFields.removeAt(index);
   }
 
-  UploadQuestion()
+  UploadQuestion() : Promise<number>
   {
-    this.question.QuestionText = this.form_question.get('question_text')?.value;
-    this.question.QuestionOptionType = this.form_question.get('question_type')?.value;
-    this.question.SurveyId = this.globalservice.SurveyId; 
-
-    this.service.addQuestion(this.question).subscribe((data) => {
-    if(data != 0)
-    {
-      this.Question_id = data;
-    }
-  })
+    return new Promise<number>((resolve, reject) => {
+      this.question.QuestionText = this.form_question.get('question_text')?.value;
+      this.question.QuestionOptionType = this.form_question.get('question_type')?.value;
+      this.question.SurveyId = this.globalservice.SurveyId;
+  
+      this.service.addQuestion(this.question).subscribe((data) => {
+        this.Question_id = data;
+        resolve(this.Question_id); // Resolve the Promise with Question_id
+      }, (error) => {
+        reject(error); // Reject the Promise if an error occurs
+      });
+    });
   }
   
-  UploadOptions()
+  UploadOptions ()
   {
-    const textvalues = this.dynamicFields.value;
-    console.log(textvalues);
-    for(let index in textvalues)
-    {
-      console.log(textvalues[index]);
-      this.option.OptionText = textvalues[index];
-      this.option.QuestionId = this.Question_id;
-      this.option.SurveyId = this.globalservice.SurveyId;
+    // Hello
+    return new Promise<void>((resolve, reject) => {
+      this.UploadQuestion().then((questionId) => {
+        const textvalues = this.dynamicFields.value;
+        if(textvalues.length!=0)
+        {
+          // console.log(textvalues);
+          for (let index in textvalues) {
+            // console.log(textvalues[index]);
+            // console.log('hi');
+            // Create a new Options object for each iteration
+            const option: Options = {  
+              OptionText: textvalues[index],
+              QuestionId: questionId, // Use the resolved QuestionId
+              SurveyId: this.globalservice.SurveyId
+            };
+            this.option_list.push(option);
+          }
 
-      this.option_list.push(this.option);
-    }
+        // console.log(this.option_list);
+        
+        this.service.addOptions(this.option_list).subscribe((data)=>{
+          console.log(data);
+          
+        });
+        }
+        resolve();
+      }).catch((error) => {
+        console.error("Error uploading question:", error);
+      });
+     });
+  }
 
-    this.service.addOptions(this.option_list).subscribe((data) => {
-        console.log(data);
+  reset()
+  {
+    this.UploadOptions().then((result) => {
+      this.option_list = [];
+      this.dynamicFields.clear();
+      this.form_question.reset({
+        question_text : "",
+        question_type : [''], // This will hold the selected question type
+        dynamicFields: this.fb_question.array([])
     });
+    }).catch((err) => {
+      
+    });
+     
   }
 
   AddQuestion()
   { 
-    this.UploadQuestion();
-    this.UploadOptions();
     this.reset();
   }
 
   OnComplete()
   {
+    this.reset();
     this.router.navigate(['create/generate','complete'],{skipLocationChange: true});
   }
 }

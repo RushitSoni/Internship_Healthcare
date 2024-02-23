@@ -25,3 +25,9 @@ padding: 20px;
     width: 50%;
     height: 85%;
 }
+
+.settings{
+    display: flex;
+    flex-direction: column;
+    margin: 2%;
+}

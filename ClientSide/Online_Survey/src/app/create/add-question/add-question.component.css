@@ -11,6 +11,11 @@
     /* Adjust spacing between input and button */
     width: 100%;
   }
+
+  .Upper{
+    display: flex;
+    flex-direction: column;
+  }
   
   .input_options {
     border-radius: 10px;

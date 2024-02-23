@@ -1,10 +1,12 @@
 ﻿using AutoMapper;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Online_Survey.Data;
 using Online_Survey.DTO;
 using Online_Survey.DTOs.Survey;
 using Online_Survey.Models;
 using System;
+using System.Linq;
 
 namespace Online_Survey.Controllers
 {
@@ -15,13 +17,16 @@ namespace Online_Survey.Controllers
     {
         private readonly IUserRepository _userRepository;
         IMapper mapper;
-        public HomeController(IUserRepository userRepository)
+        private readonly IHttpContextAccessor _httpContextAccessor;
+
+        public HomeController(IUserRepository userRepository,IHttpContextAccessor httpContextAccessor)
         {
             mapper = new Mapper(new MapperConfiguration(cfg => {
                 cfg.CreateMap<SurveyDTO, SurveyTable>();
                 cfg.CreateMap<QuestionDTO, QuestionTable>();
                 cfg.CreateMap<OptionDTO, OptionTable>();
             }));
+            _httpContextAccessor = httpContextAccessor;
             _userRepository = userRepository;
         }
 
@@ -80,5 +85,41 @@ namespace Online_Survey.Controllers
 
             return Ok();
         }
+
+        [HttpGet("GetQuestionOption")]
+        public ActionResult GetQuestionwithOptions([FromQuery] int SurveyId)
+        {
+            var questionwithoptions = _userRepository.QuestionOption();
+  
+            var result = questionwithoptions
+            .Where(q => q.SurveyId == SurveyId)
+            .Select(q => new
+            {
+                q.QuestionId,
+                q.QuestionText,
+                q.QuestionOptionType,
+                Options = q.OptionTables
+                .Where(o => o.QuestionId == q.QuestionId)
+                .Select(o => new
+                {
+                    o.OptionId,
+                    o.OptionText,
+                    
+                }).ToList()
+            }).ToList();
+
+            return Ok(result);
+        }
+
+        //[HttpGet("GetURL")]
+        //public IActionResult GetURL(int surveyid)
+        //{
+        //    var request = _httpContextAccessor.HttpContext.Request;
+        //    var baseUrl = $"{request.Scheme}: {request.Host}";
+
+        //    var surveyurl = $"{baseUrl}/survey/{surveyid}";
+
+        //    return Ok(surveyurl);
+        //}
     }
 }

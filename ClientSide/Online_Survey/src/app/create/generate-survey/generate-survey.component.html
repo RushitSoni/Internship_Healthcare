@@ -9,6 +9,26 @@
         <button class="btn btn-primary mt-3" (click)="CreateSurvey()">
             Generate a Survey
         </button>
+        <br>
+        <button class="btn btn-primary" (click)="SetTime()">
+            Set Time
+        </button>
+        <div class="settings" [hidden]="set">
+            <div>
+                <label>Select Start Date:</label>
+                <input type="date" (ngModel)="selectedDate" [min]="mindate">
+                <label>Select Start Time:</label>
+                <input type="time" (ngModel)="selectedTime">
+            </div>
+            <div>
+                <label>Select End Date:</label>
+                <input type="date" (ngModel)="selectedDate" [min]="mindate">
+            </div>
+            <div>
+                <label>Enter time duration:</label>
+                <input type="number">
+            </div>
+        </div>
     </div>
 </div>
 
