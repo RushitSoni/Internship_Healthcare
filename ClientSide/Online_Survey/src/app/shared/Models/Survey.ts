@@ -30,3 +30,8 @@ export interface QuestionOption{
 export interface Survey{
     surveyid : number;
 }
+
+export interface SurveyTable{
+    SurveyorId : String;
+    Description : string;
+}

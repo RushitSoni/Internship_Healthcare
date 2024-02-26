@@ -11,22 +11,13 @@ import { GlobalserviceService } from '../../globalservice/globalservice.service'
 })
 export class CreateService {
 
-  surveyorId : SurveyTable = {
-    SurveyorId : ""
-  }
-
-
-
   constructor(private http : HttpClient,private globalservice : GlobalserviceService) { }
 
- 
-
-
-  createSurvey(surveyorid : String)
+  createSurvey(surveytable : SurveyTable)
   {
-    console.log(`${environment.appUrl}/Home/GetAdmin`);
-    this.surveyorId.SurveyorId = surveyorid;
-    return this.http.post<number>(`${environment.appUrl}/Home/CreateSurvey`,this.surveyorId);
+    
+    console.log(surveytable);
+    return this.http.post<number>(`${environment.appUrl}/Home/CreateSurvey`,surveytable);
   }
 
   addQuestion(question : Question)
