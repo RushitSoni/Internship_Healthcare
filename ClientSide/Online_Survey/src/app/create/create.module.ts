@@ -11,8 +11,10 @@ import { DisplayComponent } from './display/display.component';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
 import { MatInputModule } from '@angular/material/input';
-
+import { MatDialogModule } from '@angular/material/dialog';
 import { WorkspaceModule } from '../workspace/workspace.module';
+import { SettimeComponent } from './settime/settime.component';
+import { MatButtonModule } from '@angular/material/button';
 
 
 
@@ -21,19 +23,21 @@ import { WorkspaceModule } from '../workspace/workspace.module';
     AddQuestionComponent,
     GenerateSurveyComponent,
     CompletionComponent,
-    DisplayComponent
+    DisplayComponent,
+    SettimeComponent
   ],
   imports: [
     CommonModule,
     CreateRoutingModule,
     ReactiveFormsModule,
-
     ClipboardModule,
     FormsModule,
     MatDatepickerModule,
     MatNativeDateModule,
     MatInputModule,
-    WorkspaceModule
+    WorkspaceModule,
+    MatDialogModule,
+    MatButtonModule
 
   ]
 })

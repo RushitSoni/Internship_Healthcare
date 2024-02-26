@@ -45,18 +45,19 @@ namespace Online_Survey.Controllers
         }
 
         [HttpPost("CreateSurvey")]
-        public int CreateSurvey(SurveyorIdDTO surveyorid)
+        public int CreateSurvey(SurveyorDTO surveyorid)
         {
             DateOnly today = DateOnly.FromDateTime(DateTime.Today);
             TimeOnly time = TimeOnly.FromDateTime(DateTime.Now);
+            
             SurveyDTO surveyDTO = new SurveyDTO()
             {
                 SurveyorId = surveyorid.SurveyorId,
+                Description = surveyorid.Description,
                 DateCreated = today,
-                EndDate = today,
-                LaunchDate = today,
                 StartTime = time,
-                EndTime = 0,
+                LaunchDate = today,
+                EndDate = today
             };
 
             SurveyTable surveyTable = mapper.Map<SurveyTable>(surveyDTO);
@@ -72,7 +73,7 @@ namespace Online_Survey.Controllers
       
         
 
-                [HttpPost("AddOptions")]
+        [HttpPost("AddOptions")]
         public IActionResult AddOptions(OptionDTO[] options)
         {
             foreach (OptionDTO optionDTO in options)
