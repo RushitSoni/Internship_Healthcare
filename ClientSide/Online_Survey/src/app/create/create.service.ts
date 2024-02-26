@@ -4,6 +4,7 @@ import { environment } from '../../environments/environment.development';
 
 import { Options, Question, QuestionOption, Survey, SurveyTable } from '../shared/Models/Survey';
 import { GlobalserviceService } from '../../globalservice/globalservice.service';
+import { Observable } from 'rxjs';
 
 
 @Injectable({
@@ -44,5 +45,14 @@ export class CreateService {
     const quest : QuestionOption[] = []
     return quest;
 
+  }
+
+  sendEmailList(recipients: string[], subject: string, body: string): Observable<any> {
+    const request = {
+      recipients: recipients,
+      subject: subject,
+      body: body
+    };
+    return this.http.post<any>(`${environment.appUrl}/api/email/send`, request);
   }
 }

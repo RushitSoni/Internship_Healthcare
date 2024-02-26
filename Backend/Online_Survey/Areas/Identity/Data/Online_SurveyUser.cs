@@ -19,5 +19,7 @@ public class Online_SurveyUser : IdentityUser
     public DateTime DateCreated { get; set; } = DateTime.UtcNow;
 
     public string Provider { get; set; }
+
+    public string Role { get; set; }
 }
 
