@@ -35,6 +35,7 @@
               "src/assets"
             ],
             "styles": [
+              "src/custom-theme.scss",
               "node_modules/bootstrap/dist/css/bootstrap.min.css",
               "src/styles.css"
             ],
@@ -77,6 +78,7 @@
         },
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
+       
           "configurations": {
             "production": {
               "buildTarget": "Online_Survey:build:production"

@@ -1,3 +1,4 @@
+<div class="Upper">
 <h1 style="text-align: center;color: rgb(46, 29, 234)">Enter Survey Questions</h1>
 <br>
 <form [formGroup]="form_question">
@@ -21,7 +22,13 @@
             </div>
         </div>
         </div>
-        <button (click)="AddQuestion()"  class="center">Next_Question</button>
-        <button (click)="OnComplete()"  class="center" style="margin-left: 31%;">Survey_Completed</button>
-    </div>
+        <div class="buttons">
+            <button (click)="AddQuestion()"  class="center">Next_Question</button>
+            <button (click)="OnComplete()"  class="center" style="margin-left: 31%;">Survey_Completed</button>
+        </div>
+        </div>
 </form>
+<!-- <div>
+    <app-display></app-display>
+</div> -->
+</div>

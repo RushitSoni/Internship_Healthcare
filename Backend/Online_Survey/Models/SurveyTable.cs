@@ -9,15 +9,17 @@ public partial class SurveyTable
 
     public string SurveyorId { get; set; }
 
+    public string Description { get; set; }
+
     public DateOnly DateCreated { get; set; }
 
-    public DateOnly LaunchDate { get; set; }
+    public DateOnly? LaunchDate { get; set; }
 
-    public DateOnly EndDate { get; set; }
+    public DateOnly? EndDate { get; set; }
 
-    public TimeOnly StartTime { get; set; }
+    public TimeOnly? StartTime { get; set; }
 
-    public int EndTime { get; set; }
+    public int? EndTime { get; set; }
 
     public virtual ICollection<OptionTable> OptionTables { get; set; } = new List<OptionTable>();
 

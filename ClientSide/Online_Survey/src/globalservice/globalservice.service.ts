@@ -1,12 +1,14 @@
-import { Injectable } from '@angular/core';
+import { Inject, Injectable } from '@angular/core';
+import { DOCUMENT } from '@angular/common';
 
 @Injectable({
   providedIn: 'root'
 })
-export class GlobalserviceService {
+export class GlobalserviceService  {
 
   private surveyorId : string='428161fa-697c-40bd-bedb-0668f89d938d';
   private surveyId! : number;
+  private frontendUrl! : string;
   constructor() { }
 
   
@@ -30,5 +32,15 @@ export class GlobalserviceService {
   get SurveyId() : number
   {
     return this.surveyId;
+  }
+
+  set FrontendUrl(value: string)
+  {
+    this.frontendUrl = value;
+  }
+
+  get FrontendUrl()
+  {
+    return this.frontendUrl;
   }
 }

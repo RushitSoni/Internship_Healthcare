@@ -6,6 +6,9 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { take } from 'rxjs';
 
 import { DOCUMENT } from '@angular/common';
+import { CredentialResponse } from 'google-one-tap';
+import { jwtDecode } from 'jwt-decode';
+import { LoginWithExternal } from '../../shared/Models/loginWithExternal';
 import { User } from '../../shared/Models/user';
 
 
@@ -15,7 +18,7 @@ import { User } from '../../shared/Models/user';
   styleUrls: ['./login.component.css'],
 })
 export class LoginComponent implements OnInit {
-  
+  @ViewChild('googleButton',{static:true})  googleButton : ElementRef = new ElementRef({})
   loginForm: FormGroup = new FormGroup({});
   submitted = false;
 
@@ -25,9 +28,11 @@ export class LoginComponent implements OnInit {
   constructor(
     private accountService: AccountService,
     private formBuilder: FormBuilder,
+  
+   
     private router: Router,
     private activatedRoute: ActivatedRoute,
-   
+    private renderer2:Renderer2,
     @Inject(DOCUMENT) private _document:Document
   ) {
 
@@ -49,9 +54,17 @@ export class LoginComponent implements OnInit {
     })
   }
   ngOnInit(): void {
+    this.initializeGoogleButton()
     this.initializeForm()
   }
- 
+  ngAfterViewInit(){
+    const script1=this.renderer2.createElement('script')
+    script1.src='https://accounts.google.com/gsi/client'
+    script1.async='true'
+    script1.defer='true'
+    this.renderer2.appendChild(this._document.body,script1)
+  }
+   
 
   initializeForm() {
     this.loginForm = this.formBuilder.group({
@@ -83,7 +96,7 @@ export class LoginComponent implements OnInit {
       this.accountService.login(this.loginForm.value).subscribe({
         next:(response:any)=>{
           
-          console.log("login",response)
+          // console.log(response)
 
           if(this.returnUrl){
             this.router.navigateByUrl(this.returnUrl)
@@ -118,7 +131,50 @@ export class LoginComponent implements OnInit {
 
   }
 
- 
+  resendEmailConfirmationLink(){
+    this.router.navigateByUrl('/account/send-email/resend-email-confirmation-link')
+  }
 
+  private initializeGoogleButton(){
+    (window as any).onGoogleLibraryLoad = ()=>{
+
+      //@ts-ignore
+
+      google.accounts.id.initialize({
+        client_id:'476915189475-pggc8ml41s2gor0l5thi1rct38lt1pt2.apps.googleusercontent.com',
+        callback:this.googleCallBack.bind(this),
+        auto_select:false,
+        cancel_on_tap_outside:true
+      })
+
+      //@ts-ignore
+
+      google.accounts.id.renderButton(
+        this.googleButton.nativeElement,
+        {
+          size:'medium',shape:'rectangular',text:'signin_with',logo_alignment:'center'
+        }
+      )
+      
+  }}
+
+  private  async googleCallBack(response: CredentialResponse){
+        // console.log(response.credential)
+
+        const decodedToken: any = jwtDecode(response.credential)
+
+        this.accountService.loginWithThirdParty(new LoginWithExternal(response.credential,decodedToken.sub,"google"))
+        .subscribe({
+          next: _ => {
+            if (this.returnUrl) {
+              this.router.navigateByUrl(this.returnUrl);
+            } else {
+              this.router.navigateByUrl('/');
+            }
+          }, error: error => {
+            
+          }
   
+        })
+  }
 }

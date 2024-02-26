@@ -11,6 +11,11 @@
     /* Adjust spacing between input and button */
     width: 100%;
   }
+
+  .Upper{
+    display: flex;
+    flex-direction: column;
+  }
   
   .input_options {
     border-radius: 10px;
@@ -39,6 +44,12 @@
     width: 100%;
   }
   
+  .buttons{
+    display: flex;
+    flex: column;
+    width: 100%;
+  }
+
   .center-container {
     display: flex;
     flex-direction: column;
@@ -50,6 +61,8 @@
   
   .question-input {
     margin-bottom: 20px;
+    width: 100%;
+    height: 100%;
     /* Adjust spacing between input and button */
   }
   
