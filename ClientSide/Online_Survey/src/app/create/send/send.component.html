@@ -1,0 +1,20 @@
+<div>
+    
+    <input  type="file" (change)="readExcel($event)">
+    <p>Column name should be "Email_IDs"</p>
+    <div>
+        
+
+        <button  class="btn btn-primary mt-5" (click)="sendEmailList()">Send</button>
+
+        <div *ngIf="excelData && excelData.length > 0">
+            <h3>Email IDs:</h3>
+            <ul>
+                <li *ngFor="let row of excelData">
+                    {{ row.Email_IDs }}
+                </li>
+            </ul>
+        </div>
+    </div>
+
+</div>

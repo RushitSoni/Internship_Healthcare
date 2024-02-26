@@ -15,6 +15,7 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { WorkspaceModule } from '../workspace/workspace.module';
 import { SettimeComponent } from './settime/settime.component';
 import { MatButtonModule } from '@angular/material/button';
+import { SendComponent } from './send/send.component';
 
 
 
@@ -24,7 +25,8 @@ import { MatButtonModule } from '@angular/material/button';
     GenerateSurveyComponent,
     CompletionComponent,
     DisplayComponent,
-    SettimeComponent
+    SettimeComponent,
+    SendComponent
   ],
   imports: [
     CommonModule,

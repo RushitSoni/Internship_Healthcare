@@ -2,12 +2,7 @@
   "ExpandedNodes": [
     "",
     "\\Backend",
-    "\\Backend\\Online_Survey",
-    "\\Backend\\Online_Survey\\Controllers",
-    "\\Backend\\Online_Survey\\DTOs",
-    "\\Backend\\Online_Survey\\DTOs\\Account",
-    "\\Backend\\Online_Survey\\DTOs\\Survey",
-    "\\Backend\\Online_Survey\\Models"
+    "\\Backend\\Online_Survey"
   ],
   "SelectedNode": "\\Backend\\Online_Survey\\Online_Survey.sln",
   "PreviewInSolutionExplorer": false
