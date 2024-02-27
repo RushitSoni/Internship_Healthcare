@@ -1,71 +1,70 @@
 <div class="company-container">
-    <app-sidebar></app-sidebar>
-  
-    <div class="company-content">
-      <div class="form-section">
-        <form [formGroup]="companyForm" (ngSubmit)="createCompany()" autocomplete="off">
-          <label for="companyName">Company Name:</label>
-          <div class="input-wrapper">
-            <input
-              id="input-field"
-              formControlName="name"
-              type="text"
-              placeholder="Company Name"
-              class="form-control"
-              required
-            />
-            <button class="submit-button" type="submit">
-              <span>Create Company</span>
-            </button>
-          </div>
-        </form>
-      </div>
-  
-      <div class="lists-section">
-        <!-- Table for Company List -->
-        <div class="table-container">
-          <table class="company-table">
-            <thead>
-              <tr>
-                <th>Admin</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr *ngFor="let company of companies">
-                <td>
-                  <a [routerLink]="['/workspace/company', company.companyId]">
-                    {{ company.name }} (Admin)
-                  </a>
-                </td>
-              </tr>
+  <app-sidebar></app-sidebar>
 
-              <tr *ngFor="let company of compsniesAsSurveyer">
-                <td>
-                  <a [routerLink]="['/workspace/company', company.companyId]">
-                    {{ company.name }} 
-                  </a>
-                </td>
-              </tr>
-            </tbody>
-          </table>
+  <div class="company-content">
+    <div class="form-section">
+      <form [formGroup]="companyForm" (ngSubmit)="createCompany()" autocomplete="off">
+        <label for="companyName">Company Name:</label>
+        <div class="input-wrapper">
+          <input
+            id="input-field"
+            formControlName="name"
+            type="text"
+            placeholder="Company Name"
+            class="form-control"
+            required
+          />
+          <button class="submit-button" type="submit">
+            <span>Create Company</span>
+          </button>
         </div>
-  
-        <!-- Table for User List -->
-        <!-- <div class="table-container">
-          <table class="user-table">
-            <thead>
-              <tr>
-                <th>User ID</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td>{{ user.id }}</td>
-              </tr>
-            </tbody>
-          </table>
-        </div> 
-      </div>
+      </form>
     </div>
-  </div> -->
-  
+
+    <div class="lists-section">
+      <!-- Table for Company List -->
+      <div class="table-container">
+        <table class="company-table">
+          <thead>
+            <tr>
+              <th>Admin</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let company of companies">
+              <td>
+                <a [routerLink]="['/workspace/company', company.companyId]">
+                  {{ company.name }} (Admin)
+                </a>
+              </td>
+            </tr>
+
+            <tr *ngFor="let company of compsniesAsSurveyer">
+              <td>
+                <a [routerLink]="['/workspace/company', company.companyId]">
+                  {{ company.name }} 
+                </a>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- Table for User List -->
+      <!-- <div class="table-container">
+        <table class="user-table">
+          <thead>
+            <tr>
+              <th>User ID</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>{{ user.id }}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div> 
+    </div>
+  </div>
+</div> -->
