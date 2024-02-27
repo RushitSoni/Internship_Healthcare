@@ -46,8 +46,8 @@
 
 
 
-      <button (click)="navigateToCreate()" class="btn btn-primary mt-5">
-        Create Survey
+      <button class="btn btn-primary mt-5" routerLink="/create/generate" [queryParams]="{deptID: departmentId}">
+        Create Survey 
       </button>
 
     </div>

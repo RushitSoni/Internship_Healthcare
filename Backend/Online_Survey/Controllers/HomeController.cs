@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Online_Survey.Data;
@@ -10,6 +11,7 @@ using System.Linq;
 
 namespace Online_Survey.Controllers
 {
+    [Authorize]
     [ApiController]
     [Route("[controller]")]
 

@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.RateLimiting;
 using Online_Survey.DTOs.Company;
@@ -7,6 +8,7 @@ using System.Threading.Tasks;
 
 namespace Online_Survey.Controllers
 {
+    [Authorize]
     [Route("api/[controller]")]
     [ApiController]
 

@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ElementRef, ViewChild } from '@angular/core';
 
 import { AccountService } from '../account/account.service';
 import { Router } from '@angular/router';
@@ -10,10 +10,18 @@ import { Router } from '@angular/router';
 })
 export class NavbarComponent {
 
-  constructor(private router: Router,public accountService : AccountService){}
 
+
+  constructor(private router: Router,public accountService : AccountService){}
+  @ViewChild('navbarCollapse') navbarCollapse!: ElementRef ;
+
+  toggleNavbar() {
+    this.navbarCollapse.nativeElement.classList.toggle('show');
+  }
   logout(){
     this.accountService.logout()
   }
-
+  
 }
+
+

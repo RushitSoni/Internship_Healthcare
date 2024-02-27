@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { CreateService } from '../create.service';
 import { GlobalserviceService } from '../../../globalservice/globalservice.service';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
 import { SettimeComponent } from '../settime/settime.component';
 import { SurveyTable } from '../../shared/Models/Survey';
@@ -20,12 +20,22 @@ export class GenerateSurveyComponent implements OnInit{
   selectedTime: any;
   selectedDuration! : number;
   description : string = '';
-  constructor(private dialog : MatDialog,private service: CreateService,private globalService: GlobalserviceService,private router : Router)
+
+
+  departmentId : string = ''
+
+  constructor(private route:ActivatedRoute,private dialog : MatDialog,private service: CreateService,private globalService: GlobalserviceService,private router : Router)
   {
     this.mindate = this.formatDate(new Date());
   }
 
   ngOnInit(): void {
+
+    this.route.queryParams.subscribe(params => {
+      this.departmentId=params['deptID']
+    }
+    )
+
     
   }
 
