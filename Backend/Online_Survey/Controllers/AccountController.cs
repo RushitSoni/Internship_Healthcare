@@ -84,7 +84,7 @@ namespace Online_Survey.Controllers
                 LastName = model.LastName.ToLower(),
                 UserName = model.Email.ToLower(),
                 Email = model.Email.ToLower(),
-                
+                Role="user",
                 Provider="Normal"
 
             };
@@ -316,6 +316,7 @@ namespace Online_Survey.Controllers
                 UserName = model.UserId,
                 Email = model.Email.ToLower(), // Store email address
                 Provider = model.Provider,
+                Role="user"
             };
 
             var result = await _userManager.CreateAsync(userToAdd);
@@ -343,6 +344,7 @@ namespace Online_Survey.Controllers
                 FirstName = user.FirstName,
                 LastName = user.LastName,
                 UserName = user.UserName,
+                Role=  user.Role,
                 Id= user.Id,
                 JWT =  _jwtService.CreateJWT(user),
 

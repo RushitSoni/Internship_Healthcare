@@ -1,0 +1,10 @@
+.upper-class{
+    margin: 5%;
+    display: flex;
+    flex-direction: column;
+}
+
+button{
+    margin-top: 2%;
+    width: 100px;
+}

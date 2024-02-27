@@ -1,4 +1,4 @@
-/* .create-container {
+.create-container {
 display: flex;
 height: 100%;
 margin-left:1%
@@ -14,6 +14,7 @@ min-height: 500px;
 .create-content {
 width: 80%;
 padding: 20px;
+height: 100%;
 }
 
 .description_text
@@ -24,62 +25,10 @@ padding: 20px;
 .custom-text{
     width: 50%;
     height: 85%;
-} */
+}
 
-
-.create-container {
+.settings{
     display: flex;
-    margin: 20px;
-  }
-  
-  app-sidebar {
-    width: 20%; /* Adjust based on your design */
-    background-color: #f0f0f0;
-    padding: 20px;
-    min-height: 500px;
-  }
-  
-  .create-content {
-    padding: 20px;
-    flex-grow: 1;
-    background-color: #ffffff;
-    border: 1px solid #e0e0e0;
-    border-radius: 8px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-  }
-  
-  .description-text {
-    margin-bottom: 20px;
-  }
-  
-  label {
-    font-weight: bold;
-    display: block;
-    margin-bottom: 10px;
-  }
-  
-  .custom-text {
-    width: 100%;
-    padding: 10px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    resize: vertical;
-  }
-  
-  .btn-primary {
-    background-color: #007bff;
-    color: #fff;
-    padding: 10px 20px;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-  }
-  
-  .btn-primary:hover {
-    background-color: #0056b3;
-  }
-  
-  .btn-primary:active {
-    transform: translateY(2px);
-  }
-  
+    flex-direction: column;
+    margin: 2%;
+}

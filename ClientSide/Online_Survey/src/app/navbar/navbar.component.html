@@ -19,12 +19,14 @@
               class="nav-link"
               routerLinkActive="active"
               [routerLinkActiveOptions]="{ exact: true }"
+             
               >Home</a
             >
           </li>
           <li class="nav-item">
-            <a routerLink="/play" class="nav-link" routerLinkActive="active"
-              >Create</a
+            <a routerLink="/admin" class="nav-link" routerLinkActive="active"
+            *ngIf="(accountService.user$ | async)?.role === 'superadmin'"
+              >Admin</a
             >
           </li>
         </ul>
@@ -49,7 +51,7 @@
           <a class="text-white" style="text-decoration: none; cursor: pointer">
             Hi
             <span class="h3 text-warning">{{
-              user.firstName | titlecase
+              user.role| titlecase
             }}</span>
           </a>
 

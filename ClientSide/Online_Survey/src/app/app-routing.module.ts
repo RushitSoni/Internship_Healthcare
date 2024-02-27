@@ -3,6 +3,8 @@ import { RouterModule, Routes } from '@angular/router';
 import { HomeComponent } from './home/home.component';
 import { LandingPageComponent } from './landing-page/landing-page.component';
 import { NotFoundComponent } from './shared/components/errors/not-found/not-found.component';
+import { AdminComponent } from './admin/admin.component';
+
 
 const routes: Routes = [
   {
@@ -12,11 +14,15 @@ const routes: Routes = [
   {
     path:'home',component:HomeComponent
   },
+  {
+    path:'admin',component:AdminComponent
+  },
   
   //Implementing lazy loading
   {path:'account',loadChildren:()=>import('./account/account.module').then(module=>module.AccountModule)},
   {path:'workspace',loadChildren:()=>import('./workspace/workspace.module').then(module=>module.WorkspaceModule)},
   {path:'create',loadChildren:()=>import('./create/create.module').then(module=>module.CreateModule)},
+  {path:'respondent',loadChildren:()=>import('./respondent/respondent.module').then(module=>module.RespondentModule)},
   {path:'not-found',component:NotFoundComponent},
   {path:'**',component:NotFoundComponent,pathMatch:'full'}
 ];

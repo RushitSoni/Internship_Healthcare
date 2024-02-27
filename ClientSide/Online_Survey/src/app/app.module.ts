@@ -44,9 +44,6 @@ import { WorkspaceModule } from './workspace/workspace.module';
     BlogComponent,
     SupportComponent,
     GetStartedComponent,
-   
-
-    
   ],
 
   imports: [BrowserModule, AppRoutingModule, NgbModule, SharedModule,HttpClientModule,FormsModule,WorkspaceModule],
@@ -55,7 +52,7 @@ import { WorkspaceModule } from './workspace/workspace.module';
   // ],
 
   providers: [
-    { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
+    { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true }
   ],
   bootstrap: [AppComponent],
 })

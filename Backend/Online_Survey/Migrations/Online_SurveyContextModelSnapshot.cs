@@ -213,7 +213,9 @@ namespace Online_Survey.Migrations
                         .HasColumnType("bit");
 
                     b.Property<string>("Provider")
-                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Role")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("SecurityStamp")

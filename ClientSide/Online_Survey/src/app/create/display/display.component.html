@@ -1,0 +1,22 @@
+<div class="output-container">
+    <div *ngFor="let question of questions; let i = index" class="card">
+        <!-- Display the question number along with the question text -->
+        <p><strong>Question {{ i + 1 }}:</strong> {{ question.questionText }}</p>
+        <!-- Rest of your output content -->
+        <p *ngIf="question.questionOptionType == 1">
+            Options:
+            <span *ngFor="let options of question.options">
+                <input type="radio" disabled="true">{{ options.optionText }}
+            </span>
+        </p>
+        <p *ngIf="question.questionOptionType == 2">
+            Options:
+            <span *ngFor="let options of question.options">
+                <input type="checkbox" disabled="true">{{ options.optionText }}
+            </span>
+        </p>
+        <p *ngIf="question.questionOptionType == 3">
+            <input type="text" disabled="true">
+        </p>
+   </div>
+</div>
