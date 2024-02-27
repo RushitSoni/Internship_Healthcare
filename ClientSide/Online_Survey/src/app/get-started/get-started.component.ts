@@ -8,10 +8,7 @@ import { Component } from '@angular/core';
 })
 export class GetStartedComponent {
 
-  createSurvey() {
-    // Add logic to handle "Create Survey" button click
-   alert('Create Survey clicked');
-  }
+ 
 
   learnMore() {
     // Add logic to handle "Learn More" button click

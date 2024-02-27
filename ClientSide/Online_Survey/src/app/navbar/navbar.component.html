@@ -11,12 +11,17 @@
         </a>
       </div>
 
-      <div class="collapse navbar-collapse">
+      <button class="navbar-toggler" type="button" (click)="toggleNavbar()">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      
+
+      <div class="collapse navbar-collapse" #navbarCollapse>
         <ul class="navbar-nav me-auto">
           <li class="nav-item">
             <a
               routerLink="/home"
-              class="nav-link"
+              class="nav-link mx-2"
               routerLinkActive="active"
               [routerLinkActiveOptions]="{ exact: true }"
              
@@ -24,7 +29,7 @@
             >
           </li>
           <li class="nav-item">
-            <a routerLink="/admin" class="nav-link" routerLinkActive="active"
+            <a routerLink="/admin" class="nav-link mx-2" routerLinkActive="active"
             *ngIf="(accountService.user$ | async)?.role === 'superadmin'"
               >Admin</a
             >
@@ -33,33 +38,44 @@
 
         <ul class="navbar-nav" *ngIf="(accountService.user$ | async) === null">
           <li class="nav-item">
-            <a class="btn btn-secondary mx-2" routerLink="/account/register"
+            <a class="btn btn-secondary mx-2 my-1" routerLink="/account/register"
               >Create Account</a
             >
           </li>
           <li class="nav-item">
-            <a class="btn btn-secondary mx-2" routerLink="/account/login"
+            <a class="btn btn-secondary mx-2 my-1" routerLink="/account/login"
               >Login</a
             >
           </li>
         </ul>
 
-        <div
+        <ul class="navbar-nav" *ngIf="accountService.user$ | async as user">
+          <li class="nav-item">
+            <a class="h3 text-warning mx-2 my-1" style="text-decoration: none; cursor: pointer">
+            
+              Hi !  {{user.role| titlecase}}
+             </a>
+          </li>
+          <li class="nav-item">
+            <a class="btn btn-secondary mx-2 my-1" (click)="logout()">LogOut</a>
+          </li>
+        </ul>
+
+        <!-- <div
           class="d-flex align-items-center"
           *ngIf="accountService.user$ | async as user"
         >
-          <a class="text-white" style="text-decoration: none; cursor: pointer">
-            Hi
-            <span class="h3 text-warning">{{
-              user.role| titlecase
-            }}</span>
+          <a class="h3 text-warning" style="text-decoration: none; cursor: pointer">
+            
+           Hi !  {{user.role| titlecase}}
           </a>
 
           <a class="btn btn-secondary ms-2" (click)="logout()">LogOut</a>
-        </div>
-      </div>
+        </div>-->
+      </div> 
+
+    
     </div>
   </nav>
   <hr>
 </header>
-

@@ -343,7 +343,7 @@ namespace Online_Survey.Controllers
             {
                 FirstName = user.FirstName,
                 LastName = user.LastName,
-                UserName = user.UserName,
+                Email=user.Email,
                 Role=  user.Role,
                 Id= user.Id,
                 JWT =  _jwtService.CreateJWT(user),
