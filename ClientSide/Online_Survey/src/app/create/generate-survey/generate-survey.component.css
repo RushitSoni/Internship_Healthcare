@@ -1,34 +1,38 @@
 .create-container {
-display: flex;
-height: 100%;
-margin-left:1%
+  display: flex;
+  height: 100%;
+  margin-left: 1%;
 }
 
 .sidebar {
-width: 20%;
-background-color: #f0f0f0;
-padding: 20px;
-min-height: 500px;
+  width: 20%;
+  background-color: #f0f0f0;
+  padding: 20px;
+  min-height: 500px;
+  height: 100vh;
 }
 
 .create-content {
-width: 80%;
-padding: 20px;
-height: 100%;
+  width: 80%;
+  padding: 20px;
+  height: 100vh;
+  margin-left: 10px;
+  border: 1px solid #ddd; /* Add border to company content */
+  padding: 20px; /* Add padding for better visual */
+  background-color: #f9f9f9;
 }
 
-.description_text
-{
-    height: 50%;
+.description_text {
+  height: 50%;
 }
 
-.custom-text{
-    width: 50%;
-    height: 85%;
+.custom-text {
+  width: 50%;
+  height: 85%;
 }
 
-.settings{
-    display: flex;
-    flex-direction: column;
-    margin: 2%;
+.settings {
+  display: flex;
+  flex-direction: column;
+  margin: 2%;
 }

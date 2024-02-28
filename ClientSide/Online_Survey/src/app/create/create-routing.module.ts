@@ -4,6 +4,7 @@ import { AddQuestionComponent } from './add-question/add-question.component';
 import { GenerateSurveyComponent } from './generate-survey/generate-survey.component';
 import { CompletionComponent } from './completion/completion.component';
 import { SendComponent } from './send/send.component';
+import { WorkspaceModule } from '../workspace/workspace.module'; 
 
 const routes: Routes = [
   {path: 'generate',component:GenerateSurveyComponent},
