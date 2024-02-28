@@ -105,7 +105,7 @@ export class SurveyerWorkspaceComponent implements OnInit {
 
     console.log(this.surveyerDeptForm.value.userName)
     console.log(this.users)
-    const selectedUser = this.users.find(user => user.userName == this.surveyerDeptForm.value.userName);
+    const selectedUser = this.users.find(user => user.email == this.surveyerDeptForm.value.userName);
     
     if (selectedUser) {
         console.log(selectedUser.id)
@@ -149,7 +149,5 @@ checkAdminRole(): void {
   
 }
 
-navigateToCreate(){
-  this.router.navigateByUrl('/create/generate')
-}
+
 }
