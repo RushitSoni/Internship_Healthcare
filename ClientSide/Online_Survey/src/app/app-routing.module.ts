@@ -4,9 +4,11 @@ import { HomeComponent } from './home/home.component';
 import { LandingPageComponent } from './landing-page/landing-page.component';
 import { NotFoundComponent } from './shared/components/errors/not-found/not-found.component';
 import { AdminComponent } from './admin/admin.component';
+import { ProfileComponent } from './profile/profile.component';
 
 
 const routes: Routes = [
+  {path:'profile', component:ProfileComponent},
   {
     path:'',component:LandingPageComponent
   },
@@ -25,6 +27,7 @@ const routes: Routes = [
   {path:'respondent',loadChildren:()=>import('./respondent/respondent.module').then(module=>module.RespondentModule)},
   {path:'not-found',component:NotFoundComponent},
   {path:'**',component:NotFoundComponent,pathMatch:'full'}
+  
 ];
 
 @NgModule({

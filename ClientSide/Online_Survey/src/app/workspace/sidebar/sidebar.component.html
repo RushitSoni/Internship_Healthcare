@@ -1,17 +1,42 @@
-<!-- <div class="sidebar">
-    <ul>
-        <li><a [routerLink]="['/workspace', 'company']">Workspace</a></li>
-        <li><a routerLink="/home">Create</a></li>
-    </ul>
-</div> -->
-
-<div class="input" >
-    <button class="value" [routerLink]="['/workspace', 'company']">
-      
-      Workspace
+<!-- 
+  <div class="input">
+    <button class="value" (mousedown)="changeColor('workspace')" [routerLink]="['/workspace', 'company']" [ngClass]="{'active': activeButton === 'workspace'}">
+        Workspace
     </button>
-    <button class="value" [routerLink]="['/create','generate']">
-      
-      Create
+    <button class="value" (mousedown)="changeColor('create')" [routerLink]="['/create','generate']" [ngClass]="{'active': activeButton === 'create'}">
+        Create
     </button>
+    <div class="profile-button">
+      <button class="value" (mousedown)="changeColor('profile')" [routerLink]="['/profile']" [ngClass]="{'active': activeButton === 'profile'}">
+        Profile
+      </button>
+</div>
+ -->
+<div class="input">
+  <a
+    class="value"
+    (mousedown)="changeColor('workspace')"
+    [routerLink]="['/workspace', 'company']"
+    [ngClass]="{ active: activeButton === 'workspace' }"
+  >
+    <mat-icon>home</mat-icon> Workspace
+  </a>
+  <a
+    class="value"
+    (mousedown)="changeColor('create')"
+    [routerLink]="['/create', 'generate']"
+    [ngClass]="{ active: activeButton === 'create' }"
+  >
+    <mat-icon>add</mat-icon> Create
+  </a>
+  <div class="profile-button">
+    <a
+      class="value"
+      (mousedown)="changeColor('profile')"
+      [routerLink]="['/profile']"
+      [ngClass]="{ active: activeButton === 'profile' }"
+    >
+      <mat-icon>person</mat-icon> Profile
+    </a>
   </div>
+</div>

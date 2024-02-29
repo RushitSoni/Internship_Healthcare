@@ -23,6 +23,8 @@ import { SupportComponent } from './support/support.component';
 import { GetStartedComponent } from './get-started/get-started.component';
 import { FormsModule } from '@angular/forms';
 import { WorkspaceModule } from './workspace/workspace.module';
+import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
+import { ProfileComponent } from './profile/profile.component';
 
 @NgModule({
   declarations: [
@@ -40,6 +42,7 @@ import { WorkspaceModule } from './workspace/workspace.module';
     BlogComponent,
     SupportComponent,
     GetStartedComponent,
+    ProfileComponent,
   ],
 
   imports: [BrowserModule, AppRoutingModule, NgbModule, SharedModule,HttpClientModule,FormsModule,WorkspaceModule],
@@ -48,7 +51,8 @@ import { WorkspaceModule } from './workspace/workspace.module';
   // ],
 
   providers: [
-    { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true }
+    { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
+    provideAnimationsAsync()
   ],
   bootstrap: [AppComponent],
 })
