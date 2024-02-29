@@ -41,3 +41,15 @@ export interface Respondent{
     Email: string;
     PhoneNumber: string;
 }
+
+export interface Respondent_Record{
+    RespondentId : number;
+    SurveyId : number;
+}
+
+export interface Answer{
+    Id : number;
+    QuestionId : number;
+    OptionId : number;
+    AnswerText : string;
+}

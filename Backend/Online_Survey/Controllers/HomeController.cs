@@ -29,6 +29,7 @@ namespace Online_Survey.Controllers
                 cfg.CreateMap<QuestionDTO, QuestionTable>();
                 cfg.CreateMap<OptionDTO, OptionTable>();
                 cfg.CreateMap<RespondentDTO,RespondentDetail>();
+                cfg.CreateMap<RecordDTOcs, RespondentRecord>();
             }));
             _httpContextAccessor = httpContextAccessor;
             _userRepository = userRepository;
@@ -128,6 +129,25 @@ namespace Online_Survey.Controllers
             }
 
             throw new Exception("Oops! could not add respondent.");
+        }
+
+        [HttpPost("AddRecord")]
+        public int AddRecord(RecordDTOcs recordDTOcs)
+        {
+            RespondentRecord respondentRecord = mapper.Map<RespondentRecord>(recordDTOcs);
+            _userRepository.AddEntity(respondentRecord);
+
+            if (_userRepository.SaveChange()) { 
+                return respondentRecord.Id;
+            }
+
+            throw new Exception("Oops! Cannot add details.");
+        }
+
+        [HttpPost("AddAnswers")]
+        public IActionResult AddAnswers(RespondentAnswer[] answers )
+        {
+            return Ok();
         }
             //[HttpGet("GetURL")]
             //public IActionResult GetURL(int surveyid)
