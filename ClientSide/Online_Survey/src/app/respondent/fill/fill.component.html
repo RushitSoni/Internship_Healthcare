@@ -1,1 +1,35 @@
-<p>fill works!</p>
+<!--
+    @gauravkumarmakwana
+    edited on 28-02-2024
+-->
+
+<form *ngFor="let q of  fillData">
+    <div class="form-group">
+      <!-- Question text -->
+      <!-- same for all type of question -->
+      <label for="{{q.QuestionId}}">{{q.QuestionId}}. {{q.QuestionText}}</label>
+      <!-- 1 for type text field  -->
+      <input *ngIf="q.QuestionOptionType === 1" type="text" class="form-control" id="{{q.QuestionId}}"
+        aria-describedby="emailHelp" placeholder="Enter your answer">
+        
+      <!-- 2 for radio button -->
+      <div *ngIf="q.QuestionOptionType === 2">
+        <div class="form-check" *ngFor="let o of q.Options">
+          <input class="form-check-input" type="radio" name="exampleRadios" id = {{q.QuestionId}}{{o.OptionId}} value={{q.QuestionId}}{{o.OptionId}}>
+          <label class="form-check-label" for={{q.QuestionId}}{{o.OptionId}}>
+            {{o.OptionText}}
+          </label>
+        </div>
+      </div>
+  
+      <!-- 3 for checkbox button -->
+      <div class="form-check" *ngIf="q.QuestionOptionType === 3">
+        <div *ngFor="let o of q.Options">
+          <input class="form-check-input" type="checkbox" value="{{q.QuestionId}}{{o.OptionId}}" id="{{q.QuestionId}}{{o.OptionId}}">
+          <label class="form-check-label" for="{{q.QuestionId}}{{o.OptionId}}">
+            {{o.OptionText}}
+          </label>
+        </div>
+      </div>
+    </div>
+  </form>

@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Online_Survey.Data;
 using Online_Survey.DTO;
+using Online_Survey.DTOs.Respondent;
 using Online_Survey.DTOs.Survey;
 using Online_Survey.Models;
 using System;
@@ -27,6 +28,7 @@ namespace Online_Survey.Controllers
                 cfg.CreateMap<SurveyDTO, SurveyTable>();
                 cfg.CreateMap<QuestionDTO, QuestionTable>();
                 cfg.CreateMap<OptionDTO, OptionTable>();
+                cfg.CreateMap<RespondentDTO,RespondentDetail>();
             }));
             _httpContextAccessor = httpContextAccessor;
             _userRepository = userRepository;
@@ -114,15 +116,28 @@ namespace Online_Survey.Controllers
             return Ok(result);
         }
 
-        //[HttpGet("GetURL")]
-        //public IActionResult GetURL(int surveyid)
-        //{
-        //    var request = _httpContextAccessor.HttpContext.Request;
-        //    var baseUrl = $"{request.Scheme}: {request.Host}";
+        [HttpPost("AddRespondent")]
+        public int AddRespondent(RespondentDTO respondentDTO)
+        {
+            RespondentDetail respondentDetail = mapper.Map<RespondentDetail>(respondentDTO);
+            _userRepository.AddEntity(respondentDetail);
 
-        //    var surveyurl = $"{baseUrl}/survey/{surveyid}";
+            if (_userRepository.SaveChange())
+            {
+                return respondentDetail.Id;
+            }
 
-        //    return Ok(surveyurl);
-        //}
-    }
+            throw new Exception("Oops! could not add respondent.");
+        }
+            //[HttpGet("GetURL")]
+            //public IActionResult GetURL(int surveyid)
+            //{
+            //    var request = _httpContextAccessor.HttpContext.Request;
+            //    var baseUrl = $"{request.Scheme}: {request.Host}";
+
+            //    var surveyurl = $"{baseUrl}/survey/{surveyid}";
+
+            //    return Ok(surveyurl);
+            //}
+        }
 }

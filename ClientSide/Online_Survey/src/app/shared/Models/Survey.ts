@@ -35,3 +35,9 @@ export interface SurveyTable{
     SurveyorId : String;
     Description : string;
 }
+
+export interface Respondent{
+    Name : string;
+    Email: string;
+    PhoneNumber: string;
+}
