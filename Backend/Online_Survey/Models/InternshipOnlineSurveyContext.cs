@@ -7,7 +7,7 @@ namespace Online_Survey.Models;
 
 public partial class InternshipOnlineSurveyContext : DbContext
 {
-    private readonly IConfiguration _configuration;
+    private IConfiguration _configuration;
     public InternshipOnlineSurveyContext(IConfiguration config)
     {
         _configuration = config;
@@ -21,6 +21,12 @@ public partial class InternshipOnlineSurveyContext : DbContext
 
     public virtual DbSet<QuestionTable> QuestionTables { get; set; }
 
+    public virtual DbSet<RespondentAnswer> RespondentAnswers { get; set; }
+
+    public virtual DbSet<RespondentDetail> RespondentDetails { get; set; }
+
+    public virtual DbSet<RespondentRecord> RespondentRecords { get; set; }
+
     public virtual DbSet<SurveyTable> SurveyTables { get; set; }
 
     public virtual DbSet<SurveyerDept> SurveyerDepts { get; set; }
@@ -29,7 +35,7 @@ public partial class InternshipOnlineSurveyContext : DbContext
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see https://go.microsoft.com/fwlink/?LinkId=723263.
-         => optionsBuilder.UseSqlServer(_configuration.GetConnectionString("DefaultConnection"));
+        => optionsBuilder.UseSqlServer(_configuration.GetConnectionString("DefaultConnection"));
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -112,6 +118,60 @@ public partial class InternshipOnlineSurveyContext : DbContext
                 .HasForeignKey(d => d.SurveyId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("FK__Question___surve__0880433F");
+        });
+
+        modelBuilder.Entity<RespondentAnswer>(entity =>
+        {
+            entity.HasKey(e => e.Id).HasName("PK__Responde__3214EC075B3D7952");
+
+            entity.ToTable("Respondent_Answer");
+
+            entity.Property(e => e.Id).ValueGeneratedNever();
+            entity.Property(e => e.AnswerText).HasColumnName("answer_text");
+            entity.Property(e => e.OptionId).HasColumnName("Option_id");
+            entity.Property(e => e.QuestionId).HasColumnName("Question_id");
+
+            entity.HasOne(d => d.IdNavigation).WithOne(p => p.RespondentAnswer)
+                .HasForeignKey<RespondentAnswer>(d => d.Id)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK__Respondent_A__Id__589C25F3");
+
+            entity.HasOne(d => d.Option).WithMany(p => p.RespondentAnswers)
+                .HasForeignKey(d => d.OptionId)
+                .HasConstraintName("FK__Responden__Optio__5A846E65");
+
+            entity.HasOne(d => d.Question).WithMany(p => p.RespondentAnswers)
+                .HasForeignKey(d => d.QuestionId)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK__Responden__Quest__59904A2C");
+        });
+
+        modelBuilder.Entity<RespondentDetail>(entity =>
+        {
+            entity.HasKey(e => e.Id).HasName("PK__Responde__3214EC07D5D5904C");
+
+            entity.ToTable("Respondent_Details");
+
+            entity.Property(e => e.Email)
+                .IsRequired()
+                .HasMaxLength(40);
+            entity.Property(e => e.Name)
+                .IsRequired()
+                .HasMaxLength(40);
+            entity.Property(e => e.PhoneNumber)
+                .IsRequired()
+                .HasMaxLength(40)
+                .HasColumnName("Phone_number");
+        });
+
+        modelBuilder.Entity<RespondentRecord>(entity =>
+        {
+            entity.HasKey(e => e.Id).HasName("PK__Responde__3214EC07EB3BA6FE");
+
+            entity.ToTable("Respondent_Record");
+
+            entity.Property(e => e.RespondentId).HasColumnName("Respondent_id");
+            entity.Property(e => e.SurveyId).HasColumnName("Survey_id");
         });
 
         modelBuilder.Entity<SurveyTable>(entity =>

@@ -38,7 +38,6 @@ export class SettimeComponent {
         SurveyorId : 'ccc5dff2-a4c6-4c9c-882a-130bab6a2d26',
         Description : this.description
       }
-
       resolve(surveyTable);
     });
   }
