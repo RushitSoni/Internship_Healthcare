@@ -1,0 +1,26 @@
+<div>
+    <div>
+        <div mat-dialog-title>Company Form</div>
+    
+        <form [formGroup]="companyForm" (ngSubmit)="createCompany()" autocomplete="off">
+    
+        <div mat-dialog-content> 
+    
+            <div class="row">
+                <mat-form-field appearance="outline">
+                    <mat-label>Company Name</mat-label>
+                    <input matInput placeholder="Ex.HealthCare Informatics" formControlName="name">
+                </mat-form-field>
+            </div>
+    
+        </div>
+    
+        <div mat-dialog-actions class="action">
+            <button mat-raised-button color="warn">Cancel</button>
+            <button mat-raised-button color="primary" type="submit">Save</button>
+        </div>
+    
+        </form>
+    </div>
+    
+</div>

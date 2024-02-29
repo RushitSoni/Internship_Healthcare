@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit ,ViewChild} from '@angular/core';
 
 import { WorkspaceService } from '../workspace.service';
 import { AccountService } from '../../account/account.service';
@@ -8,6 +8,12 @@ import { APIResponse } from '../../shared/Models/APIResponse';
 import { Subscription } from 'rxjs';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { SurveyerViaDept } from '../../shared/Models/surveyerViaDept';
+import { MatDialog } from '@angular/material/dialog';
+import { AddEditCompanyComponent } from '../add-edit-company/add-edit-company.component';
+
+import { MatTableDataSource } from '@angular/material/table';
+import { MatPaginator } from '@angular/material/paginator';
+import { MatSort } from '@angular/material/sort';
 
 @Component({
   selector: 'app-company',
@@ -28,8 +34,18 @@ export class CompanyComponent implements OnInit {
   compsniesAsSurveyer:Company[]=[]
 
 
+  //table
 
-  constructor(private workspaceService: WorkspaceService, private formBuilder: FormBuilder, public accountService: AccountService) { }
+  displayedColumns: string[] = ['name','action'];
+  dataSource!: MatTableDataSource<any>;
+
+  @ViewChild(MatPaginator) paginator!: MatPaginator;
+  @ViewChild(MatSort) sort!: MatSort;
+
+
+
+  constructor(private workspaceService: WorkspaceService, private formBuilder: FormBuilder, public accountService: AccountService,
+    private dialog:MatDialog) { }
 
   ngOnInit(): void {
    
@@ -45,18 +61,13 @@ export class CompanyComponent implements OnInit {
     setTimeout(() => {
       this.loadCompanies(this.user.id);
       this.loadCompaniesAsSurveyer(this.user.id)
-    }, 1000); // 2000 milliseconds = 2 seconds
+    }, 100); // 2000 milliseconds = 2 seconds
  
-    this.initializeForm()
+    
     
    
   }
-  initializeForm() {
-    this.companyForm = this.formBuilder.group({
-      name: ['', Validators.required], // Add 'name' control with validators
-      adminId:this.user.id// Set default value to user.id if user is available
-    });
-  }
+
 
 
   loadCompanies(userId: string): void {
@@ -65,6 +76,9 @@ export class CompanyComponent implements OnInit {
         // Filter companies based on userId
         this.companies = data.filter(company => company.adminId === userId);
         console.log(this.companies);
+
+        this.updateDataSource(this.compsniesAsSurveyer, 'Admin');
+
       },
       error => {
         console.log('Error fetching companies:', error);
@@ -84,6 +98,12 @@ export class CompanyComponent implements OnInit {
           return !this.companies.some(c => c.companyId === company.companyId) && companyIds.includes(company.companyId);
         });
         this.compsniesAsSurveyer = filteredCompanies;
+       
+
+        this.updateDataSource(this.compsniesAsSurveyer, 'Surveyer');
+
+
+       
       }, error => {
         console.error("Error in getAllSurveyerDepts():", error);
       });
@@ -94,27 +114,55 @@ export class CompanyComponent implements OnInit {
   
   
 
-  createCompany(): void {
+  
 
+  openAddEditCompanyForm(){
+    const dialogRef = this.dialog.open(AddEditCompanyComponent);
 
-    this.submitted=true
+    dialogRef.afterClosed().subscribe(result => {
+      // Reload companies and update table after dialog is closed
+      if (result === 'saved') {
+        this.loadCompanies(this.user.id);
+        this.loadCompaniesAsSurveyer(this.user.id);
+      }
+    });
 
-   
+  }
+  applyFilter(event:Event) {
 
-    this.workspaceService.createCompany(this.companyForm.value)
-      .subscribe((response: APIResponse) => {
-        if (response.responseCode === 201) {
-          console.log('Company created successfully. ID:', response.result);
-          // Refresh the list of companies
-          this.loadCompanies(this.user.id);
-          
-          
-        } else {
-          console.error('Error creating company:', response.errorMsg);
-          // Handle error, maybe show an error message to the user
-        }
-      });
+    const filterValue=(event.target as HTMLInputElement).value
+    this.dataSource.filter = filterValue.trim().toLowerCase();
+
+    if (this.dataSource.paginator) {
+      this.dataSource.paginator.firstPage();
+    }
   }
 
-
+  updateDataSource(companies: Company[], type: string): void {
+    // Append appropriate suffix to company names based on type
+    const updatedCompanies = companies.map(company => {
+      const suffix = type === 'Admin' ? ' (Admin)' : ' ';
+      return {
+        ...company,
+        name: company.name + suffix
+      };
+    });
+  
+    // If the type is "Admin" and there are no companies provided, 
+    // we need to ensure that the suffix is appended to the user's existing companies
+    if (type === 'Admin' && companies.length === 0) {
+      this.companies.forEach(company => {
+        company.name += ' (Admin)';
+      });
+    }
+  
+    // Concatenate updated companies with existing companies
+    const mergedCompanies = [...this.companies, ...updatedCompanies];
+  
+    this.dataSource = new MatTableDataSource(mergedCompanies);
+    this.dataSource.sort = this.sort;
+    this.dataSource.paginator = this.paginator;
+  }
+  
+  
 }

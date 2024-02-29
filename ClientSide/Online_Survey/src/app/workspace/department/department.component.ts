@@ -93,6 +93,7 @@ export class DepartmentComponent implements OnInit {
 
  
   createDepartment(): void {
+    
     const companyIdNumber: number = Number(this.companyId);
     this.submitted = true;
   
@@ -102,13 +103,13 @@ export class DepartmentComponent implements OnInit {
           console.log('Department created successfully. ID:', response.result);
           
           // Create SurveyerViaDept for the department creator
-          console.log(response.result);
+          // console.log(response.result);
           const deptIdNumber: number = Number(response.result);
           const departmentCreatorSurveyer: SurveyerViaDept = {
             userId: this.user.id, 
             companyId: companyIdNumber,
             deptId: deptIdNumber,
-            userName: this.user.userName
+            userName: this.user.email
           };
           this.createSurveyerDeptForDepartmentCreator(departmentCreatorSurveyer);
   

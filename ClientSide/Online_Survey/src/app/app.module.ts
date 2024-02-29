@@ -23,6 +23,9 @@ import { SupportComponent } from './support/support.component';
 import { GetStartedComponent } from './get-started/get-started.component';
 import { FormsModule } from '@angular/forms';
 import { WorkspaceModule } from './workspace/workspace.module';
+import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
+import {MatButtonModule} from '@angular/material/button';
+
 
 @NgModule({
   declarations: [
@@ -42,13 +45,14 @@ import { WorkspaceModule } from './workspace/workspace.module';
     GetStartedComponent,
   ],
 
-  imports: [BrowserModule, AppRoutingModule, NgbModule, SharedModule,HttpClientModule,FormsModule,WorkspaceModule],
+  imports: [BrowserModule, AppRoutingModule, NgbModule, SharedModule,HttpClientModule,FormsModule,WorkspaceModule,MatButtonModule],
   // providers: [
   //   provideClientHydration()
   // ],
 
   providers: [
-    { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true }
+    { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
+    provideAnimationsAsync()
   ],
   bootstrap: [AppComponent],
 })
