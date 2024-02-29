@@ -18,21 +18,35 @@ import { MatSort } from '@angular/material/sort';
 @Component({
   selector: 'app-company',
   templateUrl: './company.component.html',
-  styleUrls: ['./company.component.css']
+  styleUrls: ['./company.component.css'],
 })
 export class CompanyComponent implements OnInit {
+  updateCompany() {
+    // Implement the logic for updating the company here
+  }
 
- 
+  deleteCompany() {
+    // Implement the logic for deleting the company here
+  }
+
+  updateCompanys(companyId: number): void {
+    // Implement your update logic here
+    console.log(`Update company with ID ${companyId}`);
+  }
+
+  deleteCompanys(companyId: number): void {
+    // Implement your delete logic here
+    console.log(`Delete company with ID ${companyId}`);
+  }
+
   companyForm: FormGroup = new FormGroup({});
   submitted = false;
- 
 
-  user: any ; // Change 'any' to the type of your user object if known
+  user: any; // Change 'any' to the type of your user object if known
   userSubscription: Subscription | undefined;
-  
-  companies: Company[] =[];
-  compsniesAsSurveyer:Company[]=[]
 
+  companies: Company[] = [];
+  compsniesAsSurveyer: Company[] = [];
 
   //table
 
@@ -48,15 +62,10 @@ export class CompanyComponent implements OnInit {
     private dialog:MatDialog) { }
 
   ngOnInit(): void {
-   
-   
-    this.userSubscription = this.accountService.user$.subscribe(
-      user => {
-        this.user = user; 
-        // Assign user data to the local variable
-       
-      }
-    );
+    this.userSubscription = this.accountService.user$.subscribe((user) => {
+      this.user = user;
+      // Assign user data to the local variable
+    });
 
     setTimeout(() => {
       this.loadCompanies(this.user.id);
@@ -69,25 +78,22 @@ export class CompanyComponent implements OnInit {
   }
 
 
-
   loadCompanies(userId: string): void {
     this.workspaceService.getAllCompanies().subscribe(
       (data: Company[]) => {
         // Filter companies based on userId
-        this.companies = data.filter(company => company.adminId === userId);
+        this.companies = data.filter((company) => company.adminId === userId);
         console.log(this.companies);
 
         this.updateDataSource(this.compsniesAsSurveyer, 'Admin');
 
       },
-      error => {
+      (error) => {
         console.log('Error fetching companies:', error);
       }
     );
   }
 
-
- 
   loadCompaniesAsSurveyer(userId: string): void {
     this.workspaceService.getAllCompanies().subscribe((companies: Company[]) => {
       this.workspaceService.getAllSurveyerDepts().subscribe((surveyers: SurveyerViaDept[]) => {
@@ -111,8 +117,6 @@ export class CompanyComponent implements OnInit {
       console.error("Error in getAllCompanies():", error);
     });
   }
-  
-  
 
   
 

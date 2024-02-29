@@ -26,6 +26,7 @@ import { WorkspaceModule } from './workspace/workspace.module';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 import {MatButtonModule} from '@angular/material/button';
 
+import { ProfileComponent } from './profile/profile.component';
 
 @NgModule({
   declarations: [
@@ -43,6 +44,7 @@ import {MatButtonModule} from '@angular/material/button';
     BlogComponent,
     SupportComponent,
     GetStartedComponent,
+    ProfileComponent,
   ],
 
   imports: [BrowserModule, AppRoutingModule, NgbModule, SharedModule,HttpClientModule,FormsModule,WorkspaceModule,MatButtonModule],

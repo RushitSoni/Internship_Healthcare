@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-
+import { MatIconModule } from '@angular/material/icon';
 import { WorkspaceRoutingModule } from './workspace-routing.module';
 import { CompanyComponent } from './company/company.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -15,7 +15,7 @@ import {MatInputModule} from '@angular/material/input';
 import {MatTableModule} from '@angular/material/table';
 import {MatSortModule} from '@angular/material/sort';
 import {MatPaginatorModule} from '@angular/material/paginator';
-import {MatIconModule} from '@angular/material/icon';
+
 
 @NgModule({
   declarations: [
@@ -28,6 +28,7 @@ import {MatIconModule} from '@angular/material/icon';
    
   ],
   imports: [
+    MatIconModule,
     CommonModule,
     WorkspaceRoutingModule,
     ReactiveFormsModule,
@@ -44,4 +45,4 @@ import {MatIconModule} from '@angular/material/icon';
   ],
   exports: [SidebarComponent],
 })
-export class WorkspaceModule { }
+export class WorkspaceModule {}

@@ -1,6 +1,24 @@
-
-
 /* Updated styles for improved design */
+
+.company-content {
+  border: 1px solid #ddd; /* Add border to company content */
+  padding: 20px; /* Add padding for better visual */
+  background-color: #f2ebf5; /* Set background color */
+  margin-left: 10px;
+}
+
+.company-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.buttons-container button {
+  margin-left: 10px;
+  padding: 8px 16px;
+  cursor: pointer;
+}
 
 .company-container {
   display: flex;

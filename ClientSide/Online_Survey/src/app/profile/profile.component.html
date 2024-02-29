@@ -1,0 +1,56 @@
+<!-- Profile Component HTML -->
+<div class="profile-container">
+  <app-sidebar></app-sidebar>
+  <div class="profile-box">
+    <h2>Name</h2>
+    <p>{{ firstName }} {{ lastName }}</p>
+    <button (click)="openEditPopup('name')">Edit</button>
+  </div>
+
+  <div class="profile-box">
+    <h2>Email</h2>
+    <p>{{ email }}</p>
+    <button (click)="openEditPopup('email')">Edit</button>
+  </div>
+
+  <div class="profile-box">
+    <h2>Photo</h2>
+    <img [src]="profilePhoto" alt="Profile Photo" />
+    <button (click)="openEditPopup('photo')">Edit</button>
+  </div>
+</div>
+
+<!-- Edit Popup HTML -->
+<div *ngIf="showEditPopup" class="edit-popup">
+  <h3>
+    Edit
+    {{
+      editType === "name" ? "Name" : editType === "email" ? "Email" : "Photo"
+    }}
+  </h3>
+
+  <!-- Edit Name Fields -->
+  <div *ngIf="editType === 'name'">
+    <label for="editFirstName">First Name:</label>
+    <input id="editFirstName" type="text" [(ngModel)]="editedFirstName" />
+
+    <label for="editLastName">Last Name:</label>
+    <input id="editLastName" type="text" [(ngModel)]="editedLastName" />
+  </div>
+
+  <!-- Edit Email Fields -->
+  <div *ngIf="editType === 'email'">
+    <label for="editEmail">New Email Address:</label>
+    <input id="editEmail" type="email" [(ngModel)]="editedEmail" />
+  </div>
+
+  <!-- Edit Photo Fields -->
+  <div *ngIf="editType === 'photo'">
+    <label for="editPhoto">Upload Photo:</label>
+    <input id="editPhoto" type="file" (change)="handlePhotoChange($event)" />
+    <button class="removeBtn" (click)="removePhoto()">Remove Photo</button>
+  </div>
+
+  <button (click)="cancelEdit()">Cancel</button>
+  <button (click)="continueEdit()">Continue</button>
+</div>
