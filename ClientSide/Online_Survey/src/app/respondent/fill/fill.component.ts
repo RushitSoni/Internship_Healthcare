@@ -1,4 +1,7 @@
 import { Component } from '@angular/core';
+import { Answer, QuestionOption } from '../../shared/Models/Survey';
+import { RespondentserviceService } from '../respondentservice.service';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-fill',
@@ -10,100 +13,61 @@ import { Component } from '@angular/core';
  * This component is responsible for filling out the survey form.
  */
 export class FillComponent {
-  fillData: any[] = []; 
-  constructor() { }
+  answer : {[key : string] : string | string[]} = {};
+  answerOption! : string;
+  answerChoice! : string;
+  fillData : QuestionOption[] = []; 
+  filledanswer : Answer[] = [];
+  constructor(private service: RespondentserviceService) { }
 
   /**
    * Initializes the component.
    * Adds dummy data to the fillData array for testing purposes.
    */
   ngOnInit() {
-    this.fillData = [
-      // Dummy data for testing purposes
-      {
-        "QuestionId": 1,
-        "QuestionText": "Name",
-        "QuestionOptionType": 1, // 1 for text field
-        "Options": []
-      },
-      {
-        "QuestionId": 2,
-        "QuestionText": "Gender",
-        "QuestionOptionType": 2, // 2 for radio button
-        "Options": [
-          {
-            "OptionId": "a",
-            "OptionText": "Male"
-          },
-          {
-            "OptionId": "b",
-            "OptionText": "Female"
-          },
-          {
-            "OptionId": "c",
-            "OptionText": "Rather Not says"
-          },
-        ]
-      },
-      {
-        "QuestionId": 3,
-        "QuestionText": "What did you like about the product?",
-        "QuestionOptionType": 3, // 3 for checkbox
-        "Options": [
-          {
-            "OptionId": "a",
-            "OptionText": "Quality"
-          },
-          {
-            "OptionId": "b",
-            "OptionText": "Price"
-          },
-          {
-            "OptionId": "c",
-            "OptionText": "Service"
-          },
-        ]
-      },
-      {
-        "QuestionId": 4,
-        "QuestionText": "What did you dislike about the product?",
-        "QuestionOptionType": 3,
-        "Options": [
-          {
-            "OptionId": "a",
-            "OptionText": "Quality"
-          },
-          {
-            "OptionId": "b",
-            "OptionText": "Price"
-          },
-          {
-            "OptionId": "c",
-            "OptionText": "Service"
-          },
-        ]
-      },
-      {
-        "QuestionId": 5,
-        "QuestionText": "Enter your age",
-        "QuestionOptionType": 1,
-        "Options": []
-      },
-      {
-        "QuestionId": 6,
-        "QuestionText": "Live in rural area or city?",
-        "QuestionOptionType": 2,
-        "Options": [
-          {
-            "OptionId": "a",
-            "OptionText": "Rural"
-          },
-          {
-            "OptionId": "b",
-            "OptionText": "City"
-          },
-        ]
-      },
-    ]
+    this.fillData = []
+    const data = this.service.getData() as Observable<QuestionOption[]>;
+
+    if(data !== undefined)
+    {
+      data.subscribe((filldata) => {
+        this.fillData = filldata;
+        console.log(filldata);
+      });
+    }
+  }
+
+  OnSubmit()
+  {
+    console.log("Question and Answers");
+    // this.fillData.forEach(questions => {
+
+      
+    //   // console.log(fillAns);
+    //   // this.filledanswer.push(fillAns);    
+    //   this.answer = {};
+    //   this.answerChoice = '';
+    //   this.answerOption = '';
+    // });
+
+    console.log(this.answer);
+
+    for(let id in this.answer)
+    {
+      const fillanswer : Answer = {
+        Id : this.service.primaryid,
+        QuestionId : Number(id),
+        OptionId : Number(this.answer[id]),
+        AnswerText : String(this.answer[id])
+      }
+
+      this.filledanswer.push(fillanswer);
+    }
+
+    console.log(this.filledanswer);
+    
+    this.service.addAnswer(this.filledanswer).subscribe((data) => {
+      console.log(data);
+    });
   }
 }
