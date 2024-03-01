@@ -30,6 +30,7 @@ namespace Online_Survey.Controllers
                 cfg.CreateMap<OptionDTO, OptionTable>();
                 cfg.CreateMap<RespondentDTO,RespondentDetail>();
                 cfg.CreateMap<RecordDTOcs, RespondentRecord>();
+                cfg.CreateMap<Answer, RespondentAnswer>();
             }));
             _httpContextAccessor = httpContextAccessor;
             _userRepository = userRepository;
@@ -145,8 +146,15 @@ namespace Online_Survey.Controllers
         }
 
         [HttpPost("AddAnswers")]
-        public IActionResult AddAnswers(RespondentAnswer[] answers )
+        public IActionResult AddAnswers(Answer[] answers )
         {
+            foreach(Answer answer in answers)
+            {
+                RespondentAnswer respondentAnswer = mapper.Map<RespondentAnswer>(answer);
+                _userRepository.AddEntity(respondentAnswer);
+
+                _userRepository.SaveChange();
+            }
             return Ok();
         }
             //[HttpGet("GetURL")]
