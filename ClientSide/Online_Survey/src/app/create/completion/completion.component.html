@@ -1,11 +1,10 @@
-
 <div>
 <app-display></app-display>
 <div class="upper-class">
     <p>Link for your Survey:</p>
     <input type="text" [value]="inputUrl" [disabled]="true" style="width: 100%;">
     <button ngxClipboard [cbContent]="inputUrl" class="btn btn-primary">Copy</button>
-
+    <button class="btn btn-primary" (click)="SaveTemplate()">Save As Template</button>
     <button  class="btn btn-primary mt-5" routerLink="/create/send" [queryParams]="{url: inputUrl}">Send</button>
 </div>
 </div>

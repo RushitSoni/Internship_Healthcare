@@ -20,6 +20,10 @@ export class CompletionComponent implements OnInit {
   ngOnInit(): void {
     this.Frontendurl = this.globalservice.FrontendUrl + 'respondent/' + this.globalservice.SurveyId;
     this.inputUrl = this.Frontendurl;
-    
+  }
+
+  SaveTemplate()
+  {
+     
   }
 }

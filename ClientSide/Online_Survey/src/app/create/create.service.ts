@@ -12,7 +12,19 @@ import { Observable } from 'rxjs';
 })
 export class CreateService {
 
+  private questionOption : QuestionOption[] = [];
+
   constructor(private http : HttpClient,private globalservice : GlobalserviceService) { }
+
+  setQuestionOption(data : QuestionOption[])
+  {
+    return this.questionOption = data;
+  }
+
+  getQuestionOption()
+  {
+    return this.questionOption;
+  }
 
   createSurvey(surveytable : SurveyTable)
   {

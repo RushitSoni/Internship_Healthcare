@@ -15,6 +15,8 @@ import { resolve } from 'path';
 export class AddQuestionComponent  implements OnInit{
   form_question! : FormGroup;
   Question_id! : number;
+  questionNumber: number = 1; // Initialize question number to 1
+  questionPreviews: any[] = []; // Array to hold all question previews
   
   constructor(private fb_question : FormBuilder,private globalservice : GlobalserviceService,private service : CreateService,private router: Router){
     
@@ -33,7 +35,7 @@ export class AddQuestionComponent  implements OnInit{
     this.form_question = this.fb_question.group({
       question_text : "",
       question_type : [''], // This will hold the selected question type
-      dynamicFields: this.fb_question.array([])
+      dynamicFields: this.fb_question.array([this.fb_question.control(''),this.fb_question.control('')])
     });
   }
 
@@ -46,7 +48,15 @@ export class AddQuestionComponent  implements OnInit{
   }
 
   removeDynamicField(index: number) {
-    this.dynamicFields.removeAt(index);
+    if(this.dynamicFields.length <= 2)
+    {
+      console.log("Cannot Delete TextField!");
+    }
+    else
+    {
+      this.dynamicFields.removeAt(index);
+    }
+    
   }
 
   UploadQuestion() : Promise<number>
@@ -108,7 +118,7 @@ export class AddQuestionComponent  implements OnInit{
       this.form_question.reset({
         question_text : "",
         question_type : [''], // This will hold the selected question type
-        dynamicFields: this.fb_question.array([])
+        dynamicFields: this.fb_question.array([this.fb_question.control(''),this.fb_question.control('')])
     });
     }).catch((err) => {
       
