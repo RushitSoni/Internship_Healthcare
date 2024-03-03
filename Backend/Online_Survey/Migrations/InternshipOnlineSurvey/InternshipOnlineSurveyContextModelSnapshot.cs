@@ -139,6 +139,85 @@ namespace Online_Survey.Migrations.InternshipOnlineSurvey
                     b.ToTable("Question_table", (string)null);
                 });
 
+            modelBuilder.Entity("Online_Survey.Models.RespondentAnswer", b =>
+                {
+                    b.Property<int>("Id")
+                        .HasColumnType("int");
+
+                    b.Property<string>("AnswerText")
+                        .HasColumnType("nvarchar(max)")
+                        .HasColumnName("answer_text");
+
+                    b.Property<int?>("OptionId")
+                        .HasColumnType("int")
+                        .HasColumnName("Option_id");
+
+                    b.Property<int>("QuestionId")
+                        .HasColumnType("int")
+                        .HasColumnName("Question_id");
+
+                    b.HasKey("Id")
+                        .HasName("PK__Responde__3214EC075B3D7952");
+
+                    b.HasIndex("OptionId");
+
+                    b.HasIndex("QuestionId");
+
+                    b.ToTable("Respondent_Answer", (string)null);
+                });
+
+            modelBuilder.Entity("Online_Survey.Models.RespondentDetail", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Email")
+                        .IsRequired()
+                        .HasMaxLength(40)
+                        .HasColumnType("nvarchar(40)");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(40)
+                        .HasColumnType("nvarchar(40)");
+
+                    b.Property<string>("PhoneNumber")
+                        .IsRequired()
+                        .HasMaxLength(40)
+                        .HasColumnType("nvarchar(40)")
+                        .HasColumnName("Phone_number");
+
+                    b.HasKey("Id")
+                        .HasName("PK__Responde__3214EC07D5D5904C");
+
+                    b.ToTable("Respondent_Details", (string)null);
+                });
+
+            modelBuilder.Entity("Online_Survey.Models.RespondentRecord", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("RespondentId")
+                        .HasColumnType("int")
+                        .HasColumnName("Respondent_id");
+
+                    b.Property<int>("SurveyId")
+                        .HasColumnType("int")
+                        .HasColumnName("Survey_id");
+
+                    b.HasKey("Id")
+                        .HasName("PK__Responde__3214EC07EB3BA6FE");
+
+                    b.ToTable("Respondent_Record", (string)null);
+                });
+
             modelBuilder.Entity("Online_Survey.Models.SurveyTable", b =>
                 {
                     b.Property<int>("SurveyId")
@@ -234,6 +313,7 @@ namespace Online_Survey.Migrations.InternshipOnlineSurvey
                     b.HasOne("Online_Survey.Models.Company", "Company")
                         .WithMany("Departments")
                         .HasForeignKey("CompanyId")
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired()
                         .HasConstraintName("FK_Department_Company");
 
@@ -270,6 +350,32 @@ namespace Online_Survey.Migrations.InternshipOnlineSurvey
                     b.Navigation("Survey");
                 });
 
+            modelBuilder.Entity("Online_Survey.Models.RespondentAnswer", b =>
+                {
+                    b.HasOne("Online_Survey.Models.RespondentRecord", "IdNavigation")
+                        .WithOne("RespondentAnswer")
+                        .HasForeignKey("Online_Survey.Models.RespondentAnswer", "Id")
+                        .IsRequired()
+                        .HasConstraintName("FK__Respondent_A__Id__589C25F3");
+
+                    b.HasOne("Online_Survey.Models.OptionTable", "Option")
+                        .WithMany("RespondentAnswers")
+                        .HasForeignKey("OptionId")
+                        .HasConstraintName("FK__Responden__Optio__5A846E65");
+
+                    b.HasOne("Online_Survey.Models.QuestionTable", "Question")
+                        .WithMany("RespondentAnswers")
+                        .HasForeignKey("QuestionId")
+                        .IsRequired()
+                        .HasConstraintName("FK__Responden__Quest__59904A2C");
+
+                    b.Navigation("IdNavigation");
+
+                    b.Navigation("Option");
+
+                    b.Navigation("Question");
+                });
+
             modelBuilder.Entity("Online_Survey.Models.SurveyerDept", b =>
                 {
                     b.HasOne("Online_Survey.Models.Company", "Company")
@@ -281,6 +387,7 @@ namespace Online_Survey.Migrations.InternshipOnlineSurvey
                     b.HasOne("Online_Survey.Models.Department", "Dept")
                         .WithMany("SurveyerDepts")
                         .HasForeignKey("DeptId")
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired()
                         .HasConstraintName("FK_Surveyer_Dept_DeptId");
 
@@ -301,9 +408,21 @@ namespace Online_Survey.Migrations.InternshipOnlineSurvey
                     b.Navigation("SurveyerDepts");
                 });
 
+            modelBuilder.Entity("Online_Survey.Models.OptionTable", b =>
+                {
+                    b.Navigation("RespondentAnswers");
+                });
+
             modelBuilder.Entity("Online_Survey.Models.QuestionTable", b =>
                 {
                     b.Navigation("OptionTables");
+
+                    b.Navigation("RespondentAnswers");
+                });
+
+            modelBuilder.Entity("Online_Survey.Models.RespondentRecord", b =>
+                {
+                    b.Navigation("RespondentAnswer");
                 });
 
             modelBuilder.Entity("Online_Survey.Models.SurveyTable", b =>

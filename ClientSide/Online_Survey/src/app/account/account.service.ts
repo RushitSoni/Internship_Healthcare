@@ -3,13 +3,14 @@ import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { Register } from '../shared/Models/register';
 import { environment } from '../../environments/environment.development';
-import { ReplaySubject, map, of } from 'rxjs';
+import { ReplaySubject, Subscription, map, of } from 'rxjs';
 import { Login } from '../shared/Models/login';
 import { User } from '../shared/Models/user';
 import { ResetPassword } from '../shared/Models/resetPassword';
 import { ConfirmEmail } from '../shared/Models/confirmEmailDto';
 import { LoginWithExternal } from '../shared/Models/loginWithExternal';
 import { RegisterWithExternal } from '../shared/Models/registerWithExternal';
+import { GlobalserviceService } from '../../globalservice/globalservice.service';
 
 @Injectable({
   providedIn: 'root'
@@ -20,7 +21,10 @@ export class AccountService {
   private userSource = new ReplaySubject<User | null>(1)
   user$ = this.userSource.asObservable();
 
-  constructor(private http:HttpClient, private router: Router) { }
+  userLoggedId :string | undefined 
+  userSubscription: Subscription | undefined;
+
+  constructor(private http:HttpClient, private router: Router,private globalService: GlobalserviceService) { }
 
   register(model:Register){
     return this.http.post(`${environment.appUrl}/api/account/register`,model)
@@ -40,6 +44,15 @@ export class AccountService {
       map((user:User)=>{
         if(user){
           this.setUser(user)
+           //global userID
+
+           this.userSubscription=this.user$.subscribe((user) => {
+            if(user)
+              this.userLoggedId=user.id;
+          });
+  
+          this.globalService.SurveyorId = this.userLoggedId;
+
         }
       })
     )
@@ -51,7 +64,20 @@ export class AccountService {
       map((user:User)=>{
         if(user){
           this.setUser(user)
+          //global userID
+
+          this.userSubscription=this.user$.subscribe((user) => {
+            if(user)
+              this.userLoggedId=user.id;
+          });
+  
+          this.globalService.SurveyorId = this.userLoggedId;
+
+
+        
+      
           // return user
+
         }
       //  return null
       })
@@ -61,6 +87,9 @@ export class AccountService {
   logout(){
     localStorage.removeItem(environment.userKey)
     this.userSource.next(null)
+
+    this.globalService.SurveyorId=''
+
     this.router.navigateByUrl('/')
   }
   getJWT(){
@@ -126,6 +155,16 @@ export class AccountService {
       map((user: User) => {
         if (user) {
           this.setUser(user);
+
+           //global userID
+
+           this.userSubscription=this.user$.subscribe((user) => {
+            if(user)
+              this.userLoggedId=user.id;
+          });
+  
+          this.globalService.SurveyorId = this.userLoggedId;
+
         }
       })
     )

@@ -52,14 +52,14 @@ namespace Online_Survey.Controllers
             return Ok(data);
         }
 
-        [HttpPut("Update")]
+        [HttpPut("Update/{id}")]
         public async Task<IActionResult> Update(DepartmentDto _data, int id)
         {
             var data = await this.service.Update(_data, id);
             return Ok(data);
         }
 
-        [HttpDelete("Remove")]
+        [HttpDelete("Remove/{id}")]
         public async Task<IActionResult> Remove(int id)
         {
             var data = await this.service.Remove(id);

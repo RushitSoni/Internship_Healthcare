@@ -1,65 +1,64 @@
-/* /* Updated styles for surveyer container */
+/* Updated styles for improved design */
 
-.surveyer-container {
+.company-content {
+  border: 1px solid #ddd; /* Add border to company content */
+  padding: 20px; /* Add padding for better visual */
+  /* background-color: #f2ebf5;  */
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+  margin-left: 10px;
+  margin-bottom: 2%;
+}
+.company-header {
   display: flex;
-  height: 100%;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.buttons-container button {
+  margin-left: 10px;
+  padding: 8px 16px;
+  cursor: pointer;
+}
+
+.company-container {
+  display: flex;
+  height: 100vh;
   margin-left: 1%;
 }
 
-.sidebar {
-  width: 20%;
-  background-color: #343a40;
-  padding: 20px;
-  min-height: 100vh;
-  color: #fff;
+.add-button{
+  flex-grow: 1; /* This will make the content div grow and take up all available space */
+  display: flex;
+
+  justify-content: flex-end; /* This aligns the button to the right end */
+
 }
 
-.surveyer-content {
+.company-content {
+  
   width: 80%;
   padding: 20px;
 }
+.table-company{
 
-/* Common styles for lists and links */
+  padding-top:20px;
+  max-width: 1248px;
+  margin:0 auto;
+  margin-bottom: 3%;
 
-ul {
-  list-style: none;
-  padding: 0;
+
 }
 
-hr {
-  margin: 2%;
-  margin-left: 0;
-}
-
-.surveyer-link {
-  text-decoration: none;
-  color: #0066cc;
-}
-
-.surveyer-link:hover {
-  text-decoration: underline;
-}
-
-/* Table styles for List of Users and List of Surveyer Departments */
-
-.user-table,
-.surveyer-dept-table {
+mat-form-field{
   width: 100%;
-  border-collapse: collapse;
-  margin-top: 20px;
-}
 
-.user-table th,
-.user-table td,
-.surveyer-dept-table th,
-.surveyer-dept-table td {
-  border: 1px solid #ddd;
-  padding: 8px;
-  text-align: left;
 }
-
-.user-table th,
-.surveyer-dept-table th {
-  background-color: #f4f4f4;
-  font-weight: bold;
+.action{
+  display: flex;
+  gap:5%
+}
+.mat-mdc-form-field-focus-overlay{
+  background-color: white;
 }

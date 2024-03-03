@@ -6,22 +6,26 @@ import { DOCUMENT } from '@angular/common';
 })
 export class GlobalserviceService  {
 
-  private surveyorId : string='428161fa-697c-40bd-bedb-0668f89d938d';
+  // private surveyorId : string='428161fa-697c-40bd-bedb-0668f89d938d';
+  private surveyorId: string | undefined;
   private surveyId! : number;
   private frontendUrl! : string;
   constructor() { }
 
   
-  // setting and getting the surveyor id.
-  // set SurveyorId(value: string)
-  // {
-  //   this.surveyorId = value;
-  // }
-
-  get SurveyorId() : string
-  {
-    return this.surveyorId;
+ // setting and getting the surveyor id.
+ set SurveyorId(value: string | undefined) {
+  this.surveyorId = value;
+  // Storing in localStorage
+  if (value !== undefined) {
+    localStorage.setItem('surveyorId', JSON.stringify(value));
   }
+}
+
+get SurveyorId(): string | undefined {
+  const storedValue = localStorage.getItem('surveyorId');
+  return storedValue ? JSON.parse(storedValue) : undefined;
+}
 
   // setting and getting the survey id.
   set SurveyId(value: number)

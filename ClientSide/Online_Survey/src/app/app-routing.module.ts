@@ -5,10 +5,13 @@ import { LandingPageComponent } from './landing-page/landing-page.component';
 import { NotFoundComponent } from './shared/components/errors/not-found/not-found.component';
 import { AdminComponent } from './admin/admin.component';
 import { ProfileComponent } from './profile/profile.component';
+import { AuthorizationGuard } from './shared/guards/authorization.guard';
+import { adminAuthGuard } from './shared/guards/admin-auth.guard';
 
 
 const routes: Routes = [
-  {path:'profile', component:ProfileComponent},
+
+ 
   {
     path:'',component:LandingPageComponent
   },
@@ -16,9 +19,18 @@ const routes: Routes = [
   {
     path:'home',component:HomeComponent
   },
+  
   {
-    path:'admin',component:AdminComponent
+    path:'profile', component:ProfileComponent, canActivate:[AuthorizationGuard]
   },
+  {
+    path: 'admin',
+    component: AdminComponent,
+    canActivate:[adminAuthGuard]
+  
+  },
+ 
+ 
   
   //Implementing lazy loading
   {path:'account',loadChildren:()=>import('./account/account.module').then(module=>module.AccountModule)},

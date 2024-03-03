@@ -9,13 +9,15 @@
   padding: 20px;
   margin: 20px;
   border-radius: 8px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
   text-align: center;
   height: 200px; /* Set the fixed height */
-  width: 200px; /* Set the fixed width */
+ 
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+
+  width: calc(33% - 40px); /* Adjust the width as needed */
 }
 
 .profile-box h2 {
@@ -49,7 +51,7 @@
   background-color: #fff;
   padding: 20px;
   border-radius: 8px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
   z-index: 1000;
 }
 

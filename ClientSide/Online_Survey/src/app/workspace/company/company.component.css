@@ -3,8 +3,11 @@
 .company-content {
   border: 1px solid #ddd; /* Add border to company content */
   padding: 20px; /* Add padding for better visual */
-  background-color: #f2ebf5; /* Set background color */
+  /* background-color: #f2ebf5;  */
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
   margin-left: 10px;
+  margin-bottom: 2%;
 }
 
 .company-header {
@@ -26,108 +29,36 @@
   margin-left: 1%;
 }
 
-.sidebar {
-  width: 20%;
-  background-color: #343a40;
-  padding: 20px;
-  min-height: 100vh;
-  color: #fff;
+.add-button{
+  flex-grow: 1; /* This will make the content div grow and take up all available space */
+  display: flex;
+ 
+  justify-content: flex-end; /* This aligns the button to the right end */
+
 }
 
 .company-content {
-  display: flex;
-  flex-direction: column; /* Adjusted to column layout */
+  
   width: 80%;
   padding: 20px;
-  border: 1px solid #ddd; /* Add border to company content */
-  padding: 20px; /* Add padding for better visual */
-  background-color: #f9f9f9; /* Set background color */
+}
+.table-company{
+
+  padding-top:20px;
+  max-width: 1248px;
+  margin:0 auto;
+
+
 }
 
-.input-group {
-  max-width: 300px;
-  margin: 0 auto;
-}
-
-.submit-button {
-  width: fit-content;
-  font-size: 12px; /* Adjusted font size */
-  padding: 10px;
-  border: none;
-  background: #2e2e2e;
-  border-radius: 8px;
-  transition: 0.3s;
-  color: #fff;
-  cursor: pointer;
-  /* Adjusted to full width */
-  margin-left: 10px; /* Added margin-top */
-  height: 45px;
-}
-
-.submit-button:hover {
-  background: linear-gradient(90deg, #fc466b 0%, #3f5efb 100%);
-  transition: 0.3s;
-}
-
-#input-field {
-  background-color: #2e2e2e;
-  border-radius: 8px;
-  border: none;
-  margin-bottom: 20px;
-  width: 100%; /* Adjusted to full width */
-  padding: 10px;
-  color: #fff;
-  font-size: 14px;
-}
-
-.input-wrapper {
-  display: flex;
-  flex-direction: row; /* Adjusted to column layout */
-}
-
-.company-link {
-  text-decoration: none; /* Remove underline from links */
-}
-
-.company-table,
-.user-table {
+mat-form-field{
   width: 100%;
-  border-collapse: collapse;
-  margin-top: 20px;
-}
 
-.company-table th,
-.company-table td,
-.user-table th,
-.user-table td {
-  border: 1px solid #ddd;
-  padding: 8px;
-  text-align: left;
 }
-
-.company-table th,
-.user-table th {
-  background-color: #f4f4f4;
-  font-weight: bold;
+.action{
+  display: flex;
+  gap:5%
 }
-
-.company-table a {
-  text-decoration: none;
-  color: #0066cc;
-}
-
-.company-table a:hover {
-  text-decoration: underline;
-}
-
-.update-button {
-  cursor: pointer;
-  background-color: #4caf50;
-  color: #fff;
-}
-
-.delete-button {
-  cursor: pointer;
-  background-color: #f44336;
-  color: #fff;
+.mat-mdc-form-field-focus-overlay{
+  background-color: white;
 }

@@ -4,6 +4,8 @@ import { CompanyComponent } from './company/company.component';
 import { DepartmentComponent } from './department/department.component';
 import { SurveyerWorkspaceComponent } from './surveyer-workspace/surveyer-workspace.component';
 import { AuthorizationGuard } from '../shared/guards/authorization.guard';
+import { SurveyerListComponent } from './surveyer-list/surveyer-list.component';
+
 
 const routes: Routes = [
 
@@ -25,6 +27,10 @@ const routes: Routes = [
       {
         path: 'company/:companyId/:departmentId',
         component: SurveyerWorkspaceComponent
+      },
+      {
+        path: 'company/:companyId/:departmentId/surveyers',
+        component: SurveyerListComponent
       }
     
     ]
