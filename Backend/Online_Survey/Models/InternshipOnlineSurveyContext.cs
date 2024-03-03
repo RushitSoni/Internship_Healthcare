@@ -122,28 +122,27 @@ public partial class InternshipOnlineSurveyContext : DbContext
 
         modelBuilder.Entity<RespondentAnswer>(entity =>
         {
-            entity.HasKey(e => e.Id).HasName("PK__Responde__3214EC075B3D7952");
+            entity.HasKey(e => e.Id1).HasName("PK__tmp_ms_x__C49607F54BB01EE1");
 
             entity.ToTable("Respondent_Answer");
 
-            entity.Property(e => e.Id).ValueGeneratedNever();
             entity.Property(e => e.AnswerText).HasColumnName("answer_text");
             entity.Property(e => e.OptionId).HasColumnName("Option_id");
             entity.Property(e => e.QuestionId).HasColumnName("Question_id");
 
-            entity.HasOne(d => d.IdNavigation).WithOne(p => p.RespondentAnswer)
-                .HasForeignKey<RespondentAnswer>(d => d.Id)
+            entity.HasOne(d => d.IdNavigation).WithMany(p => p.RespondentAnswers)
+                .HasForeignKey(d => d.Id)
                 .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK__Respondent_A__Id__589C25F3");
+                .HasConstraintName("FK__Respondent_A__Id__67DE6983");
 
             entity.HasOne(d => d.Option).WithMany(p => p.RespondentAnswers)
                 .HasForeignKey(d => d.OptionId)
-                .HasConstraintName("FK__Responden__Optio__5A846E65");
+                .HasConstraintName("FK__Responden__Optio__69C6B1F5");
 
             entity.HasOne(d => d.Question).WithMany(p => p.RespondentAnswers)
                 .HasForeignKey(d => d.QuestionId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK__Responden__Quest__59904A2C");
+                .HasConstraintName("FK__Responden__Quest__68D28DBC");
         });
 
         modelBuilder.Entity<RespondentDetail>(entity =>

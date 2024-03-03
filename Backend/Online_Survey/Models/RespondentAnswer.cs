@@ -5,6 +5,8 @@ namespace Online_Survey.Models;
 
 public partial class RespondentAnswer
 {
+    public int Id1 { get; set; }
+
     public int Id { get; set; }
 
     public int QuestionId { get; set; }

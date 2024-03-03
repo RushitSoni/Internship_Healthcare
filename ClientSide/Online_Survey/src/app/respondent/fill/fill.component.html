@@ -1,35 +1,31 @@
-<!--
-    @gauravkumarmakwana
-    edited on 28-02-2024
--->
-
-<form *ngFor="let q of  fillData">
+<form *ngFor="let q of  fillData; let i = index">
     <div class="form-group">
       <!-- Question text -->
       <!-- same for all type of question -->
-      <label for="{{q.QuestionId}}">{{q.QuestionId}}. {{q.QuestionText}}</label>
+      <label for="{{q.questionId}}">{{i+1}}. {{q.questionText}}</label>
       <!-- 1 for type text field  -->
-      <input *ngIf="q.QuestionOptionType === 1" type="text" class="form-control" id="{{q.QuestionId}}"
-        aria-describedby="emailHelp" placeholder="Enter your answer">
+      <input *ngIf="q.questionOptionType == 3" type="text" class="form-control" id={{q.questionId}}
+        aria-describedby="emailHelp" placeholder="Enter your answer" [(ngModel)]="answer[q.questionId]" [ngModelOptions]="{standalone: true}">
         
       <!-- 2 for radio button -->
-      <div *ngIf="q.QuestionOptionType === 2">
-        <div class="form-check" *ngFor="let o of q.Options">
-          <input class="form-check-input" type="radio" name="exampleRadios" id = {{q.QuestionId}}{{o.OptionId}} value={{q.QuestionId}}{{o.OptionId}}>
-          <label class="form-check-label" for={{q.QuestionId}}{{o.OptionId}}>
-            {{o.OptionText}}
+      <div *ngIf="q.questionOptionType == 1">
+        <div class="form-check" *ngFor="let o of q.options">
+          <input class="form-check-input" type="radio" name="exampleRadios" id="{{o.optionId}}" value="{{o.optionId}}" [(ngModel)]="answer[q.questionId]" [ngModelOptions]="{standalone: true}">
+          <label class="form-check-label" for={{o.optionId}}>
+            {{o.optionText}}
           </label>
         </div>
       </div>
   
       <!-- 3 for checkbox button -->
-      <div class="form-check" *ngIf="q.QuestionOptionType === 3">
-        <div *ngFor="let o of q.Options">
-          <input class="form-check-input" type="checkbox" value="{{q.QuestionId}}{{o.OptionId}}" id="{{q.QuestionId}}{{o.OptionId}}">
-          <label class="form-check-label" for="{{q.QuestionId}}{{o.OptionId}}">
-            {{o.OptionText}}
+      <div class="form-check" *ngIf="q.questionOptionType == 2">
+        <div *ngFor="let o of q.options">
+          <input class="form-check-input" type="checkbox" value="{{o.optionId}}" id="{{o.optionId}}" [(ngModel)]="answer[q.questionId]" [ngModelOptions]="{standalone: true}">
+          <label class="form-check-label" for="o.optionId">
+            {{o.optionText}}
           </label>
         </div>
       </div>
-    </div>
-  </form>
+    </div>    
+</form>
+<button (click)="OnSubmit()">Submit</button>

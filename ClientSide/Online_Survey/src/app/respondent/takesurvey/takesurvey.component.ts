@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Respondent } from '../../shared/Models/Survey';
+import { Respondent, Respondent_Record } from '../../shared/Models/Survey';
 import { RespondentserviceService } from '../respondentservice.service';
 
 @Component({
@@ -17,6 +17,7 @@ export class TakesurveyComponent {
   email! : string;
   phonenumber! : string;
   
+  respondentid! : number;
 
   constructor(private route: ActivatedRoute,private router: Router,private service : RespondentserviceService)
   {
@@ -34,21 +35,39 @@ export class TakesurveyComponent {
 
       console.log(respondent);
       this.service.addRespondent(respondent).subscribe((data) => {
-        console.log(data);
-        
+        this.service.respondentid = data;
+        resolve(data);
       });
+    });
+  }
+
+  AddRecord() : Promise<number>
+  {
+    return new Promise<number>((resolve,reject) => {
+      this.route.params.subscribe(params => {
+        this.service.surveyid = params['surveyid'] as number;
+      });
+      console.log(this.respondentid);
+      console.log(this.surveyid);
+      const record : Respondent_Record = {
+        RespondentId : this.service.respondentid,
+        SurveyId : this.service.surveyid 
+      }
+
+      console.log(record);
+      this.service.addRecord(record).subscribe((data) => {
+        this.service.primaryid = data;
+        resolve(data);
+      })
     });
   }
 
   TakeSurvey()
   {
     this.AddDetails().then((result) => {
-      this.route.params.subscribe(params => {
-        this.surveyid = params['surveyid'] as number;
+      this.AddRecord().then((result) => {
+        this.router.navigate(['respondent/:surveyid','fill']);
       });
-  
-      this.router.navigate(['respondent/:surveyid','fill']);
-      console.log(this.surveyid);
     }).catch((err) => {
       
     });

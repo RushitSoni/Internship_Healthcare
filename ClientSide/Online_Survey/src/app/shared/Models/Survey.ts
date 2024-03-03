@@ -27,6 +27,21 @@ export interface QuestionOption{
     options : Option_List[];
 }
 
+export interface Post_OptionList
+{
+    optionId : number;
+    optionText : string;
+    surveyId : number;
+}
+
+export interface Post_Question{
+    questionId : number;
+    surveyId : number;
+    questionText : string;
+    questionOptionType : number;
+    options : Option_List[];
+}
+
 export interface Survey{
     surveyid : number;
 }
@@ -40,4 +55,16 @@ export interface Respondent{
     Name : string;
     Email: string;
     PhoneNumber: string;
+}
+
+export interface Respondent_Record{
+    RespondentId : number;
+    SurveyId : number;
+}
+
+export interface Answer{
+    Id : number;
+    QuestionId : number;
+    OptionId : number;
+    AnswerText : string;
 }
