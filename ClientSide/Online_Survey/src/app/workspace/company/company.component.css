@@ -3,8 +3,11 @@
 .company-content {
   border: 1px solid #ddd; /* Add border to company content */
   padding: 20px; /* Add padding for better visual */
-  background-color: #f2ebf5; /* Set background color */
+  /* background-color: #f2ebf5;  */
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
   margin-left: 10px;
+  margin-bottom: 2%;
 }
 
 .company-header {
@@ -55,4 +58,7 @@ mat-form-field{
 .action{
   display: flex;
   gap:5%
+}
+.mat-mdc-form-field-focus-overlay{
+  background-color: white;
 }

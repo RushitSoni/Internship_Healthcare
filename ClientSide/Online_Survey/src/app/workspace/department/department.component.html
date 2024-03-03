@@ -1,37 +1,58 @@
+<div class="company-container" >
+  <app-sidebar></app-sidebar>
 
-<div class="dept-container">
-    <app-sidebar></app-sidebar>
-  
-    <div class="dept-content">
-      <div class="form-section">
-        <form *ngIf="isAdmin" [formGroup]="departmentForm" (ngSubmit)="createDepartment()" autocomplete="off">
-          <label for="departmentName">Company Name:</label>
-          <input formControlName="name" type="text" placeholder="Department Name" class="form-control" required>
-          <button class="mt-1" type="submit">Create Department</button>
-        </form>
-      </div>
-  
-      <div class="lists-section">
-        <!-- Table for List of Departments -->
-        <table class="dept-table">
-          <thead>
-            <tr>
-              <th>Department Name</th>
-  
-            </tr>
-          </thead>
-          <tbody>
-            <tr *ngFor="let dept of departments">
-              <td>
-                <a class="dept-link" [routerLink]="['/workspace/company', companyId, dept.departmentId]">
-                  {{ dept.name }}
-                </a>
-              </td>
-  
-            </tr>
-          </tbody>
+  <!-- style="background-color:#F6F5F5" -->
+  <div class="company-content" >
+
+    <div class="add-button" *ngIf="isAdmin">
+          <button
+          mat-raised-button
+          
+          (click)="openAddEditCompanyForm()"
+
+          style="background-color: #1e90ff;color:white ;"
+        >
+          + ADD DEPARTMENT
+          </button>
+    </div>
+    
+
+    <div class="table-company" >
+      <mat-form-field style="color: #1e90ff;">
+        <input matInput (keyup)="applyFilter($event)" placeholder="Search"  />
+      </mat-form-field>
+
+      <div class="mat-elevation-z8">
+        <table mat-table [dataSource]="dataSource" matSort>
+          <!-- Name Column -->
+          <ng-container matColumnDef="name">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>Department Name</th>
+            <td mat-cell *matCellDef="let row">{{ row.name }}</td>
+          </ng-container>
+
+          <!-- Action Column -->
+          <ng-container matColumnDef="action">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>Actions</th>
+            <td mat-cell *matCellDef="let row">
+              <button mat-icon-button color="primary" [disabled]="!isAdmin" (click)="updateDepartment(row)">
+                <mat-icon>edit</mat-icon>
+              </button>
+              <button mat-icon-button color="warn" [disabled]="!isAdmin" (click)="deleteDepartment(row.departmentId)">
+                <mat-icon>delete</mat-icon>
+              </button>
+
+              <button mat-icon-button color="accent"   [routerLink]="['/workspace/company', companyId, row.departmentId]">
+                <mat-icon>launch</mat-icon>
+              </button>
+            </td>
+          </ng-container>
+
+          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
         </table>
+
+        <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>
       </div>
     </div>
   </div>
-  
+</div>

@@ -47,6 +47,33 @@ namespace Online_Survey.Controllers
             var userDtos = users.Select(user => CreateApplicationUserDto(user)).ToList();
             return Ok(userDtos);
         }
+        [HttpPut("update-user/{userId}")]
+        public async Task<IActionResult> UpdateUser(string userId, UserDto model)
+        {
+            // Find the user by their ID
+            var user = await _userManager.FindByIdAsync(userId);
+            if (user == null)
+            {
+                return NotFound("User not found.");
+            }
+
+            // Update the user properties based on the provided input
+            user.FirstName = model.FirstName.ToLower();
+            user.LastName = model.LastName.ToLower();
+           
+
+            // Save the changes to the database
+            var result = await _userManager.UpdateAsync(user);
+            if (!result.Succeeded)
+            {
+                return BadRequest("Failed to update user.");
+            }
+
+            // Return the updated user DTO
+            var updatedUserDto = CreateApplicationUserDto(user);
+            return Ok(updatedUserDto);
+        }
+
 
         [HttpPost("Login")]
         public async Task<ActionResult<UserDto>> Login(LoginDto model)
@@ -359,6 +386,8 @@ namespace Online_Survey.Controllers
                 Role=  user.Role,
                 Id= user.Id,
                 JWT =  _jwtService.CreateJWT(user),
+                Provider = user.Provider,
+                DateCreated=user.DateCreated
 
             };
         }

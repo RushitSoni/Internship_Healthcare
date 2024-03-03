@@ -1,8 +1,6 @@
 import { Component, OnInit ,ViewChild} from '@angular/core';
-
 import { WorkspaceService } from '../workspace.service';
 import { AccountService } from '../../account/account.service';
-
 import { Company } from '../../shared/Models/company';
 import { APIResponse } from '../../shared/Models/APIResponse';
 import { Subscription } from 'rxjs';
@@ -10,7 +8,6 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { SurveyerViaDept } from '../../shared/Models/surveyerViaDept';
 import { MatDialog } from '@angular/material/dialog';
 import { AddEditCompanyComponent } from '../add-edit-company/add-edit-company.component';
-
 import { MatTableDataSource } from '@angular/material/table';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
@@ -21,24 +18,7 @@ import { MatSort } from '@angular/material/sort';
   styleUrls: ['./company.component.css'],
 })
 export class CompanyComponent implements OnInit {
-  updateCompany() {
-    // Implement the logic for updating the company here
-  }
-
-  deleteCompany() {
-    // Implement the logic for deleting the company here
-  }
-
-  updateCompanys(companyId: number): void {
-    // Implement your update logic here
-    console.log(`Update company with ID ${companyId}`);
-  }
-
-  deleteCompanys(companyId: number): void {
-    // Implement your delete logic here
-    console.log(`Delete company with ID ${companyId}`);
-  }
-
+ 
   companyForm: FormGroup = new FormGroup({});
   submitted = false;
 
@@ -48,15 +28,11 @@ export class CompanyComponent implements OnInit {
   companies: Company[] = [];
   compsniesAsSurveyer: Company[] = [];
 
-  //table
-
   displayedColumns: string[] = ['name','action'];
   dataSource!: MatTableDataSource<any>;
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
-
-
 
   constructor(private workspaceService: WorkspaceService, private formBuilder: FormBuilder, public accountService: AccountService,
     private dialog:MatDialog) { }
@@ -71,22 +47,13 @@ export class CompanyComponent implements OnInit {
       this.loadCompanies(this.user.id);
       this.loadCompaniesAsSurveyer(this.user.id)
     }, 100); // 2000 milliseconds = 2 seconds
- 
-    
-    
-   
   }
-
 
   loadCompanies(userId: string): void {
     this.workspaceService.getAllCompanies().subscribe(
       (data: Company[]) => {
-        // Filter companies based on userId
         this.companies = data.filter((company) => company.adminId === userId);
-        console.log(this.companies);
-
         this.updateDataSource(this.compsniesAsSurveyer, 'Admin');
-
       },
       (error) => {
         console.log('Error fetching companies:', error);
@@ -100,16 +67,10 @@ export class CompanyComponent implements OnInit {
         const userSurveyers = surveyers.filter(surveyer => surveyer.userId === userId);
         const companyIds = userSurveyers.map(surveyer => surveyer.companyId);
         const filteredCompanies = companies.filter(company => {
-          // Filter out companies that are not already in the `companies` array
           return !this.companies.some(c => c.companyId === company.companyId) && companyIds.includes(company.companyId);
         });
         this.compsniesAsSurveyer = filteredCompanies;
-       
-
         this.updateDataSource(this.compsniesAsSurveyer, 'Surveyer');
-
-
-       
       }, error => {
         console.error("Error in getAllSurveyerDepts():", error);
       });
@@ -118,22 +79,22 @@ export class CompanyComponent implements OnInit {
     });
   }
 
-  
-
-  openAddEditCompanyForm(){
+  openAddEditCompanyForm() {
     const dialogRef = this.dialog.open(AddEditCompanyComponent);
 
     dialogRef.afterClosed().subscribe(result => {
       // Reload companies and update table after dialog is closed
       if (result === 'saved') {
+        this.dataSource.data=[]
+        this.companies=[]
+        this.compsniesAsSurveyer=[]
         this.loadCompanies(this.user.id);
         this.loadCompaniesAsSurveyer(this.user.id);
       }
     });
-
   }
-  applyFilter(event:Event) {
 
+  applyFilter(event:Event) {
     const filterValue=(event.target as HTMLInputElement).value
     this.dataSource.filter = filterValue.trim().toLowerCase();
 
@@ -143,30 +104,70 @@ export class CompanyComponent implements OnInit {
   }
 
   updateDataSource(companies: Company[], type: string): void {
-    // Append appropriate suffix to company names based on type
     const updatedCompanies = companies.map(company => {
-      const suffix = type === 'Admin' ? ' (Admin)' : ' ';
+      let suffix = '';
+      if (type === 'Admin') {
+        suffix = ' (Admin)';
+      } 
       return {
         ...company,
         name: company.name + suffix
       };
     });
-  
-    // If the type is "Admin" and there are no companies provided, 
-    // we need to ensure that the suffix is appended to the user's existing companies
+
     if (type === 'Admin' && companies.length === 0) {
       this.companies.forEach(company => {
         company.name += ' (Admin)';
       });
     }
-  
-    // Concatenate updated companies with existing companies
+
     const mergedCompanies = [...this.companies, ...updatedCompanies];
-  
+
     this.dataSource = new MatTableDataSource(mergedCompanies);
     this.dataSource.sort = this.sort;
     this.dataSource.paginator = this.paginator;
   }
+
+  deleteCompany(companyId: number) {
+    if (confirm('Are you sure you want to delete this company?')) {
+      this.workspaceService.deleteCompany(companyId).subscribe(
+        response => {
+          console.log('Company deleted successfully:', response);
+
+          this.dataSource.data=[]
+          this.companies=[]
+          this.compsniesAsSurveyer=[]
+          this.loadCompanies(this.user.id);
+          this.loadCompaniesAsSurveyer(this.user.id);
+          
+        },
+        error => {
+          console.error('Error deleting company:', error);
+        }
+      );
+    }
+  }
+
+  updateCompany(company:Company){
+    const updatedCompany = { ...company, name: company.name.replace(' (Admin)', '') };
   
-  
+    const dialogRef = this.dialog.open(AddEditCompanyComponent, {
+      data: updatedCompany
+    });
+
+
+    dialogRef.afterClosed().subscribe(result => {
+      // Reload companies and update table after dialog is closed
+      if (result === 'saved') {
+        this.dataSource.data=[]
+        this.companies=[]
+        this.compsniesAsSurveyer=[]
+        this.loadCompanies(this.user.id);
+        this.loadCompaniesAsSurveyer(this.user.id);
+      }
+    });
+
+   
+
+  }
 }

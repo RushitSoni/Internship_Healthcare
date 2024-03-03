@@ -1,0 +1,56 @@
+<div class="company-container" >
+    <app-sidebar></app-sidebar>
+  
+    <div class="company-content" >
+  
+      <div class="add-button" *ngIf="isAdmin">
+            <button
+            mat-raised-button
+            
+            (click)="openAddEditCompanyForm()"
+  
+            style="background-color: #1e90ff;color:white ;"
+          >
+            + ADD SURVEYER
+            </button>
+      </div>
+      
+  
+      <div class="table-company" >
+        <mat-form-field style="color: #1e90ff;">
+          <input matInput (keyup)="applyFilter($event)" placeholder="Search"  />
+        </mat-form-field>
+  
+        <div class="mat-elevation-z8">
+          <table mat-table [dataSource]="dataSource" matSort>
+            <!-- Name Column -->
+            <ng-container matColumnDef="name">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header>Surveyer Name</th>
+              <td mat-cell *matCellDef="let row">{{ row.userName }}</td>
+            </ng-container>
+  
+            <!-- Action Column -->
+            <ng-container matColumnDef="action">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header>Actions</th>
+              <td mat-cell *matCellDef="let row">
+                <button mat-icon-button color="primary" [disabled]="!isAdmin" (click)="updateSurveyer(row)">
+                  <mat-icon>edit</mat-icon>
+                </button>
+                <button mat-icon-button color="warn" [disabled]="!isAdmin" (click)="deleteSurveyer(row.surveyerDeptId)">
+                  <mat-icon>delete</mat-icon>
+                </button>
+  
+               
+              </td>
+            </ng-container>
+  
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+          </table>
+  
+          <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>
+        </div>
+      </div>
+    </div>
+  </div>
+  

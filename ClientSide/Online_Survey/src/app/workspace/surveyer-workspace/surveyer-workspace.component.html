@@ -1,55 +1,69 @@
- <div class="surveyer-container">
-    <app-sidebar></app-sidebar>
-  
-    <div class="surveyer-content">
-      <h6>{{departmentId}}</h6>
-  
-      <!-- Table for List of Users -->
-     <!--<table class="user-table">
-        <thead>
-          <tr>
-            <th>User Name</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr *ngFor="let user of users">
-            <td>{{ user.userName }}</td>
-          </tr>
-        </tbody>
-      </table> --> 
-  
-      <!-- Form for Creating Surveyer Department -->
-      <form *ngIf="isAdmin" [formGroup]="surveyerDeptForm" (ngSubmit)="createSurveyerDept()" autocomplete="off">
-        <label for="surveyerDeptName">Surveyer  Name:</label>
-        <input formControlName="userName" type="text" placeholder="Surveyer Department Name" class="form-control" required>
-        <button class="mt-1" type="submit">Create Surveyer </button>
-      </form>
-  
-      <!-- Table for List of Surveyer Departments -->
-      <table class="surveyer-dept-table">
-        <thead>
-          <tr>
-            <th>User Name</th>
-  
-          </tr>
-        </thead>
-        <tbody>
-          <tr *ngFor="let surveyerDept of surveyerDepts">
-            <td>
-              <a class="surveyer-link" [routerLink]="['/home']">
-                {{ surveyerDept.userName }}
-              </a>
-            </td>
-          </tr>
-        </tbody>
-      </table>
+<div class="company-container" >
+  <app-sidebar></app-sidebar>
 
+  <div class="company-content" >
 
-
-      <button class="btn btn-primary mt-5" routerLink="/create/generate" [queryParams]="{deptID: departmentId}">
-        Create Survey 
-      </button>
-
+    <div class="add-button" *ngIf="isAdmin">
+          <button
+          mat-raised-button
+          [routerLink]="['/workspace/company', companyId, departmentId,'surveyers']"
+          style="background-color: #1e90ff;color:white ;"
+        >
+        SURVEYERS
+          </button>
     </div>
+    
+
+    <div class="table-company" >
+      <mat-form-field style="color: #1e90ff;">
+        <input matInput (keyup)="applyFilter($event)" placeholder="Search"  />
+      </mat-form-field>
+
+      <div class="mat-elevation-z8">
+        <table mat-table [dataSource]="dataSource" matSort>
+          <!-- Name Column -->
+          <ng-container matColumnDef="name">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>Surveys</th>
+            <td mat-cell *matCellDef="let row">{{ row.name }}</td>
+          </ng-container>
+
+          <!-- Action Column -->
+          <ng-container matColumnDef="action">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>Actions</th>
+            <td mat-cell *matCellDef="let row">
+              <button mat-icon-button color="primary" [disabled]="!isAdmin" >
+                <mat-icon>edit</mat-icon>
+              </button>
+              <button mat-icon-button color="warn" [disabled]="!isAdmin" >
+                <mat-icon>delete</mat-icon>
+              </button>
+
+              <button mat-icon-button color="accent"  >
+                <mat-icon>launch</mat-icon>
+              </button>
+            </td>
+          </ng-container>
+
+          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+        </table>
+
+        <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>
+      </div>
+    </div>
+
+    <div class="add-button" >
+      <button
+      mat-raised-button
+      [routerLink]="['/create/generate']"
+      style="background-color: #1e90ff;color:white ;"
+      [queryParams]="{deptID: departmentId}"
+    >
+    + CREATE SURVEY
+      </button>
   </div>
-  
+  </div>
+
+
+ 
+</div>

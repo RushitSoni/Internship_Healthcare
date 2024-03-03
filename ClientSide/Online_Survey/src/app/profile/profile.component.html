@@ -3,21 +3,24 @@
   <app-sidebar></app-sidebar>
   <div class="profile-box">
     <h2>Name</h2>
-    <p>{{ firstName }} {{ lastName }}</p>
+    <p>{{ firstName | titlecase}} {{ lastName | titlecase }}</p>
     <button (click)="openEditPopup('name')">Edit</button>
   </div>
 
   <div class="profile-box">
     <h2>Email</h2>
     <p>{{ email }}</p>
-    <button (click)="openEditPopup('email')">Edit</button>
+    <!-- <button (click)="openEditPopup('email')">Edit</button> -->
   </div>
 
   <div class="profile-box">
-    <h2>Photo</h2>
-    <img [src]="profilePhoto" alt="Profile Photo" />
-    <button (click)="openEditPopup('photo')">Edit</button>
+    <h2>Joined On</h2>
+    <p>{{ dateCreated | date:'medium' }}</p>
+
+    
   </div>
+
+ 
 </div>
 
 <!-- Edit Popup HTML -->
@@ -37,19 +40,11 @@
     <label for="editLastName">Last Name:</label>
     <input id="editLastName" type="text" [(ngModel)]="editedLastName" />
   </div>
+ 
+ 
+ 
 
-  <!-- Edit Email Fields -->
-  <div *ngIf="editType === 'email'">
-    <label for="editEmail">New Email Address:</label>
-    <input id="editEmail" type="email" [(ngModel)]="editedEmail" />
-  </div>
-
-  <!-- Edit Photo Fields -->
-  <div *ngIf="editType === 'photo'">
-    <label for="editPhoto">Upload Photo:</label>
-    <input id="editPhoto" type="file" (change)="handlePhotoChange($event)" />
-    <button class="removeBtn" (click)="removePhoto()">Remove Photo</button>
-  </div>
+ 
 
   <button (click)="cancelEdit()">Cancel</button>
   <button (click)="continueEdit()">Continue</button>

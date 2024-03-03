@@ -15,6 +15,10 @@ import {MatInputModule} from '@angular/material/input';
 import {MatTableModule} from '@angular/material/table';
 import {MatSortModule} from '@angular/material/sort';
 import {MatPaginatorModule} from '@angular/material/paginator';
+import { AddEditDepartmentComponent } from './add-edit-department/add-edit-department.component';
+import { SurveyerListComponent } from './surveyer-list/surveyer-list.component';
+import { AddEditSurveyerComponent } from './add-edit-surveyer/add-edit-surveyer.component';
+
 
 
 @NgModule({
@@ -24,8 +28,10 @@ import {MatPaginatorModule} from '@angular/material/paginator';
     SurveyerWorkspaceComponent,
     SidebarComponent,
     AddEditCompanyComponent,
+    AddEditDepartmentComponent,
+    SurveyerListComponent,
+    AddEditSurveyerComponent,
   
-   
   ],
   imports: [
     MatIconModule,

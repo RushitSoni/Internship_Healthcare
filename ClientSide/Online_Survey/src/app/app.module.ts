@@ -25,7 +25,7 @@ import { FormsModule } from '@angular/forms';
 import { WorkspaceModule } from './workspace/workspace.module';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 import {MatButtonModule} from '@angular/material/button';
-
+import { MatIconModule } from '@angular/material/icon';
 import { ProfileComponent } from './profile/profile.component';
 
 @NgModule({
@@ -45,9 +45,10 @@ import { ProfileComponent } from './profile/profile.component';
     SupportComponent,
     GetStartedComponent,
     ProfileComponent,
+  
   ],
 
-  imports: [BrowserModule, AppRoutingModule, NgbModule, SharedModule,HttpClientModule,FormsModule,WorkspaceModule,MatButtonModule],
+  imports: [BrowserModule, AppRoutingModule, NgbModule, SharedModule,HttpClientModule,FormsModule,WorkspaceModule,MatButtonModule,  MatIconModule],
   // providers: [
   //   provideClientHydration()
   // ],

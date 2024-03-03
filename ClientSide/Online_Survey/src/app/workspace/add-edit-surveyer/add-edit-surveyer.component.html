@@ -1,0 +1,26 @@
+<div>
+    <div>
+        <div mat-dialog-title>Surveyer Form</div>
+    
+        <form [formGroup]="surveyerDeptForm" (ngSubmit)="createSurveyerDept()" autocomplete="off">
+    
+        <div mat-dialog-content> 
+    
+            <div class="row">
+                <mat-form-field appearance="outline">
+                    <mat-label>Surveyer Name</mat-label>
+                    <input matInput placeholder="Ex.HealthCare Informatics" formControlName="userName">
+                </mat-form-field>
+            </div>
+    
+        </div>
+    
+        <div mat-dialog-actions class="action">
+            <button mat-raised-button color="warn" type="button" [mat-dialog-close]="false">Cancel</button>
+            <button mat-raised-button color="primary" type="submit">{{data? 'Update' : 'Save'}}</button>
+        </div>
+    
+        </form>
+    </div>
+    
+</div>

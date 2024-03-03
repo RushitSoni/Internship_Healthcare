@@ -5,5 +5,7 @@ export interface User{
     role:string
     id:string
     jwt:string
+    provider:string
+    dateCreated: Date
 
 }

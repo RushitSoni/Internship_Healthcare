@@ -25,6 +25,18 @@ export class WorkspaceService {
     return this.http.post<APIResponse>(`${environment.appUrl}/api/company/create`, company);
   }
 
+  updateCompany(company: Company, id: number): Observable<APIResponse> {
+    return this.http.put<APIResponse>(`${environment.appUrl}/api/company/update/${id}`, company);
+  }
+
+  deleteCompany(id: number): Observable<APIResponse> {
+    return this.http.delete<APIResponse>(`${environment.appUrl}/api/company/remove/${id}`);
+  }
+
+  //department
+
+  
+
   getAllDepartments(): Observable<Department[]> {
     return this.http.get<Department[]>(`${environment.appUrl}/api/department/get`);
   }
@@ -33,10 +45,23 @@ export class WorkspaceService {
     return this.http.post<APIResponse>(`${environment.appUrl}/api/department/create`, department);
   }
 
+  updateDepartment(department: Department, id: number): Observable<APIResponse> {
+    return this.http.put<APIResponse>(`${environment.appUrl}/api/department/update/${id}`, department);
+  }
+
+  deleteDepartment(id: number): Observable<APIResponse> {
+
+    console.log("ID",id)
+    return this.http.delete<APIResponse>(`${environment.appUrl}/api/department/remove/${id}`);
+  }
+
+  ////
+
   getAllUsers(): Observable<User[]> {
     return this.http.get<User[]>(`${environment.appUrl}/api/account/users`);
   }
 
+  /////
 
   getAllSurveyerDepts(): Observable<SurveyerViaDept[]> {
     return this.http.get<SurveyerViaDept[]>(`${environment.appUrl}/api/Surveyer_Dept/get`);
@@ -46,6 +71,15 @@ export class WorkspaceService {
     return this.http.post<APIResponse>(`${environment.appUrl}/api/surveyer_dept/create`, surveyer);
   }
 
+  updateSurveyerDept(surveyer:SurveyerViaDept, id: number): Observable<APIResponse> {
+    return this.http.put<APIResponse>(`${environment.appUrl}/api/surveyer_dept/update/${id}`, surveyer);
+  }
+
+  deleteSurveyerDept(id: number): Observable<APIResponse> { 
+
+    // console.log("heyyyy",id)
+    return this.http.delete<APIResponse>(`${environment.appUrl}/api/surveyer_dept/remove/${id}`);
+  }
 
 
 
