@@ -7,7 +7,10 @@ using Online_Survey.DTO;
 using Online_Survey.DTOs.Respondent;
 using Online_Survey.DTOs.Survey;
 using Online_Survey.Models;
+using Online_Survey.Pococlass;
+using Online_Survey.PocoClass;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace Online_Survey.Controllers
@@ -37,17 +40,91 @@ namespace Online_Survey.Controllers
         }
 
         [HttpPost("AddQuestion")]
-        public int AddQuestion(QuestionDTO questionDTO)
+        public int AddQuestion(QuestionDTO question_option)
         {
-            QuestionTable question = mapper.Map<QuestionTable>(questionDTO);
-            _userRepository.AddEntity<QuestionTable>(question);
+            //foreach(Question_Option questionoption in question_option)
+            //{
+            //    QuestionDTO questionDTO = new QuestionDTO()
+            //    {
+            //        QuestionText = questionoption.questionText,
+            //        QuestionOptionType = ""+questionoption.questionOptionType,
+            //        SurveyId = questionoption.surveyId
+            //    };
 
+            //    QuestionTable question = mapper.Map<QuestionTable>(questionDTO);
+            //    _userRepository.AddEntity<QuestionTable>(question);
+            //    _userRepository.SaveChange();
+
+            //    int questionid = question.QuestionId;
+
+            //    foreach(OptionList option in questionoption.options)
+            //    {
+            //        OptionDTO optionDTO = new OptionDTO()
+            //        {
+            //            OptionText = option.optionText,
+            //            QuestionId = questionid,
+            //            SurveyId = option.surveyId
+            //        };
+
+            //        OptionTable optionTable = mapper.Map<OptionTable>(optionDTO);
+            //        _userRepository.AddEntity<OptionTable>(optionTable);
+
+            //        _userRepository.SaveChange();
+            //    }
+
+            //}
+
+            QuestionTable question = mapper.Map<QuestionTable>(question_option);
+            _userRepository.AddEntity<QuestionTable>(question);
             if (_userRepository.SaveChange())
             {
                 return question.QuestionId;
             }
 
             throw new Exception("Your Account has not been Created!");
+        }
+
+        [HttpPost("QuestionOption")]
+        public IActionResult QuestionOption(Question_Option[] question_option)
+        {
+            List<OptionList> options = new List<OptionList>();
+
+            foreach (Question_Option questionoption in question_option)
+            {
+                QuestionDTO questionDTO = new QuestionDTO()
+                {
+                    QuestionText = questionoption.questionText,
+                    QuestionOptionType = ""+questionoption.questionOptionType,
+                    SurveyId = questionoption.surveyId
+                };
+
+                    QuestionTable question = mapper.Map<QuestionTable>(questionDTO);
+                    _userRepository.AddEntity<QuestionTable>(question);
+                    _userRepository.SaveChange();
+
+                    int questionid = question.QuestionId;
+
+                    //options.AddRange(questionoption.options);
+
+                    foreach(OptionList option in questionoption.options)
+                    {
+                        OptionDTO optionDTO = new OptionDTO()
+                        {
+                            OptionText = option.optionText,
+                            QuestionId = questionid,
+                            SurveyId = option.surveyId
+                        };
+
+                        OptionTable optionTable = mapper.Map<OptionTable>(optionDTO);
+                        _userRepository.AddEntity<OptionTable>(optionTable);
+
+                        _userRepository.SaveChange();
+                    }
+
+                }
+
+                return Ok();
+
         }
 
         [HttpPost("CreateSurvey")]

@@ -1,6 +1,6 @@
 import { Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
 import { CreateService } from '../create.service';
-import { QuestionOption } from '../../shared/Models/Survey';
+import { Post_Question, QuestionOption } from '../../shared/Models/Survey';
 import { Observable } from 'rxjs';
 
 @Component({
@@ -11,7 +11,7 @@ import { Observable } from 'rxjs';
 
 export class DisplayComponent implements OnInit, OnChanges{
   
-  @Input() question: any;
+  @Input() question!: Post_Question;
   @Input() questionNumber!: number;
 
   constructor(private service : CreateService){

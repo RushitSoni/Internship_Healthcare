@@ -3,9 +3,9 @@
         <b>Question {{ questionNumber }} Preview</b>
     </div>
     <div class="card-body">
-        <h2 class="card-title">{{ question.title }}</h2>
+        <h2 class="card-title">{{ question.questionText }}</h2>
         <ul class="list-group">
-            <li class="list-group-item" *ngFor="let option of question.options">{{ option }}</li>
+            <li class="list-group-item" *ngFor="let option of question.options">{{ option.optionText }}</li>
         </ul>
     </div>
 </div>
