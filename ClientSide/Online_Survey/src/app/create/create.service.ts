@@ -2,7 +2,7 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from '../../environments/environment.development';
 
-import { Options, Question, QuestionOption, Survey, SurveyTable } from '../shared/Models/Survey';
+import { Options, Post_Question, Question, QuestionOption, Survey, SurveyTable } from '../shared/Models/Survey';
 import { GlobalserviceService } from '../../globalservice/globalservice.service';
 import { Observable } from 'rxjs';
 
@@ -12,7 +12,24 @@ import { Observable } from 'rxjs';
 })
 export class CreateService {
 
+  private questionOption : QuestionOption[] = [];
+
   constructor(private http : HttpClient,private globalservice : GlobalserviceService) { }
+
+  setQuestionOption(data : QuestionOption[])
+  {
+    return this.questionOption = data;
+  }
+
+  getQuestionOption()
+  {
+    return this.questionOption;
+  }
+
+  addQuestionOption(question : Post_Question[])
+  {
+    return this.http.post(`${environment.appUrl}/Home/QuestionOption`,question);
+  }
 
   createSurvey(surveytable : SurveyTable)
   {
@@ -29,7 +46,6 @@ export class CreateService {
   addOptions(option_list: Options[])
   {
     return this.http.post(`${environment.appUrl}/Home/AddOptions`,option_list);
-
   }
 
   getData()

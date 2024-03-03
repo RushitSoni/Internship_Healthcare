@@ -14,16 +14,10 @@ import { Observable } from 'rxjs';
  */
 export class FillComponent {
   answer : {[key : string] : string | string[]} = {};
-  answerOption! : string;
-  answerChoice! : string;
   fillData : QuestionOption[] = []; 
   filledanswer : Answer[] = [];
   constructor(private service: RespondentserviceService) { }
 
-  /**
-   * Initializes the component.
-   * Adds dummy data to the fillData array for testing purposes.
-   */
   ngOnInit() {
     this.fillData = []
     const data = this.service.getData() as Observable<QuestionOption[]>;
@@ -39,19 +33,6 @@ export class FillComponent {
 
   OnSubmit()
   {
-    console.log("Question and Answers");
-    // this.fillData.forEach(questions => {
-
-      
-    //   // console.log(fillAns);
-    //   // this.filledanswer.push(fillAns);    
-    //   this.answer = {};
-    //   this.answerChoice = '';
-    //   this.answerOption = '';
-    // });
-
-    console.log(this.answer);
-
     for(let id in this.answer)
     {
       const fillanswer : Answer = {
