@@ -48,7 +48,7 @@ export class CreateService {
 
   addTemplate()
   {
-    return this.http.post(`${environment.appUrl}/Home/CreateTemplate`,this.getQuestionOption);
+    return this.http.post(`${environment.appUrl}/Home/CreateTemplate`,this.getQuestionOption());
   }
   getData()
   {
