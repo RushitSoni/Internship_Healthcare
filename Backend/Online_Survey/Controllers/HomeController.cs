@@ -132,14 +132,14 @@ namespace Online_Survey.Controllers
         {
             TemplateDetail templateDetail = new TemplateDetail(){
                 SurveyId = templateDetails.surveyid,
-                SurveyName = templateDetails.surveyName,
+                SurveyName = templateDetails.surveyname,
             };
 
             _userRepository.AddEntity(templateDetail);
 
             _userRepository.SaveChange();
 
-            foreach(TemplateQuestions question in templateDetails.question)
+            foreach(TemplateQuestions question in templateDetails.questions)
             {
                 TemplateQuestion templateQuestion = new TemplateQuestion()
                 {
@@ -150,21 +150,22 @@ namespace Online_Survey.Controllers
                 };
 
                 _userRepository.AddEntity(templateQuestion);
-                _userRepository.SaveChange() ;
-
-                foreach(TemplateOptions options in question.options)
+                if(_userRepository.SaveChange())
                 {
-                    TemplateOption optionsOption = new TemplateOption()
+                    foreach (TemplateOptions options in question.options)
                     {
-                        OptionId = options.optionId,
-                        OptionText = options.optionText,
-                        QuestionId = options.optionId,
-                        NextQuestion = 0
-                    };
+                        TemplateOption optionsOption = new TemplateOption()
+                        {
+                            OptionId = options.optionId,
+                            OptionText = options.optionText,
+                            QuestionId = question.questionId,
+                            NextQuestion = 0
+                        };
 
-                    _userRepository.AddEntity(optionsOption);
-                    _userRepository.SaveChange();
-                }
+                        _userRepository.AddEntity(optionsOption);
+                        _userRepository.SaveChange();
+                    }
+                }                
             }
 
             return Ok();
