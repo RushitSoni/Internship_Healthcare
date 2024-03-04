@@ -127,6 +127,49 @@ namespace Online_Survey.Controllers
 
         }
 
+        [HttpPost("CreateTemplate")]
+        public IActionResult createTemplate(TemplateDetails templateDetails)
+        {
+            TemplateDetail templateDetail = new TemplateDetail(){
+                SurveyId = templateDetails.surveyid,
+                SurveyName = templateDetails.surveyName,
+            };
+
+            _userRepository.AddEntity(templateDetail);
+
+            _userRepository.SaveChange();
+
+            foreach(TemplateQuestions question in templateDetails.question)
+            {
+                TemplateQuestion templateQuestion = new TemplateQuestion()
+                {
+                    QuestionId = question.questionId,
+                    QuestionText = question.questionText,
+                    SurveyId = templateDetails.surveyid,
+                    OptionType = ""+question.questionOptionType
+                };
+
+                _userRepository.AddEntity(templateQuestion);
+                _userRepository.SaveChange() ;
+
+                foreach(TemplateOptions options in question.options)
+                {
+                    TemplateOption optionsOption = new TemplateOption()
+                    {
+                        OptionId = options.optionId,
+                        OptionText = options.optionText,
+                        QuestionId = options.optionId,
+                        NextQuestion = 0
+                    };
+
+                    _userRepository.AddEntity(optionsOption);
+                    _userRepository.SaveChange();
+                }
+            }
+
+            return Ok();
+        }
+
         [HttpPost("CreateSurvey")]
         public int CreateSurvey(SurveyorDTO surveyorid)
         {

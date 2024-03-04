@@ -16,6 +16,7 @@ import { WorkspaceModule } from '../workspace/workspace.module';
 import { SettimeComponent } from './settime/settime.component';
 import { MatButtonModule } from '@angular/material/button';
 import { SendComponent } from './send/send.component';
+import { TemplatedetailComponent } from './templatedetail/templatedetail.component';
 
 
 
@@ -26,7 +27,8 @@ import { SendComponent } from './send/send.component';
     CompletionComponent,
     DisplayComponent,
     SettimeComponent,
-    SendComponent
+    SendComponent,
+    TemplatedetailComponent
   ],
   imports: [
     CommonModule,

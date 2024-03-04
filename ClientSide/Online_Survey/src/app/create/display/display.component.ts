@@ -9,7 +9,7 @@ import { Observable } from 'rxjs';
   styleUrl: './display.component.css'
 })
 
-export class DisplayComponent implements OnInit, OnChanges{
+export class DisplayComponent implements OnInit{
   
   @Input() question!: Post_Question;
   @Input() questionNumber!: number;
@@ -18,20 +18,6 @@ export class DisplayComponent implements OnInit, OnChanges{
 
   }
 
-  ngOnChanges(changes: SimpleChanges): void {
-  }
-
-  questions : QuestionOption[] = [];
-  
   ngOnInit(): void {
-    const data = this.service.getData() as Observable<QuestionOption[]>;
-
-    if(data !== undefined)
-    {
-      data.subscribe((responsedata) => {
-        this.service.setQuestionOption(responsedata);
-        this.questions = responsedata;
-      });
-    }
   }
 }

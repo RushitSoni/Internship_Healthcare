@@ -27,6 +27,12 @@ export interface QuestionOption{
     options : Option_List[];
 }
 
+export interface template_detail{
+    surveyid : number;
+    surveyname : string;
+    questions : QuestionOption[]
+}
+
 export interface Post_OptionList
 {
     optionId : number;
