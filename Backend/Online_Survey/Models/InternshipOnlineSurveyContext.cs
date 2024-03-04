@@ -7,11 +7,12 @@ namespace Online_Survey.Models;
 
 public partial class InternshipOnlineSurveyContext : DbContext
 {
-    private IConfiguration _configuration;
+    IConfiguration _configuration; 
     public InternshipOnlineSurveyContext(IConfiguration config)
     {
         _configuration = config;
     }
+
 
     public virtual DbSet<Company> Companies { get; set; }
 
@@ -32,6 +33,12 @@ public partial class InternshipOnlineSurveyContext : DbContext
     public virtual DbSet<SurveyerDept> SurveyerDepts { get; set; }
 
     public virtual DbSet<Table> Tables { get; set; }
+
+    public virtual DbSet<TemplateDetail> TemplateDetails { get; set; }
+
+    public virtual DbSet<TemplateOption> TemplateOptions { get; set; }
+
+    public virtual DbSet<TemplateQuestion> TemplateQuestions { get; set; }
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see https://go.microsoft.com/fwlink/?LinkId=723263.
@@ -222,6 +229,74 @@ public partial class InternshipOnlineSurveyContext : DbContext
             entity.ToTable("Table");
 
             entity.Property(e => e.Id).ValueGeneratedNever();
+        });
+
+        modelBuilder.Entity<TemplateDetail>(entity =>
+        {
+            entity.HasKey(e => e.SurveyId).HasName("PK__Template__9DC31A0794285477");
+
+            entity.ToTable("Template_Details");
+
+            entity.Property(e => e.SurveyId)
+                .ValueGeneratedNever()
+                .HasColumnName("survey_id");
+            entity.Property(e => e.SurveyName)
+                .IsRequired()
+                .HasMaxLength(20)
+                .HasColumnName("survey_name");
+
+            entity.HasOne(d => d.Survey).WithOne(p => p.TemplateDetail)
+                .HasForeignKey<TemplateDetail>(d => d.SurveyId)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK__Template___surve__1B9317B3");
+        });
+
+        modelBuilder.Entity<TemplateOption>(entity =>
+        {
+            entity.HasKey(e => e.OptionId).HasName("PK__Template__F4EACE1B4D36DA9C");
+
+            entity.ToTable("Template_Options");
+
+            entity.Property(e => e.OptionId)
+                .ValueGeneratedNever()
+                .HasColumnName("option_id");
+            entity.Property(e => e.NextQuestion).HasColumnName("next_question");
+            entity.Property(e => e.OptionText)
+                .IsRequired()
+                .HasMaxLength(256)
+                .IsUnicode(false)
+                .HasColumnName("option_text");
+            entity.Property(e => e.QuestionId).HasColumnName("question_id");
+
+            entity.HasOne(d => d.Question).WithMany(p => p.TemplateOptions)
+                .HasForeignKey(d => d.QuestionId)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK__Template___quest__41B8C09B");
+        });
+
+        modelBuilder.Entity<TemplateQuestion>(entity =>
+        {
+            entity.HasKey(e => e.QuestionId).HasName("PK__Template__2EC21549B389D668");
+
+            entity.ToTable("Template_Questions");
+
+            entity.Property(e => e.QuestionId)
+                .ValueGeneratedNever()
+                .HasColumnName("question_id");
+            entity.Property(e => e.OptionType)
+                .IsRequired()
+                .HasMaxLength(30)
+                .HasColumnName("option_type");
+            entity.Property(e => e.QuestionText)
+                .IsRequired()
+                .HasMaxLength(256)
+                .HasColumnName("question_text");
+            entity.Property(e => e.SurveyId).HasColumnName("survey_id");
+
+            entity.HasOne(d => d.Survey).WithMany(p => p.TemplateQuestions)
+                .HasForeignKey(d => d.SurveyId)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK__Template___surve__2EA5EC27");
         });
 
         OnModelCreatingPartial(modelBuilder);
