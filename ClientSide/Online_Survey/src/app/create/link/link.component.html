@@ -1,0 +1,8 @@
+<div class="content">
+    <div mat-dialog-title> Link For Survey </div>
+    <div mat-dialog-content>
+        <input type="text" [value]="inputUrl" [disabled]="true" style="width: 100%;">    
+        <button ngxClipboard [cbContent]="inputUrl" class="btn btn-primary"><mat-icon>content_copy</mat-icon></button>
+        <button (click)="close()">Close</button>
+    </div>
+</div>

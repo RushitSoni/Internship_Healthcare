@@ -6,6 +6,7 @@ import { CreateService } from '../create.service';
 import { MatDialog } from '@angular/material/dialog';
 import { TemplatedetailComponent } from '../templatedetail/templatedetail.component';
 import { Observable } from 'rxjs';
+import { LinkComponent } from '../link/link.component';
 
 @Component({
   selector: 'app-completion',
@@ -15,7 +16,6 @@ import { Observable } from 'rxjs';
 export class CompletionComponent implements OnInit {
   
   questions! : QuestionOption[]; 
-  Frontendurl! : string;
   inputUrl : string = '';
   
   constructor( private globalservice : GlobalserviceService , private service : CreateService,private dialog : MatDialog) {}
@@ -25,14 +25,12 @@ export class CompletionComponent implements OnInit {
     data.subscribe(data => {
       this.questions = data;
     });
-    this.Frontendurl = this.globalservice.FrontendUrl + 'respondent/' + this.globalservice.SurveyId;
-    this.inputUrl = this.Frontendurl;
   }
 
   AddTemplate(result : string)
   {
     const survey_detail : template_detail = {
-      surveyid : this.globalservice.SurveyId,
+      surveyid : Number(localStorage.getItem('surveyId')),
       surveyname : result,
       questions : this.questions
     };
@@ -41,6 +39,18 @@ export class CompletionComponent implements OnInit {
       console.log(data);
     })
     console.log(this.service.getQuestionOption());
+  }
+
+  Link()
+  {
+    const dialogRef = this.dialog.open(LinkComponent ,{
+      width: '80%',
+      height: '20%'
+    });
+
+    dialogRef.afterClosed().subscribe((result) => {
+      this.inputUrl = result;
+    })
   }
 
   SaveTemplate()

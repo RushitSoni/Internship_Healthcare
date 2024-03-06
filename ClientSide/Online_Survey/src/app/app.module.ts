@@ -28,6 +28,7 @@ import {MatButtonModule} from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { ProfileComponent } from './profile/profile.component';
 
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -36,16 +37,13 @@ import { ProfileComponent } from './profile/profile.component';
     HomeComponent,
     LandingPageComponent,
     AdminComponent,
-
-    
     SecondPageComponent,
     UserSuccessStoriesComponent,
     SurveyStatisticsComponent,
     BlogComponent,
     SupportComponent,
     GetStartedComponent,
-    ProfileComponent,
-  
+    ProfileComponent
   ],
 
   imports: [BrowserModule, AppRoutingModule, NgbModule, SharedModule,HttpClientModule,FormsModule,WorkspaceModule,MatButtonModule,  MatIconModule],

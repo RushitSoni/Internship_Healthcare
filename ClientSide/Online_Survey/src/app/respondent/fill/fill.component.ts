@@ -16,6 +16,8 @@ export class FillComponent {
   answer : {[key : string] : string | string[]} = {};
   fillData : QuestionOption[] = []; 
   filledanswer : Answer[] = [];
+  selectedOptions: { [questionId: number]: number[] } = {}; 
+
   constructor(private service: RespondentserviceService) { }
 
   ngOnInit() {
@@ -38,7 +40,7 @@ export class FillComponent {
       const fillanswer : Answer = {
         Id : this.service.primaryid,
         QuestionId : Number(id),
-        OptionId : Number(this.answer[id]),
+        OptionId : this.selectedOptions[Number(id)],
         AnswerText : String(this.answer[id])
       }
 
@@ -50,5 +52,16 @@ export class FillComponent {
     this.service.addAnswer(this.filledanswer).subscribe((data) => {
       console.log(data);
     });
+  }
+
+  ConvertNumber(list : string | string[] | any)
+  {
+    const list2 : Number[] = [];
+    for(let item in list)
+    {
+      list2.push(Number(item))
+    }
+
+    return list2;
   }
 }
