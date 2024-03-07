@@ -47,8 +47,6 @@ export class TakesurveyComponent {
       this.route.params.subscribe(params => {
         this.service.surveyid = params['surveyid'] as number;
       });
-      console.log(this.respondentid);
-      console.log(this.surveyid);
       const record : Respondent_Record = {
         RespondentId : this.service.respondentid,
         SurveyId : this.service.surveyid 
@@ -57,6 +55,8 @@ export class TakesurveyComponent {
       console.log(record);
       this.service.addRecord(record).subscribe((data) => {
         this.service.primaryid = data;
+        console.log(data);
+        localStorage.setItem('primaryId',String(data));
         resolve(data);
       })
     });
@@ -69,7 +69,7 @@ export class TakesurveyComponent {
         this.router.navigate(['respondent/:surveyid','fill']);
       });
     }).catch((err) => {
-      
+      console.log(err);
     });
   }
 

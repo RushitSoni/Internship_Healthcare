@@ -35,6 +35,7 @@ export class GenerateSurveyComponent implements OnInit {
     this.route.queryParams.subscribe((params) => {
       this.departmentId = params['deptID'];
     });
+    localStorage.setItem('departmentId',this.departmentId);
   }
 
   formatDate(date: Date): String {

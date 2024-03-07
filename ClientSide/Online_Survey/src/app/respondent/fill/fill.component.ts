@@ -10,14 +10,9 @@ import { throws } from 'assert';
   templateUrl: './fill.component.html',
   styleUrl: './fill.component.css',
 })
-/**
- * Represents the FillComponent class.
- * This component is responsible for filling out the survey form.
- */
 export class FillComponent {
   fillData: QuestionOption[] = [];
-  form: FormGroup;
-
+  form: FormGroup; 
 
   constructor(
     private service: RespondentserviceService,
@@ -35,9 +30,8 @@ export class FillComponent {
     });
   }
 
-  CreateForm()
-  {
-    console.log("hi");
+  CreateForm() {
+    console.log('hi');
     this.fillData.forEach((question) => {
       if (question.questionOptionType == 1) {
         // For radio button questions
@@ -67,7 +61,15 @@ export class FillComponent {
   }
 
   OnSubmit() {
-    console.log(this.form.value);
-  }
+    this.fillData.forEach((question) => {
+      const data : Answer = {
+        Id : Number(localStorage.getItem('primaryId')),
+        QuestionId : question.questionId,
+        OptionId : question.questionOptionType == 1 || question.questionOptionType == 2 ? this.form.get(question.questionId.toString())?.value : [],
+        AnswerText : question.questionOptionType == 3 ? this.form.get(question.questionId.toString())?.value : '' 
+      }
 
+      console.log(data);
+    })
+  }
 }

@@ -15,5 +15,6 @@ namespace Online_Survey.DTO
         public DateOnly? EndDate { get; set; }
 
         public TimeOnly? StartTime { get; set; }
+        public int? DeptId { get; set; }
     }
 }
