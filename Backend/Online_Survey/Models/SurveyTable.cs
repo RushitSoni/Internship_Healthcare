@@ -21,6 +21,10 @@ public partial class SurveyTable
 
     public int? EndTime { get; set; }
 
+    public int? DeptId { get; set; }
+
+    public virtual Department Dept { get; set; }
+
     public virtual ICollection<OptionTable> OptionTables { get; set; } = new List<OptionTable>();
 
     public virtual ICollection<QuestionTable> QuestionTables { get; set; } = new List<QuestionTable>();

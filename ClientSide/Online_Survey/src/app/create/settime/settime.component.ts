@@ -1,6 +1,7 @@
 import { Component, EventEmitter, Output } from '@angular/core';
 import { MatDialogRef } from '@angular/material/dialog';
 import { SurveyTable } from '../../shared/Models/Survey';
+import { GlobalserviceService } from '../../../globalservice/globalservice.service';
 
 @Component({
   selector: 'app-settime',
@@ -11,14 +12,14 @@ export class SettimeComponent {
   
   @Output() surveytable : EventEmitter<any> = new EventEmitter();
 
-  selectedStartDate! : Date;
-  selectedEndDate! : Date;
+  selectedStartDate! : string;
+  selectedEndDate! : string;
   mindate: String;
-  selectedTime: any;
+  selectedTime!: string;
   selectedDuration! : number;
   description! : string;
   
-  constructor(public dialogRef : MatDialogRef<SettimeComponent>)
+  constructor(public dialogRef : MatDialogRef<SettimeComponent>,private globalservice : GlobalserviceService)
   {
     this.mindate = this.formatDate(new Date());
   }
@@ -35,8 +36,10 @@ export class SettimeComponent {
     console.log(this.description);
     return new Promise<SurveyTable>((resolve,reject)=>{
       const surveyTable : SurveyTable = {
-        SurveyorId : 'ccc5dff2-a4c6-4c9c-882a-130bab6a2d26',
-        Description : this.description
+        SurveyorId : this.globalservice.SurveyorId!,
+        Description : this.description,
+        StartDate : this.selectedStartDate,
+        EndDate : this.selectedEndDate,
       }
       resolve(surveyTable);
     });

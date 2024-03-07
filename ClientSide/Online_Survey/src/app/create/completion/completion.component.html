@@ -1,8 +1,6 @@
 <div>
 <div class="upper-class">
-    <p>Link for your Survey:</p>
-    <input type="text" [value]="inputUrl" [disabled]="true" style="width: 100%;">
-    <button ngxClipboard [cbContent]="inputUrl" class="btn btn-primary">Copy</button>
+    <button class="btn btn-primary mt-5" (click)="Link()">Generate Link</button>
     <button  class="btn btn-primary mt-5" routerLink="/create/send" [queryParams]="{url: inputUrl}">Send</button>
     <button class="btn btn-primary mt-5" (click)="SaveTemplate()">Save as Template</button>
 </div>

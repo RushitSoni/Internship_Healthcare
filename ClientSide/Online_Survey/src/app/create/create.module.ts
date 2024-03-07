@@ -20,6 +20,9 @@ import { TemplatedetailComponent } from './templatedetail/templatedetail.compone
 import { DisplayQuestionbankComponent } from './display-questionbank/display-questionbank.component';
 import { MatIcon } from '@angular/material/icon';
 import {MatSnackBarModule} from '@angular/material/snack-bar';
+import { LinkComponent } from './link/link.component';
+import { MatIconModule } from '@angular/material/icon';
+import { AlertComponent } from './alert/alert.component';
 
 
 
@@ -32,7 +35,9 @@ import {MatSnackBarModule} from '@angular/material/snack-bar';
     SettimeComponent,
     SendComponent,
     TemplatedetailComponent,
-    DisplayQuestionbankComponent
+    DisplayQuestionbankComponent,
+    LinkComponent,
+    AlertComponent
   ],
   imports: [
     CommonModule,
@@ -47,9 +52,10 @@ import {MatSnackBarModule} from '@angular/material/snack-bar';
     MatDialogModule,
     MatButtonModule,
     MatIcon,
-    MatSnackBarModule
+    MatSnackBarModule,
    
 
+    MatIconModule
   ]
 })
 export class CreateModule { }

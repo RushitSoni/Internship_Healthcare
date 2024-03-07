@@ -183,8 +183,8 @@ namespace Online_Survey.Controllers
                 Description = surveyorid.Description,
                 DateCreated = today,
                 StartTime = time,
-                LaunchDate = today,
-                EndDate = today
+                LaunchDate = DateOnly.FromDateTime(DateTime.Parse(surveyorid.StartDate)),
+                EndDate = DateOnly.FromDateTime(DateTime.Parse(surveyorid.EndDate))
             };
 
             SurveyTable surveyTable = mapper.Map<SurveyTable>(surveyDTO);

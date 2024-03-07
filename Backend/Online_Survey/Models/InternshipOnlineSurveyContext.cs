@@ -7,12 +7,11 @@ namespace Online_Survey.Models;
 
 public partial class InternshipOnlineSurveyContext : DbContext
 {
-    IConfiguration _configuration;
+    private IConfiguration _configuration; 
     public InternshipOnlineSurveyContext(IConfiguration config)
     {
         _configuration = config;
     }
-
 
     public virtual DbSet<Company> Companies { get; set; }
 
@@ -32,7 +31,11 @@ public partial class InternshipOnlineSurveyContext : DbContext
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see https://go.microsoft.com/fwlink/?LinkId=723263.
+<<<<<<< HEAD
         => optionsBuilder.UseSqlServer("Server=(localdb)\\mssqllocaldb;Database=Internship_Online_Survey;Trusted_Connection=True;");
+=======
+    => optionsBuilder.UseSqlServer(_configuration.GetConnectionString("DefaultConnection"));
+>>>>>>> 9b85e261289591d56333691047f59cea2a3dfd26
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -64,6 +67,10 @@ public partial class InternshipOnlineSurveyContext : DbContext
 
             entity.HasOne(d => d.Company).WithMany(p => p.Departments)
                 .HasForeignKey(d => d.CompanyId)
+<<<<<<< HEAD
+=======
+                .OnDelete(DeleteBehavior.ClientSetNull)
+>>>>>>> 9b85e261289591d56333691047f59cea2a3dfd26
                 .HasConstraintName("FK_Department_Company");
         });
 
@@ -99,7 +106,11 @@ public partial class InternshipOnlineSurveyContext : DbContext
 
         modelBuilder.Entity<QuestionBankOptionTable>(entity =>
         {
+<<<<<<< HEAD
             entity.HasKey(e => e.OptionId).HasName("PK__Question__F4EACE1B90A54BC3");
+=======
+            entity.HasKey(e => e.OptionId).HasName("PK__Question__F4EACE1BAAF789A9");
+>>>>>>> 9b85e261289591d56333691047f59cea2a3dfd26
 
             entity.ToTable("QuestionBank_Option_table");
 
@@ -113,12 +124,20 @@ public partial class InternshipOnlineSurveyContext : DbContext
 
             entity.HasOne(d => d.Question).WithMany(p => p.QuestionBankOptionTables)
                 .HasForeignKey(d => d.QuestionId)
+<<<<<<< HEAD
                 .HasConstraintName("FK__QuestionB__quest__3B40CD36");
+=======
+                .HasConstraintName("FK__QuestionB__quest__2116E6DF");
+>>>>>>> 9b85e261289591d56333691047f59cea2a3dfd26
         });
 
         modelBuilder.Entity<QuestionBankQuestionTable>(entity =>
         {
+<<<<<<< HEAD
             entity.HasKey(e => e.QuestionId).HasName("PK__Question__2EC2154954A35152");
+=======
+            entity.HasKey(e => e.QuestionId).HasName("PK__Question__2EC21549762ED5C1");
+>>>>>>> 9b85e261289591d56333691047f59cea2a3dfd26
 
             entity.ToTable("QuestionBank_Question_table");
 
@@ -141,7 +160,11 @@ public partial class InternshipOnlineSurveyContext : DbContext
 
             entity.HasOne(d => d.Company).WithMany(p => p.QuestionBankQuestionTables)
                 .HasForeignKey(d => d.CompanyId)
+<<<<<<< HEAD
                 .HasConstraintName("FK__QuestionB__compa__17036CC0");
+=======
+                .HasConstraintName("FK__QuestionB__compa__0EF836A4");
+>>>>>>> 9b85e261289591d56333691047f59cea2a3dfd26
         });
 
         modelBuilder.Entity<QuestionTable>(entity =>
@@ -179,6 +202,7 @@ public partial class InternshipOnlineSurveyContext : DbContext
 
             entity.Property(e => e.SurveyId).HasColumnName("Survey_id");
             entity.Property(e => e.DateCreated).HasColumnName("date_created");
+            entity.Property(e => e.DeptId).HasColumnName("deptId");
             entity.Property(e => e.Description).IsRequired();
             entity.Property(e => e.EndDate).HasColumnName("end_date");
             entity.Property(e => e.EndTime).HasColumnName("end_time");
@@ -188,6 +212,10 @@ public partial class InternshipOnlineSurveyContext : DbContext
                 .IsRequired()
                 .HasMaxLength(450)
                 .HasColumnName("Surveyor_id");
+
+            entity.HasOne(d => d.Dept).WithMany(p => p.SurveyTables)
+                .HasForeignKey(d => d.DeptId)
+                .HasConstraintName("FK__Survey_ta__deptI__7908F585");
         });
 
         modelBuilder.Entity<SurveyerDept>(entity =>
@@ -213,6 +241,10 @@ public partial class InternshipOnlineSurveyContext : DbContext
 
             entity.HasOne(d => d.Dept).WithMany(p => p.SurveyerDepts)
                 .HasForeignKey(d => d.DeptId)
+<<<<<<< HEAD
+=======
+                .OnDelete(DeleteBehavior.ClientSetNull)
+>>>>>>> 9b85e261289591d56333691047f59cea2a3dfd26
                 .HasConstraintName("FK_Surveyer_Dept_DeptId");
         });
 

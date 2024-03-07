@@ -64,6 +64,7 @@ export class GenerateSurveyComponent implements OnInit {
   CreateSurvey(surveyTable: SurveyTable) {
     this.service.createSurvey(surveyTable).subscribe((data) => {
       this.globalService.SurveyId = data;
+      localStorage.setItem('surveyId',String(data));
     });
     this.settime = !this.settime;
 
