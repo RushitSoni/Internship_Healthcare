@@ -5,29 +5,8 @@
         <button class="btn btn-primary mt-3" (click)="openDialog()">
             Generate New Survey
         </button>
-        
         <h3>{{departmentId}}</h3>
         <br>
-            <div class="description_text">
-                <label>Write the Description for the Survey you want to generate...</label><br>
-                <textarea placeholder="Write description here." class="custom-text" (ngModel)="description"></textarea>
-            </div>
-        <div [hidden]="settime">
-            <div>
-                <label>Select Start Date:</label>
-                <input type="date" (ngModel)="selectedStartDate" [min]="mindate">
-                <label>Select Start Time:</label>
-                <input type="time" (ngModel)="selectedTime">
-            </div>
-            <div>
-                <label>Select End Date:</label>
-                <input type="date" (ngModel)="selectedEndDate" [min]="mindate">
-            </div>
-            <div>
-                <label>Enter time duration:</label>
-                <input type="number" (ngModel)="selectedDuration">
-            </div>
-        </div>
        <br>
     </div>
 </div>

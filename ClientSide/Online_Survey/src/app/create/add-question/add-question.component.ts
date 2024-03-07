@@ -4,6 +4,8 @@ import { Post_OptionList, Post_Question } from '../../shared/Models/Survey';
 import { GlobalserviceService } from '../../../globalservice/globalservice.service';
 import { Router } from '@angular/router';
 import { CreateService } from '../create.service';
+import { MatDialog, MatDialogRef } from '@angular/material/dialog';
+import { AlertComponent } from '../alert/alert.component';
 
 @Component({
   selector: 'app-add-question',
@@ -13,19 +15,21 @@ import { CreateService } from '../create.service';
 export class AddQuestionComponent implements OnInit {
   form_question!: FormGroup;
   Question_id!: number;
-  i!: number;
+  questionnumber: number;
 
   constructor(
     private fb_question: FormBuilder,
     private globalservice: GlobalserviceService,
     private service: CreateService,
-    private router: Router
-  ) {}
+    private router: Router,
+    private dialogRef : MatDialog
+  ) {
+    this.questionnumber = 1;
+  }
 
   question_list: Post_Question[] = [];
 
   ngOnInit(): void {
-    this.i = 1;
     this.form_question = this.fb_question.group({
       question_text: '',
       question_type: [''], // This will hold the selected question type
@@ -52,39 +56,46 @@ export class AddQuestionComponent implements OnInit {
     }
   }
 
-  UploadQuestion(): Promise<void> {
-    return new Promise<void>((resolve, reject) => {
+  UploadQuestion() {
+    try {
       const optionList: Post_OptionList[] = [];
-
+      const questiontext = this.form_question.get('question_text')!.value;
+      const questiontype = this.form_question.get('question_type')!.value;
       const textvalues = this.dynamicFields.value;
 
-      if (textvalues.length != 0) {
-        if (textvalues.length != 0) {
-          for (let index in textvalues) {
+      if (textvalues.length != 0 && (questiontype == 1 || questiontype == 2)) {
+        for (let index in textvalues) {
+          if (textvalues[index] != '') {
             const newoption: Post_OptionList = {
               optionId: Number(index),
-              surveyId: this.globalservice.SurveyId,
+              surveyId: Number(localStorage.getItem('surveyId')),
               optionText: textvalues[index],
             };
             optionList.push(newoption);
+          } else {
+            throw 'Options';
           }
         }
       }
 
-      const questionoption: Post_Question = {
-        questionId: this.i,
-        surveyId: this.globalservice.SurveyId,
-        questionText: this.form_question.get('question_text')?.value,
-        questionOptionType: this.form_question.get('question_type')?.value,
-        options: optionList,
-      };
+      if (questiontype != '' && questiontext != '') {
+        const questionoption: Post_Question = {
+          questionId: this.questionnumber,
+          surveyId: Number(localStorage.getItem('surveyId')),
+          questionText: this.form_question.get('question_text')?.value,
+          questionOptionType: this.form_question.get('question_type')?.value,
+          options: optionList,
+        };
 
-      this.i = this.i + 1;
+        this.questionnumber = this.questionnumber + 1;
 
-      this.question_list.push(questionoption);
-      console.log(this.question_list);
-      resolve();
-    });
+        this.question_list.push(questionoption);
+      } else {
+        throw 'Questions';
+      }
+    } catch (error) {
+      throw error;
+    }
   }
 
   Upload(): Promise<void> {
@@ -97,37 +108,39 @@ export class AddQuestionComponent implements OnInit {
   }
 
   reset() {
-    this.UploadQuestion()
-      .then((result) => {
-        this.dynamicFields.clear();
-        this.form_question.reset({
-          question_text: '',
-          question_type: [''], // This will hold the selected question type
-          dynamicFields: this.fb_question.array([
-            this.fb_question.control(''),
-            this.fb_question.control(''),
-          ]),
-        });
-      })
-      .catch((err) => {
-        console.log(err);
+    try {
+      this.UploadQuestion();
+      this.form_question.reset({
+        question_text: '',
+        question_type: [''], // This will hold the selected question type
+        dynamicFields: this.fb_question.array([
+          this.fb_question.control(''),
+          this.fb_question.control(''),
+        ]),
       });
-  }
-
-  AddQuestion() {
-    this.reset();
+    } catch (error) {
+      const dialog = this.dialogRef.open(AlertComponent , {
+        width: '100%',
+        height: '20%'
+      });
+      throw error;
+    }
   }
 
   OnComplete() {
-    this.reset();
-    this.Upload()
-      .then((result) => {
-        this.router.navigate(['create/generate', 'complete'], {
-          skipLocationChange: true,
+    try {
+      this.reset();
+      this.Upload()
+        .then((result) => {
+          this.router.navigate(['create/generate', 'complete'], {
+            skipLocationChange: true,
+          });
+        })
+        .catch((err) => {
+          console.log(err);
         });
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+    } catch (error) {
+    
+    }
   }
 }

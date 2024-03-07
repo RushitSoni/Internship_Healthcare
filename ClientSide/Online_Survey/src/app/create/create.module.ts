@@ -17,6 +17,9 @@ import { SettimeComponent } from './settime/settime.component';
 import { MatButtonModule } from '@angular/material/button';
 import { SendComponent } from './send/send.component';
 import { TemplatedetailComponent } from './templatedetail/templatedetail.component';
+import { LinkComponent } from './link/link.component';
+import { MatIconModule } from '@angular/material/icon';
+import { AlertComponent } from './alert/alert.component';
 
 
 
@@ -28,7 +31,9 @@ import { TemplatedetailComponent } from './templatedetail/templatedetail.compone
     DisplayComponent,
     SettimeComponent,
     SendComponent,
-    TemplatedetailComponent
+    TemplatedetailComponent,
+    LinkComponent,
+    AlertComponent
   ],
   imports: [
     CommonModule,
@@ -41,8 +46,8 @@ import { TemplatedetailComponent } from './templatedetail/templatedetail.compone
     MatInputModule,
     WorkspaceModule,
     MatDialogModule,
-    MatButtonModule
-
+    MatButtonModule,
+    MatIconModule
   ]
 })
 export class CreateModule { }

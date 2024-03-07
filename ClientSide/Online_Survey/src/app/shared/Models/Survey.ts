@@ -1,5 +1,5 @@
 export interface SurveyTable {
-    SurveyorId : String ;
+    SurveyorId : String;
 }
 
 export interface Question {
@@ -55,6 +55,8 @@ export interface Survey{
 export interface SurveyTable{
     SurveyorId : String;
     Description : string;
+    StartDate : string;
+    EndDate : string;
 }
 
 export interface Respondent{
@@ -71,6 +73,6 @@ export interface Respondent_Record{
 export interface Answer{
     Id : number;
     QuestionId : number;
-    OptionId : number;
+    OptionId : number | number[];
     AnswerText : string;
 }

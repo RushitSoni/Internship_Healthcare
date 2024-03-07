@@ -17,7 +17,7 @@ export class AppComponent implements OnInit {
   ngOnInit(): void {
 
     this.refreshUser()
-    this.globalservice.FrontendUrl = this.document.location.href;
+    this.globalservice.FrontendUrl = "http://localhost:4200/";
   }
 
   private  refreshUser(){
