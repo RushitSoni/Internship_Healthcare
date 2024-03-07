@@ -73,6 +73,6 @@ export interface Respondent_Record{
 export interface Answer{
     Id : number;
     QuestionId : number;
-    OptionId : number[];
+    OptionId : number | number[];
     AnswerText : string;
 }

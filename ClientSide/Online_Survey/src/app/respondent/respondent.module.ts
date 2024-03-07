@@ -4,7 +4,7 @@ import { CommonModule } from '@angular/common';
 import { RespondentRoutingModule } from './respondent-routing.module';
 import { TakesurveyComponent } from './takesurvey/takesurvey.component';
 import { FillComponent } from './fill/fill.component';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 
 @NgModule({
@@ -15,7 +15,8 @@ import { FormsModule } from '@angular/forms';
   imports: [
     CommonModule,
     RespondentRoutingModule,
-    FormsModule
+    FormsModule,
+    ReactiveFormsModule
   ]
 })
 export class RespondentModule { }
