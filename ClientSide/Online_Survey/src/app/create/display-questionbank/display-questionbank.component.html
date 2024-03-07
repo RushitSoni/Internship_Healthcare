@@ -1,0 +1,51 @@
+<div class="questionbank-container">
+   
+  
+   
+     
+      <div class="questions">
+
+        <div class="no-bank-message" *ngIf="!(questions && questions.length > 0)">
+           QuestionBank is empty.
+        </div>
+
+       
+        <div *ngFor="let question of questions" class="question">
+
+            <div class="question-header">
+                <h2 class="question-text">{{ question.questionText }}</h2>
+                <button mat-raised-button class="add-button" (click)="addQuestionFromQuestionBank(question,filterOptionsByQuestion(question.questionId))">Add</button>
+            </div>
+  
+  
+        
+  
+  
+          <div *ngIf="question.questionOptionType === 'mcq' || question.questionOptionType === 'msq'">
+            <!-- Render MCQ/MSQ options -->
+            <div *ngFor="let option of filterOptionsByQuestion(question.questionId)" class="option">
+              <input
+                type="{{ question.questionOptionType === 'msq' ? 'checkbox' : 'radio' }}"
+                name="{{ question.questionId }}"
+                [value]="option.optionText"
+                [disabled]="true"
+              />
+              {{ option.optionText }}
+              
+              
+            </div>
+            
+          </div>
+          <div *ngIf="question.questionOptionType === 'text'">
+            <!-- Render Text input -->
+            <input type="text" name="{{ question.questionId }}" [disabled]="true" /> <!-- Disabled input -->
+          </div>
+  
+          <hr> <!-- Add a horizontal line to separate questions -->
+        </div>
+        
+      </div>
+  
+    
+  </div>
+  

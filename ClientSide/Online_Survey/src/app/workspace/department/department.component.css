@@ -1,9 +1,8 @@
 /* Updated styles for improved design */
 
 .company-content {
-  border: 1px solid #ddd; /* Add border to company content */
-  padding: 20px; /* Add padding for better visual */
-  /* background-color: #f2ebf5;  */
+  border: 1px solid #ddd;
+  padding: 20px;
   border-radius: 8px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
   margin-left: 10px;
@@ -29,36 +28,36 @@
   margin-left: 1%;
 }
 
-.add-button{
-  flex-grow: 1; /* This will make the content div grow and take up all available space */
-  display: flex;
- 
-  justify-content: flex-end; /* This aligns the button to the right end */
+.add-button {
+  flex-grow: 1;
+  text-align: right;
+}
 
+.question-bank-button {
+  flex-grow: 1;
+  
 }
 
 .company-content {
-  
   width: 80%;
   padding: 20px;
 }
-.table-company{
 
-  padding-top:20px;
+.table-company {
+  padding-top: 20px;
   max-width: 1248px;
-  margin:0 auto;
-
-
+  margin: 0 auto;
 }
 
-mat-form-field{
+mat-form-field {
   width: 100%;
+}
 
-}
-.action{
+.action {
   display: flex;
-  gap:5%
+  gap: 5%;
 }
-.mat-mdc-form-field-focus-overlay{
+
+.mat-mdc-form-field-focus-overlay {
   background-color: white;
 }

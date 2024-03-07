@@ -18,7 +18,12 @@ import {MatPaginatorModule} from '@angular/material/paginator';
 import { AddEditDepartmentComponent } from './add-edit-department/add-edit-department.component';
 import { SurveyerListComponent } from './surveyer-list/surveyer-list.component';
 import { AddEditSurveyerComponent } from './add-edit-surveyer/add-edit-surveyer.component';
-
+import { QuestionBankComponent } from './question-bank/question-bank.component';
+import { AddQuestionQuestionbankComponent } from './add-question-questionbank/add-question-questionbank.component';
+import {MatSelectModule} from '@angular/material/select';
+import { AddSingleOptionComponent } from './add-single-option/add-single-option.component';
+import { EditOptionComponent } from './edit-option/edit-option.component';
+import { EditQuestionComponent } from './edit-question/edit-question.component';
 
 
 @NgModule({
@@ -31,6 +36,11 @@ import { AddEditSurveyerComponent } from './add-edit-surveyer/add-edit-surveyer.
     AddEditDepartmentComponent,
     SurveyerListComponent,
     AddEditSurveyerComponent,
+    QuestionBankComponent,
+    AddQuestionQuestionbankComponent,
+    AddSingleOptionComponent,
+    EditOptionComponent,
+    EditQuestionComponent,
   
   ],
   imports: [
@@ -46,7 +56,8 @@ import { AddEditSurveyerComponent } from './add-edit-surveyer/add-edit-surveyer.
     MatTableModule,
     MatSortModule,
     MatPaginatorModule,
-    MatIconModule
+    MatIconModule,
+    MatSelectModule
     
   ],
   exports: [SidebarComponent],
