@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { CreateService } from '../create.service';
 import { GlobalserviceService } from '../../../globalservice/globalservice.service';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute, NavigationExtras, Router } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
 import { SettimeComponent } from '../settime/settime.component';
 import { SurveyTable } from '../../shared/Models/Survey';
@@ -19,7 +19,10 @@ export class GenerateSurveyComponent implements OnInit {
   selectedTime: any;
   selectedDuration!: number;
   description: string = '';
+
   departmentId: string = '';
+  companyId: string=''
+
 
   constructor(
     private route: ActivatedRoute,
@@ -32,9 +35,10 @@ export class GenerateSurveyComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.route.queryParams.subscribe((params) => {
-      this.departmentId = params['deptID'];
-    });
+        this.route.queryParams.subscribe((params) => {
+          this.departmentId = params['deptID'];
+          this.companyId=params['companyID']
+        });
   }
 
   formatDate(date: Date): String {
@@ -62,6 +66,18 @@ export class GenerateSurveyComponent implements OnInit {
       this.globalService.SurveyId = data;
     });
     this.settime = !this.settime;
-    this.router.navigate(['/create/generate', 'addquestion']);
+
+    //queryParams
+
+    const queryParams: NavigationExtras = {
+      queryParams: {
+        // Add your query parameters here
+        // For example:
+        deptID: this.departmentId,
+        companyID: this.companyId
+      }
+    };
+    
+    this.router.navigate(['/create/generate', 'addquestion'],queryParams);
   }
 }

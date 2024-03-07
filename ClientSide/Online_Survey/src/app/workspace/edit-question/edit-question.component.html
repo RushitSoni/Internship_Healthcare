@@ -1,0 +1,26 @@
+<div>
+    <div>
+        <div mat-dialog-title>Question Form</div>
+    
+        <form [formGroup]="questionForm" (ngSubmit)="updateQuestion()" autocomplete="off">
+    
+        <div mat-dialog-content> 
+    
+            <div class="row">
+                <mat-form-field appearance="outline">
+                    <mat-label>Question Text</mat-label>
+                    <input matInput placeholder="Ex.question" formControlName="questionText">
+                </mat-form-field>
+            </div>
+    
+        </div>
+    
+        <div mat-dialog-actions class="action" >
+            <button mat-raised-button color="warn" type="button" [mat-dialog-close]="false">Cancel</button>
+            <button mat-raised-button color="primary" type="submit">Update</button>
+        </div>
+    
+        </form>
+    </div>
+    
+</div>

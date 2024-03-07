@@ -31,6 +31,10 @@
 <!-- <div>
     <app-display></app-display>
 </div> -->
+
+<div>
+    <button class="btn btn-primary" (click)="openQuestionBank()">QuestionBank</button>
+</div>
 <app-display *ngFor="let questionPreview of question_list; let i = index" [question]="questionPreview"
         [questionNumber]="i + 1">
 </app-display>

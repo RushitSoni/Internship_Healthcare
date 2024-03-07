@@ -1,0 +1,66 @@
+<div class="questionbank-container">
+  <app-sidebar></app-sidebar>
+
+  <div class="questionbank-content">
+
+    <div class="questionbank-header">
+      <div class="add-button">
+        <button mat-raised-button style="background-color: #1e90ff; color: white" (click)="openAddQuestionForm()">
+          + ADD QUESTION
+        </button>
+      </div>
+    </div>
+
+    <div class="questions">
+      <div *ngFor="let question of questions" class="question">
+
+
+        <h2 class="question-text">{{ question.questionText }}
+          <span class="icon-container">
+            <button mat-icon-button color="primary" class="small-icon" (click)="openUpdateQuestion(question)">
+              <mat-icon>edit</mat-icon>
+            </button>
+            <button mat-icon-button color="warn" class="small-icon" (click)="deleteQuestion(question.questionId)">
+              <mat-icon>delete</mat-icon>
+            </button>
+          </span>
+        </h2>
+
+
+        <div *ngIf="question.questionOptionType === 'mcq' || question.questionOptionType === 'msq'">
+          <!-- Render MCQ/MSQ options -->
+          <div *ngFor="let option of filterOptionsByQuestion(question.questionId)" class="option">
+            <input
+              type="{{ question.questionOptionType === 'msq' ? 'checkbox' : 'radio' }}"
+              name="{{ question.questionId }}"
+              [value]="option.optionText"
+              [disabled]="true"
+            />
+            {{ option.optionText }}
+            <!-- Edit and Delete actions -->
+            <span class="icon-container">
+              <button mat-icon-button color="primary" class="small-icon" (click)="openUpdateOption(option)">
+                <mat-icon>edit</mat-icon>
+              </button>
+              <button mat-icon-button color="warn" class="small-icon" (click)="deleteOption(option.optionId)">
+                <mat-icon>delete</mat-icon>
+              </button>
+            </span>
+          </div>
+          <!-- Add Option button -->
+          <button mat-raised-button style="margin-top: 10px;background-color: #1e90ff;color: white;" (click)="openAddSingleOption(question.questionId)">
+            + ADD OPTION
+          </button>
+        </div>
+        <div *ngIf="question.questionOptionType === 'text'">
+          <!-- Render Text input -->
+          <input type="text" name="{{ question.questionId }}" [disabled]="true" /> <!-- Disabled input -->
+        </div>
+
+        <hr> <!-- Add a horizontal line to separate questions -->
+      </div>
+      
+    </div>
+
+  </div>
+</div>

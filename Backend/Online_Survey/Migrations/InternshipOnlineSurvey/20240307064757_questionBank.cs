@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace Online_Survey.Migrations.InternshipOnlineSurvey
 {
     /// <inheritdoc />
-    public partial class tables : Migration
+    public partial class questionBank : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -45,17 +45,6 @@ namespace Online_Survey.Migrations.InternshipOnlineSurvey
                 });
 
             migrationBuilder.CreateTable(
-                name: "Table",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK__Table__3214EC07C83EBAD5", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "Department",
                 columns: table => new
                 {
@@ -70,6 +59,28 @@ namespace Online_Survey.Migrations.InternshipOnlineSurvey
                     table.ForeignKey(
                         name: "FK_Department_Company",
                         column: x => x.CompanyId,
+                        principalTable: "Company",
+                        principalColumn: "CompanyId",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "QuestionBank_Question_table",
+                columns: table => new
+                {
+                    question_id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    question_text = table.Column<string>(type: "varchar(256)", unicode: false, maxLength: 256, nullable: false),
+                    question_option_type = table.Column<string>(type: "varchar(30)", unicode: false, maxLength: 30, nullable: false),
+                    company_id = table.Column<int>(type: "int", nullable: true),
+                    user_id = table.Column<string>(type: "nvarchar(450)", maxLength: 450, nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK__Question__2EC2154954A35152", x => x.question_id);
+                    table.ForeignKey(
+                        name: "FK__QuestionB__compa__17036CC0",
+                        column: x => x.company_id,
                         principalTable: "Company",
                         principalColumn: "CompanyId");
                 });
@@ -117,7 +128,28 @@ namespace Online_Survey.Migrations.InternshipOnlineSurvey
                         name: "FK_Surveyer_Dept_DeptId",
                         column: x => x.DeptId,
                         principalTable: "Department",
-                        principalColumn: "DepartmentId");
+                        principalColumn: "DepartmentId",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "QuestionBank_Option_table",
+                columns: table => new
+                {
+                    option_id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    option_text = table.Column<string>(type: "varchar(256)", unicode: false, maxLength: 256, nullable: false),
+                    question_id = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK__Question__F4EACE1B90A54BC3", x => x.option_id);
+                    table.ForeignKey(
+                        name: "FK__QuestionB__quest__3B40CD36",
+                        column: x => x.question_id,
+                        principalTable: "QuestionBank_Question_table",
+                        principalColumn: "question_id",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -166,6 +198,16 @@ namespace Online_Survey.Migrations.InternshipOnlineSurvey
                 column: "survey_id");
 
             migrationBuilder.CreateIndex(
+                name: "IX_QuestionBank_Option_table_question_id",
+                table: "QuestionBank_Option_table",
+                column: "question_id");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_QuestionBank_Question_table_company_id",
+                table: "QuestionBank_Question_table",
+                column: "company_id");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Surveyer_Dept_CompanyId",
                 table: "Surveyer_Dept",
                 column: "CompanyId");
@@ -183,13 +225,16 @@ namespace Online_Survey.Migrations.InternshipOnlineSurvey
                 name: "Option_table");
 
             migrationBuilder.DropTable(
+                name: "QuestionBank_Option_table");
+
+            migrationBuilder.DropTable(
                 name: "Surveyer_Dept");
 
             migrationBuilder.DropTable(
-                name: "Table");
+                name: "Question_table");
 
             migrationBuilder.DropTable(
-                name: "Question_table");
+                name: "QuestionBank_Question_table");
 
             migrationBuilder.DropTable(
                 name: "Department");

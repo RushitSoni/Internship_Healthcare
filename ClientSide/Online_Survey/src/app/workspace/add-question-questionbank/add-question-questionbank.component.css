@@ -1,0 +1,34 @@
+/* Styles for question text and type */
+  mat-form-field {
+    width: 100%;
+   
+    margin-bottom: 2%; 
+  }
+  
+  /* Styles for option input fields */
+  .mat-form-field {
+    width: 100%;
+  }
+  
+  /* Styles for remove option button */
+  button[mat-icon-button] {
+    margin-left: 10px; /* Example margin */
+    flex:1;
+  }
+  
+  /* Styles for action buttons */
+  .mat-dialog-actions {
+    display: flex;
+    
+    margin-top: 20px; /* Example margin */
+  }
+  
+  .mat-dialog-actions button {
+    background-color: #007bff; /* Example background color */
+    color: white; /* Example text color */
+    margin: 0 10px; /* Example margin */
+  
+  }
+
+
+  

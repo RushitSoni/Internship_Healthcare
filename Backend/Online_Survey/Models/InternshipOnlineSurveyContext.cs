@@ -7,7 +7,7 @@ namespace Online_Survey.Models;
 
 public partial class InternshipOnlineSurveyContext : DbContext
 {
-    IConfiguration _configuration; 
+    IConfiguration _configuration;
     public InternshipOnlineSurveyContext(IConfiguration config)
     {
         _configuration = config;
@@ -20,29 +20,19 @@ public partial class InternshipOnlineSurveyContext : DbContext
 
     public virtual DbSet<OptionTable> OptionTables { get; set; }
 
+    public virtual DbSet<QuestionBankOptionTable> QuestionBankOptionTables { get; set; }
+
+    public virtual DbSet<QuestionBankQuestionTable> QuestionBankQuestionTables { get; set; }
+
     public virtual DbSet<QuestionTable> QuestionTables { get; set; }
-
-    public virtual DbSet<RespondentAnswer> RespondentAnswers { get; set; }
-
-    public virtual DbSet<RespondentDetail> RespondentDetails { get; set; }
-
-    public virtual DbSet<RespondentRecord> RespondentRecords { get; set; }
 
     public virtual DbSet<SurveyTable> SurveyTables { get; set; }
 
     public virtual DbSet<SurveyerDept> SurveyerDepts { get; set; }
 
-    public virtual DbSet<Table> Tables { get; set; }
-
-    public virtual DbSet<TemplateDetail> TemplateDetails { get; set; }
-
-    public virtual DbSet<TemplateOption> TemplateOptions { get; set; }
-
-    public virtual DbSet<TemplateQuestion> TemplateQuestions { get; set; }
-
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see https://go.microsoft.com/fwlink/?LinkId=723263.
-        => optionsBuilder.UseSqlServer(_configuration.GetConnectionString("DefaultConnection"));
+        => optionsBuilder.UseSqlServer("Server=(localdb)\\mssqllocaldb;Database=Internship_Online_Survey;Trusted_Connection=True;");
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -66,13 +56,14 @@ public partial class InternshipOnlineSurveyContext : DbContext
 
             entity.ToTable("Department");
 
+            entity.HasIndex(e => e.CompanyId, "IX_Department_CompanyId");
+
             entity.Property(e => e.Name)
                 .IsRequired()
                 .HasMaxLength(100);
 
             entity.HasOne(d => d.Company).WithMany(p => p.Departments)
                 .HasForeignKey(d => d.CompanyId)
-                .OnDelete(DeleteBehavior.Cascade)
                 .HasConstraintName("FK_Department_Company");
         });
 
@@ -81,6 +72,10 @@ public partial class InternshipOnlineSurveyContext : DbContext
             entity.HasKey(e => e.OptionId).HasName("PK__Option_t__F4EACE1BF1662605");
 
             entity.ToTable("Option_table");
+
+            entity.HasIndex(e => e.QuestionId, "IX_Option_table_question_id");
+
+            entity.HasIndex(e => e.SurveyId, "IX_Option_table_survey_id");
 
             entity.Property(e => e.OptionId).HasColumnName("option_id");
             entity.Property(e => e.OptionText)
@@ -102,11 +97,60 @@ public partial class InternshipOnlineSurveyContext : DbContext
                 .HasConstraintName("FK__Option_ta__surve__09746778");
         });
 
+        modelBuilder.Entity<QuestionBankOptionTable>(entity =>
+        {
+            entity.HasKey(e => e.OptionId).HasName("PK__Question__F4EACE1B90A54BC3");
+
+            entity.ToTable("QuestionBank_Option_table");
+
+            entity.Property(e => e.OptionId).HasColumnName("option_id");
+            entity.Property(e => e.OptionText)
+                .IsRequired()
+                .HasMaxLength(256)
+                .IsUnicode(false)
+                .HasColumnName("option_text");
+            entity.Property(e => e.QuestionId).HasColumnName("question_id");
+
+            entity.HasOne(d => d.Question).WithMany(p => p.QuestionBankOptionTables)
+                .HasForeignKey(d => d.QuestionId)
+                .HasConstraintName("FK__QuestionB__quest__3B40CD36");
+        });
+
+        modelBuilder.Entity<QuestionBankQuestionTable>(entity =>
+        {
+            entity.HasKey(e => e.QuestionId).HasName("PK__Question__2EC2154954A35152");
+
+            entity.ToTable("QuestionBank_Question_table");
+
+            entity.Property(e => e.QuestionId).HasColumnName("question_id");
+            entity.Property(e => e.CompanyId).HasColumnName("company_id");
+            entity.Property(e => e.QuestionOptionType)
+                .IsRequired()
+                .HasMaxLength(30)
+                .IsUnicode(false)
+                .HasColumnName("question_option_type");
+            entity.Property(e => e.QuestionText)
+                .IsRequired()
+                .HasMaxLength(256)
+                .IsUnicode(false)
+                .HasColumnName("question_text");
+            entity.Property(e => e.UserId)
+                .IsRequired()
+                .HasMaxLength(450)
+                .HasColumnName("user_id");
+
+            entity.HasOne(d => d.Company).WithMany(p => p.QuestionBankQuestionTables)
+                .HasForeignKey(d => d.CompanyId)
+                .HasConstraintName("FK__QuestionB__compa__17036CC0");
+        });
+
         modelBuilder.Entity<QuestionTable>(entity =>
         {
             entity.HasKey(e => e.QuestionId).HasName("PK__Question__2EC2154938FBC299");
 
             entity.ToTable("Question_table");
+
+            entity.HasIndex(e => e.SurveyId, "IX_Question_table_survey_id");
 
             entity.Property(e => e.QuestionId).HasColumnName("question_id");
             entity.Property(e => e.QuestionOptionType)
@@ -125,59 +169,6 @@ public partial class InternshipOnlineSurveyContext : DbContext
                 .HasForeignKey(d => d.SurveyId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("FK__Question___surve__0880433F");
-        });
-
-        modelBuilder.Entity<RespondentAnswer>(entity =>
-        {
-            entity.HasKey(e => e.Id1).HasName("PK__tmp_ms_x__C49607F54BB01EE1");
-
-            entity.ToTable("Respondent_Answer");
-
-            entity.Property(e => e.AnswerText).HasColumnName("answer_text");
-            entity.Property(e => e.OptionId).HasColumnName("Option_id");
-            entity.Property(e => e.QuestionId).HasColumnName("Question_id");
-
-            entity.HasOne(d => d.IdNavigation).WithMany(p => p.RespondentAnswers)
-                .HasForeignKey(d => d.Id)
-                .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK__Respondent_A__Id__67DE6983");
-
-            entity.HasOne(d => d.Option).WithMany(p => p.RespondentAnswers)
-                .HasForeignKey(d => d.OptionId)
-                .HasConstraintName("FK__Responden__Optio__69C6B1F5");
-
-            entity.HasOne(d => d.Question).WithMany(p => p.RespondentAnswers)
-                .HasForeignKey(d => d.QuestionId)
-                .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK__Responden__Quest__68D28DBC");
-        });
-
-        modelBuilder.Entity<RespondentDetail>(entity =>
-        {
-            entity.HasKey(e => e.Id).HasName("PK__Responde__3214EC07D5D5904C");
-
-            entity.ToTable("Respondent_Details");
-
-            entity.Property(e => e.Email)
-                .IsRequired()
-                .HasMaxLength(40);
-            entity.Property(e => e.Name)
-                .IsRequired()
-                .HasMaxLength(40);
-            entity.Property(e => e.PhoneNumber)
-                .IsRequired()
-                .HasMaxLength(40)
-                .HasColumnName("Phone_number");
-        });
-
-        modelBuilder.Entity<RespondentRecord>(entity =>
-        {
-            entity.HasKey(e => e.Id).HasName("PK__Responde__3214EC07EB3BA6FE");
-
-            entity.ToTable("Respondent_Record");
-
-            entity.Property(e => e.RespondentId).HasColumnName("Respondent_id");
-            entity.Property(e => e.SurveyId).HasColumnName("Survey_id");
         });
 
         modelBuilder.Entity<SurveyTable>(entity =>
@@ -203,6 +194,10 @@ public partial class InternshipOnlineSurveyContext : DbContext
         {
             entity.ToTable("Surveyer_Dept");
 
+            entity.HasIndex(e => e.CompanyId, "IX_Surveyer_Dept_CompanyId");
+
+            entity.HasIndex(e => e.DeptId, "IX_Surveyer_Dept_DeptId");
+
             entity.Property(e => e.SurveyerDeptId).HasColumnName("Surveyer_DeptId");
             entity.Property(e => e.UserId)
                 .IsRequired()
@@ -218,85 +213,7 @@ public partial class InternshipOnlineSurveyContext : DbContext
 
             entity.HasOne(d => d.Dept).WithMany(p => p.SurveyerDepts)
                 .HasForeignKey(d => d.DeptId)
-                .OnDelete(DeleteBehavior.Cascade)
                 .HasConstraintName("FK_Surveyer_Dept_DeptId");
-        });
-
-        modelBuilder.Entity<Table>(entity =>
-        {
-            entity.HasKey(e => e.Id).HasName("PK__Table__3214EC07C83EBAD5");
-
-            entity.ToTable("Table");
-
-            entity.Property(e => e.Id).ValueGeneratedNever();
-        });
-
-        modelBuilder.Entity<TemplateDetail>(entity =>
-        {
-            entity.HasKey(e => e.SurveyId).HasName("PK__Template__9DC31A0794285477");
-
-            entity.ToTable("Template_Details");
-
-            entity.Property(e => e.SurveyId)
-                .ValueGeneratedNever()
-                .HasColumnName("survey_id");
-            entity.Property(e => e.SurveyName)
-                .IsRequired()
-                .HasMaxLength(20)
-                .HasColumnName("survey_name");
-
-            entity.HasOne(d => d.Survey).WithOne(p => p.TemplateDetail)
-                .HasForeignKey<TemplateDetail>(d => d.SurveyId)
-                .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK__Template___surve__1B9317B3");
-        });
-
-        modelBuilder.Entity<TemplateOption>(entity =>
-        {
-            entity.HasKey(e => e.OptionId).HasName("PK__Template__F4EACE1B4D36DA9C");
-
-            entity.ToTable("Template_Options");
-
-            entity.Property(e => e.OptionId)
-                .ValueGeneratedNever()
-                .HasColumnName("option_id");
-            entity.Property(e => e.NextQuestion).HasColumnName("next_question");
-            entity.Property(e => e.OptionText)
-                .IsRequired()
-                .HasMaxLength(256)
-                .IsUnicode(false)
-                .HasColumnName("option_text");
-            entity.Property(e => e.QuestionId).HasColumnName("question_id");
-
-            entity.HasOne(d => d.Question).WithMany(p => p.TemplateOptions)
-                .HasForeignKey(d => d.QuestionId)
-                .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK__Template___quest__41B8C09B");
-        });
-
-        modelBuilder.Entity<TemplateQuestion>(entity =>
-        {
-            entity.HasKey(e => e.QuestionId).HasName("PK__Template__2EC21549B389D668");
-
-            entity.ToTable("Template_Questions");
-
-            entity.Property(e => e.QuestionId)
-                .ValueGeneratedNever()
-                .HasColumnName("question_id");
-            entity.Property(e => e.OptionType)
-                .IsRequired()
-                .HasMaxLength(30)
-                .HasColumnName("option_type");
-            entity.Property(e => e.QuestionText)
-                .IsRequired()
-                .HasMaxLength(256)
-                .HasColumnName("question_text");
-            entity.Property(e => e.SurveyId).HasColumnName("survey_id");
-
-            entity.HasOne(d => d.Survey).WithMany(p => p.TemplateQuestions)
-                .HasForeignKey(d => d.SurveyId)
-                .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK__Template___surve__2EA5EC27");
         });
 
         OnModelCreatingPartial(modelBuilder);

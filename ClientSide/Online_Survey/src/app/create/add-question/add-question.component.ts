@@ -2,8 +2,12 @@ import { Component, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup } from '@angular/forms';
 import { Post_OptionList, Post_Question } from '../../shared/Models/Survey';
 import { GlobalserviceService } from '../../../globalservice/globalservice.service';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { CreateService } from '../create.service';
+import { MatDialog } from '@angular/material/dialog';
+import { DisplayQuestionbankComponent } from '../display-questionbank/display-questionbank.component';
+
+
 
 @Component({
   selector: 'app-add-question',
@@ -15,16 +19,29 @@ export class AddQuestionComponent implements OnInit {
   Question_id!: number;
   i!: number;
 
+ 
+  companyId!:number
+
   constructor(
     private fb_question: FormBuilder,
     private globalservice: GlobalserviceService,
     private service: CreateService,
-    private router: Router
+    private router: Router,
+    private dialog:MatDialog,
+    private route:ActivatedRoute
   ) {}
 
   question_list: Post_Question[] = [];
 
   ngOnInit(): void {
+
+    this.route.queryParams.subscribe((params) => {
+      
+      this.companyId=Number(params['companyID'])
+      // console.log("add-question",this.companyId)
+    });
+
+    ////////
     this.i = 1;
     this.form_question = this.fb_question.group({
       question_text: '',
@@ -130,4 +147,24 @@ export class AddQuestionComponent implements OnInit {
         console.log(err);
       });
   }
+
+
+  /////Question Bank Zone
+
+  openQuestionBank() {
+    const dialogRef = this.dialog.open(DisplayQuestionbankComponent, {
+      width: '75%',
+      height:'90%',
+      // autoFocus: false // Prevent auto-focusing on first input
+    });
+    
+    dialogRef.componentInstance.companyId = Number(this.companyId);
+
+    dialogRef.componentInstance.questionDataEmitter.subscribe(result => {
+      console.log(result); // Handle emitted data here
+    });
+   
+  
+  }
+
 }

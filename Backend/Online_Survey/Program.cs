@@ -27,6 +27,10 @@ builder.Services.AddTransient<ICompanyServices, CompanyServices>();
 builder.Services.AddTransient<IDepartmentServices,DepartmentServices>();
 builder.Services.AddTransient<ISurveyer_DeptServices, Surveyer_DeptServices>(); 
 builder.Services.AddScoped<IUserRepository, UserRepository>();
+builder.Services.AddTransient<IQuestionBankQuestionServices, QuestionBankQuestionServices>();
+builder.Services.AddTransient<IQuestionBankOptionServices, QuestionBankOptionServices>();
+
+
 //Connection
 var connectionString = builder.Configuration.GetConnectionString("Online_SurveyContextConnection") ?? throw new InvalidOperationException("Connection string 'Online_SurveyContextConnection' not found.");
 builder.Services.AddDbContext<InternshipOnlineSurveyContext>(options => options.UseSqlServer(connectionString));

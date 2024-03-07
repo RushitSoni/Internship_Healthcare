@@ -4,16 +4,22 @@
   <!-- style="background-color:#F6F5F5" -->
   <div class="company-content" >
 
-    <div class="add-button" *ngIf="isAdmin">
-          <button
-          mat-raised-button
-          
-          (click)="openAddEditCompanyForm()"
 
-          style="background-color: #1e90ff;color:white ;"
-        >
+   
+    <div class="company-header">
+      
+      <div class="question-bank-button"  *ngIf="isAdmin">
+        <button mat-raised-button style="background-color: #1e90ff;color:white;"  routerLink="/workspace/company/questionbank"   [queryParams]="{companyID: companyId}">
+          Question Bank
+        </button>
+      </div>
+
+      <div class="add-button"  *ngIf="isAdmin">
+        <button mat-raised-button (click)="openAddEditCompanyForm()" style="background-color: #1e90ff;color:white ;">
           + ADD DEPARTMENT
-          </button>
+        </button>
+      </div>
+
     </div>
     
 

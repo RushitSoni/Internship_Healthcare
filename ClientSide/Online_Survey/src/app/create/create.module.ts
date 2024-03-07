@@ -17,6 +17,9 @@ import { SettimeComponent } from './settime/settime.component';
 import { MatButtonModule } from '@angular/material/button';
 import { SendComponent } from './send/send.component';
 import { TemplatedetailComponent } from './templatedetail/templatedetail.component';
+import { DisplayQuestionbankComponent } from './display-questionbank/display-questionbank.component';
+import { MatIcon } from '@angular/material/icon';
+import {MatSnackBarModule} from '@angular/material/snack-bar';
 
 
 
@@ -28,7 +31,8 @@ import { TemplatedetailComponent } from './templatedetail/templatedetail.compone
     DisplayComponent,
     SettimeComponent,
     SendComponent,
-    TemplatedetailComponent
+    TemplatedetailComponent,
+    DisplayQuestionbankComponent
   ],
   imports: [
     CommonModule,
@@ -41,7 +45,10 @@ import { TemplatedetailComponent } from './templatedetail/templatedetail.compone
     MatInputModule,
     WorkspaceModule,
     MatDialogModule,
-    MatButtonModule
+    MatButtonModule,
+    MatIcon,
+    MatSnackBarModule
+   
 
   ]
 })
