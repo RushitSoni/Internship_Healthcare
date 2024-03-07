@@ -17,6 +17,9 @@ import { SettimeComponent } from './settime/settime.component';
 import { MatButtonModule } from '@angular/material/button';
 import { SendComponent } from './send/send.component';
 import { TemplatedetailComponent } from './templatedetail/templatedetail.component';
+import { DisplayQuestionbankComponent } from './display-questionbank/display-questionbank.component';
+import { MatIcon } from '@angular/material/icon';
+import {MatSnackBarModule} from '@angular/material/snack-bar';
 import { LinkComponent } from './link/link.component';
 import { MatIconModule } from '@angular/material/icon';
 import { AlertComponent } from './alert/alert.component';
@@ -32,6 +35,7 @@ import { AlertComponent } from './alert/alert.component';
     SettimeComponent,
     SendComponent,
     TemplatedetailComponent,
+    DisplayQuestionbankComponent,
     LinkComponent,
     AlertComponent
   ],
@@ -47,6 +51,10 @@ import { AlertComponent } from './alert/alert.component';
     WorkspaceModule,
     MatDialogModule,
     MatButtonModule,
+    MatIcon,
+    MatSnackBarModule,
+   
+
     MatIconModule
   ]
 })

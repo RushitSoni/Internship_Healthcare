@@ -1,0 +1,42 @@
+<div class="add-question-container">
+
+  
+
+    <div mat-dialog-title>Add Question</div>
+
+    <div mat-dialog-content [formGroup]="questionForm">
+      <mat-form-field appearance="outline" style="margin-top: 20px;">
+        <mat-label>Question Text</mat-label>
+        <input matInput formControlName="questionText" placeholder="Question Text" required autocomplete="off">
+      </mat-form-field>
+      <mat-form-field>
+        <mat-select formControlName="questionType" placeholder="Question Type">
+          <mat-option value="mcq">MCQ</mat-option>
+          <mat-option value="msq">MSQ</mat-option>
+          <mat-option value="text">Text</mat-option>
+        </mat-select>
+      </mat-form-field>
+      <div *ngIf="questionForm.get('questionType')?.value === 'mcq' || questionForm.get('questionType')?.value === 'msq'" formArrayName="options">
+        <div *ngFor="let option of options.controls; let i = index" [formGroupName]="i">
+          <mat-form-field appearance="outline" style="width: 93%;">
+            <mat-label>Option</mat-label>
+            <input matInput formControlName="optionText" placeholder="Option" required autocomplete="off">
+          </mat-form-field>
+          <button mat-icon-button color="warn" (click)="removeOption(i)">
+            <mat-icon>delete</mat-icon>
+          </button>
+        </div>
+
+        <button mat-button color="primary" (click)="addOption()" style="background-color: #1e90ff;color: white;width: 15%;">Add Option</button>
+    </div>
+
+
+  </div>
+  
+  
+<div mat-dialog-actions style="justify-content: center;">
+  <button mat-button  (click)="saveQuestion()" style="background-color: #1e90ff;box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5); color: white;width: 15%;">Save</button>
+  <button mat-button (click)="dialogRef.close()" style="background-color: red;box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);width: 15%;color:white">Cancel</button>
+</div>
+
+</div>

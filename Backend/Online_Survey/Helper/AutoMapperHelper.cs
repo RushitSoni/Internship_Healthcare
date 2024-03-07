@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using Online_Survey.DTOs.Company;
+using Online_Survey.DTOs.QuestionBank;
 using Online_Survey.Models;
 
 namespace Online_Survey.Helper
@@ -16,6 +17,13 @@ namespace Online_Survey.Helper
 
             CreateMap<Surveyer_DeptDto,SurveyerDept>();
             CreateMap<SurveyerDept, Surveyer_DeptDto>();
+
+            CreateMap<QuestionBank_QuestionDto, QuestionBankQuestionTable>();
+            CreateMap<QuestionBankQuestionTable, QuestionBank_QuestionDto>();
+
+
+            CreateMap<QuestionBank_OptionDto,QuestionBankOptionTable>();
+            CreateMap<QuestionBankOptionTable,QuestionBank_OptionDto>();
 
         }
     }
