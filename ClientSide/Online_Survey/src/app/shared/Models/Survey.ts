@@ -24,6 +24,7 @@ export interface QuestionOption{
 }
 
 export interface template_detail{
+    surveyorid : string;
     surveyid : number;
     surveyname : string;
     questions : QuestionOption[]
@@ -70,6 +71,6 @@ export interface Respondent_Record{
 export interface Answer{
     Id : number;
     QuestionId : number;
-    OptionId : number | number[];
+    OptionId : number[];
     AnswerText : string;
 }

@@ -39,6 +39,8 @@ export class GenerateSurveyComponent implements OnInit {
           this.departmentId = params['deptID'];
           this.companyId=params['companyID']
         });
+
+        localStorage.setItem('departmentId',this.departmentId);
   }
 
   formatDate(date: Date): String {

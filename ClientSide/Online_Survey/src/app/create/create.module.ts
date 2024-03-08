@@ -23,6 +23,7 @@ import {MatSnackBarModule} from '@angular/material/snack-bar';
 import { LinkComponent } from './link/link.component';
 import { MatIconModule } from '@angular/material/icon';
 import { AlertComponent } from './alert/alert.component';
+import { TemplateDisplayComponent } from './template-display/template-display.component';
 
 
 
@@ -37,7 +38,8 @@ import { AlertComponent } from './alert/alert.component';
     TemplatedetailComponent,
     DisplayQuestionbankComponent,
     LinkComponent,
-    AlertComponent
+    AlertComponent,
+    TemplateDisplayComponent
   ],
   imports: [
     CommonModule,

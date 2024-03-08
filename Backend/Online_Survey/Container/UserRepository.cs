@@ -3,6 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Online_Survey.DTOs;
 using Online_Survey.Models;
+using Online_Survey.Pococlass;
 using Online_Survey.PocoClass;
 using System.Linq;
 
@@ -34,6 +35,11 @@ namespace Online_Survey.Data
         IQueryable<QuestionTable> IUserRepository.QuestionOption()
         {
             return _ef.QuestionTables.Include(q => q.OptionTables);
+        }
+
+        IQueryable<TemplateDetail> IUserRepository.Template(int id)
+        {
+            return _ef.TemplateDetails.Where(c => c.SurveyId == id);
         }
     }
 }

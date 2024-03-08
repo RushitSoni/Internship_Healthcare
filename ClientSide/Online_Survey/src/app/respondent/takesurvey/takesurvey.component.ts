@@ -16,7 +16,6 @@ export class TakesurveyComponent {
   lastname! : string;
   email! : string;
   phonenumber! : string;
-  
   respondentid! : number;
 
   constructor(private route: ActivatedRoute,private router: Router,private service : RespondentserviceService)
@@ -55,7 +54,6 @@ export class TakesurveyComponent {
       console.log(record);
       this.service.addRecord(record).subscribe((data) => {
         this.service.primaryid = data;
-        console.log(data);
         localStorage.setItem('primaryId',String(data));
         resolve(data);
       })

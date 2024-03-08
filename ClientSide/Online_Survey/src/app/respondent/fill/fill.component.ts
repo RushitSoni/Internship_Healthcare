@@ -10,7 +10,9 @@ import { throws } from 'assert';
   templateUrl: './fill.component.html',
   styleUrl: './fill.component.css',
 })
+
 export class FillComponent {
+  answer : Answer[] = [];
   fillData: QuestionOption[] = [];
   form: FormGroup; 
 
@@ -25,7 +27,6 @@ export class FillComponent {
     const data = this.service.getData() as Observable<QuestionOption[]>;
     data.subscribe((filldata) => {
       this.fillData = filldata;
-      console.log(filldata);
       this.CreateForm();
     });
   }
@@ -60,16 +61,40 @@ export class FillComponent {
     });
   }
 
+  addList(list : number) : number[]
+  {
+    const list2 : number[] = [];
+    
+    list2.push(list);
+    
+    return list2;
+  }
+
+  addDict(list : any) : number[]
+  {
+    const list2 : number[] = [];
+    Object.keys(list).forEach(key => {
+      if(list[key] == true)
+      {
+        list2.push(Number(key));
+      }
+    })
+    return list2;
+  }
+
   OnSubmit() {
     this.fillData.forEach((question) => {
       const data : Answer = {
         Id : Number(localStorage.getItem('primaryId')),
-        QuestionId : question.questionId,
-        OptionId : question.questionOptionType == 1 || question.questionOptionType == 2 ? this.form.get(question.questionId.toString())?.value : [],
-        AnswerText : question.questionOptionType == 3 ? this.form.get(question.questionId.toString())?.value : '' 
+        QuestionId : Number(question.questionId),
+        OptionId : question.questionOptionType == 1 ? this.addList(this.form.get(question.questionId.toString())?.value) : question.questionOptionType == 2 ?  this.addDict(this.form.get(question.questionId.toString())?.value) : [],
+        AnswerText : question.questionOptionType == 3 ? String(this.form.get(question.questionId.toString())?.value) :  "" 
       }
+      this.answer.push(data);
+    });
 
+    this.service.addAnswer(this.answer).subscribe((data) => {
       console.log(data);
-    })
+    });
   }
 }

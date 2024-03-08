@@ -29,7 +29,10 @@ export class CompletionComponent implements OnInit {
 
   AddTemplate(result : string)
   {
+    const Id = localStorage.getItem('surveyorId');
+
     const survey_detail : template_detail = {
+      surveyorid : Id ? JSON.parse(Id) : undefined,
       surveyid : Number(localStorage.getItem('surveyId')),
       surveyname : result,
       questions : this.questions

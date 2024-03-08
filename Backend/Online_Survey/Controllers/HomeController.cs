@@ -4,7 +4,6 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Online_Survey.Data;
 using Online_Survey.DTO;
-using Online_Survey.DTOs.Respondent;
 using Online_Survey.DTOs.Survey;
 using Online_Survey.Models;
 using Online_Survey.Pococlass;
@@ -31,9 +30,6 @@ namespace Online_Survey.Controllers
                 cfg.CreateMap<SurveyDTO, SurveyTable>();
                 cfg.CreateMap<QuestionDTO, QuestionTable>();
                 cfg.CreateMap<OptionDTO, OptionTable>();
-                cfg.CreateMap<RespondentDTO,RespondentDetail>();
-                cfg.CreateMap<RecordDTOcs, RespondentRecord>();
-                cfg.CreateMap<Answer, RespondentAnswer>();
             }));
             _httpContextAccessor = httpContextAccessor;
             _userRepository = userRepository;
@@ -131,6 +127,7 @@ namespace Online_Survey.Controllers
         public IActionResult createTemplate(TemplateDetails templateDetails)
         {
             TemplateDetail templateDetail = new TemplateDetail(){
+                SurveyorId = templateDetails.surveyorId,
                 SurveyId = templateDetails.surveyid,
                 SurveyName = templateDetails.surveyname,
             };
@@ -219,7 +216,7 @@ namespace Online_Survey.Controllers
         public ActionResult GetQuestionwithOptions([FromQuery] int SurveyId)
         {
             var questionwithoptions = _userRepository.QuestionOption();
-  
+
             var result = questionwithoptions
             .Where(q => q.SurveyId == SurveyId)
             .Select(q => new
@@ -233,61 +230,11 @@ namespace Online_Survey.Controllers
                 {
                     o.OptionId,
                     o.OptionText,
-                    
+
                 }).ToList()
             }).ToList();
 
             return Ok(result);
         }
-
-        [HttpPost("AddRespondent")]
-        public int AddRespondent(RespondentDTO respondentDTO)
-        {
-            RespondentDetail respondentDetail = mapper.Map<RespondentDetail>(respondentDTO);
-            _userRepository.AddEntity(respondentDetail);
-
-            if (_userRepository.SaveChange())
-            {
-                return respondentDetail.Id;
-            }
-
-            throw new Exception("Oops! could not add respondent.");
-        }
-
-        [HttpPost("AddRecord")]
-        public int AddRecord(RecordDTOcs recordDTOcs)
-        {
-            RespondentRecord respondentRecord = mapper.Map<RespondentRecord>(recordDTOcs);
-            _userRepository.AddEntity(respondentRecord);
-
-            if (_userRepository.SaveChange()) { 
-                return respondentRecord.Id;
-            }
-
-            throw new Exception("Oops! Cannot add details.");
-        }
-
-        [HttpPost("AddAnswers")]
-        public IActionResult AddAnswers(Answer[] answers )
-        {
-            foreach(Answer answer in answers)
-            {
-                RespondentAnswer respondentAnswer = mapper.Map<RespondentAnswer>(answer);
-                _userRepository.AddEntity(respondentAnswer);
-
-                _userRepository.SaveChange();
-            }
-            return Ok();
-        }
-            //[HttpGet("GetURL")]
-            //public IActionResult GetURL(int surveyid)
-            //{
-            //    var request = _httpContextAccessor.HttpContext.Request;
-            //    var baseUrl = $"{request.Scheme}: {request.Host}";
-
-            //    var surveyurl = $"{baseUrl}/survey/{surveyid}";
-
-            //    return Ok(surveyurl);
-            //}
-        }
+    }
 }

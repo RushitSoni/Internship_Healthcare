@@ -28,4 +28,6 @@ public partial class SurveyTable
     public virtual ICollection<OptionTable> OptionTables { get; set; } = new List<OptionTable>();
 
     public virtual ICollection<QuestionTable> QuestionTables { get; set; } = new List<QuestionTable>();
+
+    public virtual TemplateDetail TemplateDetail { get; set; }
 }
