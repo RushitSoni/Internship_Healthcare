@@ -1,7 +1,9 @@
 <div *ngIf="template | async as templateData; else loading">
-    <div *ngFor="let data of templateData">
+    <div *ngFor="let data of templateData; let i = index">
+        <label>{{i+1}}</label>
         <label>{{data.surveyId}}</label>
         <label>{{data.surveyName}}</label>
+        <button (click)="addQuestions(data.surveyId)">Generate Survey</button>
     </div>
 </div>
 <ng-template #loading>Loading.....</ng-template>

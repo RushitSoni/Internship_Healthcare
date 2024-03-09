@@ -128,7 +128,6 @@ namespace Online_Survey.Controllers
         {
             TemplateDetail templateDetail = new TemplateDetail(){
                 SurveyorId = templateDetails.surveyorId,
-                SurveyId = templateDetails.surveyid,
                 SurveyName = templateDetails.surveyname,
             };
 
@@ -136,13 +135,15 @@ namespace Online_Survey.Controllers
 
             _userRepository.SaveChange();
 
+            int surveyId = templateDetail.SurveyId;
+
             foreach(TemplateQuestions question in templateDetails.questions)
             {
                 TemplateQuestion templateQuestion = new TemplateQuestion()
                 {
                     QuestionId = question.questionId,
                     QuestionText = question.questionText,
-                    SurveyId = templateDetails.surveyid,
+                    SurveyId = surveyId,
                     OptionType = ""+question.questionOptionType
                 };
 

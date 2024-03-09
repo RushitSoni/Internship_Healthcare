@@ -14,5 +14,6 @@ namespace Online_Survey.Data
         public IQueryable<TemplateDetail> Template(string id);
 
         public IQueryable<SurveyTable> GetAllSurveys();
+        public IQueryable<TemplateQuestion> TemplateData();
     }
 }
