@@ -12,5 +12,7 @@ namespace Online_Survey.Data
         public void AddEntity<T>(T data);
         public IQueryable<QuestionTable> QuestionOption();
         public IQueryable<TemplateDetail> Template(string id);
+
+        public IQueryable<SurveyTable> GetAllSurveys();
     }
 }

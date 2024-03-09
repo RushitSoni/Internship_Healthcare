@@ -38,13 +38,13 @@
 
         <ul class="navbar-nav" *ngIf="(accountService.user$ | async) === null">
           <li class="nav-item">
-            <a class="btn btn-secondary mx-2 my-1" routerLink="/account/register"
-              >Create Account</a
+            <a mat-raised-button class="btn btn-secondary mx-2 my-1" routerLink="/account/register"
+            style="background-color: #1e90ff;color:white">Create Account</a
             >
           </li>
           <li class="nav-item">
-            <a class="btn btn-secondary mx-2 my-1" routerLink="/account/login"
-              >Login</a
+            <a mat-raised-button class="btn btn-secondary mx-2 my-1" routerLink="/account/login"
+            style="background-color: #1e90ff;color:white">Login</a
             >
           </li>
         </ul>
@@ -57,7 +57,7 @@
              </a>
           </li>
           <li class="nav-item">
-            <a class="btn btn-secondary mx-2 my-1" (click)="logout()">LogOut</a>
+            <a mat-raised-button class="btn btn-secondary mx-2 my-1" (click)="logout()" style="background-color: #1e90ff;color:white">LogOut</a>
           </li>
         </ul>
 

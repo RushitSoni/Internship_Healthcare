@@ -30,6 +30,14 @@ namespace Online_Survey.Container
             try
             {
 
+                var existingDepartment = await context.Departments.FirstOrDefaultAsync(d => d.Name == data.Name);
+                if (existingDepartment != null)
+                {
+                    response.ResponseCode = 400;
+                    response.ErrorMsg = "Department with the same name already exists.";
+                    return response;
+                }
+
 
                 Department _department = this.mapper.Map<DepartmentDto, Department>(data);
                 await this.context.Departments.AddAsync(_department);
@@ -129,6 +137,14 @@ namespace Online_Survey.Container
             APIResponse response = new APIResponse();
             try
             {
+
+                var existingDepartment = await context.Departments.FirstOrDefaultAsync(d => d.Name == data.Name && d.DepartmentId != id);
+                if (existingDepartment != null)
+                {
+                    response.ResponseCode = 400;
+                    response.ErrorMsg = "Department with the same name already exists.";
+                    return response;
+                }
 
                 var _department = await this.context.Departments.FindAsync(id);
                 if (_department != null)

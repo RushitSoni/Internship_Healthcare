@@ -45,7 +45,7 @@ export class DisplayQuestionbankComponent implements OnInit{
           this.questions = data.filter(question =>question.companyId===Number(this.companyId));
         }
         else{
-          this.questions = data.filter(question =>question.userId === this.globalService.SurveyorId );
+          this.questions = data.filter(question =>question.userId === this.globalService.SurveyorId && !question.companyId);
         }
       },
       error => {

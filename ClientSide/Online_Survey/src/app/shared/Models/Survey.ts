@@ -54,7 +54,7 @@ export interface SurveyTable{
     Description : string;
     StartDate : string;
     EndDate : string;
-    DepartmentId : number;
+    deptId : number;
 }
 
 export interface Respondent{

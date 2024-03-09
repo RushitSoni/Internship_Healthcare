@@ -30,6 +30,7 @@ export class SurveyerListComponent implements OnInit {
   users: User[] =[];
 
   surveyerDepts :SurveyerViaDept[]=[]
+  email!:string
 
   surveyerDeptForm: FormGroup=new FormGroup({}); // Remove initialization here
   submitted = false;
@@ -214,5 +215,14 @@ updateSurveyer(surveyer:SurveyerViaDept){
  
 
 }
+
+
+
+getEmailByUserId(userId: string): string | undefined {
+  // Assuming 'users' is an array of User objects
+  const user = this.users.find(user => user.id === userId);
+  return user ? user.email : undefined;
+}
+
 
 }

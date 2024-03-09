@@ -1,8 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { AddQuestionQuestionbankComponent } from '../add-question-questionbank/add-question-questionbank.component';
-import { ActivatedRoute } from '@angular/router';
-import { Subscription } from 'rxjs';
+import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
+import { Subscription, filter } from 'rxjs';
 import { AccountService } from '../../account/account.service';
 import { GlobalserviceService } from '../../../globalservice/globalservice.service';
 import { QuestionBankQuestion } from '../../shared/Models/questionBankquestion';
@@ -17,34 +17,48 @@ import { EditQuestionComponent } from '../edit-question/edit-question.component'
   templateUrl: './question-bank.component.html',
   styleUrl: './question-bank.component.css'
 })
-export class QuestionBankComponent implements OnInit{
+export class QuestionBankComponent implements OnInit,OnDestroy{
 
   companyId!:number
 
   questions: QuestionBankQuestion[]=[];
   options: QuestionBankOptions[]=[];
  
+  private routeSubscription!: Subscription;
 
-
-  constructor(private globalService:GlobalserviceService, private route : ActivatedRoute,private dialog:MatDialog,private workspaceService:WorkspaceService){}
+  constructor(private globalService:GlobalserviceService, private route : ActivatedRoute,private dialog:MatDialog,private workspaceService:WorkspaceService,private router: Router){}
 
  
 
   ngOnInit(): void {
 
-    this.route.queryParams.subscribe((params) => {
+  
+    this.routeSubscription = this.route.queryParams.subscribe(params => {
       this.companyId = params['companyID'];
-    });
+      console.log('Company ID:', this.companyId);
+      this.loadQuestions();
+      this.loadOptions();
+    })
     
     
-    this.loadQuestions()
-    this.loadOptions()
+    // this.route.queryParams.subscribe((params) => {
+    //   this.companyId = params['companyID'];
+    // });
+    
+    
+    // this.loadQuestions()
+    // this.loadOptions()
 
   
     
 
    
   }
+
+  ngOnDestroy(): void {
+    this.routeSubscription.unsubscribe();
+  }
+
 
   openAddSingleOption(questionId:number) {
     const dialogRef = this.dialog.open(AddSingleOptionComponent);
@@ -124,8 +138,13 @@ export class QuestionBankComponent implements OnInit{
       data => {
         console.log('Questions Fetched :',data)
         //console.log(this.globalService.SurveyorId)
+       if(this.companyId){
         this.questions = data.filter(question =>question.userId === this.globalService.SurveyorId && question.companyId===Number(this.companyId));
-        //console.log(this.questions)
+       }
+       else{
+        this.questions = data.filter(question =>question.userId === this.globalService.SurveyorId && !question.companyId);
+       }
+        console.log(this.questions)
       },
       error => {
         console.error('Error fetching questions:', error);

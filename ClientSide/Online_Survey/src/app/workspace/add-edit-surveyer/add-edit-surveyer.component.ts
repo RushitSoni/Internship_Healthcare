@@ -22,6 +22,7 @@ export class AddEditSurveyerComponent  implements OnInit{
   isAdmin=false
 
   users: User[] =[];
+  email!:string
 
   surveyerDepts :SurveyerViaDept[]=[]
 
@@ -63,7 +64,7 @@ export class AddEditSurveyerComponent  implements OnInit{
         surveyerDeptId:this.data.surveyerDeptId,
         deptId: this.data.deptId,
         userId: this.data.userId,
-        userName: [this.data.userName, Validators.required],
+        email:this.getEmailByUserId(this.data.userId),
         companyId: this.data.companyId,
       });
     }
@@ -72,7 +73,7 @@ export class AddEditSurveyerComponent  implements OnInit{
       
         deptId: this.departmentId,
         userId: '',
-        userName: ['', Validators.required],
+        email: ['', Validators.required],
         companyId: this.companyId,
       });
 
@@ -93,7 +94,7 @@ export class AddEditSurveyerComponent  implements OnInit{
 
     console.log(this.surveyerDeptForm.value)
     console.log(this.users)
-    const selectedUser = this.users.find(user => user.email == this.surveyerDeptForm.value.userName);
+    const selectedUser = this.users.find(user => user.email == this.surveyerDeptForm.value.email);
     // console.log(selectedUser)
     if (selectedUser) {
         console.log(selectedUser.id)
@@ -137,5 +138,11 @@ export class AddEditSurveyerComponent  implements OnInit{
     console.error('User Not Found...!');
     // Handle error, maybe show an error message to the user
 }
+}
+
+getEmailByUserId(userId: string): string | undefined {
+  // Assuming 'users' is an array of User objects
+  const user = this.users.find(user => user.id === userId);
+  return user ? user.email : undefined;
 }
 }

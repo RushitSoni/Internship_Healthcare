@@ -3,6 +3,9 @@
     <div mat-dialog-content>
         <input type="text" [value]="inputUrl" [disabled]="true" style="width: 100%;">    
         <button ngxClipboard [cbContent]="inputUrl" class="btn btn-primary"><mat-icon>content_copy</mat-icon></button>
+
+        <button  class="btn btn-primary" routerLink="/create/send" [queryParams]="{url: inputUrl}" (click)="close()">Send</button>
+
         <button (click)="close()">Close</button>
     </div>
 </div>

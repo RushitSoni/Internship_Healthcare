@@ -10,6 +10,7 @@ import { User } from '../shared/Models/user';
 import { SurveyerViaDept } from '../shared/Models/surveyerViaDept';
 import { QuestionBankQuestion } from '../shared/Models/questionBankquestion';
 import { QuestionBankOptions } from '../shared/Models/QuestionBankOptions';
+import { SurveyTable } from '../shared/Models/Survey';
 
 @Injectable({
   providedIn: 'root'
@@ -132,6 +133,15 @@ export class WorkspaceService {
     return this.http.put<APIResponse>(`${environment.appUrl}/api/QuestionBank/UpdateQuestion/${id}`, question)
     
   }
+
+  //surveys
+
+
+  getAllSurveys(): Observable<SurveyTable[]> {
+    return this.http.get<SurveyTable[]>(`${environment.appUrl}/Home/GetAllSurveys`);
+  }
+
+
 
 
 }
