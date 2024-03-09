@@ -10,14 +10,11 @@ import { throws } from 'assert';
   templateUrl: './fill.component.html',
   styleUrl: './fill.component.css',
 })
-/**
- * Represents the FillComponent class.
- * This component is responsible for filling out the survey form.
- */
-export class FillComponent {
-  fillData: QuestionOption[] = [];
-  form: FormGroup;
 
+export class FillComponent {
+  answer : Answer[] = [];
+  fillData: QuestionOption[] = [];
+  form: FormGroup; 
 
   constructor(
     private service: RespondentserviceService,
@@ -30,14 +27,12 @@ export class FillComponent {
     const data = this.service.getData() as Observable<QuestionOption[]>;
     data.subscribe((filldata) => {
       this.fillData = filldata;
-      console.log(filldata);
       this.CreateForm();
     });
   }
 
-  CreateForm()
-  {
-    console.log("hi");
+  CreateForm() {
+    console.log('hi');
     this.fillData.forEach((question) => {
       if (question.questionOptionType == 1) {
         // For radio button questions
@@ -66,8 +61,40 @@ export class FillComponent {
     });
   }
 
-  OnSubmit() {
-    console.log(this.form.value);
+  addList(list : number) : number[]
+  {
+    const list2 : number[] = [];
+    
+    list2.push(list);
+    
+    return list2;
   }
 
+  addDict(list : any) : number[]
+  {
+    const list2 : number[] = [];
+    Object.keys(list).forEach(key => {
+      if(list[key] == true)
+      {
+        list2.push(Number(key));
+      }
+    })
+    return list2;
+  }
+
+  OnSubmit() {
+    this.fillData.forEach((question) => {
+      const data : Answer = {
+        Id : Number(localStorage.getItem('primaryId')),
+        QuestionId : Number(question.questionId),
+        OptionId : question.questionOptionType == 1 ? this.addList(this.form.get(question.questionId.toString())?.value) : question.questionOptionType == 2 ?  this.addDict(this.form.get(question.questionId.toString())?.value) : [],
+        AnswerText : question.questionOptionType == 3 ? String(this.form.get(question.questionId.toString())?.value) :  "" 
+      }
+      this.answer.push(data);
+    });
+
+    this.service.addAnswer(this.answer).subscribe((data) => {
+      console.log(data);
+    });
+  }
 }

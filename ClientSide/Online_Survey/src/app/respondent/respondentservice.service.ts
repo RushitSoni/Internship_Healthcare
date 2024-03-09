@@ -16,12 +16,12 @@ export class RespondentserviceService {
 
   addRespondent(respondent : Respondent)
   {
-    return this.http.post<number>(`${environment.appUrl}/Home/AddRespondent`,respondent);
+    return this.http.post<number>(`${environment.appUrl}/Respondent/AddRespondent`,respondent);
   }
 
   addRecord(record : Respondent_Record)
   {
-    return this.http.post<number>(`${environment.appUrl}/Home/AddRecord`,record);
+    return this.http.post<number>(`${environment.appUrl}/Respondent/AddRecord`,record);
   }
 
   getData()
@@ -40,6 +40,7 @@ export class RespondentserviceService {
 
   addAnswer(answers : Answer[])
   {
-    return this.http.post(`${environment.appUrl}/Home/AddAnswers`,answers);
+    console.log(answers);
+    return this.http.post(`${environment.appUrl}/Respondent/AddAnswers`,answers);
   }
 }

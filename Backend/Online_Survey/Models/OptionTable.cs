@@ -15,5 +15,7 @@ public partial class OptionTable
 
     public virtual QuestionTable Question { get; set; }
 
+    public virtual ICollection<RespondentAnswer> RespondentAnswers { get; set; } = new List<RespondentAnswer>();
+
     public virtual SurveyTable Survey { get; set; }
 }
