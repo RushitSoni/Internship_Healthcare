@@ -55,8 +55,6 @@ import { TemplateDisplayComponent } from './template-display/template-display.co
     MatButtonModule,
     MatIcon,
     MatSnackBarModule,
-   
-
     MatIconModule
   ]
 })

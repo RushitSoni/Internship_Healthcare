@@ -52,10 +52,12 @@ export class CreateService {
     return this.http.post(`${environment.appUrl}/Home/CreateTemplate`,this.getQuestionOption());
   }
 
-  getTemplate(id : number)
+  getTemplate()
   {
+    var id = String(this.globalservice.SurveyorId);
     var params = new HttpParams().set('id',id);
     const template_data = this.http.get<Template[]>(`${environment.appUrl}/Template/GetTemplate`,{params});
+    console.log(template_data);
     return template_data;
   }
 

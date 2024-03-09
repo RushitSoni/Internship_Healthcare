@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Template } from '../../shared/Models/Respondent';
+import { GlobalserviceService } from '../../../globalservice/globalservice.service';
+import { CreateService } from '../create.service';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-template-display',
@@ -7,14 +10,18 @@ import { Template } from '../../shared/Models/Respondent';
   styleUrl: './template-display.component.css'
 })
 export class TemplateDisplayComponent implements OnInit {
-  template_data : Template[] = []
-  surveyid : number;
+  
+  template : Observable<Template[]> = new Observable<Template[]>;
 
-  constructor()
+  constructor(private globalservice : GlobalserviceService,private service : CreateService)
   {
-    this.surveyid = Number(localStorage.getItem('surveyId'));
   }
-  ngOnInit(): void {
-    
-  }
+
+  async ngOnInit(): Promise<void> {
+    this.template = this.service.getTemplate();
+    console.log(this.template);
+    this.template.subscribe(data => {
+      console.log(data);
+    })
+  }    
 }

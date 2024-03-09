@@ -29,31 +29,6 @@ namespace Online_Survey.Controllers
             _userRepository = userRepository;
         }
 
-        [HttpGet("GetQuestionOption")]
-        public ActionResult GetQuestionwithOptions([FromQuery] int SurveyId)
-        {
-            var questionwithoptions = _userRepository.QuestionOption();
-
-            var result = questionwithoptions
-            .Where(q => q.SurveyId == SurveyId)
-            .Select(q => new
-            {
-                q.QuestionId,
-                q.QuestionText,
-                q.QuestionOptionType,
-                Options = q.OptionTables
-                .Where(o => o.QuestionId == q.QuestionId)
-                .Select(o => new
-                {
-                    o.OptionId,
-                    o.OptionText,
-
-                }).ToList()
-            }).ToList();
-
-            return Ok(result);
-        }
-
         [HttpPost("AddRespondent")]
         public int AddRespondent(RespondentDTO respondentDTO)
         {

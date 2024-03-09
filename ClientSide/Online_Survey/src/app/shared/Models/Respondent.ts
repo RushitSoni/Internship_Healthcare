@@ -1,4 +1,5 @@
 export interface Template{
-    SurveyId : number;
-    SurveyName : string;
+    surveyorId : string;
+    surveyId : number;
+    surveyName : string;
 }

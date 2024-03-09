@@ -37,9 +37,9 @@ namespace Online_Survey.Data
             return _ef.QuestionTables.Include(q => q.OptionTables);
         }
 
-        IQueryable<TemplateDetail> IUserRepository.Template(int id)
+        IQueryable<TemplateDetail> IUserRepository.Template(string id)
         {
-            return _ef.TemplateDetails.Where(c => c.SurveyId == id);
+            return _ef.TemplateDetails;
         }
     }
 }

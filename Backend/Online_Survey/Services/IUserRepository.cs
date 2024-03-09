@@ -11,6 +11,6 @@ namespace Online_Survey.Data
         public bool SaveChange();
         public void AddEntity<T>(T data);
         public IQueryable<QuestionTable> QuestionOption();
-        public IQueryable<TemplateDetail> Template(int id);
+        public IQueryable<TemplateDetail> Template(string id);
     }
 }
