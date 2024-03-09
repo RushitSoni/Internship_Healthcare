@@ -1,7 +1,3 @@
-export interface SurveyTable {
-    SurveyorId : String;
-}
-
 export interface Question {
     QuestionText :String;
     QuestionOptionType:String;
@@ -28,6 +24,7 @@ export interface QuestionOption{
 }
 
 export interface template_detail{
+    surveyorid : string;
     surveyid : number;
     surveyname : string;
     questions : QuestionOption[]
@@ -57,6 +54,7 @@ export interface SurveyTable{
     Description : string;
     StartDate : string;
     EndDate : string;
+    DepartmentId : number;
 }
 
 export interface Respondent{
@@ -73,6 +71,6 @@ export interface Respondent_Record{
 export interface Answer{
     Id : number;
     QuestionId : number;
-    OptionId : number | number[];
+    OptionId : number[];
     AnswerText : string;
 }

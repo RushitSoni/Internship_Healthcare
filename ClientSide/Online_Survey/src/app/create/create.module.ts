@@ -23,8 +23,9 @@ import {MatSnackBarModule} from '@angular/material/snack-bar';
 import { LinkComponent } from './link/link.component';
 import { MatIconModule } from '@angular/material/icon';
 import { AlertComponent } from './alert/alert.component';
-import {MatCheckboxModule} from '@angular/material/checkbox';
-import {MatListModule} from '@angular/material/list';
+import { TemplateDisplayComponent } from './template-display/template-display.component';
+
+
 
 @NgModule({
   declarations: [
@@ -37,7 +38,8 @@ import {MatListModule} from '@angular/material/list';
     TemplatedetailComponent,
     DisplayQuestionbankComponent,
     LinkComponent,
-    AlertComponent
+    AlertComponent,
+    TemplateDisplayComponent
   ],
   imports: [
     CommonModule,
@@ -53,10 +55,6 @@ import {MatListModule} from '@angular/material/list';
     MatButtonModule,
     MatIcon,
     MatSnackBarModule,
-    MatCheckboxModule,
-    MatListModule,
-   
-
     MatIconModule
   ]
 })

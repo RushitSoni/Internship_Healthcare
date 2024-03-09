@@ -46,7 +46,6 @@ export class AddQuestionComponent implements OnInit {
 
 
     this.route.queryParams.subscribe((params) => {
-      
       this.companyId=Number(params['companyID'])
       // console.log("add-question",this.companyId)
     });

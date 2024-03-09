@@ -5,6 +5,7 @@ import { environment } from '../../environments/environment.development';
 import { Options, Post_Question, Question, QuestionOption, Survey, SurveyTable, template_detail } from '../shared/Models/Survey';
 import { GlobalserviceService } from '../../globalservice/globalservice.service';
 import { Observable } from 'rxjs';
+import { Template } from '../shared/Models/Respondent';
 
 
 @Injectable({
@@ -50,13 +51,22 @@ export class CreateService {
   {
     return this.http.post(`${environment.appUrl}/Home/CreateTemplate`,this.getQuestionOption());
   }
+
+  getTemplate()
+  {
+    var id = String(this.globalservice.SurveyorId);
+    var params = new HttpParams().set('id',id);
+    const template_data = this.http.get<Template[]>(`${environment.appUrl}/Template/GetTemplate`,{params});
+    console.log(template_data);
+    return template_data;
+  }
+
   getData()
   {
     if(this.globalservice.SurveyId !== undefined)
     {
       var params = new HttpParams().set('surveyid',this.globalservice.SurveyId);
       const data = this.http.get<QuestionOption[]>(`${environment.appUrl}/Home/GetQuestionOption`,{params});
-      console.log(data);
       return data;
     }
 

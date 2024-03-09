@@ -10,6 +10,7 @@ import { GlobalserviceService } from '../../../globalservice/globalservice.servi
 })
 export class SettimeComponent {
   
+  
   @Output() surveytable : EventEmitter<any> = new EventEmitter();
 
   selectedStartDate! : string;
@@ -40,6 +41,7 @@ export class SettimeComponent {
         Description : this.description,
         StartDate : this.selectedStartDate,
         EndDate : this.selectedEndDate,
+        DepartmentId : Number(localStorage.getItem('departmentId'))
       }
       resolve(surveyTable);
     });

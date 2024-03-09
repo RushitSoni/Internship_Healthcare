@@ -1,0 +1,7 @@
+<div *ngIf="template | async as templateData; else loading">
+    <div *ngFor="let data of templateData">
+        <label>{{data.surveyId}}</label>
+        <label>{{data.surveyName}}</label>
+    </div>
+</div>
+<ng-template #loading>Loading.....</ng-template>

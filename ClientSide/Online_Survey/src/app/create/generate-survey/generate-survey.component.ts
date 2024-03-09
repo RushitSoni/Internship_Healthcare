@@ -19,10 +19,8 @@ export class GenerateSurveyComponent implements OnInit {
   selectedTime: any;
   selectedDuration!: number;
   description: string = '';
-
   departmentId: string = '';
-  companyId: string=''
-
+  companyId: string = '';
 
   constructor(
     private route: ActivatedRoute,
@@ -35,10 +33,12 @@ export class GenerateSurveyComponent implements OnInit {
   }
 
   ngOnInit(): void {
-        this.route.queryParams.subscribe((params) => {
-          this.departmentId = params['deptID'];
-          this.companyId=params['companyID']
-        });
+    this.route.queryParams.subscribe((params) => {
+      this.departmentId = params['deptID'];
+      this.companyId = params['companyID'];
+    });
+
+    localStorage.setItem('departmentId', this.departmentId);
   }
 
   formatDate(date: Date): String {
@@ -64,7 +64,7 @@ export class GenerateSurveyComponent implements OnInit {
   CreateSurvey(surveyTable: SurveyTable) {
     this.service.createSurvey(surveyTable).subscribe((data) => {
       this.globalService.SurveyId = data;
-      localStorage.setItem('surveyId',String(data));
+      localStorage.setItem('surveyId', String(data));
     });
     this.settime = !this.settime;
 
@@ -75,10 +75,10 @@ export class GenerateSurveyComponent implements OnInit {
         // Add your query parameters here
         // For example:
         deptID: this.departmentId,
-        companyID: this.companyId
-      }
+        companyID: this.companyId,
+      },
     };
-    
-    this.router.navigate(['/create/generate', 'addquestion'],queryParams);
+
+    this.router.navigate(['/create/generate', 'addquestion'], queryParams);
   }
 }

@@ -7,6 +7,8 @@ public partial class TemplateDetail
 {
     public int SurveyId { get; set; }
 
+    public string SurveyorId { get; set; }
+
     public string SurveyName { get; set; }
 
     public virtual SurveyTable Survey { get; set; }
