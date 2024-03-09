@@ -19,6 +19,7 @@ export class SettimeComponent {
   selectedTime!: string;
   selectedDuration! : number;
   description! : string;
+  departmentId!:number
   
   constructor(public dialogRef : MatDialogRef<SettimeComponent>,private globalservice : GlobalserviceService)
   {
@@ -41,7 +42,7 @@ export class SettimeComponent {
         Description : this.description,
         StartDate : this.selectedStartDate,
         EndDate : this.selectedEndDate,
-        DepartmentId : Number(localStorage.getItem('departmentId'))
+        DepartmentId : this.departmentId
       }
       resolve(surveyTable);
     });
