@@ -1,18 +1,18 @@
 import { Component, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup } from '@angular/forms';
-import { Post_OptionList, Post_Question } from '../../shared/Models/Survey';
+import {
+  GetTemplate,
+  Option_List,
+  Post_OptionList,
+  Post_Question,
+} from '../../shared/Models/Survey';
 import { GlobalserviceService } from '../../../globalservice/globalservice.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { CreateService } from '../create.service';
-
-
 import { DisplayQuestionbankComponent } from '../display-questionbank/display-questionbank.component';
-
-
-
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { AlertComponent } from '../alert/alert.component';
-
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-add-question',
@@ -23,35 +23,34 @@ export class AddQuestionComponent implements OnInit {
   form_question!: FormGroup;
   Question_id!: number;
   questionnumber: number;
-
- 
-  companyId!:number
+  editingMode: boolean = false;
+  editedQuestionIndex: number | null = null;
+  question_list: Post_Question[] = [];
+  companyId!: number;
+  from_template : boolean = false;
+  templateId! : number;
 
   constructor(
     private fb_question: FormBuilder,
     private globalservice: GlobalserviceService,
     private service: CreateService,
     private router: Router,
-    private dialog:MatDialog,
-    private route:ActivatedRoute,
-    private dialogRef : MatDialog
+    private dialog: MatDialog,
+    private route: ActivatedRoute,
+    private dialogRef: MatDialog
   ) {
     this.questionnumber = 1;
   }
 
-
-  question_list: Post_Question[] = [];
-
   ngOnInit(): void {
-
-
     this.route.queryParams.subscribe((params) => {
-      this.companyId=Number(params['companyID'])
-      // console.log("add-question",this.companyId)
+      this.companyId = Number(params['companyID']);
+      this.templateId = params['templateId'];
+      this.from_template = Boolean(params['fromTemplate']);
     });
 
-    ////////
-    //this.i = 1;
+    console.log(this.templateId);
+    console.log(this.from_template);
 
     this.form_question = this.fb_question.group({
       question_text: '',
@@ -61,6 +60,66 @@ export class AddQuestionComponent implements OnInit {
         this.fb_question.control(''),
       ]),
     });
+
+    if(this.from_template)
+    {
+      this.checkTemplate();
+    }
+    
+  }
+
+  checkTemplate()
+  {
+
+      const data = this.service.getTemplateData(this.templateId) as Observable<GetTemplate[]>;
+      data.subscribe((data) => {
+        console.log(data);
+        data.forEach(element => {
+          console.log(element);
+          const optionList: Post_OptionList[] = [];
+          var count : number = 1;
+          if(element.optionType == 1 || element.optionType ==2 )
+          {
+            element.options.forEach(options => {
+              console.log(options);
+              const option : Post_OptionList = {
+                optionId : count,
+                optionText : options.optionText,
+                surveyId : Number(localStorage.getItem('surveyId'))
+              }
+              optionList.push(option);
+              count++;
+              
+          });
+          }
+          const question : Post_Question = {
+            questionId : this.questionnumber,
+            questionText : element.questionText,
+            questionOptionType : element.optionType,
+            surveyId : Number(localStorage.getItem('surveyId')),
+            options : optionList 
+          }
+
+          this.question_list.push(question);
+          console.log(this.question_list);
+        });
+      });
+  }
+
+  editQuestion(index: number) {
+    const editedQuestion = this.question_list[index];
+    this.form_question.patchValue({
+      question_text: editedQuestion.questionText,
+      question_type: editedQuestion.questionOptionType, // Set the question type of the edited question(in your case i think you have provided some other name or static values ??
+    });
+
+    this.dynamicFields.clear();
+    editedQuestion.options.forEach((option: Option_List) => {
+      this.dynamicFields.push(this.fb_question.control(option.optionText));
+    });
+
+    this.editingMode = true; // Enter editing mode
+    this.editedQuestionIndex = index; // Store the index of the edited question
   }
 
   get dynamicFields() {
@@ -82,39 +141,77 @@ export class AddQuestionComponent implements OnInit {
   UploadQuestion() {
     try {
       const optionList: Post_OptionList[] = [];
+      const textvalues = this.dynamicFields.value;
       const questiontext = this.form_question.get('question_text')!.value;
       const questiontype = this.form_question.get('question_type')!.value;
-      const textvalues = this.dynamicFields.value;
 
-      if (textvalues.length != 0 && (questiontype == 1 || questiontype == 2)) {
-        for (let index in textvalues) {
-          if (textvalues[index] != '') {
-            const newoption: Post_OptionList = {
-              optionId: Number(index),
-              surveyId: Number(localStorage.getItem('surveyId')),
-              optionText: textvalues[index],
-            };
-            optionList.push(newoption);
-          } else {
-            throw 'Options';
+      if (this.editedQuestionIndex !== null) {
+        if (
+          textvalues.length != 0 &&
+          (questiontype == 1 || questiontype == 2)
+        ) {
+          for (let index in textvalues) {
+            if (textvalues[index] != '') {
+              const newoption: Post_OptionList = {
+                optionId: Number(index),
+                surveyId: Number(localStorage.getItem('surveyId')),
+                optionText: textvalues[index],
+              };
+              optionList.push(newoption);
+            } else {
+              throw 'Options';
+            }
           }
         }
-      }
 
-      if (questiontype != '' && questiontext != '') {
-        const questionoption: Post_Question = {
-          questionId: this.questionnumber,
+        // Update the question data with new values from the form fields
+        this.question_list[this.editedQuestionIndex] = {
+          questionId: this.editedQuestionIndex + 1,
           surveyId: Number(localStorage.getItem('surveyId')),
-          questionText: this.form_question.get('question_text')?.value,
-          questionOptionType: this.form_question.get('question_type')?.value,
+          questionText: this.form_question.value.question_text,
           options: optionList,
+          questionOptionType: this.form_question.value.question_type, // Update the question type
         };
 
-        this.questionnumber = this.questionnumber + 1;
-
-        this.question_list.push(questionoption);
+        // Reset form fields and editing mode
+        this.editingMode = false; // Exit editing mode
+        this.editedQuestionIndex = null; // Reset edited question index
       } else {
-        throw 'Questions';
+        //adding the option to the Post_OptionList[].
+        if (
+          textvalues.length != 0 &&
+          (questiontype == 1 || questiontype == 2)
+        ) {
+          for (let index in textvalues) {
+            if (textvalues[index] != '') {
+              const newoption: Post_OptionList = {
+                optionId: Number(index),
+                surveyId: Number(localStorage.getItem('surveyId')),
+                optionText: textvalues[index],
+              };
+              optionList.push(newoption);
+            } else {
+              throw 'Options';
+            }
+          }
+        }
+
+        //Adding all the details to the question_list for preview.
+        if (questiontype != '' && questiontext != '') {
+          const questionoption: Post_Question = {
+            questionId: this.questionnumber,
+            surveyId: Number(localStorage.getItem('surveyId')),
+            questionText: this.form_question.get('question_text')?.value,
+            questionOptionType: this.form_question.get('question_type')?.value,
+            options: optionList,
+          };
+
+          this.questionnumber = this.questionnumber + 1;
+
+          this.question_list.push(questionoption);
+        } else {
+          throw 'Questions';
+        }
       }
     } catch (error) {
       throw error;
@@ -142,9 +239,9 @@ export class AddQuestionComponent implements OnInit {
         ]),
       });
     } catch (error) {
-      const dialog = this.dialogRef.open(AlertComponent , {
+      const dialog = this.dialogRef.open(AlertComponent, {
         width: '100%',
-        height: '20%'
+        height: '20%',
       });
       throw error;
     }
@@ -162,28 +259,22 @@ export class AddQuestionComponent implements OnInit {
         .catch((err) => {
           console.log(err);
         });
-    } catch (error) {
-    
-    }
+    } catch (error) {}
   }
-
 
   /////Question Bank Zone
 
   openQuestionBank() {
     const dialogRef = this.dialog.open(DisplayQuestionbankComponent, {
       width: '75%',
-      height:'90%',
+      height: '90%',
       // autoFocus: false // Prevent auto-focusing on first input
     });
-    
+
     dialogRef.componentInstance.companyId = Number(this.companyId);
 
-    dialogRef.componentInstance.questionDataEmitter.subscribe(result => {
+    dialogRef.componentInstance.questionDataEmitter.subscribe((result) => {
       console.log(result); // Handle emitted data here
     });
-   
-  
   }
-
 }

@@ -74,3 +74,12 @@ export interface Answer{
     OptionId : number[];
     AnswerText : string;
 }
+
+export interface TemplateOption{
+    optionText : string;
+}
+export interface GetTemplate{
+    questionText : string;
+    optionType : number;
+    options : TemplateOption[];
+}

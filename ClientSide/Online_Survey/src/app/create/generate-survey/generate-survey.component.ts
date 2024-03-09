@@ -21,6 +21,8 @@ export class GenerateSurveyComponent implements OnInit {
   description: string = '';
   departmentId: string = '';
   companyId: string = '';
+  from_template : boolean = false;
+  templateId! : number;
 
   constructor(
     private route: ActivatedRoute,
@@ -39,6 +41,13 @@ export class GenerateSurveyComponent implements OnInit {
     });
 
     // localStorage.setItem('departmentId', this.departmentId);
+  }
+
+  templateSurvey(template_id : number)
+  {
+    this.from_template = !this.from_template;
+    this.templateId = template_id;
+    this.openDialog();
   }
 
   formatDate(date: Date): String {
@@ -82,6 +91,8 @@ export class GenerateSurveyComponent implements OnInit {
         // For example:
         deptID: this.departmentId,
         companyID: this.companyId,
+        fromTemplate: this.from_template,
+        templateId : this.templateId
       },
     };
 

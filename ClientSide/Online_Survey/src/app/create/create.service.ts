@@ -2,7 +2,7 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from '../../environments/environment.development';
 
-import { Options, Post_Question, Question, QuestionOption, Survey, SurveyTable, template_detail } from '../shared/Models/Survey';
+import { GetTemplate, Options, Post_Question, Question, QuestionOption, Survey, SurveyTable, template_detail } from '../shared/Models/Survey';
 import { GlobalserviceService } from '../../globalservice/globalservice.service';
 import { Observable } from 'rxjs';
 import { Template } from '../shared/Models/Respondent';
@@ -59,6 +59,13 @@ export class CreateService {
     var id = String(this.globalservice.SurveyorId);
     var params = new HttpParams().set('id',id);
     const template_data = this.http.get<Template[]>(`${environment.appUrl}/Template/GetTemplate`,{params});
+    return template_data;
+  }
+
+  getTemplateData(templateId : number)
+  {
+    var params = new HttpParams().set('templateId',templateId);
+    const template_data = this.http.get<GetTemplate[]>(`${environment.appUrl}/Template/TemplateData`,{params});
     console.log(template_data);
     return template_data;
   }

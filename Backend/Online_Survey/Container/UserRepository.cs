@@ -39,7 +39,12 @@ namespace Online_Survey.Data
 
         IQueryable<TemplateDetail> IUserRepository.Template(string id)
         {
-            return _ef.TemplateDetails;
+            return _ef.TemplateDetails.Where(q => q.SurveyorId == id);
+        }
+
+        IQueryable<TemplateQuestion> IUserRepository.TemplateData()
+        {
+            return _ef.TemplateQuestions.Include(q => q.TemplateOptions);
         }
     }
 }
