@@ -9,6 +9,7 @@ using System.Linq;
 
 namespace Online_Survey.Controllers
 {
+    [Authorize]
     [ApiController]
     [Route("[controller]")]
     public class TemplateController : Controller

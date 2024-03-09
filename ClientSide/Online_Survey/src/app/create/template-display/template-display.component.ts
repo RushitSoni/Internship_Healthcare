@@ -22,6 +22,6 @@ export class TemplateDisplayComponent implements OnInit {
     console.log(this.template);
     this.template.subscribe(data => {
       console.log(data);
-    })
+    });
   }    
 }
