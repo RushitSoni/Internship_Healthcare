@@ -7,12 +7,11 @@ namespace Online_Survey.Models;
 
 public partial class InternshipOnlineSurveyContext : DbContext
 {
-    IConfiguration _configuration;
+    private IConfiguration _configuration;
     public InternshipOnlineSurveyContext(IConfiguration config)
     {
         _configuration = config;    
     }
-
 
     public virtual DbSet<Company> Companies { get; set; }
 
@@ -46,7 +45,8 @@ public partial class InternshipOnlineSurveyContext : DbContext
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see https://go.microsoft.com/fwlink/?LinkId=723263.
-       => optionsBuilder.UseSqlServer(_configuration.GetConnectionString("DefaultConnection"));
+    => optionsBuilder.UseSqlServer(_configuration.GetConnectionString("DefaultConnection"));
+
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         modelBuilder.Entity<Company>(entity =>
@@ -288,13 +288,11 @@ public partial class InternshipOnlineSurveyContext : DbContext
 
         modelBuilder.Entity<TemplateDetail>(entity =>
         {
-            entity.HasKey(e => e.SurveyId).HasName("PK__tmp_ms_x__9DC31A07E75EA175");
+            entity.HasKey(e => e.SurveyId).HasName("PK__tmp_ms_x__9DC31A07B589E68D");
 
             entity.ToTable("Template_Details");
 
-            entity.Property(e => e.SurveyId)
-                .ValueGeneratedNever()
-                .HasColumnName("survey_id");
+            entity.Property(e => e.SurveyId).HasColumnName("survey_id");
             entity.Property(e => e.SurveyName)
                 .IsRequired()
                 .HasMaxLength(20)
@@ -303,11 +301,6 @@ public partial class InternshipOnlineSurveyContext : DbContext
                 .IsRequired()
                 .HasMaxLength(450)
                 .HasColumnName("surveyor_id");
-
-            entity.HasOne(d => d.Survey).WithOne(p => p.TemplateDetail)
-                .HasForeignKey<TemplateDetail>(d => d.SurveyId)
-                .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK__Template___surve__361203C5");
         });
 
         modelBuilder.Entity<TemplateOption>(entity =>
@@ -355,7 +348,7 @@ public partial class InternshipOnlineSurveyContext : DbContext
             entity.HasOne(d => d.Survey).WithMany(p => p.TemplateQuestions)
                 .HasForeignKey(d => d.SurveyId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK__Template___surve__370627FE");
+                .HasConstraintName("FK__Template___surve__473C8FC7");
         });
 
         OnModelCreatingPartial(modelBuilder);

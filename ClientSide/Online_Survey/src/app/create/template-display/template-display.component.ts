@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { Template } from '../../shared/Models/Respondent';
 import { GlobalserviceService } from '../../../globalservice/globalservice.service';
 import { CreateService } from '../create.service';
@@ -11,6 +11,8 @@ import { Observable } from 'rxjs';
 })
 export class TemplateDisplayComponent implements OnInit {
   
+  @Output() clicked : EventEmitter<number> = new EventEmitter<number>();
+  surveyId! : number;
   template : Observable<Template[]> = new Observable<Template[]>;
 
   constructor(private globalservice : GlobalserviceService,private service : CreateService)
@@ -24,4 +26,10 @@ export class TemplateDisplayComponent implements OnInit {
       console.log(data);
     });
   }    
+
+  addQuestions(questionNumber : number)
+  {
+    this.clicked.emit(questionNumber);
+    console.log(questionNumber);
+  }
 }
