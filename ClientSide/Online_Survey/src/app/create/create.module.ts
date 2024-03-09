@@ -23,8 +23,8 @@ import {MatSnackBarModule} from '@angular/material/snack-bar';
 import { LinkComponent } from './link/link.component';
 import { MatIconModule } from '@angular/material/icon';
 import { AlertComponent } from './alert/alert.component';
-
-
+import {MatCheckboxModule} from '@angular/material/checkbox';
+import {MatListModule} from '@angular/material/list';
 
 @NgModule({
   declarations: [
@@ -53,6 +53,8 @@ import { AlertComponent } from './alert/alert.component';
     MatButtonModule,
     MatIcon,
     MatSnackBarModule,
+    MatCheckboxModule,
+    MatListModule,
    
 
     MatIconModule

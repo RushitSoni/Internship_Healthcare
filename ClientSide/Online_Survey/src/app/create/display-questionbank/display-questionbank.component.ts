@@ -37,8 +37,16 @@ export class DisplayQuestionbankComponent implements OnInit{
         console.log('Questions Fetched :',data)
         // console.log(this.globalService.SurveyorId)
         // console.log(this.companyId)
-        this.questions = data.filter(question =>question.userId === this.globalService.SurveyorId && question.companyId===Number(this.companyId));
+        //this.questions=data
+        //this.questions = data.filter(question =>question.userId === this.globalService.SurveyorId && question.companyId===Number(this.companyId));
         //console.log(this.questions)
+
+        if(this.companyId){
+          this.questions = data.filter(question =>question.companyId===Number(this.companyId));
+        }
+        else{
+          this.questions = data.filter(question =>question.userId === this.globalService.SurveyorId );
+        }
       },
       error => {
         console.error('Error fetching questions:', error);
