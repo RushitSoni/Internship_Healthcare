@@ -10,6 +10,6 @@
 
         public string EndDate { get; set; }
 
-        public int? DeptId { get; set; }
+        public int? DepartmentId { get; set; }
     }
 }

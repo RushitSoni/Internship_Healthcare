@@ -38,7 +38,7 @@ export class GenerateSurveyComponent implements OnInit {
       this.companyId = params['companyID'];
     });
 
-    localStorage.setItem('departmentId', this.departmentId);
+    // localStorage.setItem('departmentId', this.departmentId);
   }
 
   formatDate(date: Date): String {
@@ -54,14 +54,20 @@ export class GenerateSurveyComponent implements OnInit {
     const dialogRef = this.dialog.open(SettimeComponent, {
       width: '250px',
     });
+    
+    dialogRef.componentInstance.departmentId=Number(this.departmentId)
+    
 
     dialogRef.afterClosed().subscribe((result) => {
       console.log('Dialog result:', result); // Data passed back from dialog
+      console.log(result)
       this.CreateSurvey(result);
     });
   }
 
   CreateSurvey(surveyTable: SurveyTable) {
+
+    // console.log("Create Survey",surveyTable)
     this.service.createSurvey(surveyTable).subscribe((data) => {
       this.globalService.SurveyId = data;
       localStorage.setItem('surveyId', String(data));

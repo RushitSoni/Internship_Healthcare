@@ -34,6 +34,8 @@ export class CreateService {
 
   createSurvey(surveytable : SurveyTable)
   {
+
+    // console.log(surveytable)
     return this.http.post<number>(`${environment.appUrl}/Home/CreateSurvey`,surveytable);
   }
 
