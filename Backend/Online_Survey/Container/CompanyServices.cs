@@ -30,7 +30,14 @@ namespace Online_Survey.Container
             APIResponse response = new APIResponse();
             try
             {
-              
+
+                var existingCompany = await context.Companies.FirstOrDefaultAsync(c => c.Name == data.Name);
+                if (existingCompany != null)
+                {
+                    response.ResponseCode = 400;
+                    response.ErrorMsg = "Company with the same name already exists.";
+                    return response;
+                }
 
                 Company _company = this.mapper.Map<CompanyDto, Company>(data);
                 await this.context.Companies.AddAsync(_company);
@@ -130,6 +137,13 @@ namespace Online_Survey.Container
             APIResponse response = new APIResponse();
             try
             {
+                var existingCompany = await context.Companies.FirstOrDefaultAsync(c => c.Name == data.Name && c.CompanyId != id);
+                if (existingCompany != null)
+                {
+                    response.ResponseCode = 400;
+                    response.ErrorMsg = "Company with the same name already exists.";
+                    return response;
+                }
 
                 var _company = await this.context.Companies.FindAsync(id);
                 if (_company != null)

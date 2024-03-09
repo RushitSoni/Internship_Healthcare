@@ -1,0 +1,70 @@
+.container {
+    max-width: 600px;
+    margin: 0 auto;
+    height: 85vh;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+  }
+  
+  .email-list {
+    background-color: rgba(250, 253, 254, 0.984);
+    padding: 20px;
+    overflow-y:auto;
+    min-height:50vh;
+    max-height: 50vh;
+  
+  }
+  
+  .btn {
+    background-color:#1e90ff;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    padding: 10px 20px;
+    cursor: pointer;
+  }
+  
+  .checkbox-list {
+    margin-top: 10px;
+  }
+  
+  .checkbox-item {
+    display: block;
+    margin-bottom: 5px;
+  }
+  
+  .recipient-list {
+    list-style: none;
+    padding-left: 0;
+    margin-left: 7%;
+  }
+  
+  .recipient-list li {
+    margin-bottom: 5px;
+  }
+  
+  .recipient-list label {
+    display: block;
+  }
+  .file-upload-label {
+    margin-top: 2%;
+    padding: 10px;
+    height: 7vh;
+    background-color: #1e90ff;
+    color: #fff;
+   
+    border-radius: 5px;
+    cursor: pointer;
+    display: inline-block;
+    justify-content: space-between;
+    align-items: center;
+
+
+  }
+ 
+
+  
+  /* Hide input */
+  #file-upload {
+    display: none;
+  }

@@ -264,6 +264,7 @@ export class AddQuestionComponent implements OnInit {
 
   /////Question Bank Zone
 
+
   openQuestionBank() {
     const dialogRef = this.dialog.open(DisplayQuestionbankComponent, {
       width: '75%',

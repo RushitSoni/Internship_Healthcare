@@ -26,9 +26,23 @@
     (mousedown)="changeColor('create')"
     [routerLink]="['/create', 'generate']"
     [ngClass]="{ active: activeButton === 'create' }"
+  
   >
+ 
+
+
     <mat-icon>add</mat-icon> Create
   </a>
+  <a
+  class="value"
+  (mousedown)="changeColor('questionBank')"
+  [routerLink]="['/workspace/company/questionbank']"
+  [ngClass]="{ active: activeButton === 'questionBank' }"
+
+  >
+
+  <mat-icon>library_books</mat-icon> Question Bank
+</a>
   <div class="profile-button">
     <a
       class="value"

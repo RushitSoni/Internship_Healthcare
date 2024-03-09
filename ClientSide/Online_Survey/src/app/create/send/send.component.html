@@ -1,20 +1,45 @@
-<div>
-    
-    <input  type="file" (change)="readExcel($event)">
-    <p>Column name should be "Email_IDs"</p>
-    <div>
-        
+<div class="container">
 
-        <button  class="btn btn-primary mt-5" (click)="sendEmailList()">Send</button>
+   
+          <label for="file-upload" class="file-upload-label" >
+            <mat-icon style="margin-bottom: -7px;">attach_file</mat-icon> Choose Excel File
+          </label>
+          <input id="file-upload" type="file" (change)="readExcel($event)">
+          
 
-        <div *ngIf="excelData && excelData.length > 0">
-            <h3>Email IDs:</h3>
-            <ul>
-                <li *ngFor="let row of excelData">
-                    {{ row.Email_IDs }}
-                </li>
-            </ul>
-        </div>
+
+   
+
+     
+
+    <div class="email-list" >
+     
+  
+        <ng-container *ngIf="isEmailCol; else noEmailList">
+            <div class="email-list">
+              <div *ngIf="excelData && excelData.length > 0">
+                <h3>Email IDs:</h3>
+                <div class="checkbox-list">
+                  <label class="checkbox-item">
+                    <input type="checkbox" (change)="toggleSelectAll($event)"> Select All
+                  </label>
+                  <ul class="recipient-list">
+                    <li *ngFor="let recipient of recipients">
+                      <label class="checkbox-item">
+                        <input type="checkbox" [(ngModel)]="recipient.selected"> {{ recipient.Email_IDs }}
+                      </label>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </ng-container>
+          <ng-template #noEmailList>
+            <p >No email list available. Please upload a file with valid data.</p>
+          </ng-template>
     </div>
 
-</div>
+
+    <button mat-raised-button class="btn  mt-3" (click)="sendEmailList()">Send</button>
+  </div>
+  

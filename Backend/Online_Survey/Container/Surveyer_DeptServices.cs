@@ -28,7 +28,13 @@ namespace Online_Survey.Container
             APIResponse response = new APIResponse();
             try
             {
-
+                var existingSurveyer = await context.SurveyerDepts.FirstOrDefaultAsync(s => s.UserId == data.UserId);
+                if (existingSurveyer != null)
+                {
+                    response.ResponseCode = 400;
+                    response.ErrorMsg = "Surveyer with the same UserId already exists in the department.";
+                    return response;
+                }
 
                 SurveyerDept _surveyer = this.mapper.Map<Surveyer_DeptDto,SurveyerDept>(data);
                 await this.context.SurveyerDepts.AddAsync(_surveyer);
@@ -37,7 +43,7 @@ namespace Online_Survey.Container
 
 
                 response.ResponseCode = 201;
-                response.Result = data.UserName;
+                response.Result = $"{data.UserId}";
 
             }
             catch (DbUpdateException ex)
@@ -132,7 +138,17 @@ namespace Online_Survey.Container
                 var _surveyer = await this.context.SurveyerDepts.FindAsync(id);
                 if (_surveyer != null)
                 {
-                    _surveyer.UserName = data.UserName;
+                    var existingSurveyer = await context.SurveyerDepts.FirstOrDefaultAsync(s => s.UserId == data.UserId && s.SurveyerDeptId != id);
+                    if (existingSurveyer != null)
+                    {
+                        response.ResponseCode = 400;
+                        response.ErrorMsg = "Surveyer with the same UserId already exists in the department.";
+                        return response;
+                    }
+
+
+
+                    _surveyer.UserId = data.UserId;
 
 
                     await this.context.SaveChangesAsync();

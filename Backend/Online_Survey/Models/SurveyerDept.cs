@@ -11,7 +11,7 @@ public partial class SurveyerDept
 
     public string UserId { get; set; }
 
-    public string UserName { get; set; }
+    //public string UserName { get; set; }
 
     public int CompanyId { get; set; }
 

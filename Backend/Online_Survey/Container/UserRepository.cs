@@ -46,5 +46,11 @@ namespace Online_Survey.Data
         {
             return _ef.TemplateQuestions.Include(q => q.TemplateOptions);
         }
+
+
+        IQueryable<SurveyTable> IUserRepository.GetAllSurveys()
+        {
+            return _ef.SurveyTables;
+        }
     }
 }

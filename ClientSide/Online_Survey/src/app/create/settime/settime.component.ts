@@ -42,7 +42,7 @@ export class SettimeComponent {
         Description : this.description,
         StartDate : this.selectedStartDate,
         EndDate : this.selectedEndDate,
-        DepartmentId : this.departmentId
+        deptId : this.departmentId
       }
       resolve(surveyTable);
     });

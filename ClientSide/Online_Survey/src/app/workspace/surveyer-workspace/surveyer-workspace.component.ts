@@ -11,6 +11,7 @@ import { AccountService } from '../../account/account.service';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
+import { SurveyTable } from '../../shared/Models/Survey';
 
 @Component({
   selector: 'app-surveyer-workspace',
@@ -27,6 +28,7 @@ export class SurveyerWorkspaceComponent implements OnInit {
   users: User[] =[];
 
   surveyerDepts :SurveyerViaDept[]=[]
+  surveys : SurveyTable[]=[]
 
   surveyerDeptForm: FormGroup=new FormGroup({}); // Remove initialization here
   submitted = false;
@@ -34,7 +36,7 @@ export class SurveyerWorkspaceComponent implements OnInit {
   user: any ; // Change 'any' to the type of your user object if known
   userSubscription: Subscription | undefined;
 
-  displayedColumns: string[] = ['name','action'];
+  displayedColumns: string[] = ['name','creator','date_create','action'];
   dataSource!: MatTableDataSource<any>;
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
@@ -63,6 +65,7 @@ export class SurveyerWorkspaceComponent implements OnInit {
     });
     this.loadSurveyers(this.departmentId);
     this.loadUsers();
+    this.loadSurveys()
    
     this.initializeForm(); // Call initializeForm method
     this.checkAdminRole()
@@ -99,6 +102,9 @@ export class SurveyerWorkspaceComponent implements OnInit {
     );
   }
   
+
+
+
   initializeForm() {
     this.surveyerDeptForm = this.formBuilder.group({
       
@@ -166,6 +172,31 @@ applyFilter(event:Event) {
   if (this.dataSource.paginator) {
     this.dataSource.paginator.firstPage();
   }
+}
+
+ 
+loadSurveys(): void {
+  this.workspaceService.getAllSurveys().subscribe(
+    (data: SurveyTable[]) => {
+      // Filter surveys based on departmentId
+      this.surveys = data.filter(survey => survey.deptId === Number(this.departmentId));
+      console.log("Surveys Fetched !!", this.surveys);
+
+
+      this.dataSource = new MatTableDataSource(this.surveys);
+      this.dataSource.sort = this.sort;
+      this.dataSource.paginator = this.paginator;
+    },
+    error => {
+      console.log('Error fetching surveys:', error);
+    }
+  );
+}
+
+getEmailByUserId(userId: string): string | undefined {
+  // Assuming 'users' is an array of User objects
+  const user = this.users.find(user => user.id === userId);
+  return user ? user.email : undefined;
 }
 
 }

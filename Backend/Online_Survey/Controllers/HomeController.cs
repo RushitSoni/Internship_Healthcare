@@ -183,7 +183,7 @@ namespace Online_Survey.Controllers
                 StartTime = time,
                 LaunchDate = DateOnly.FromDateTime(DateTime.Parse(surveyorid.StartDate)),
                 EndDate = DateOnly.FromDateTime(DateTime.Parse(surveyorid.EndDate)),
-                DeptId = surveyorid.DepartmentId
+                DeptId = surveyorid.DeptId
             };
 
             SurveyTable surveyTable = mapper.Map<SurveyTable>(surveyDTO);
@@ -237,5 +237,14 @@ namespace Online_Survey.Controllers
 
             return Ok(result);
         }
+
+        //get All Survey
+        [HttpGet("GetAllSurveys")]
+        public ActionResult GetAllSurveys()
+        {
+            var surveys = _userRepository.GetAllSurveys();
+            return Ok(surveys);
+        }
+
     }
 }

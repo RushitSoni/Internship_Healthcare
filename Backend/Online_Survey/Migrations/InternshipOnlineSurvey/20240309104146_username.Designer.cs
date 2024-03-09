@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Online_Survey.Models;
 
@@ -11,9 +12,11 @@ using Online_Survey.Models;
 namespace Online_Survey.Migrations.InternshipOnlineSurvey
 {
     [DbContext(typeof(InternshipOnlineSurveyContext))]
-    partial class InternshipOnlineSurveyContextModelSnapshot : ModelSnapshot
+    [Migration("20240309104146_username")]
+    partial class username
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

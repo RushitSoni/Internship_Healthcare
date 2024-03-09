@@ -122,7 +122,7 @@ export class AddEditDepartmentComponent implements OnInit {
             userId: this.user.id, 
             companyId: companyIdNumber,
             deptId: deptIdNumber,
-            userName: this.user.email
+            // userName: this.user.email
           };
           this.createSurveyerDeptForDepartmentCreator(departmentCreatorSurveyer);
 
