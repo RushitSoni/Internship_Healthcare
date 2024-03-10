@@ -41,9 +41,9 @@ import { PaginationComponent } from './generate-survey/pagination/pagination.com
     LinkComponent,
     AlertComponent,
     TemplateDisplayComponent,
-    PaginationComponent
   ],
   imports: [
+    PaginationComponent,
     CommonModule,
     CreateRoutingModule,
     ReactiveFormsModule,
