@@ -24,6 +24,7 @@ import { LinkComponent } from './link/link.component';
 import { MatIconModule } from '@angular/material/icon';
 import { AlertComponent } from './alert/alert.component';
 import { TemplateDisplayComponent } from './template-display/template-display.component';
+import { PaginationComponent } from './generate-survey/pagination/pagination.component';
 
 
 
@@ -39,7 +40,8 @@ import { TemplateDisplayComponent } from './template-display/template-display.co
     DisplayQuestionbankComponent,
     LinkComponent,
     AlertComponent,
-    TemplateDisplayComponent
+    TemplateDisplayComponent,
+    PaginationComponent
   ],
   imports: [
     CommonModule,
