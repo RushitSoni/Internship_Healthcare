@@ -24,6 +24,7 @@ import {MatSelectModule} from '@angular/material/select';
 import { AddSingleOptionComponent } from './add-single-option/add-single-option.component';
 import { EditOptionComponent } from './edit-option/edit-option.component';
 import { EditQuestionComponent } from './edit-question/edit-question.component';
+import { ResponseVisulizationComponent } from './response-visulization/response-visulization.component';
 
 
 @NgModule({
@@ -41,6 +42,7 @@ import { EditQuestionComponent } from './edit-question/edit-question.component';
     AddSingleOptionComponent,
     EditOptionComponent,
     EditQuestionComponent,
+    ResponseVisulizationComponent,
   
   ],
   imports: [

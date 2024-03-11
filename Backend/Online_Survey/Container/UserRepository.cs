@@ -2,10 +2,13 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Online_Survey.DTOs;
+using Online_Survey.DTOs.Respondent;
 using Online_Survey.Models;
 using Online_Survey.Pococlass;
 using Online_Survey.PocoClass;
+using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace Online_Survey.Data
 {
@@ -52,5 +55,62 @@ namespace Online_Survey.Data
         {
             return _ef.SurveyTables;
         }
-    }
+
+
+        Task<List<ResponseViaSurveyId>> IUserRepository.GetSurveyResponseBySurveyId(int surveyId)
+        {
+            var responseList = new List<ResponseViaSurveyId>();
+
+            var respondentRecords = _ef.RespondentRecords.Where(rr => rr.SurveyId == surveyId).ToList();
+
+            foreach (var respondentRecord in respondentRecords)
+            {
+                var response = new ResponseViaSurveyId
+                {
+                    RespondentId = respondentRecord.RespondentId,
+                    SurveyId = respondentRecord.SurveyId,
+                    ResponseId = respondentRecord.Id
+                };
+
+                response.QuestionList = (from q in _ef.QuestionTables
+                                         where q.SurveyId == surveyId
+                                         select new QuestionDTO
+                                         {
+                                             QuestionText = q.QuestionText,
+                                             QuestionType = q.QuestionOptionType,
+                                             AnswerTexts = (q.QuestionOptionType == "3") ?
+                                                    _ef.RespondentAnswers
+                                                       .Where(ra => ra.QuestionId == q.QuestionId && ra.Id == respondentRecord.Id)
+                                                       .Select(ra => ra.AnswerText)
+                                                       .ToList() :
+                                                    _ef.RespondentAnswers
+                                                       .Where(ra => ra.QuestionId == q.QuestionId && ra.Id == respondentRecord.Id && ra.OptionId != null)
+                                                       .Join(_ef.OptionTables,
+                                                             ra => ra.OptionId,
+                                                             o => o.OptionId,
+                                                             (ra, o) => o.OptionText)
+                                                       .ToList(),
+
+
+                                             Options = (from o in q.OptionTables
+                                                        select new OptionDTO
+                                                        {
+                                                            OptionText = o.OptionText
+                                                        }).ToList()
+                                         }).ToList();
+
+
+
+
+
+                responseList.Add(response);
+            }
+
+            return Task.FromResult(responseList);
+        }
+      
+
+
+
+        }
 }

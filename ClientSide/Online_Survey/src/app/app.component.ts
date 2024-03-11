@@ -2,6 +2,7 @@ import { Component, Inject, OnInit } from '@angular/core';
 import { AccountService } from './account/account.service';
 import { DOCUMENT } from '@angular/common';
 import { GlobalserviceService } from '../globalservice/globalservice.service';
+import { PrimeNGConfig } from 'primeng/api';
 
 @Component({
   selector: 'app-root',
@@ -11,10 +12,22 @@ import { GlobalserviceService } from '../globalservice/globalservice.service';
 export class AppComponent implements OnInit {
 
 
-  constructor(private accountService : AccountService,@Inject(DOCUMENT) private document: any,private globalservice : GlobalserviceService){}
+  constructor(private accountService : AccountService,@Inject(DOCUMENT) private document: any,private globalservice : GlobalserviceService,
+  private primengConfig: PrimeNGConfig){}
 
 
   ngOnInit(): void {
+
+    this.primengConfig.ripple = true;
+    this.primengConfig.zIndex = {
+      modal: 1100,
+      overlay: 1000,
+      menu: 1000,
+      tooltip: 1100
+    };
+    
+    ///
+
 
     this.refreshUser()
     this.globalservice.FrontendUrl = "http://localhost:4200/";
