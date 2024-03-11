@@ -1,0 +1,76 @@
+
+.mat-elevation-z8 {
+    margin: 20px;
+    border-radius: 5px;
+    overflow: hidden;
+    transition: box-shadow 0.3s ease;
+  }
+  
+  
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+    transition: box-shadow 0.3s ease;
+    margin-right: 20px;
+  
+  }
+  
+  th,
+  td {
+    padding: 12px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+    transition: background-color 0.3s ease;
+  }
+  
+  th {
+    background-color: #3498db !important;
+    color: white;
+  }
+  
+  tr {
+    transition: background-color 0.3s ease;
+  }
+  
+  tr:hover {
+    background-color: #f5f5f5;
+  }
+  
+  .mat-paginator {
+    margin-top: 20px;
+  }
+  
+  /*search bar css  */
+  .search {
+    grid-column: 3 / 4;
+    grid-row: 2 / 3;
+    position: relative;
+    display: flex;
+    align-items: center;
+    padding-top: 20px;
+    padding-left: 20px;
+    
+  }
+  
+  .search__input {
+    width: 20.4rem;
+    height: 3rem; /* Adjusted height for a more compact look */
+    border: none;
+    border-radius: 1.5rem; /* Increased border-radius for a rounded look */
+    font-size: 1.4rem;
+    padding-left: 2rem; /* Reduced padding for a sleek appearance */
+    box-shadow: 0.3rem 0.3rem 0.6rem #c8d0e7, -0.2rem -0.2rem 0.5rem #FFFFFF; /* Color codes directly used */
+    background-color: #E4EBF5; /* Lighter background color for contrast */
+    font-family: inherit;
+    color: #9baacf;
+  
+    &::placeholder {
+      color: #bec8e4;
+    }
+  
+    &:focus  { /* Adjusted the selector for the search icon */
+      color: #6d5dfc;
+    }
+  }
+  

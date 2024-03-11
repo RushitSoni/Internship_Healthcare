@@ -9,11 +9,11 @@ using Online_Survey.Models;
 
 #nullable disable
 
-namespace Online_Survey.Migrations.InternshipOnlineSurvey
+namespace Online_Survey.Migrations
 {
     [DbContext(typeof(InternshipOnlineSurveyContext))]
-    [Migration("20240309062801_template")]
-    partial class template
+    [Migration("20240309204202_template-details")]
+    partial class templatedetails
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -369,11 +369,6 @@ namespace Online_Survey.Migrations.InternshipOnlineSurvey
                         .HasMaxLength(450)
                         .HasColumnType("nvarchar(450)");
 
-                    b.Property<string>("UserName")
-                        .IsRequired()
-                        .HasMaxLength(256)
-                        .HasColumnType("nvarchar(256)");
-
                     b.HasKey("SurveyerDeptId");
 
                     b.HasIndex("CompanyId");
@@ -397,8 +392,11 @@ namespace Online_Survey.Migrations.InternshipOnlineSurvey
             modelBuilder.Entity("Online_Survey.Models.TemplateDetail", b =>
                 {
                     b.Property<int>("SurveyId")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasColumnName("survey_id");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("SurveyId"));
 
                     b.Property<string>("SurveyName")
                         .IsRequired()
@@ -413,7 +411,7 @@ namespace Online_Survey.Migrations.InternshipOnlineSurvey
                         .HasColumnName("surveyor_id");
 
                     b.HasKey("SurveyId")
-                        .HasName("PK__tmp_ms_x__9DC31A07E75EA175");
+                        .HasName("PK__tmp_ms_x__9DC31A07B589E68D");
 
                     b.ToTable("Template_Details", (string)null);
                 });
@@ -595,17 +593,6 @@ namespace Online_Survey.Migrations.InternshipOnlineSurvey
                     b.Navigation("Dept");
                 });
 
-            modelBuilder.Entity("Online_Survey.Models.TemplateDetail", b =>
-                {
-                    b.HasOne("Online_Survey.Models.SurveyTable", "Survey")
-                        .WithOne("TemplateDetail")
-                        .HasForeignKey("Online_Survey.Models.TemplateDetail", "SurveyId")
-                        .IsRequired()
-                        .HasConstraintName("FK__Template___surve__361203C5");
-
-                    b.Navigation("Survey");
-                });
-
             modelBuilder.Entity("Online_Survey.Models.TemplateOption", b =>
                 {
                     b.HasOne("Online_Survey.Models.TemplateQuestion", "Question")
@@ -623,7 +610,7 @@ namespace Online_Survey.Migrations.InternshipOnlineSurvey
                         .WithMany("TemplateQuestions")
                         .HasForeignKey("SurveyId")
                         .IsRequired()
-                        .HasConstraintName("FK__Template___surve__370627FE");
+                        .HasConstraintName("FK__Template___surve__473C8FC7");
 
                     b.Navigation("Survey");
                 });
@@ -671,8 +658,6 @@ namespace Online_Survey.Migrations.InternshipOnlineSurvey
                     b.Navigation("OptionTables");
 
                     b.Navigation("QuestionTables");
-
-                    b.Navigation("TemplateDetail");
                 });
 
             modelBuilder.Entity("Online_Survey.Models.TemplateDetail", b =>

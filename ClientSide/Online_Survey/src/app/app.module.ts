@@ -27,7 +27,21 @@ import { provideAnimationsAsync } from '@angular/platform-browser/animations/asy
 import {MatButtonModule} from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { ProfileComponent } from './profile/profile.component';
+import { Sidebar2Component } from './sidebar2/sidebar2.component';
 
+import { SidebarModule } from 'primeng/sidebar';
+import { ButtonModule } from 'primeng/button';
+import { AvatarModule } from 'primeng/avatar';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { TableModule } from 'primeng/table';
+import { NgxChartsModule } from '@swimlane/ngx-charts';
+import { TableComponent } from './table/table.component';
+
+
+import { MatTableModule } from '@angular/material/table';
+import { MatPaginatorModule } from '@angular/material/paginator';
+import { MatSortModule } from '@angular/material/sort';
+import { GraphsComponent } from './graphs/graphs.component';
 
 @NgModule({
   declarations: [
@@ -43,10 +57,26 @@ import { ProfileComponent } from './profile/profile.component';
     BlogComponent,
     SupportComponent,
     GetStartedComponent,
-    ProfileComponent
+    ProfileComponent,
+    Sidebar2Component,
+    TableComponent,
+    GraphsComponent,
+
+   
   ],
 
-  imports: [BrowserModule, AppRoutingModule, NgbModule, SharedModule,HttpClientModule,FormsModule,WorkspaceModule,MatButtonModule,  MatIconModule],
+  imports: [BrowserModule, AppRoutingModule, NgbModule, SharedModule,HttpClientModule,FormsModule,WorkspaceModule,MatButtonModule,  MatIconModule,
+    AvatarModule,
+
+    SidebarModule,
+    ButtonModule,
+    BrowserAnimationsModule,
+    TableModule,
+    NgxChartsModule,
+    MatPaginatorModule,
+    MatTableModule,
+    MatSortModule
+],
   // providers: [
   //   provideClientHydration()
   // ],
