@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { CommonModule, NgClass } from '@angular/common';
 import { ClipboardModule } from 'ngx-clipboard';
 import { CreateRoutingModule } from './create-routing.module';
 import { AddQuestionComponent } from './add-question/add-question.component';
@@ -24,6 +24,9 @@ import { LinkComponent } from './link/link.component';
 import { MatIconModule } from '@angular/material/icon';
 import { AlertComponent } from './alert/alert.component';
 import { TemplateDisplayComponent } from './template-display/template-display.component';
+import { PaginationComponent } from './template-display/pagination/pagination.component';
+import { MatPaginatorModule } from '@angular/material/paginator';
+import { MatTableModule } from '@angular/material/table';
 
 
 
@@ -39,7 +42,8 @@ import { TemplateDisplayComponent } from './template-display/template-display.co
     DisplayQuestionbankComponent,
     LinkComponent,
     AlertComponent,
-    TemplateDisplayComponent
+    TemplateDisplayComponent,
+    PaginationComponent
   ],
   imports: [
     CommonModule,
@@ -55,7 +59,10 @@ import { TemplateDisplayComponent } from './template-display/template-display.co
     MatButtonModule,
     MatIcon,
     MatSnackBarModule,
-    MatIconModule
+    MatIconModule,
+    MatTableModule, 
+    MatPaginatorModule,
+    NgClass
   ]
 })
 export class CreateModule { }

@@ -78,6 +78,7 @@ export interface Answer{
 export interface TemplateOption{
     optionText : string;
 }
+
 export interface GetTemplate{
     questionText : string;
     optionType : number;
