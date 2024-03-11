@@ -49,9 +49,6 @@ export class AddQuestionComponent implements OnInit {
       this.from_template = Boolean(params['fromTemplate']);
     });
 
-    console.log(this.templateId);
-    console.log(this.from_template);
-
     this.form_question = this.fb_question.group({
       question_text: '',
       question_type: [''], // This will hold the selected question type
@@ -70,7 +67,6 @@ export class AddQuestionComponent implements OnInit {
 
   checkTemplate()
   {
-
       const data = this.service.getTemplateData(this.templateId) as Observable<GetTemplate[]>;
       data.subscribe((data) => {
         console.log(data);

@@ -2,14 +2,13 @@
     <app-sidebar></app-sidebar>
 
     <div class="create-content">
-        <button class="btn btn-primary mt-3" (click)="openDialog()">
-            Generate New Survey
+        <button mat-button (click)="openDialog()">
+            <mat-icon>add_circle</mat-icon>Generate New Survey
         </button>
     <div>
         <label class="template_label">My Templates</label>
         <app-template-display (clicked)="templateSurvey($event)">    
         </app-template-display>
     </div>
-    
     </div>
 </div>
