@@ -99,5 +99,35 @@ namespace Online_Survey.Controllers
             }
             return Ok();
         }
+
+        [HttpGet("CheckDate")]
+        public IActionResult CheckDate([FromQuery] int surveyId)
+        {
+            IQueryable<SurveyTable> surveyTable = _userRepository.GetAllSurveys().Where<SurveyTable>(survey => survey.SurveyId == surveyId);
+
+            DateOnly currentDate = DateOnly.FromDateTime(DateTime.Now.Date);
+
+            SurveyTable surveyDetail = surveyTable.FirstOrDefault();
+
+            DateOnly startDate = (DateOnly)surveyDetail.LaunchDate;
+            DateOnly endDate = (DateOnly)surveyDetail.EndDate;
+
+            if(currentDate < startDate)
+            {
+                return Ok(1);
+            }
+            else if(currentDate > endDate) {
+                return Ok(2);
+            }
+
+            return Ok(0);
+        }
+
+        [HttpGet("Survey")]
+        public IActionResult GetSurvey([FromQuery] string surveyorId)
+        {
+            List<SurveyTable> survey = _userRepository.GetAllSurveys().Where(survey => survey.SurveyorId == surveyorId).ToList<SurveyTable>();
+            return Ok(survey);
+        }
     }
 }

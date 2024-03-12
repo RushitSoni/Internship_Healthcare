@@ -78,11 +78,13 @@ export class DisplayQuestionbankComponent implements OnInit{
 
 
   addQuestionFromQuestionBank(question:QuestionBankQuestion,options:QuestionBankOptions[]) {
+    
     const questionData = {
       question: question,
       options:options
     };
-    // console.log(questionData);
+
+    console.log(questionData);
 
     this.questionDataEmitter.emit(questionData);
 

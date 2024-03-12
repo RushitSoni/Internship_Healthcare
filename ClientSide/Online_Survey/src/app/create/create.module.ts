@@ -24,7 +24,7 @@ import { LinkComponent } from './link/link.component';
 import { MatIconModule } from '@angular/material/icon';
 import { AlertComponent } from './alert/alert.component';
 import { TemplateDisplayComponent } from './template-display/template-display.component';
-import { PaginationComponent } from './template-display/pagination/pagination.component';
+import { PaginationComponent } from './pagination/pagination.component';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatTableModule } from '@angular/material/table';
 

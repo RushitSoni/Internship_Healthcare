@@ -27,11 +27,11 @@
             <button *ngIf="editingMode" (click)="reset()" class="center btn btn-primary">Update</button>
             <button (click)="OnComplete()"  class="center btn btn-primary" style="margin-left: 31%;">Survey_Completed</button>
         </div>
-        </div>
+        </div>  
 </form>
 
 <div>
-    <button mat-button (click)="openQuestionBank()"><mat-icon>library_books</mat-icon>QuestionBank</button>
+    <button (click)="openQuestionBank()"><mat-icon>library_books</mat-icon>QuestionBank</button>
 </div>
 <app-display *ngFor="let questionPreview of question_list; let i = index" [question]="questionPreview"
         [questionNumber]="i + 1" (editClicked)="editQuestion(i)">

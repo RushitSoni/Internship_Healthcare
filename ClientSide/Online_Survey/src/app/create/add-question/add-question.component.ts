@@ -51,7 +51,7 @@ export class AddQuestionComponent implements OnInit {
 
     this.form_question = this.fb_question.group({
       question_text: '',
-      question_type: [''], // This will hold the selected question type
+      question_type: '', // This will hold the selected question type
       dynamicFields: this.fb_question.array([
         this.fb_question.control(''),
         this.fb_question.control(''),
@@ -258,20 +258,27 @@ export class AddQuestionComponent implements OnInit {
     } catch (error) {}
   }
 
-  /////Question Bank Zone
-
-
   openQuestionBank() {
     const dialogRef = this.dialog.open(DisplayQuestionbankComponent, {
       width: '75%',
       height: '90%',
-      // autoFocus: false // Prevent auto-focusing on first input
     });
 
     dialogRef.componentInstance.companyId = Number(this.companyId);
 
     dialogRef.componentInstance.questionDataEmitter.subscribe((result) => {
-      console.log(result); // Handle emitted data here
+      console.log(result); 
+      this.form_question.patchValue({
+        question_text : result.question.questionText,
+        question_type : result.question.questionOptionType === "mcq" ? '1' : result.question.question.questionOptionType ? '2' : '3'
+      });
+
+      console.log(result.question.questionOptionType);
+      this.dynamicFields.clear();
+
+      result.options.forEach((option : any) => {
+        this.dynamicFields.push(this.fb_question.control(option.optionText));
+      });
     });
   }
 }
