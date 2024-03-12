@@ -96,6 +96,8 @@ export class AddQuestionComponent implements OnInit {
             options : optionList 
           }
 
+          this.questionnumber = this.questionnumber + 1;
+          
           this.question_list.push(question);
           console.log(this.question_list);
         });
@@ -268,17 +270,40 @@ export class AddQuestionComponent implements OnInit {
 
     dialogRef.componentInstance.questionDataEmitter.subscribe((result) => {
       console.log(result); 
-      this.form_question.patchValue({
-        question_text : result.question.questionText,
-        question_type : result.question.questionOptionType === "mcq" ? '1' : result.question.question.questionOptionType ? '2' : '3'
-      });
+      const optionList: Post_OptionList[] = [];
+      const questionText = result.question.questionText;
+      const  questionType = result.question.questionOptionType === "mcq" ? '1' : result.question.question.questionOptionType ? '2' : '3'
 
-      console.log(result.question.questionOptionType);
       this.dynamicFields.clear();
 
-      result.options.forEach((option : any) => {
-        this.dynamicFields.push(this.fb_question.control(option.optionText));
-      });
+      if(questionType == "1" || questionType == "2")
+      {
+        var count : number = 1;
+        result.options.forEach((option : any) => {
+          console.log(option);
+            const newoption: Post_OptionList = {
+              optionId: count,
+              surveyId: Number(localStorage.getItem('surveyId')),
+              optionText: option.optionText,
+            };
+            count = count + 1;
+            optionList.push(newoption);
+        });
+      }
+
+      const questionoption: Post_Question = {
+        questionId: this.questionnumber,
+        surveyId: Number(localStorage.getItem('surveyId')),
+        questionText: questionText,
+        questionOptionType: Number(questionType),
+        options: optionList,
+      };
+
+      this.questionnumber = this.questionnumber + 1;
+
+      this.question_list.push(questionoption);
+      
+      console.log(this.question_list);
     });
   }
 }
