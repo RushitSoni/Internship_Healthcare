@@ -18,7 +18,7 @@
         <div formArrayName="dynamicFields">
             <div *ngFor="let field of dynamicFields.controls; let i = index" style="display: flex;">
                 <input type="text" [formControlName]="i" placeholder="Add Options" class="input_options">
-                <button type="button" (click)="removeDynamicField(i)" class="center_remove">-</button>
+                <button type="button" (click)="removeDynamicField(i)" class="center_remove"><mat-icon>remove</mat-icon></button>
             </div>
         </div>
         </div>
@@ -31,7 +31,7 @@
 </form>
 
 <div>
-    <button class="btn btn-primary" (click)="openQuestionBank()">QuestionBank</button>
+    <button mat-button (click)="openQuestionBank()"><mat-icon>library_books</mat-icon>QuestionBank</button>
 </div>
 <app-display *ngFor="let questionPreview of question_list; let i = index" [question]="questionPreview"
         [questionNumber]="i + 1" (editClicked)="editQuestion(i)">
