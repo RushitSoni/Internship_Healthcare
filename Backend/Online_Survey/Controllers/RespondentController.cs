@@ -100,6 +100,7 @@ namespace Online_Survey.Controllers
             return Ok();
         }
 
+
         [HttpGet("CheckDate")]
         public IActionResult CheckDate([FromQuery] int surveyId)
         {
@@ -128,6 +129,32 @@ namespace Online_Survey.Controllers
         {
             List<SurveyTable> survey = _userRepository.GetAllSurveys().Where(survey => survey.SurveyorId == surveyorId).ToList<SurveyTable>();
             return Ok(survey);
+            
+         }
+
+
+
+        [HttpGet("GetSurveyResponseBySurveyId/{surveyId}")]
+        public IActionResult GetSurveyResponseBySurveyId(int surveyId)
+        {
+            try
+            {
+                var surveyResponse = _userRepository.GetSurveyResponseBySurveyId(surveyId);
+
+                if (surveyResponse == null)
+                {
+                    return NotFound($"No survey response found for the survey ID: {surveyId}");
+                }
+                   
+
+                return Ok(surveyResponse);
+            }
+            catch (System.Exception ex)
+            {
+                return StatusCode(500, $"An error occurred while processing the request: {ex.Message}");
+            }
+
         }
     }
+
 }

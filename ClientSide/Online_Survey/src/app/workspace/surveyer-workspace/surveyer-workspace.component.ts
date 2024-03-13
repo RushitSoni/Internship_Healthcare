@@ -12,6 +12,8 @@ import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { SurveyTable } from '../../shared/Models/Survey';
+import { MatDialog } from '@angular/material/dialog';
+import { ResponseVisulizationComponent } from '../response-visulization/response-visulization.component';
 
 @Component({
   selector: 'app-surveyer-workspace',
@@ -46,7 +48,8 @@ export class SurveyerWorkspaceComponent implements OnInit {
               private workspaceService: WorkspaceService,
               private formBuilder: FormBuilder,
               private accountService:AccountService
-              ,private router: Router) {} // Inject FormBuilder here
+              ,private router: Router,
+              private dialog:MatDialog) {} // Inject FormBuilder here
 
   ngOnInit(): void {
 
@@ -197,6 +200,25 @@ getEmailByUserId(userId: string): string | undefined {
   // Assuming 'users' is an array of User objects
   const user = this.users.find(user => user.id === userId);
   return user ? user.email : undefined;
+}
+
+
+
+openVisulization(){
+  const dialogRef = this.dialog.open(ResponseVisulizationComponent, {
+    width: '90%',
+    height:'90%'
+    // autoFocus: false // Prevent auto-focusing on first input
+  });
+
+  // dialogRef.componentInstance.companyId = this.companyId;
+  // dialogRef.componentInstance.userId = this.globalService.SurveyorId;
+
+  dialogRef.afterClosed().subscribe(result => {
+    if (result === 'saved') {
+
+    }
+  });
 }
 
 }

@@ -1,0 +1,25 @@
+<div class="container">
+    <div class="blocks">
+      <div class="block" (click)="showContent(1)" [class.active]="selectedBlock === 1">
+        Overview
+      </div>
+      <div class="block" (click)="showContent(2)" [class.active]="selectedBlock === 2">
+        Questions
+      </div>
+      <div class="block" (click)="showContent(3)" [class.active]="selectedBlock === 3">
+        Responses
+      </div>
+    </div>
+    <div class="content">
+      <ng-container *ngIf="selectedBlock === 1">
+        Content for Block 1
+      </ng-container>
+      <ng-container *ngIf="selectedBlock === 2">
+        Content for Block 2
+      </ng-container>
+      <ng-container *ngIf="selectedBlock === 3">
+        Content for Block 3
+      </ng-container>
+    </div>
+  </div>
+  

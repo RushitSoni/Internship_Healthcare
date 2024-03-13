@@ -61,3 +61,8 @@ margin-left: 1%;
   .mat-mdc-form-field-focus-overlay{
     background-color: white;
   }
+
+  th {
+    background-color: #3498db !important;
+    color: white;
+  }

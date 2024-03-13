@@ -1,0 +1,33 @@
+.container {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .blocks {
+    display: flex;
+    flex-wrap: wrap;
+  }
+  
+  .block {
+    flex: 0 0 33.3%; /* Each block takes up 33% of the width */
+    text-align: center;
+    cursor: pointer;
+    padding: 10px;
+    background-color:white;
+    color: #3498db;
+    border: 1px solid transparent;
+    box-sizing: border-box; /* Ensure padding doesn't affect width */
+
+    font-weight: 600;
+  }
+  
+  .block.active {
+    border-bottom: 3px solid  #3498db;
+  }
+  
+  .content {
+    padding: 20px;
+    background-color: lightgray;
+    margin-top: 20px;
+  }
+  
