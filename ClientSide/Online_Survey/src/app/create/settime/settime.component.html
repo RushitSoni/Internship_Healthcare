@@ -1,22 +1,26 @@
-<h2 mat-dialog-title>Set Limits</h2>
-<div mat-dialog-content style="width: 100%;">
-    <div class="description_text">
-        <label>Write the Description for the Survey you want to generate...</label><br>
-        <textarea placeholder="Write description here." class="custom-text" [(ngModel)]="description"></textarea>
-    </div>
-    <div>
-        <label>Select Start Date:</label>
-        <input type="date" [(ngModel)]="selectedStartDate" [min]="mindate">
-        <label>Select Start Time:</label>
-        <input type="time" [(ngModel)]="selectedTime">
-    </div>
-    <div>
-        <label>Select End Date:</label>
-        <input type="date" [(ngModel)]="selectedEndDate" [min]="mindate">
-    </div>
-    <div>
-        <label>Enter time duration:</label>
-        <input type="number" [(ngModel)]="selectedDuration">
-    </div>
-    <button (click)="close()">Save Changes</button>
+<div class="title">
+    <h2 mat-dialog-title>Set Limits</h2>
+    <button mat-button (click)="Dialogclose()" class="top-left"><mat-icon>close</mat-icon></button>
+</div>
+<div mat-dialog-content style="width: 100%;" [formGroup] = "formData">
+        <div class="description_text">
+            <label>Write the Description for the Survey you want to generate...</label><br>
+            <textarea placeholder="Write description here..." formControlName="description" style="width: 100%;"></textarea>
+        </div>
+        <div>
+            <label>Select Start Date:</label>
+            <input type="date" formControlName="selectedStartDate" [min]="mindate">
+            <label>Select Start Time:</label>
+            <input type="time" formControlName="selectedTime">
+            </div>
+        <div>
+            <label>Select End Date:</label>
+            <input type="date" formControlName="selectedEndDate" [min]="mindate">
+        </div>
+        <div>
+            <label>Enter time duration:</label>
+            <input type="number" formControlName="selectedDuration">
+        </div>
+    <br>
+    <button mat-button style="width: 100%;" (click)="close()"><mat-icon>chevron_right</mat-icon>Next</button>  
 </div>

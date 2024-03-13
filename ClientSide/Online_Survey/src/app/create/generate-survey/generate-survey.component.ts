@@ -61,22 +61,22 @@ export class GenerateSurveyComponent implements OnInit {
 
   openDialog(): void {
     const dialogRef = this.dialog.open(SettimeComponent, {
-      width: '250px',
+      width: '50%',
+      disableClose: true
     });
     
     dialogRef.componentInstance.departmentId=Number(this.departmentId)
     
 
     dialogRef.afterClosed().subscribe((result) => {
-      console.log('Dialog result:', result); // Data passed back from dialog
-      console.log(result)
-      this.CreateSurvey(result);
+      if(result != null)
+      {
+        this.CreateSurvey(result);
+      }
     });
   }
 
   CreateSurvey(surveyTable: SurveyTable) {
-
-    // console.log("Create Survey",surveyTable)
     this.service.createSurvey(surveyTable).subscribe((data) => {
       this.globalService.SurveyId = data;
       localStorage.setItem('surveyId', String(data));

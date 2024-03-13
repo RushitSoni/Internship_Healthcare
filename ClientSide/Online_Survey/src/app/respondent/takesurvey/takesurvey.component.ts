@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Respondent, Respondent_Record } from '../../shared/Models/Survey';
 import { RespondentserviceService } from '../respondentservice.service';
@@ -8,7 +8,7 @@ import { RespondentserviceService } from '../respondentservice.service';
   templateUrl: './takesurvey.component.html',
   styleUrl: './takesurvey.component.css'
 })
-export class TakesurveyComponent {
+export class TakesurveyComponent implements OnInit {
   
   surveyid! : number;
   firstname! : string;
@@ -17,10 +17,25 @@ export class TakesurveyComponent {
   email! : string;
   phonenumber! : string;
   respondentid! : number;
+  availablitiy! : number;
 
   constructor(private route: ActivatedRoute,private router: Router,private service : RespondentserviceService)
   {
 
+  }
+
+  ngOnInit(): void {
+    this.route.params.subscribe(params => {
+      this.service.surveyid = params['surveyid'] as number;
+    });
+
+    this.service.checkDate(this.service.surveyid).subscribe((data) => {
+      console.log(data);
+      this.availablitiy = data;
+      // 1 -> Yet to start.
+      // 2 -> Finished.
+      // 0 -> Active.
+    })
   }
 
   AddDetails() : Promise<number>
@@ -51,7 +66,6 @@ export class TakesurveyComponent {
         SurveyId : this.service.surveyid 
       }
 
-      console.log(record);
       this.service.addRecord(record).subscribe((data) => {
         this.service.primaryid = data;
         localStorage.setItem('primaryId',String(data));

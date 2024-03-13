@@ -1,29 +1,36 @@
-import { Component, EventEmitter, Output } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { MatDialogRef } from '@angular/material/dialog';
 import { SurveyTable } from '../../shared/Models/Survey';
 import { GlobalserviceService } from '../../../globalservice/globalservice.service';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-settime',
   templateUrl: './settime.component.html',
   styleUrl: './settime.component.css'
 })
-export class SettimeComponent {
+export class SettimeComponent implements OnInit{
   
   
   @Output() surveytable : EventEmitter<any> = new EventEmitter();
 
-  selectedStartDate! : string;
-  selectedEndDate! : string;
   mindate: String;
-  selectedTime!: string;
-  selectedDuration! : number;
-  description! : string;
-  departmentId!:number
+  departmentId!:number;
+  formData! : FormGroup;
   
-  constructor(public dialogRef : MatDialogRef<SettimeComponent>,private globalservice : GlobalserviceService)
+  constructor(public dialogRef : MatDialogRef<SettimeComponent>,private globalservice : GlobalserviceService,private formBuilder : FormBuilder)
   {
     this.mindate = this.formatDate(new Date());
+  }
+
+  ngOnInit(): void {
+    this.formData = this.formBuilder.group({
+      description : ["",Validators.required],
+      selectedStartDate : ['',Validators.required],
+      selectedEndDate : ['',Validators.required],
+      selectedTime: ['',Validators.required],
+      selectedDuration : ['',Validators.required]
+    });
   }
 
   formatDate(date : Date) : String {
@@ -35,16 +42,23 @@ export class SettimeComponent {
 
   SaveChanges() : Promise<SurveyTable>
   {
-    console.log(this.description);
     return new Promise<SurveyTable>((resolve,reject)=>{
-      const surveyTable : SurveyTable = {
-        SurveyorId : this.globalservice.SurveyorId!,
-        Description : this.description,
-        StartDate : this.selectedStartDate,
-        EndDate : this.selectedEndDate,
-        deptId : this.departmentId
+      if(this.formData.valid)
+      {
+        const surveyTable : SurveyTable = {
+          SurveyorId : this.globalservice.SurveyorId!,
+          Description : this.formData.get('description')?.value,
+          StartDate : String(this.formData.get('selectedStartDate')!.value),
+          EndDate : String(this.formData.get('selectedEndDate')!.value),
+          deptId : this.departmentId
+        }
+        resolve(surveyTable);
       }
-      resolve(surveyTable);
+      else
+      {
+        console.log("Error");
+        reject();
+      }
     });
   }
 
@@ -56,4 +70,8 @@ export class SettimeComponent {
       console.log("Got An Error");
     })
   } 
+
+  Dialogclose(){
+    this.dialogRef.close();
+  }
 }

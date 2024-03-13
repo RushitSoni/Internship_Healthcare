@@ -24,6 +24,12 @@ export class RespondentserviceService {
     return this.http.post<number>(`${environment.appUrl}/Respondent/AddRecord`,record);
   }
 
+  checkDate(surveyId : number)
+  {
+    var params = new HttpParams().set('surveyId',surveyId);
+    return this.http.get<number>(`${environment.appUrl}/Respondent/CheckDate`,{params});
+  }
+
   getData()
   {
     if(this.surveyid !== undefined)

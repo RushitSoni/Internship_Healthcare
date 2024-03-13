@@ -1,7 +1,15 @@
-
+<div *ngIf="availablitiy == 0">
     <label>First Name:</label><input type="text" [(ngModel)]="firstname"><br>
     <label>Middle Name:</label><input type="text" [(ngModel)]="middlename"><br>
     <label>Last Name:</label><input type="text" [(ngModel)]="lastname"><br>
     <label>Email:</label><input type="text" [(ngModel)]="email"><br>
     <label>Phone Number:</label><input type="text" [(ngModel)]="phonenumber">
     <button (click)="TakeSurvey()">Take Survey</button>
+</div>
+<div *ngIf="availablitiy == 1">
+    <label>No Started.</label>
+</div>
+<div *ngIf="availablitiy == 2">
+    <label>Survey Finished No More Responses can be taken.</label>
+</div>
+    

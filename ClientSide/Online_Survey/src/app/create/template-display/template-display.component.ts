@@ -34,17 +34,14 @@ export class TemplateDisplayComponent implements OnInit , AfterViewInit {
 
   async ngOnInit(): Promise<void> {
     this.template = this.service.getTemplate();
-    console.log(this.template);
     this.template.subscribe(data => {
       this.dataSource.data = data;
       this.templateData = data;
-      console.log(data);
     });
   }    
 
   addQuestions(questionNumber : number)
   {
     this.clicked.emit(questionNumber);
-    console.log(questionNumber);
   }
 }

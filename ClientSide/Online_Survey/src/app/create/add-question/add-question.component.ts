@@ -49,12 +49,9 @@ export class AddQuestionComponent implements OnInit {
       this.from_template = Boolean(params['fromTemplate']);
     });
 
-    console.log(this.templateId);
-    console.log(this.from_template);
-
     this.form_question = this.fb_question.group({
       question_text: '',
-      question_type: [''], // This will hold the selected question type
+      question_type: '', // This will hold the selected question type
       dynamicFields: this.fb_question.array([
         this.fb_question.control(''),
         this.fb_question.control(''),
@@ -70,7 +67,6 @@ export class AddQuestionComponent implements OnInit {
 
   checkTemplate()
   {
-
       const data = this.service.getTemplateData(this.templateId) as Observable<GetTemplate[]>;
       data.subscribe((data) => {
         console.log(data);
@@ -100,6 +96,8 @@ export class AddQuestionComponent implements OnInit {
             options : optionList 
           }
 
+          this.questionnumber = this.questionnumber + 1;
+          
           this.question_list.push(question);
           console.log(this.question_list);
         });
@@ -262,20 +260,50 @@ export class AddQuestionComponent implements OnInit {
     } catch (error) {}
   }
 
-  /////Question Bank Zone
-
-
   openQuestionBank() {
     const dialogRef = this.dialog.open(DisplayQuestionbankComponent, {
       width: '75%',
       height: '90%',
-      // autoFocus: false // Prevent auto-focusing on first input
     });
 
     dialogRef.componentInstance.companyId = Number(this.companyId);
 
     dialogRef.componentInstance.questionDataEmitter.subscribe((result) => {
-      console.log(result); // Handle emitted data here
+      console.log(result); 
+      const optionList: Post_OptionList[] = [];
+      const questionText = result.question.questionText;
+      const  questionType = result.question.questionOptionType === "mcq" ? '1' : result.question.question.questionOptionType ? '2' : '3'
+
+      this.dynamicFields.clear();
+
+      if(questionType == "1" || questionType == "2")
+      {
+        var count : number = 1;
+        result.options.forEach((option : any) => {
+          console.log(option);
+            const newoption: Post_OptionList = {
+              optionId: count,
+              surveyId: Number(localStorage.getItem('surveyId')),
+              optionText: option.optionText,
+            };
+            count = count + 1;
+            optionList.push(newoption);
+        });
+      }
+
+      const questionoption: Post_Question = {
+        questionId: this.questionnumber,
+        surveyId: Number(localStorage.getItem('surveyId')),
+        questionText: questionText,
+        questionOptionType: Number(questionType),
+        options: optionList,
+      };
+
+      this.questionnumber = this.questionnumber + 1;
+
+      this.question_list.push(questionoption);
+      
+      console.log(this.question_list);
     });
   }
 }

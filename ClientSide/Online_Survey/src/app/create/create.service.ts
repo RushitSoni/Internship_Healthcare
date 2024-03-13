@@ -34,7 +34,6 @@ export class CreateService {
 
   createSurvey(surveytable : SurveyTable)
   {
-
     // console.log(surveytable)
     return this.http.post<number>(`${environment.appUrl}/Home/CreateSurvey`,surveytable);
   }
@@ -91,5 +90,11 @@ export class CreateService {
       body: body
     };
     return this.http.post<any>(`${environment.appUrl}/api/email/send`, request);
+  }
+
+  getSurvey()
+  {
+    var params = new HttpParams().set('surveyorId',String(localStorage.getItem('surveyorId')));
+    return this.http.get(`${environment.appUrl}/Respondent/Survey`,{params});
   }
 }
