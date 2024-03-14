@@ -1,25 +1,48 @@
 <div class="title">
-    <h2 mat-dialog-title>Set Limits</h2>
+    <h2 mat-dialog-title>Settings</h2>
     <button mat-button (click)="Dialogclose()" class="top-left"><mat-icon>close</mat-icon></button>
 </div>
 <div mat-dialog-content style="width: 100%;" [formGroup] = "formData">
-        <div class="description_text">
-            <label>Write the Description for the Survey you want to generate...</label><br>
-            <textarea placeholder="Write description here..." formControlName="description" style="width: 100%;"></textarea>
+        <mat-form-field style="width: 100%;" appearance="fill">
+            <mat-label>Description</mat-label>
+            <input placeholder=" " formControlName="description" matInput >
+        </mat-form-field>
+        <br>
+        <mat-form-field style="width: 50%;" appearance="fill">
+            <mat-label>Survey Name</mat-label>
+            <input placeholder="" formControlName="surveyname" matInput >
+        </mat-form-field>
+        <br>
+        <div style="display: flex;">
+        <div style="margin-right: 3%;">
+            <label>Start Date:</label>
+            <br>
+            <input matInput type="date" [min]="mindate" formControlName="selectedStartDate" style="padding: 8px; border-radius: 4px; border: 1px solid #ccc; border-bottom: 1px solid black;">
         </div>
-        <div>
-            <label>Select Start Date:</label>
-            <input type="date" formControlName="selectedStartDate" [min]="mindate">
-            <label>Select Start Time:</label>
-            <input type="time" formControlName="selectedTime">
+        <div style="margin-right: 3%;">
+            <label>End Date:</label>
+            <br>
+            <input type="date" [min]="mindate" formControlName="selectedEndDate" style="padding: 8px; border-radius: 4px; border: 1px solid #ccc; border-bottom: 1px solid black;">
+        </div>
+        </div>
+        <br>
+        <div style="display: flex;">
+            <div style="margin-right: 3%;">
+                <label>Start Time:</label>
+                <br>
+                <input type="time" formControlName="selectedTime" style="padding: 8px; border-radius: 4px; border: 1px solid #ccc; border-bottom: 1px solid black;">
             </div>
-        <div>
-            <label>Select End Date:</label>
-            <input type="date" formControlName="selectedEndDate" [min]="mindate">
+            <div style="margin-left: 3%;">
+                <label>End Time:</label>
+                <br>
+                <input type="time" formControlName="selectedEndTime" style="padding: 8px; border-radius: 4px; border: 1px solid #ccc; border-bottom: 1px solid black;">
+            </div>
         </div>
         <div>
-            <label>Enter time duration:</label>
-            <input type="number" formControlName="selectedDuration">
+            <mat-radio-group formControlName="count">
+                <mat-radio-button value="0">Single Response</mat-radio-button>
+                <mat-radio-button value="1">Multiple Response</mat-radio-button>
+            </mat-radio-group>
         </div>
     <br>
     <button mat-button style="width: 100%;" (click)="close()"><mat-icon>chevron_right</mat-icon>Next</button>  

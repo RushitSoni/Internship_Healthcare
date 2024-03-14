@@ -30,7 +30,7 @@ export class AppComponent implements OnInit {
 
 
     this.refreshUser()
-    this.globalservice.FrontendUrl = "http://localhost:4200/";
+    this.globalservice.FrontendUrl = window.location.hostname + ':' + window.location.port;
   }
 
   private  refreshUser(){

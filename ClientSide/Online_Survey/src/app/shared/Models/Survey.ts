@@ -51,10 +51,12 @@ export interface Survey{
 
 export interface SurveyTable{
     SurveyorId : String;
+    SurveyName : string;
     Description : string;
     StartDate : string;
     EndDate : string;
     deptId : number;
+    Count : number;
 }
 
 export interface Respondent{

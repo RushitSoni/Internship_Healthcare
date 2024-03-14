@@ -25,11 +25,13 @@ export class SettimeComponent implements OnInit{
 
   ngOnInit(): void {
     this.formData = this.formBuilder.group({
+      surveyname : ["",Validators.required],
       description : ["",Validators.required],
       selectedStartDate : ['',Validators.required],
       selectedEndDate : ['',Validators.required],
       selectedTime: ['',Validators.required],
-      selectedDuration : ['',Validators.required]
+      selectedEndTime : ['',Validators.required],
+      count : [0,Validators.required]
     });
   }
 
@@ -47,11 +49,14 @@ export class SettimeComponent implements OnInit{
       {
         const surveyTable : SurveyTable = {
           SurveyorId : this.globalservice.SurveyorId!,
+          SurveyName : this.formData.get('surveyname')?.value,
           Description : this.formData.get('description')?.value,
           StartDate : String(this.formData.get('selectedStartDate')!.value),
           EndDate : String(this.formData.get('selectedEndDate')!.value),
-          deptId : this.departmentId
+          deptId : this.departmentId,
+          Count : this.formData.get('count')?.value
         }
+        console.log(surveyTable);
         resolve(surveyTable);
       }
       else
