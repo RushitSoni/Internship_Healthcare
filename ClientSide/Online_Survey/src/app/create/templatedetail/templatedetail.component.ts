@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
-import { Validator } from '@angular/forms';
 import { MatDialogRef } from '@angular/material/dialog';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-templatedetail',
@@ -11,15 +11,20 @@ export class TemplatedetailComponent {
 
   templateName! : [''];
 
-  constructor(private dialogRef : MatDialogRef<TemplatedetailComponent>)
+  constructor(private dialogRef : MatDialogRef<TemplatedetailComponent>,private snackbar : MatSnackBar)
   {}
 
   close()
   {
     if(this.templateName == null)
     {
-      console.log("Please enter your Name");
+      this.snackbar.open("Name is Mandatory!",'Close',{
+        duration : 2000
+      });
     }
-    this.dialogRef.close(this.templateName);
+    else
+    {
+      this.dialogRef.close(this.templateName);
+    }
   }
 }
