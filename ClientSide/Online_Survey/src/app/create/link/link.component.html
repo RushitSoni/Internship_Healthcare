@@ -1,11 +1,11 @@
 <div class="content">
-    <div mat-dialog-title> Link For Survey </div>
-    <div mat-dialog-content>
+    <div class="title">
+        <h2 mat-dialog-title>Settings</h2>
+        <button mat-button (click)="close()" class="top-left"><mat-icon>close</mat-icon></button>
+    </div>
+    <div mat-dialog-content class="button-content">
         <input type="text" [value]="inputUrl" [disabled]="true" style="width: 100%;">    
-        <button ngxClipboard [cbContent]="inputUrl" class="btn btn-primary"><mat-icon>content_copy</mat-icon></button>
-
-        <button  class="btn btn-primary" routerLink="/create/send" [queryParams]="{url: inputUrl}" (click)="close()">Send</button>
-
-        <button (click)="close()">Close</button>
+        <button mat-button ngxClipboard [cbContent]="inputUrl"><mat-icon>content_copy</mat-icon></button>
+        <button mat-button routerLink="/create/send" [queryParams]="{url: inputUrl}" (click)="close()"><mat-icon>share</mat-icon></button>
     </div>
 </div>

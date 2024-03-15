@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { Validator } from '@angular/forms';
 import { MatDialogRef } from '@angular/material/dialog';
 
 @Component({
@@ -8,7 +9,7 @@ import { MatDialogRef } from '@angular/material/dialog';
 })
 export class TemplatedetailComponent {
 
-  templateName! : string;
+  templateName! : [''];
 
   constructor(private dialogRef : MatDialogRef<TemplatedetailComponent>)
   {}

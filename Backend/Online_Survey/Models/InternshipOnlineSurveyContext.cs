@@ -7,7 +7,7 @@ namespace Online_Survey.Models;
 
 public partial class InternshipOnlineSurveyContext : DbContext
 {
-    private IConfiguration _configuration; 
+    private IConfiguration _configuration;
     public InternshipOnlineSurveyContext(IConfiguration config)
     {
         _configuration = config;
@@ -102,7 +102,7 @@ public partial class InternshipOnlineSurveyContext : DbContext
             entity.HasOne(d => d.Survey).WithMany(p => p.OptionTables)
                 .HasForeignKey(d => d.SurveyId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK__Option_ta__surve__30E33A54");
+                .HasConstraintName("FK__Option_ta__surve__542C7691");
         });
 
         modelBuilder.Entity<QuestionBankOptionTable>(entity =>
@@ -174,7 +174,7 @@ public partial class InternshipOnlineSurveyContext : DbContext
             entity.HasOne(d => d.Survey).WithMany(p => p.QuestionTables)
                 .HasForeignKey(d => d.SurveyId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK__Question___surve__2FEF161B");
+                .HasConstraintName("FK__Question___surve__53385258");
         });
 
         modelBuilder.Entity<RespondentAnswer>(entity =>
@@ -231,7 +231,7 @@ public partial class InternshipOnlineSurveyContext : DbContext
 
         modelBuilder.Entity<SurveyTable>(entity =>
         {
-            entity.HasKey(e => e.SurveyId).HasName("PK__tmp_ms_x__6C05F07CDCB16590");
+            entity.HasKey(e => e.SurveyId).HasName("PK__tmp_ms_x__6C05F07CAC17ED02");
 
             entity.ToTable("Survey_table");
 
@@ -256,7 +256,7 @@ public partial class InternshipOnlineSurveyContext : DbContext
             entity.HasOne(d => d.Dept).WithMany(p => p.SurveyTables)
                 .HasForeignKey(d => d.DeptId)
                 .OnDelete(DeleteBehavior.SetNull)
-                .HasConstraintName("FK__Survey_ta__deptI__32CB82C6");
+                .HasConstraintName("FK__Survey_ta__deptI__5614BF03");
         });
 
         modelBuilder.Entity<SurveyerDept>(entity =>

@@ -53,6 +53,8 @@ export class SettimeComponent implements OnInit{
           Description : this.formData.get('description')?.value,
           StartDate : String(this.formData.get('selectedStartDate')!.value),
           EndDate : String(this.formData.get('selectedEndDate')!.value),
+          startTime : String(this.formData.get('selectedTime')!.value),
+          endTime : String(this.formData.get('selectedEndTime')!.value),
           deptId : this.departmentId,
           Count : this.formData.get('count')?.value
         }

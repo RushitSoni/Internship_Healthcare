@@ -11,6 +11,10 @@
 
         public string EndDate { get; set; }
 
+        public string startTime { get; set; }
+
+        public string endTime { get; set; }
+
         public int? DeptId { get; set; }
 
         public int Count { get; set; }

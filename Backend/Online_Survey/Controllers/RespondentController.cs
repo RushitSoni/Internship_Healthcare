@@ -107,11 +107,15 @@ namespace Online_Survey.Controllers
             IQueryable<SurveyTable> surveyTable = _userRepository.GetAllSurveys().Where<SurveyTable>(survey => survey.SurveyId == surveyId);
 
             DateOnly currentDate = DateOnly.FromDateTime(DateTime.Now.Date);
+            TimeOnly currentTime = TimeOnly.FromDateTime(DateTime.Now);
 
             SurveyTable surveyDetail = surveyTable.FirstOrDefault();
 
             DateOnly startDate = (DateOnly)surveyDetail.LaunchDate;
             DateOnly endDate = (DateOnly)surveyDetail.EndDate;
+
+            TimeOnly startTime = (TimeOnly)surveyDetail.StartTime;
+            TimeOnly endTime = (TimeOnly)surveyDetail.EndTime;
 
             if(currentDate < startDate)
             {
@@ -119,6 +123,17 @@ namespace Online_Survey.Controllers
             }
             else if(currentDate > endDate) {
                 return Ok(2);
+            }
+            else
+            {
+                if (currentTime < startTime)
+                {
+                    return Ok(1);
+                }
+                else if (currentTime > endTime)
+                {
+                    return Ok(2);
+                }
             }
 
             return Ok(0);

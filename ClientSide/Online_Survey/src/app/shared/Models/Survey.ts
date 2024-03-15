@@ -55,6 +55,8 @@ export interface SurveyTable{
     Description : string;
     StartDate : string;
     EndDate : string;
+    startTime : string;
+    endTime : string;
     deptId : number;
     Count : number;
 }

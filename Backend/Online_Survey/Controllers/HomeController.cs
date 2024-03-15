@@ -136,9 +136,10 @@ namespace Online_Survey.Controllers
                 SurveyName = surveyorid.SurveyName,
                 Description = surveyorid.Description,
                 DateCreated = today,
-                StartTime = time,
+                StartTime = TimeOnly.FromDateTime(DateTime.Parse(surveyorid.startTime)),
                 LaunchDate = DateOnly.FromDateTime(DateTime.Parse(surveyorid.StartDate)),
                 EndDate = DateOnly.FromDateTime(DateTime.Parse(surveyorid.EndDate)),
+                EndTime = TimeOnly.FromDateTime(DateTime.Parse(surveyorid.endTime)),
                 DeptId = surveyorid.DeptId,
                 Count = surveyorid.Count
             };

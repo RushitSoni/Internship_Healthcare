@@ -21,7 +21,7 @@ public partial class SurveyTable
 
     public TimeOnly? StartTime { get; set; }
 
-    public int? EndTime { get; set; }
+    public TimeOnly? EndTime { get; set; }
 
     public int? DeptId { get; set; }
 
