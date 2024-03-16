@@ -48,7 +48,8 @@ export class CompletionComponent implements OnInit {
   {
     const dialogRef = this.dialog.open(LinkComponent ,{
       width: '80%',
-      height: '20%'
+      height: '20%',
+      disableClose: true
     });
 
     dialogRef.afterClosed().subscribe((result) => {
@@ -60,7 +61,8 @@ export class CompletionComponent implements OnInit {
   {
     const dialogRef = this.dialog.open(TemplatedetailComponent, {
       width: '80%',
-      height: '30%'
+      height: '30%',
+      disableClose: true
     });
 
     dialogRef.afterClosed().subscribe((result) => {

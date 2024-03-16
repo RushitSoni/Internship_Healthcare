@@ -7,6 +7,8 @@ public partial class SurveyTable
 {
     public int SurveyId { get; set; }
 
+    public string SurveyName { get; set; }
+
     public string SurveyorId { get; set; }
 
     public string Description { get; set; }
@@ -19,9 +21,11 @@ public partial class SurveyTable
 
     public TimeOnly? StartTime { get; set; }
 
-    public int? EndTime { get; set; }
+    public TimeOnly? EndTime { get; set; }
 
     public int? DeptId { get; set; }
+
+    public int Count { get; set; }
 
     public virtual Department Dept { get; set; }
 
