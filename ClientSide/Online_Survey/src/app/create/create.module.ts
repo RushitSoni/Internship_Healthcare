@@ -6,7 +6,6 @@ import { AddQuestionComponent } from './add-question/add-question.component';
 import { GenerateSurveyComponent } from './generate-survey/generate-survey.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CompletionComponent } from './completion/completion.component';
-
 import { DisplayComponent } from './display/display.component';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
@@ -27,6 +26,8 @@ import { TemplateDisplayComponent } from './template-display/template-display.co
 import { PaginationComponent } from './pagination/pagination.component';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatTableModule } from '@angular/material/table';
+import { MatRadioModule } from '@angular/material/radio';
+import { SnackbarComponent } from './snackbar/snackbar.component';
 
 
 
@@ -43,7 +44,8 @@ import { MatTableModule } from '@angular/material/table';
     LinkComponent,
     AlertComponent,
     TemplateDisplayComponent,
-    PaginationComponent
+    PaginationComponent,
+    SnackbarComponent
   ],
   imports: [
     CommonModule,
@@ -62,7 +64,8 @@ import { MatTableModule } from '@angular/material/table';
     MatIconModule,
     MatTableModule, 
     MatPaginatorModule,
-    NgClass
+    NgClass,
+    MatRadioModule,
   ]
 })
 export class CreateModule { }

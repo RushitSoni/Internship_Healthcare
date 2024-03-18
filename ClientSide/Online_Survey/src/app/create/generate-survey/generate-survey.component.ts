@@ -5,6 +5,7 @@ import { ActivatedRoute, NavigationExtras, Router } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
 import { SettimeComponent } from '../settime/settime.component';
 import { SurveyTable } from '../../shared/Models/Survey';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-generate-survey',
@@ -29,7 +30,8 @@ export class GenerateSurveyComponent implements OnInit {
     private dialog: MatDialog,
     private service: CreateService,
     private globalService: GlobalserviceService,
-    private router: Router
+    private router: Router,
+    private snackbar : MatSnackBar
   ) {
     this.mindate = this.formatDate(new Date());
   }
@@ -87,8 +89,6 @@ export class GenerateSurveyComponent implements OnInit {
 
     const queryParams: NavigationExtras = {
       queryParams: {
-        // Add your query parameters here
-        // For example:
         deptID: this.departmentId,
         companyID: this.companyId,
         fromTemplate: this.from_template,
@@ -96,6 +96,9 @@ export class GenerateSurveyComponent implements OnInit {
       },
     };
 
+    this.snackbar.open("Description Added!",'Close',{
+      duration : 2000
+    });
     this.router.navigate(['/create/generate', 'addquestion'], queryParams);
   }
 }

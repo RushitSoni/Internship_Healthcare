@@ -35,51 +35,6 @@ namespace Online_Survey.Controllers
             _userRepository = userRepository;
         }
 
-        [HttpPost("AddQuestion")]
-        public int AddQuestion(QuestionDTO question_option)
-        {
-            //foreach(Question_Option questionoption in question_option)
-            //{
-            //    QuestionDTO questionDTO = new QuestionDTO()
-            //    {
-            //        QuestionText = questionoption.questionText,
-            //        QuestionOptionType = ""+questionoption.questionOptionType,
-            //        SurveyId = questionoption.surveyId
-            //    };
-
-            //    QuestionTable question = mapper.Map<QuestionTable>(questionDTO);
-            //    _userRepository.AddEntity<QuestionTable>(question);
-            //    _userRepository.SaveChange();
-
-            //    int questionid = question.QuestionId;
-
-            //    foreach(OptionList option in questionoption.options)
-            //    {
-            //        OptionDTO optionDTO = new OptionDTO()
-            //        {
-            //            OptionText = option.optionText,
-            //            QuestionId = questionid,
-            //            SurveyId = option.surveyId
-            //        };
-
-            //        OptionTable optionTable = mapper.Map<OptionTable>(optionDTO);
-            //        _userRepository.AddEntity<OptionTable>(optionTable);
-
-            //        _userRepository.SaveChange();
-            //    }
-
-            //}
-
-            QuestionTable question = mapper.Map<QuestionTable>(question_option);
-            _userRepository.AddEntity<QuestionTable>(question);
-            if (_userRepository.SaveChange())
-            {
-                return question.QuestionId;
-            }
-
-            throw new Exception("Your Account has not been Created!");
-        }
-
         [HttpPost("QuestionOption")]
         public IActionResult QuestionOption(Question_Option[] question_option)
         {
@@ -178,12 +133,15 @@ namespace Online_Survey.Controllers
             SurveyDTO surveyDTO = new SurveyDTO()
             {
                 SurveyorId = surveyorid.SurveyorId,
+                SurveyName = surveyorid.SurveyName,
                 Description = surveyorid.Description,
                 DateCreated = today,
-                StartTime = time,
+                StartTime = TimeOnly.FromDateTime(DateTime.Parse(surveyorid.startTime)),
                 LaunchDate = DateOnly.FromDateTime(DateTime.Parse(surveyorid.StartDate)),
                 EndDate = DateOnly.FromDateTime(DateTime.Parse(surveyorid.EndDate)),
-                DeptId = surveyorid.DeptId
+                EndTime = TimeOnly.FromDateTime(DateTime.Parse(surveyorid.endTime)),
+                DeptId = surveyorid.DeptId,
+                Count = surveyorid.Count
             };
 
             SurveyTable surveyTable = mapper.Map<SurveyTable>(surveyDTO);
