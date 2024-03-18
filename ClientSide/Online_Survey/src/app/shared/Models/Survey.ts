@@ -50,6 +50,7 @@ export interface Survey{
 }
 
 export interface SurveyTable{
+    SurveyId :number
     SurveyorId : String;
     Description : string;
     StartDate : string;

@@ -46,6 +46,7 @@ export class SettimeComponent implements OnInit{
       if(this.formData.valid)
       {
         const surveyTable : SurveyTable = {
+          SurveyId:0,
           SurveyorId : this.globalservice.SurveyorId!,
           Description : this.formData.get('description')?.value,
           StartDate : String(this.formData.get('selectedStartDate')!.value),

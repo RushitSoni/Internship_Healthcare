@@ -42,6 +42,7 @@ import { MatTableModule } from '@angular/material/table';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatSortModule } from '@angular/material/sort';
 import { GraphsComponent } from './graphs/graphs.component';
+import { ResponseVisulizationComponent } from './workspace/response-visulization/response-visulization.component';
 
 @NgModule({
   declarations: [
@@ -75,7 +76,8 @@ import { GraphsComponent } from './graphs/graphs.component';
     NgxChartsModule,
     MatPaginatorModule,
     MatTableModule,
-    MatSortModule
+    MatSortModule,
+    
 ],
   // providers: [
   //   provideClientHydration()

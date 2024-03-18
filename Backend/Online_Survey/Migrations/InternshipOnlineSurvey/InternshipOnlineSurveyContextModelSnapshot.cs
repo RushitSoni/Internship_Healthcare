@@ -8,7 +8,7 @@ using Online_Survey.Models;
 
 #nullable disable
 
-namespace Online_Survey.Migrations
+namespace Online_Survey.Migrations.InternshipOnlineSurvey
 {
     [DbContext(typeof(InternshipOnlineSurveyContext))]
     partial class InternshipOnlineSurveyContextModelSnapshot : ModelSnapshot
@@ -477,6 +477,7 @@ namespace Online_Survey.Migrations
                     b.HasOne("Online_Survey.Models.Company", "Company")
                         .WithMany("Departments")
                         .HasForeignKey("CompanyId")
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired()
                         .HasConstraintName("FK_Department_Company");
 
@@ -582,6 +583,7 @@ namespace Online_Survey.Migrations
                     b.HasOne("Online_Survey.Models.Department", "Dept")
                         .WithMany("SurveyerDepts")
                         .HasForeignKey("DeptId")
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired()
                         .HasConstraintName("FK_Surveyer_Dept_DeptId");
 

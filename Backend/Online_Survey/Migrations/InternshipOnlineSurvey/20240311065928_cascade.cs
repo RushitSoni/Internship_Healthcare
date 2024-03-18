@@ -3,10 +3,10 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
-namespace Online_Survey.Migrations
+namespace Online_Survey.Migrations.InternshipOnlineSurvey
 {
     /// <inheritdoc />
-    public partial class templatedetails : Migration
+    public partial class cascade : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -95,7 +95,8 @@ namespace Online_Survey.Migrations
                         name: "FK_Department_Company",
                         column: x => x.CompanyId,
                         principalTable: "Company",
-                        principalColumn: "CompanyId");
+                        principalColumn: "CompanyId",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -185,7 +186,8 @@ namespace Online_Survey.Migrations
                         name: "FK_Surveyer_Dept_DeptId",
                         column: x => x.DeptId,
                         principalTable: "Department",
-                        principalColumn: "DepartmentId");
+                        principalColumn: "DepartmentId",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(

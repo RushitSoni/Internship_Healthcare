@@ -25,6 +25,7 @@ import { AddSingleOptionComponent } from './add-single-option/add-single-option.
 import { EditOptionComponent } from './edit-option/edit-option.component';
 import { EditQuestionComponent } from './edit-question/edit-question.component';
 import { ResponseVisulizationComponent } from './response-visulization/response-visulization.component';
+import { NgxChartsModule } from '@swimlane/ngx-charts';
 
 
 @NgModule({
@@ -59,9 +60,12 @@ import { ResponseVisulizationComponent } from './response-visulization/response-
     MatSortModule,
     MatPaginatorModule,
     MatIconModule,
-    MatSelectModule
+    MatSelectModule,
+
+   CommonModule,
+   NgxChartsModule, // Add NgxChartsModule to imports
     
   ],
-  exports: [SidebarComponent],
+  exports: [SidebarComponent,ResponseVisulizationComponent],
 })
 export class WorkspaceModule {}

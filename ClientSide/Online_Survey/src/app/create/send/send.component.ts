@@ -16,7 +16,7 @@ export class SendComponent implements OnInit {
   subject: string = 'Survey';
   body: string = '';
 
-  isEmailCol:boolean=true
+  isEmailCol:boolean=false
 
   constructor(private createService: CreateService, private route: ActivatedRoute) {}
 
