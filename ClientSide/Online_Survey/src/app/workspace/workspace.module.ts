@@ -25,6 +25,12 @@ import { AddSingleOptionComponent } from './add-single-option/add-single-option.
 import { EditOptionComponent } from './edit-option/edit-option.component';
 import { EditQuestionComponent } from './edit-question/edit-question.component';
 import { ResponseVisulizationComponent } from './response-visulization/response-visulization.component';
+import { NgxChartsModule } from '@swimlane/ngx-charts';
+import { ResponseComponent } from './response/response.component';
+
+import { MatRadioGroup ,MatRadioButton} from '@angular/material/radio';
+import { MatCheckboxModule } from '@angular/material/checkbox';
+
 
 
 @NgModule({
@@ -43,6 +49,7 @@ import { ResponseVisulizationComponent } from './response-visulization/response-
     EditOptionComponent,
     EditQuestionComponent,
     ResponseVisulizationComponent,
+    ResponseComponent,
   
   ],
   imports: [
@@ -59,9 +66,15 @@ import { ResponseVisulizationComponent } from './response-visulization/response-
     MatSortModule,
     MatPaginatorModule,
     MatIconModule,
-    MatSelectModule
+    MatSelectModule,
+
+   CommonModule,
+   NgxChartsModule, // Add NgxChartsModule to imports
+
+
+   MatRadioGroup,MatRadioButton,MatCheckboxModule
     
   ],
-  exports: [SidebarComponent],
+  exports: [SidebarComponent,ResponseVisulizationComponent],
 })
 export class WorkspaceModule {}

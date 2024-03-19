@@ -1,25 +1,179 @@
 <div class="container">
-    <div class="blocks">
-      <div class="block" (click)="showContent(1)" [class.active]="selectedBlock === 1">
-        Overview
-      </div>
-      <div class="block" (click)="showContent(2)" [class.active]="selectedBlock === 2">
-        Questions
-      </div>
-      <div class="block" (click)="showContent(3)" [class.active]="selectedBlock === 3">
-        Responses
-      </div>
+  <div class="blocks">
+    <div
+      class="block"
+      (click)="showContent(1)"
+      [class.active]="selectedBlock === 1"
+    >
+      Overview
     </div>
-    <div class="content">
-      <ng-container *ngIf="selectedBlock === 1">
-        Content for Block 1
-      </ng-container>
-      <ng-container *ngIf="selectedBlock === 2">
-        Content for Block 2
-      </ng-container>
-      <ng-container *ngIf="selectedBlock === 3">
-        Content for Block 3
-      </ng-container>
+    <div
+      class="block"
+      (click)="showContent(2)"
+      [class.active]="selectedBlock === 2"
+    >
+      Questions
+    </div>
+    <div
+      class="block"
+      (click)="showContent(3)"
+      [class.active]="selectedBlock === 3"
+    >
+      Responses
     </div>
   </div>
-  
+
+  <div class="content">
+    <ng-container *ngIf="selectedBlock === 1">
+      <!-- Total responses and survey status -->
+      <div class="block1">
+        <ng-container *ngIf="response">
+          <div class="response-info">
+            <p>
+              <span style="color: #1e90ff; font-weight: 800;font-size: 20px;"
+                >Total Responses :
+              </span>
+              <span style="font-weight: bolder">{{ response.length }}</span>
+            </p>
+            <p class="survey-status">
+              <span style="color: #1e90ff; font-weight: 800;font-size: 20px;">
+                Survey Status :
+              </span>
+              <span
+                style="font-weight: bolder"
+                [ngClass]="{
+                  active: surveyStatus === 1,
+                  expired: surveyStatus === 2,
+                  ongoing: surveyStatus === 0
+                }"
+              >
+                {{
+                  surveyStatus === 1
+                    ? "Active"
+                    : surveyStatus === 2
+                    ? "Expired"
+                    : "Ongoing"
+                }}</span
+              >
+            </p>
+          </div>
+        </ng-container>
+
+        <!-- Display question counts -->
+        <div class="question-counts">
+          <h5>Question Counts :</h5>
+          <ul>
+            <li *ngFor="let key of questionCountMap | keyvalue">
+             
+              <span style="color: #1e90ff; font-weight: 600"> {{ getQuestionTypeName(key.key) }} : </span>
+              <span style="font-weight: bolder">{{ key.value }}</span>
+
+            </li>
+          </ul>
+        </div>
+
+        <ngx-charts-pie-chart
+              [view]="view"
+              [scheme]="colorScheme"
+              [results]="graphQuestionCount"
+              [gradient]="gradient"
+              [legend]="showLegend"
+              [legendPosition]="legendPosition"
+              [labels]="showLabels"
+              [doughnut]="isDoughnut"
+              (select)="onSelect($event)"
+              (activate)="onActivate($event)"
+              (deactivate)="onDeactivate($event)"
+            >
+            </ngx-charts-pie-chart>
+
+        <!-- Buttons -->
+        <div class="button-row">
+          <button mat-raised-button class="button" routerLink="/create/send" [queryParams]="{url:url}" (click)="close()">Send Reminder</button>
+          <button mat-raised-button class="button" (click)="excelExport()">Download</button>
+        </div>
+      </div>
+    </ng-container>
+
+    <ng-container *ngIf="selectedBlock === 2">
+      <div class="graph-container">
+        <div class="chart-container" *ngFor="let chartData of newData">
+          <p>
+            {{ chartData.questionText }} [
+            {{ getQuestionTypeName(chartData.questionType) }} ]
+          </p>
+          <ng-container
+            *ngIf="
+              chartData.questionType === '1' || chartData.questionType === '2'
+            "
+          >
+            <ngx-charts-pie-chart
+              [view]="view"
+              [scheme]="colorScheme"
+              [results]="chartData.options"
+              [gradient]="gradient"
+              [legend]="showLegend"
+              [legendPosition]="legendPosition"
+              [labels]="showLabels"
+              [doughnut]="isDoughnut"
+              (select)="onSelect($event)"
+              (activate)="onActivate($event)"
+              (deactivate)="onDeactivate($event)"
+            >
+            </ngx-charts-pie-chart>
+          </ng-container>
+          <ng-container
+            *ngIf="chartData.questionType === '3'"
+            class="text-options-container"
+          >
+            <div *ngFor="let option of chartData.options" class="text-option">
+              <div class="option-info">
+                <span class="option-name">{{ option.name }}</span>
+                <span class="option-value">x{{ option.value }}</span>
+              </div>
+            </div>
+          </ng-container>
+        </div>
+      </div>
+    </ng-container>
+
+    <ng-container *ngIf="selectedBlock === 3">
+      <div class="table-company">
+        <mat-form-field style="color: #1e90ff">
+          <input matInput (keyup)="applyFilter($event)" placeholder="Search" />
+        </mat-form-field>
+
+        <div class="mat-elevation-z8">
+          <table mat-table [dataSource]="dataSource" matSort>
+            <!-- Name Column -->
+            <ng-container matColumnDef="respondent">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                Respondent
+              </th>
+              <td mat-cell *matCellDef="let row">{{ row.respondentId }}</td>
+            </ng-container>
+
+            <!-- Action Column -->
+            <ng-container matColumnDef="action">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header>Actions</th>
+              <td mat-cell *matCellDef="let row">
+                <button
+                  mat-icon-button
+                  color="accent"
+                  (click)="viewResponse(row)"
+                >
+                  <mat-icon>launch</mat-icon>
+                </button>
+              </td>
+            </ng-container>
+
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+          </table>
+
+          <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>
+        </div>
+      </div>
+    </ng-container>
+  </div>
+</div>
