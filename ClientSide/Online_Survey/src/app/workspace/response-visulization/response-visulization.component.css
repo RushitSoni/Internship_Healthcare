@@ -30,7 +30,135 @@
     background-color:white;
     margin-top: 20px;
   }
+ 
+  mat-form-field{
+    width: 100%;
   
+  }
+
+  
+th {
+  background-color: #3498db !important;
+  color: white;
+}
+
+
+/* CSS for Questions */
+.graph-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+}
+
+.graph-container .chart-container {
+  width: 90%; /* Adjust width as needed */
+  margin-bottom: 20px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+  padding: 10px;
+}
+.graph-container .chart-container p{
+  color: #3498db !important;
+  font-weight: 800;
+}
+/* Add this CSS to your component's CSS file or global styles */
+.text-options-container {
+  
+  margin-top: 10px;
+}
+
+.text-option {
+  margin-bottom: 5px;
+}
+
+.option-info {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+ 
+  border-radius: 5px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+  max-width: 75%;
+  margin: 1%;
+  padding: 2%;
+}
+
+.option-name {
+  font-weight:600;
+  margin-right: 10px;
+}
+
+.option-value {
+  color: #3498db ;
+}
+
+/*overview*/
+
+
+.question-counts {
+  margin-bottom: 20px;
+ 
+}
 
 
 
+.button-row {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 20px;
+}
+.button{
+  width: 45%;
+  margin:1%;
+  background-color: #3498db ;
+  margin: 0 10px;
+  color:white
+}
+
+.survey-status {
+  font-weight: 800;
+  margin-top: 5px;
+  margin-bottom: 20px;
+ 
+}
+
+.content .active {
+  background-color: green;
+ color: white;
+ padding: 0.75%;
+ border-radius: 3px;
+}
+
+.content .expired {
+  background-color:red;
+  color: white;
+  padding: 0.75%;
+  border-radius: 3px;
+}
+
+.content .ongoing {
+ background-color: blue;
+ color: white;
+ padding: 0.75%;
+ border-radius: 3px;
+}
+
+
+.block1{
+  border-radius: 5px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5) ;
+  /* min-height: 80%; */
+  padding: 2%;
+
+}
+ul{
+  list-style: none;
+  padding-left:2%;
+  justify-content: space-between;
+}
+h5{
+  color: #1e90ff;
+  text-decoration:solid;
+  font-weight: 600;
+}

@@ -1,0 +1,22 @@
+<!-- response.component.html -->
+
+<ng-container *ngFor="let question of data.questionList">
+    <div class="question-container">
+      <h3>{{ question.questionText }}</h3>
+      <div *ngIf="question.questionType === '1'"> <!-- MCQ -->
+        <mat-radio-group [(ngModel)]="question.answerTexts[0]">
+          <mat-radio-button *ngFor="let option of question.options; let i = index" [value]="option.optionText" [disabled]="true">{{ option.optionText }}</mat-radio-button>
+        </mat-radio-group>
+      </div>
+      <div *ngIf="question.questionType === '2'"> <!-- MSQ -->
+        <ng-container *ngFor="let option of question.options" >
+          <mat-checkbox *ngIf="question.answerTexts && question.answerTexts.includes(option.optionText)" [(ngModel)]="question.answerTexts" [disabled]="true">{{ option.optionText }}</mat-checkbox>
+          <mat-checkbox *ngIf="!question.answerTexts || !question.answerTexts.includes(option.optionText)" [disabled]="true" >{{ option.optionText }}</mat-checkbox>
+        </ng-container>
+      </div>
+      <div *ngIf="question.questionType === '3'"> <!-- Text -->
+        <input matInput placeholder="Your answer" [(ngModel)]="question.answerTexts[0]" [disabled]="true"> <!-- Disable the input for text type -->
+      </div>
+    </div>
+  </ng-container>
+  

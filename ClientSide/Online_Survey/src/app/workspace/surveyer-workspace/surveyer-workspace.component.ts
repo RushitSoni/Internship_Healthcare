@@ -204,7 +204,7 @@ getEmailByUserId(userId: string): string | undefined {
 
 
 
-openVisulization(surveyId: number){
+openVisulization(surveyId: number,surveyName:string){
   const dialogRef = this.dialog.open(ResponseVisulizationComponent, {
     width: '95%',
     height:'95%'
@@ -212,6 +212,7 @@ openVisulization(surveyId: number){
   });
 
   dialogRef.componentInstance.surveyId= surveyId;
+  dialogRef.componentInstance.surveyName= surveyName;
   // dialogRef.componentInstance.userId = this.globalService.SurveyorId;
 
   dialogRef.afterClosed().subscribe(result => {

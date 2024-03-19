@@ -139,6 +139,7 @@ export class WorkspaceService {
 
 
   getAllSurveys(): Observable<SurveyTable[]> {
+
     return this.http.get<SurveyTable[]>(`${environment.appUrl}/Home/GetAllSurveys`);
   }
 
@@ -148,7 +149,9 @@ export class WorkspaceService {
     console.log(surveyId)
       return this.http.get<ResponseViaSurveyId>(`${environment.appUrl}/Respondent/GetSurveyResponseBySurveyId/${surveyId}`);
   }
-
+  checkDate(surveyId: number): Observable<number> {
+    return this.http.get<number>(`${environment.appUrl}/Respondent/CheckDate?surveyId=${surveyId}`);
+  }
 
 
 }

@@ -1,9 +1,20 @@
-import { Component, OnInit} from '@angular/core';
+import { Component, OnInit, ViewChild} from '@angular/core';
 
 import { Color, LegendPosition,  ScaleType } from '@swimlane/ngx-charts';
 import { WorkspaceService } from '../workspace.service';
 import { QuestionDTO, ResponseViaSurveyId } from '../../shared/Models/ResponseViaSurveyId';
 import { Question } from '../../shared/Models/Survey';
+import { MatPaginator } from '@angular/material/paginator';
+import { MatSort } from '@angular/material/sort';
+import { MatTableDataSource } from '@angular/material/table';
+import { MatDialog, MatDialogRef } from '@angular/material/dialog';
+import { ResponseComponent } from '../response/response.component';
+import { error } from 'console';
+
+import * as XLSX from 'xlsx';
+import { FileSaverService } from 'ngx-filesaver';
+import { GlobalserviceService } from '../../../globalservice/globalservice.service';
+
 
 
 @Component({
@@ -15,12 +26,27 @@ export class ResponseVisulizationComponent implements OnInit{
 
   selectedBlock: number =1;
   surveyId!:number
+  surveyName!:string
   response!:ResponseViaSurveyId[]
+
 
   questions:QuestionDTO[]=[]
   pieChartData: { questionText: string, type: string, options: { [key: string]: number } }[] = [];
   data:any=[]
   newData:{ questionText: string, questionType: string, options: { name: string, value: number }[] }[] = [];
+
+
+
+  displayedColumns: string[] = ['respondent','action'];
+  dataSource!: MatTableDataSource<any>;
+
+  @ViewChild(MatPaginator) paginator!: MatPaginator;
+  @ViewChild(MatSort) sort!: MatSort;
+
+  surveyStatus!:number
+  url!:string
+
+
 
   single: any[]=[ {
     "name": "Germany",
@@ -45,7 +71,7 @@ export class ResponseVisulizationComponent implements OnInit{
   showLegend: boolean = true;
   showLabels: boolean = true;
   isDoughnut: boolean = false;
-  legendPosition: LegendPosition = LegendPosition.Below;
+  legendPosition: LegendPosition = LegendPosition.Right;
 
   colorScheme: Color = {
     domain: ['#5AA454', '#A10A28', '#C7B42C', '#AAAAAA'],
@@ -53,16 +79,27 @@ export class ResponseVisulizationComponent implements OnInit{
     selectable: true,
     group: ScaleType.Ordinal 
   };
-  
+
+  questionCountMap: { [key: string]: number } = {}
+  graphQuestionCount!:{ name: string; value: number; }[]
+
+
   constructor(
-    private workspaceService:WorkspaceService
+    private workspaceService:WorkspaceService,
+    private globalService:GlobalserviceService,
+    private dialog:MatDialog,
+    private fileSaver:FileSaverService,
+    public dialogRef: MatDialogRef<ResponseVisulizationComponent>
   ) {
     
   }
-
+ 
 
   ngOnInit(): void {
     this.getResponseData()
+    this.checkSurveyStatus(this.surveyId)
+
+    this.url = this.globalService.FrontendUrl + '/respondent/' + this.surveyId;
 
   
   }
@@ -85,6 +122,38 @@ export class ResponseVisulizationComponent implements OnInit{
     this.selectedBlock = blockNumber;
   }
 
+  questionTypeMap: { [key: string]: string } = {
+    '1': 'MCQ',
+    '2': 'MSQ',
+    '3': 'Text',
+    'Total':'Total'
+  };
+
+  calculateQuestionCounts(): void {
+
+    this.questionCountMap['Total'] = 0;
+    this.response[0].questionList.forEach(question => {
+        if (this.questionCountMap[question.questionType]) {
+          this.questionCountMap[question.questionType]++;
+          this.questionCountMap['Total']++
+        } else {
+          this.questionCountMap[question.questionType] = 1;
+          this.questionCountMap['Total']++
+        }
+      });
+
+   this.graphQuestionCount = Object.keys(this.questionCountMap)
+  .filter(key => key !== 'Total') // Exclude 'Total' key
+  .map(key => ({ name: this.getQuestionTypeName(key), value: this.questionCountMap[key] }));
+
+    
+  }
+
+  // Method to get question type name
+  getQuestionTypeName(questionType: string): string {
+    return this.questionTypeMap[questionType];
+  }
+
 
   getResponseData(): void {
     this.workspaceService.getResponseBySurveyId(this.surveyId)
@@ -92,6 +161,12 @@ export class ResponseVisulizationComponent implements OnInit{
         (response: any) => {
           this.response = response.result;
           console.log("Responses Fetched !!", this.response);
+
+          this.calculateQuestionCounts()
+
+          this.dataSource = new MatTableDataSource(this.response);
+          this.dataSource.sort = this.sort;
+          this.dataSource.paginator = this.paginator;
   
           // Initialize questionData
           const questionData: { [questionText: string]: { type: string, options?: { [optionText: string]: number } } } = {};
@@ -185,7 +260,101 @@ this.newData=newDataArray
   }
 
  
-  
-  
+  applyFilter(event:Event) {
+    const filterValue=(event.target as HTMLInputElement).value
+    this.dataSource.filter = filterValue.trim().toLowerCase();
 
+    if (this.dataSource.paginator) {
+      this.dataSource.paginator.firstPage();
+    }
+  }
+
+  
+  viewResponse(response:ResponseViaSurveyId){
+    const dialogRef = this.dialog.open(ResponseComponent, {
+     width:'60%',
+      height:'60%'
+      // autoFocus: false // Prevent auto-focusing on first input
+    });
+  
+   
+    dialogRef.componentInstance.data = response;
+  
+    dialogRef.afterClosed().subscribe(result => {
+      if (result === 'saved') {
+  
+      }
+    });
+  }
+
+
+  checkSurveyStatus(surveyId: number): void{
+    this.workspaceService.checkDate(surveyId).subscribe((response)=>{
+      console.log("Survey Status :", response)
+      this.surveyStatus=response
+    },
+    error=>{
+      console.error("Error fetching survey status...")
+    })
+  }
+
+  excelExport(){
+
+    interface DemoDataItem {
+      [key: string]: any;
+    }
+    
+    const demoData: DemoDataItem[] = [];
+    
+
+   this.response.forEach(responseItem => {
+    
+     const respondentData: { [key: string]: any } = { respondentId: responseItem.respondentId };
+   
+     // Iterate over the question list for each response
+     responseItem.questionList.forEach(question => {
+      
+       const key = `${question.questionText} [${this.questionTypeMap[question.questionType]}]`;
+       respondentData[key] = question.answerTexts.join(', ');
+     });
+   
+     
+     demoData.push(respondentData);
+   });
+   
+   
+
+
+
+    console.log(demoData);
+
+   
+    const EXCEL_TYPE = 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=UTF-8';
+    const EXCEL_EXTENSION = '.xlsx';
+
+
+    const worksheet= XLSX.utils.json_to_sheet(demoData)
+
+    const workbook = {
+      Sheets :{
+        'ResponseSheet': worksheet
+      },
+     
+        SheetNames:[ 'ResponseSheet']
+     
+    }
+
+    const excelBuffer = XLSX.write(workbook,{bookType:'xlsx',type:'array'})
+
+
+    //
+
+    const blobData = new Blob([excelBuffer],{type:EXCEL_TYPE})
+    this.fileSaver.save(blobData,`${this.surveyName}_Responses`)
+  }
+
+
+  close(){
+    this.dialogRef.close('saved');
+  }
 }

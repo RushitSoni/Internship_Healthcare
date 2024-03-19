@@ -26,6 +26,11 @@ import { EditOptionComponent } from './edit-option/edit-option.component';
 import { EditQuestionComponent } from './edit-question/edit-question.component';
 import { ResponseVisulizationComponent } from './response-visulization/response-visulization.component';
 import { NgxChartsModule } from '@swimlane/ngx-charts';
+import { ResponseComponent } from './response/response.component';
+
+import { MatRadioGroup ,MatRadioButton} from '@angular/material/radio';
+import { MatCheckboxModule } from '@angular/material/checkbox';
+
 
 
 @NgModule({
@@ -44,6 +49,7 @@ import { NgxChartsModule } from '@swimlane/ngx-charts';
     EditOptionComponent,
     EditQuestionComponent,
     ResponseVisulizationComponent,
+    ResponseComponent,
   
   ],
   imports: [
@@ -64,6 +70,9 @@ import { NgxChartsModule } from '@swimlane/ngx-charts';
 
    CommonModule,
    NgxChartsModule, // Add NgxChartsModule to imports
+
+
+   MatRadioGroup,MatRadioButton,MatCheckboxModule
     
   ],
   exports: [SidebarComponent,ResponseVisulizationComponent],

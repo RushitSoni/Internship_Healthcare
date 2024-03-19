@@ -304,6 +304,10 @@ namespace Online_Survey.Migrations.InternshipOnlineSurvey
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("SurveyId"));
 
+                    b.Property<int>("Count")
+                        .HasColumnType("int")
+                        .HasColumnName("count");
+
                     b.Property<DateOnly>("DateCreated")
                         .HasColumnType("date")
                         .HasColumnName("date_created");
@@ -320,8 +324,8 @@ namespace Online_Survey.Migrations.InternshipOnlineSurvey
                         .HasColumnType("date")
                         .HasColumnName("end_date");
 
-                    b.Property<int?>("EndTime")
-                        .HasColumnType("int")
+                    b.Property<TimeOnly?>("EndTime")
+                        .HasColumnType("time")
                         .HasColumnName("end_time");
 
                     b.Property<DateOnly?>("LaunchDate")
@@ -332,6 +336,12 @@ namespace Online_Survey.Migrations.InternshipOnlineSurvey
                         .HasColumnType("time")
                         .HasColumnName("start_time");
 
+                    b.Property<string>("SurveyName")
+                        .IsRequired()
+                        .HasMaxLength(30)
+                        .HasColumnType("nvarchar(30)")
+                        .HasColumnName("Survey_name");
+
                     b.Property<string>("SurveyorId")
                         .IsRequired()
                         .HasMaxLength(450)
@@ -339,7 +349,7 @@ namespace Online_Survey.Migrations.InternshipOnlineSurvey
                         .HasColumnName("Surveyor_id");
 
                     b.HasKey("SurveyId")
-                        .HasName("PK__tmp_ms_x__6C05F07C8F39CE93");
+                        .HasName("PK__tmp_ms_x__6C05F07CAC17ED02");
 
                     b.HasIndex("DeptId");
 
@@ -490,13 +500,13 @@ namespace Online_Survey.Migrations.InternshipOnlineSurvey
                         .WithMany("OptionTables")
                         .HasForeignKey("QuestionId")
                         .IsRequired()
-                        .HasConstraintName("FK__Option_ta__quest__160F4887");
+                        .HasConstraintName("FK__Option_ta__quest__0BB1B5A5");
 
                     b.HasOne("Online_Survey.Models.SurveyTable", "Survey")
                         .WithMany("OptionTables")
                         .HasForeignKey("SurveyId")
                         .IsRequired()
-                        .HasConstraintName("FK__Option_ta__surve__09746778");
+                        .HasConstraintName("FK__Option_ta__surve__542C7691");
 
                     b.Navigation("Question");
 
@@ -531,7 +541,7 @@ namespace Online_Survey.Migrations.InternshipOnlineSurvey
                         .WithMany("QuestionTables")
                         .HasForeignKey("SurveyId")
                         .IsRequired()
-                        .HasConstraintName("FK__Question___surve__0880433F");
+                        .HasConstraintName("FK__Question___surve__53385258");
 
                     b.Navigation("Survey");
                 });
@@ -541,8 +551,9 @@ namespace Online_Survey.Migrations.InternshipOnlineSurvey
                     b.HasOne("Online_Survey.Models.RespondentRecord", "IdNavigation")
                         .WithMany("RespondentAnswers")
                         .HasForeignKey("Id")
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired()
-                        .HasConstraintName("FK__Respondent_A__Id__67DE6983");
+                        .HasConstraintName("FK__Respondent_A__Id__06ED0088");
 
                     b.HasOne("Online_Survey.Models.OptionTable", "Option")
                         .WithMany("RespondentAnswers")
@@ -567,7 +578,8 @@ namespace Online_Survey.Migrations.InternshipOnlineSurvey
                     b.HasOne("Online_Survey.Models.Department", "Dept")
                         .WithMany("SurveyTables")
                         .HasForeignKey("DeptId")
-                        .HasConstraintName("FK__Survey_ta__deptI__7908F585");
+                        .OnDelete(DeleteBehavior.SetNull)
+                        .HasConstraintName("FK__Survey_ta__deptI__5614BF03");
 
                     b.Navigation("Dept");
                 });
@@ -597,8 +609,9 @@ namespace Online_Survey.Migrations.InternshipOnlineSurvey
                     b.HasOne("Online_Survey.Models.TemplateQuestion", "Question")
                         .WithMany("TemplateOptions")
                         .HasForeignKey("QuestionId")
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired()
-                        .HasConstraintName("FK__Template___quest__41B8C09B");
+                        .HasConstraintName("FK__Template___quest__09C96D33");
 
                     b.Navigation("Question");
                 });
@@ -608,8 +621,9 @@ namespace Online_Survey.Migrations.InternshipOnlineSurvey
                     b.HasOne("Online_Survey.Models.TemplateDetail", "Survey")
                         .WithMany("TemplateQuestions")
                         .HasForeignKey("SurveyId")
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired()
-                        .HasConstraintName("FK__Template___surve__473C8FC7");
+                        .HasConstraintName("FK__Template___surve__08D548FA");
 
                     b.Navigation("Survey");
                 });
