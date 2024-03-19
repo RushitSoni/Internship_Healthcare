@@ -145,8 +145,8 @@ namespace Online_Survey.Controllers
             List<SurveyTable> survey = _userRepository.GetAllSurveys().Where(survey => survey.SurveyorId == surveyorId).ToList<SurveyTable>();
             return Ok(survey);
             
-         }
-
+        }
+            
 
 
         [HttpGet("GetSurveyResponseBySurveyId/{surveyId}")]

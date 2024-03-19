@@ -204,14 +204,15 @@ getEmailByUserId(userId: string): string | undefined {
 
 
 
-openVisulization(){
+openVisulization(surveyId: number,surveyName:string){
   const dialogRef = this.dialog.open(ResponseVisulizationComponent, {
-    width: '90%',
-    height:'90%'
+    width: '95%',
+    height:'95%'
     // autoFocus: false // Prevent auto-focusing on first input
   });
 
-  // dialogRef.componentInstance.companyId = this.companyId;
+  dialogRef.componentInstance.surveyId= surveyId;
+  dialogRef.componentInstance.surveyName= surveyName;
   // dialogRef.componentInstance.userId = this.globalService.SurveyorId;
 
   dialogRef.afterClosed().subscribe(result => {

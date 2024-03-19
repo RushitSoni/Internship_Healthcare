@@ -28,7 +28,7 @@ namespace Online_Survey.Container
             APIResponse response = new APIResponse();
             try
             {
-                var existingSurveyer = await context.SurveyerDepts.FirstOrDefaultAsync(s => s.UserId == data.UserId);
+                var existingSurveyer = await context.SurveyerDepts.FirstOrDefaultAsync(s => s.UserId == data.UserId  &&  s.DeptId==data.DeptId) ;
                 if (existingSurveyer != null)
                 {
                     response.ResponseCode = 400;
@@ -138,7 +138,7 @@ namespace Online_Survey.Container
                 var _surveyer = await this.context.SurveyerDepts.FindAsync(id);
                 if (_surveyer != null)
                 {
-                    var existingSurveyer = await context.SurveyerDepts.FirstOrDefaultAsync(s => s.UserId == data.UserId && s.SurveyerDeptId != id);
+                    var existingSurveyer = await context.SurveyerDepts.FirstOrDefaultAsync(s => s.UserId == data.UserId && s.SurveyerDeptId != id && s.DeptId == data.DeptId);
                     if (existingSurveyer != null)
                     {
                         response.ResponseCode = 400;

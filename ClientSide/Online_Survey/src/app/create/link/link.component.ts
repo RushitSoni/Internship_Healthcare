@@ -19,7 +19,7 @@ export class LinkComponent implements OnInit{
   }
 
   ngOnInit(): void {
-    this.Frontendurl = this.globalservice.FrontendUrl + 'respondent/' + this.globalservice.SurveyId;
+    this.Frontendurl = this.globalservice.FrontendUrl + '/respondent/' + this.globalservice.SurveyId;
     this.inputUrl = this.Frontendurl;
   }
 

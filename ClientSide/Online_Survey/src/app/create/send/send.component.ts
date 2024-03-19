@@ -16,7 +16,7 @@ export class SendComponent implements OnInit {
   subject: string = 'Survey';
   body: string = '';
 
-  isEmailCol:boolean=true
+  isEmailCol:boolean=false
 
   constructor(private createService: CreateService, private route: ActivatedRoute) {}
 
@@ -24,9 +24,9 @@ export class SendComponent implements OnInit {
     // Retrieve URL from query parameters
     this.route.queryParams.subscribe(params => {
       this.inputUrl = params['url'];
-
+      //console.log(this.inputUrl)
       // Set the body with the inputUrl value
-      this.body = `<p><a href="${this.inputUrl}">Click Here</a></p>`;
+      this.body = `<p><a href="http://${this.inputUrl}">Click Here</a></p>`;
     });
   }
 

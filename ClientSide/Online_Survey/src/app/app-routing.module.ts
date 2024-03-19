@@ -7,6 +7,7 @@ import { AdminComponent } from './admin/admin.component';
 import { ProfileComponent } from './profile/profile.component';
 import { AuthorizationGuard } from './shared/guards/authorization.guard';
 import { adminAuthGuard } from './shared/guards/admin-auth.guard';
+import { MySurveysComponent } from './my-surveys/my-surveys.component';
 
 
 const routes: Routes = [
@@ -27,6 +28,12 @@ const routes: Routes = [
     path: 'admin',
     component: AdminComponent,
     canActivate:[adminAuthGuard]
+  
+  },
+  {
+    path: 'mysurveys',
+    component: MySurveysComponent,
+    canActivate:[AuthorizationGuard]
   
   },
  
