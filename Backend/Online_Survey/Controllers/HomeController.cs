@@ -132,8 +132,9 @@ namespace Online_Survey.Controllers
             
             SurveyDTO surveyDTO = new SurveyDTO()
             {
-                SurveyorId = surveyorid.SurveyorId,
+               
                 SurveyName = surveyorid.SurveyName,
+                SurveyorId = surveyorid.SurveyorId,
                 Description = surveyorid.Description,
                 DateCreated = today,
                 StartTime = TimeOnly.FromDateTime(DateTime.Parse(surveyorid.startTime)),

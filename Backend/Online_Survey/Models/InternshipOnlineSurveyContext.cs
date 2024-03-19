@@ -267,9 +267,7 @@ public partial class InternshipOnlineSurveyContext : DbContext
             entity.Property(e => e.UserId)
                 .IsRequired()
                 .HasMaxLength(450);
-            entity.Property(e => e.UserName)
-                .IsRequired()
-                .HasMaxLength(256);
+
 
             entity.HasOne(d => d.Company).WithMany(p => p.SurveyerDepts)
                 .HasForeignKey(d => d.CompanyId)
@@ -278,7 +276,7 @@ public partial class InternshipOnlineSurveyContext : DbContext
 
             entity.HasOne(d => d.Dept).WithMany(p => p.SurveyerDepts)
                 .HasForeignKey(d => d.DeptId)
-                .OnDelete(DeleteBehavior.ClientSetNull)
+                .OnDelete(DeleteBehavior.Cascade)
                 .HasConstraintName("FK_Surveyer_Dept_DeptId");
         });
 

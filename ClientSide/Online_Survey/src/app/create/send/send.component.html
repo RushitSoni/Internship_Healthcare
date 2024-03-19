@@ -16,7 +16,7 @@
      
   
         <ng-container *ngIf="isEmailCol; else noEmailList">
-            <div class="email-list">
+
               <div *ngIf="excelData && excelData.length > 0">
                 <h3>Email IDs:</h3>
                 <div class="checkbox-list">
@@ -32,7 +32,7 @@
                   </ul>
                 </div>
               </div>
-            </div>
+           
           </ng-container>
           <ng-template #noEmailList>
             <p >No email list available. Please upload a file with valid data.</p>

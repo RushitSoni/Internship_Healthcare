@@ -269,10 +269,12 @@ export class AddQuestionComponent implements OnInit {
     dialogRef.componentInstance.companyId = Number(this.companyId);
 
     dialogRef.componentInstance.questionDataEmitter.subscribe((result) => {
-      console.log(result); 
+      console.log("Add Result:",result); 
       const optionList: Post_OptionList[] = [];
       const questionText = result.question.questionText;
-      const  questionType = result.question.questionOptionType === "mcq" ? '1' : result.question.question.questionOptionType ? '2' : '3'
+      const  questionType = result.question.questionOptionType === "mcq" ? '1' : result.question.questionOptionType === "text" ? '3' : '2'
+      console.log("Question type:", questionType);
+
 
       this.dynamicFields.clear();
 

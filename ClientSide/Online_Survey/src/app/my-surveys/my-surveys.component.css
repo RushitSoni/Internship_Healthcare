@@ -1,0 +1,57 @@
+/* Updated styles for improved design */
+
+.company-content {
+    border: 1px solid #ddd; /* Add border to company content */
+    padding: 20px; /* Add padding for better visual */
+    /* background-color: #f2ebf5;  */
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+    margin-left: 10px;
+    margin-bottom: 2%;
+  }
+  
+  .company-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+  }
+
+  
+  .company-container {
+    display: flex;
+    height: 100vh;
+    margin-left: 1%;
+  }
+
+  
+  .company-content {
+    
+    width: 100%;
+    padding: 20px;
+  }
+  .table-company{
+  
+    padding-top:20px;
+    max-width: 1248px;
+    margin:0 auto;
+  
+  
+  }
+  
+  mat-form-field{
+    width: 100%;
+  
+  }
+  .action{
+    display: flex;
+    gap:5%
+  }
+  .mat-mdc-form-field-focus-overlay{
+    background-color: white;
+  }
+  
+  th {
+    background-color: #3498db !important;
+    color: white;
+  }

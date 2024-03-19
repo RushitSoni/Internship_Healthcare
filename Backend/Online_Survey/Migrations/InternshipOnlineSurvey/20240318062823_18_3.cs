@@ -3,10 +3,10 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
-namespace Online_Survey.Migrations
+namespace Online_Survey.Migrations.InternshipOnlineSurvey
 {
     /// <inheritdoc />
-    public partial class templatedetails : Migration
+    public partial class _18_3 : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -95,7 +95,8 @@ namespace Online_Survey.Migrations
                         name: "FK_Department_Company",
                         column: x => x.CompanyId,
                         principalTable: "Company",
-                        principalColumn: "CompanyId");
+                        principalColumn: "CompanyId",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -132,10 +133,11 @@ namespace Online_Survey.Migrations
                 {
                     table.PrimaryKey("PK__Template__2EC21549B389D668", x => x.question_id);
                     table.ForeignKey(
-                        name: "FK__Template___surve__473C8FC7",
+                        name: "FK__Template___surve__08D548FA",
                         column: x => x.survey_id,
                         principalTable: "Template_Details",
-                        principalColumn: "survey_id");
+                        principalColumn: "survey_id",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -144,23 +146,26 @@ namespace Online_Survey.Migrations
                 {
                     Survey_id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
+                    Survey_name = table.Column<string>(type: "nvarchar(30)", maxLength: 30, nullable: false),
                     Surveyor_id = table.Column<string>(type: "nvarchar(450)", maxLength: 450, nullable: false),
                     Description = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     date_created = table.Column<DateOnly>(type: "date", nullable: false),
                     launch_date = table.Column<DateOnly>(type: "date", nullable: true),
                     end_date = table.Column<DateOnly>(type: "date", nullable: true),
                     start_time = table.Column<TimeOnly>(type: "time", nullable: true),
-                    end_time = table.Column<int>(type: "int", nullable: true),
-                    deptId = table.Column<int>(type: "int", nullable: true)
+                    end_time = table.Column<TimeOnly>(type: "time", nullable: true),
+                    deptId = table.Column<int>(type: "int", nullable: true),
+                    count = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK__tmp_ms_x__6C05F07C8F39CE93", x => x.Survey_id);
+                    table.PrimaryKey("PK__tmp_ms_x__6C05F07CAC17ED02", x => x.Survey_id);
                     table.ForeignKey(
-                        name: "FK__Survey_ta__deptI__7908F585",
+                        name: "FK__Survey_ta__deptI__5614BF03",
                         column: x => x.deptId,
                         principalTable: "Department",
-                        principalColumn: "DepartmentId");
+                        principalColumn: "DepartmentId",
+                        onDelete: ReferentialAction.SetNull);
                 });
 
             migrationBuilder.CreateTable(
@@ -185,7 +190,8 @@ namespace Online_Survey.Migrations
                         name: "FK_Surveyer_Dept_DeptId",
                         column: x => x.DeptId,
                         principalTable: "Department",
-                        principalColumn: "DepartmentId");
+                        principalColumn: "DepartmentId",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -221,10 +227,11 @@ namespace Online_Survey.Migrations
                 {
                     table.PrimaryKey("PK__Template__F4EACE1B4D36DA9C", x => x.option_id);
                     table.ForeignKey(
-                        name: "FK__Template___quest__41B8C09B",
+                        name: "FK__Template___quest__09C96D33",
                         column: x => x.question_id,
                         principalTable: "Template_Questions",
-                        principalColumn: "question_id");
+                        principalColumn: "question_id",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -241,7 +248,7 @@ namespace Online_Survey.Migrations
                 {
                     table.PrimaryKey("PK__Question__2EC2154938FBC299", x => x.question_id);
                     table.ForeignKey(
-                        name: "FK__Question___surve__0880433F",
+                        name: "FK__Question___surve__53385258",
                         column: x => x.survey_id,
                         principalTable: "Survey_table",
                         principalColumn: "Survey_id");
@@ -261,12 +268,12 @@ namespace Online_Survey.Migrations
                 {
                     table.PrimaryKey("PK__Option_t__F4EACE1BF1662605", x => x.option_id);
                     table.ForeignKey(
-                        name: "FK__Option_ta__quest__160F4887",
+                        name: "FK__Option_ta__quest__0BB1B5A5",
                         column: x => x.question_id,
                         principalTable: "Question_table",
                         principalColumn: "question_id");
                     table.ForeignKey(
-                        name: "FK__Option_ta__surve__09746778",
+                        name: "FK__Option_ta__surve__542C7691",
                         column: x => x.survey_id,
                         principalTable: "Survey_table",
                         principalColumn: "Survey_id");
@@ -297,10 +304,11 @@ namespace Online_Survey.Migrations
                         principalTable: "Question_table",
                         principalColumn: "question_id");
                     table.ForeignKey(
-                        name: "FK__Respondent_A__Id__67DE6983",
+                        name: "FK__Respondent_A__Id__06ED0088",
                         column: x => x.Id,
                         principalTable: "Respondent_Record",
-                        principalColumn: "Id");
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateIndex(

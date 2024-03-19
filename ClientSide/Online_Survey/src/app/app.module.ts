@@ -42,6 +42,14 @@ import { MatTableModule } from '@angular/material/table';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatSortModule } from '@angular/material/sort';
 import { GraphsComponent } from './graphs/graphs.component';
+import { ResponseVisulizationComponent } from './workspace/response-visulization/response-visulization.component';
+import { MySurveysComponent } from './my-surveys/my-surveys.component';
+
+
+import {MatFormFieldModule} from '@angular/material/form-field';
+import {MatInputModule} from '@angular/material/input';
+
+
 
 @NgModule({
   declarations: [
@@ -61,6 +69,7 @@ import { GraphsComponent } from './graphs/graphs.component';
     Sidebar2Component,
     TableComponent,
     GraphsComponent,
+    MySurveysComponent,
 
    
   ],
@@ -75,7 +84,12 @@ import { GraphsComponent } from './graphs/graphs.component';
     NgxChartsModule,
     MatPaginatorModule,
     MatTableModule,
-    MatSortModule
+    MatSortModule,
+    MatFormFieldModule,
+    MatInputModule,
+ 
+   
+    
 ],
   // providers: [
   //   provideClientHydration()

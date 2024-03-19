@@ -11,6 +11,7 @@ import { SurveyerViaDept } from '../shared/Models/surveyerViaDept';
 import { QuestionBankQuestion } from '../shared/Models/questionBankquestion';
 import { QuestionBankOptions } from '../shared/Models/QuestionBankOptions';
 import { SurveyTable } from '../shared/Models/Survey';
+import { ResponseViaSurveyId } from '../shared/Models/ResponseViaSurveyId';
 
 @Injectable({
   providedIn: 'root'
@@ -138,10 +139,19 @@ export class WorkspaceService {
 
 
   getAllSurveys(): Observable<SurveyTable[]> {
+
     return this.http.get<SurveyTable[]>(`${environment.appUrl}/Home/GetAllSurveys`);
   }
 
+  //responses
 
+  getResponseBySurveyId(surveyId: number): Observable<ResponseViaSurveyId> {
+    console.log(surveyId)
+      return this.http.get<ResponseViaSurveyId>(`${environment.appUrl}/Respondent/GetSurveyResponseBySurveyId/${surveyId}`);
+  }
+  checkDate(surveyId: number): Observable<number> {
+    return this.http.get<number>(`${environment.appUrl}/Respondent/CheckDate?surveyId=${surveyId}`);
+  }
 
 
 }
