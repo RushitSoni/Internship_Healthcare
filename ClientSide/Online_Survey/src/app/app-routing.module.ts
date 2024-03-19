@@ -7,6 +7,7 @@ import { AdminComponent } from './admin/admin.component';
 import { ProfileComponent } from './profile/profile.component';
 import { AuthorizationGuard } from './shared/guards/authorization.guard';
 import { adminAuthGuard } from './shared/guards/admin-auth.guard';
+import { GraphsComponent } from './graphs/graphs.component';
 
 
 const routes: Routes = [
@@ -25,11 +26,14 @@ const routes: Routes = [
   },
   {
     path: 'admin',
-    component: AdminComponent,
-    canActivate:[adminAuthGuard]
+    component: AdminComponent
   
   },
- 
+  {
+    path: 'admin/charts',
+    component: GraphsComponent
+  
+  },
  
   
   //Implementing lazy loading
