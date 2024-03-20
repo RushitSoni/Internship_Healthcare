@@ -66,6 +66,7 @@ import { SnackbarComponent } from './snackbar/snackbar.component';
     MatPaginatorModule,
     NgClass,
     MatRadioModule,
+    MatPaginatorModule
   ]
 })
 export class CreateModule { }

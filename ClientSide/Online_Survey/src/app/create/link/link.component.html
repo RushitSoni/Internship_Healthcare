@@ -5,7 +5,7 @@
     </div>
     <div mat-dialog-content class="button-content">
         <input type="text" [value]="inputUrl" [disabled]="true" style="width: 100%;">    
-        <button mat-button ngxClipboard [cbContent]="inputUrl"><mat-icon>content_copy</mat-icon></button>
+        <button mat-button ngxClipboard [cbContent]="inputUrl" (click)="copied()"><mat-icon>content_copy</mat-icon></button>
         <button mat-button routerLink="/create/send" [queryParams]="{url: inputUrl}" (click)="close()"><mat-icon>share</mat-icon></button>
     </div>
 </div>
