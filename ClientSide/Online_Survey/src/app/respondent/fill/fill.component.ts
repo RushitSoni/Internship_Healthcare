@@ -24,6 +24,76 @@ export class FillComponent {
   }
 
   ngOnInit() {
+    this.fillData = [
+      {
+        questionId: 1,
+        questionText: 'What is your name?',
+        questionOptionType: 3,
+        options: [],
+      },
+      {
+        questionId: 2,
+        questionText: 'What is your age?',
+        questionOptionType: 1,
+        options: [
+          {
+            optionId: 1, 
+            optionText: '18-25',
+          },
+          {
+            optionId: 2,
+            optionText: '26-35',
+          },
+          {
+            optionId: 3,
+            optionText: '36-45',
+          },
+          {
+            optionId: 4,
+            optionText: '46-55',
+          },
+          {
+            optionId: 5,
+            optionText: '56-65',
+          },
+          {
+            optionId: 6,
+            optionText: '65+',
+          }
+        ],
+      },
+      {
+        questionId: 3,
+        questionText: 'What are your hobbies?',
+        questionOptionType: 2,
+        options: [
+          {
+            optionId: 1,
+            optionText: 'Reading',
+          },
+          {
+            optionId: 2,
+            optionText: 'Writing',
+          },
+          {
+            optionId: 3,
+            optionText: 'Singing',
+          },
+          {
+            optionId: 4,
+            optionText: 'Dancing',
+          },
+          {
+            optionId: 5,
+            optionText: 'Painting',
+          },
+          {
+            optionId: 6,
+            optionText: 'Others',
+          }
+        ],
+      }
+    ];
     const data = this.service.getData() as Observable<QuestionOption[]>;
     data.subscribe((filldata) => {
       this.fillData = filldata;
