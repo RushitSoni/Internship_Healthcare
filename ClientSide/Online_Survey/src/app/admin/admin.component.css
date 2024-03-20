@@ -3,3 +3,46 @@
     flex-direction: column;
    
 }
+
+
+.dashboard-container {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;
+    margin-top: 30px;
+  }
+  
+  .dashboard-box {
+    padding: 20px;
+    border-radius: 10px; /* Increase border-radius for rounded corners */
+    flex: 1;
+    margin-right: 10px;
+  }
+  
+  .dashboard-value {
+    font-size: 24px;
+    font-weight: bold;
+    color: #333;
+  }
+  
+  
+  
+  /* Background colors for dashboard boxes */
+  .blue-box {
+    background-color: #4a90e2; /* Blue color */
+  }
+  
+  .green-box {
+    background-color: #6ab344; /* Green color */
+  }
+  
+  .orange-box {
+    background-color: #f7941d; /* Orange color */
+  }
+  
+  .purple-box {
+    background-color: #8058a5; /* Purple color */
+  }
+  
+  /* Add more styles as needed */
+  
