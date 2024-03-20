@@ -38,6 +38,10 @@ export class TemplateDisplayComponent implements OnInit , AfterViewInit {
       this.dataSource.data = data;
       this.templateData = data;
     });
+
+    if (this.paginator) {
+      this.dataSource.paginator = this.paginator;
+    }
   }    
 
   addQuestions(questionNumber : number)
