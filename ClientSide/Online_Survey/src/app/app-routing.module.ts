@@ -7,71 +7,56 @@ import { AdminComponent } from './admin/admin.component';
 import { ProfileComponent } from './profile/profile.component';
 import { AuthorizationGuard } from './shared/guards/authorization.guard';
 import { adminAuthGuard } from './shared/guards/admin-auth.guard';
-import { GraphsComponent } from './graphs/graphs.component';
 import { MySurveysComponent } from './my-surveys/my-surveys.component';
+import { GraphsComponent } from './graphs/graphs.component';
+
 
 const routes: Routes = [
+
+ 
   {
-    path: '',
-    component: LandingPageComponent,
+    path:'',component:LandingPageComponent
   },
 
   {
-    path: 'home',
-    component: HomeComponent,
+    path:'home',component:HomeComponent
   },
-
+  
   {
-    path: 'profile',
-    component: ProfileComponent,
-    canActivate: [AuthorizationGuard],
+    path:'profile', component:ProfileComponent, canActivate:[AuthorizationGuard]
   },
   {
     path: 'admin',
     component: AdminComponent,
-    canActivate: [AuthorizationGuard],
+    canActivate:[adminAuthGuard]
+  
   },
   {
     path: 'admin/charts',
-    component: GraphsComponent,
+    component:GraphsComponent,
+    canActivate:[adminAuthGuard]
   },
   {
     path: 'mysurveys',
     component: MySurveysComponent,
-    canActivate: [AuthorizationGuard],
+    canActivate:[AuthorizationGuard]
+  
   },
-
+ 
+ 
+  
   //Implementing lazy loading
-  {
-    path: 'account',
-    loadChildren: () =>
-      import('./account/account.module').then((module) => module.AccountModule),
-  },
-  {
-    path: 'workspace',
-    loadChildren: () =>
-      import('./workspace/workspace.module').then(
-        (module) => module.WorkspaceModule
-      ),
-  },
-  {
-    path: 'create',
-    loadChildren: () =>
-      import('./create/create.module').then((module) => module.CreateModule),
-  },
-  {
-    path: 'respondent',
-    loadChildren: () =>
-      import('./respondent/respondent.module').then(
-        (module) => module.RespondentModule
-      ),
-  },
-  { path: 'not-found', component: NotFoundComponent },
-  { path: '**', component: NotFoundComponent, pathMatch: 'full' },
+  {path:'account',loadChildren:()=>import('./account/account.module').then(module=>module.AccountModule)},
+  {path:'workspace',loadChildren:()=>import('./workspace/workspace.module').then(module=>module.WorkspaceModule)},
+  {path:'create',loadChildren:()=>import('./create/create.module').then(module=>module.CreateModule)},
+  {path:'respondent',loadChildren:()=>import('./respondent/respondent.module').then(module=>module.RespondentModule)},
+  {path:'not-found',component:NotFoundComponent},
+  {path:'**',component:NotFoundComponent,pathMatch:'full'}
+  
 ];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
-  exports: [RouterModule],
+  exports: [RouterModule]
 })
-export class AppRoutingModule {}
+export class AppRoutingModule { }
