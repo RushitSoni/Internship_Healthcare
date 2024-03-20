@@ -13,6 +13,8 @@ import { DisplayQuestionbankComponent } from '../display-questionbank/display-qu
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { AlertComponent } from '../alert/alert.component';
 import { Observable } from 'rxjs';
+import { SnackbarComponent } from '../snackbar/snackbar.component';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-add-question',
@@ -37,7 +39,8 @@ export class AddQuestionComponent implements OnInit {
     private router: Router,
     private dialog: MatDialog,
     private route: ActivatedRoute,
-    private dialogRef: MatDialog
+    private dialogRef: MatDialog,
+    private snackbar : MatSnackBar
   ) {
     this.questionnumber = 1;
   }
@@ -250,12 +253,17 @@ export class AddQuestionComponent implements OnInit {
       this.reset();
       this.Upload()
         .then((result) => {
+          this.snackbar.open("Successfull!",'X',{
+            duration : 2000
+          });
           this.router.navigate(['create/generate', 'complete'], {
             skipLocationChange: true,
           });
         })
         .catch((err) => {
-          console.log(err);
+          this.snackbar.open("Oops Failed to Upload Survey!",'X',{
+            duration : 2000
+          });
         });
     } catch (error) {}
   }
