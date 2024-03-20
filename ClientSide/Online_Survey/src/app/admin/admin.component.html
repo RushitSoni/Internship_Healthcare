@@ -1,12 +1,29 @@
 <div class="sidebar2">
-    <app-sidebar2></app-sidebar2>
-    
+  <app-sidebar2></app-sidebar2>
 </div>
 
-<div class="admin-content ">
+
+<div class="dashboard-container">
+    <div class="dashboard-box blue-box">
+      <div class="dashboard-title">Total Surveys</div>
+      <div class="dashboard-value">{{ totalSurveys }}</div>
+    </div>
+    <div class="dashboard-box green-box">
+      <div class="dashboard-title">Total Responses</div>
+      <div class="dashboard-value">{{ totalResponses }}</div>
+    </div>
+    <div class="dashboard-box orange-box">
+      <div class="dashboard-title">Total Users</div>
+      <div class="dashboard-value">{{ totalUsers }}</div>
+    </div>
+    <div class="dashboard-box purple-box">
+      <div class="dashboard-title">Total Company</div>
+      <div class="dashboard-value">{{ totalCompany }}</div>
+    </div>
+  </div>
   
-    <app-table></app-table>
+
+
+<div class="admin-content">
+  <app-table></app-table>
 </div>
-
-
-
