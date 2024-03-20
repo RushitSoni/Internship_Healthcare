@@ -7,6 +7,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { TemplatedetailComponent } from '../templatedetail/templatedetail.component';
 import { Observable } from 'rxjs';
 import { LinkComponent } from '../link/link.component';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-completion',
@@ -18,7 +19,7 @@ export class CompletionComponent implements OnInit {
   questions! : QuestionOption[]; 
   inputUrl : string = '';
   
-  constructor( private globalservice : GlobalserviceService , private service : CreateService,private dialog : MatDialog) {}
+  constructor( private globalservice : GlobalserviceService , private service : CreateService,private dialog : MatDialog,private snackbar:MatSnackBar) {}
   
   ngOnInit(): void {
     const data = this.service.getData() as Observable<QuestionOption[]>;
@@ -40,8 +41,10 @@ export class CompletionComponent implements OnInit {
     this.service.setQuestionOption(survey_detail);
     this.service.addTemplate().subscribe((data) => {
       console.log(data);
-    })
-    console.log(this.service.getQuestionOption());
+      this.snackbar.open("Saved as Template!",'X',{
+        duration : 2000
+      });
+    });
   }
 
   Link()
@@ -53,7 +56,7 @@ export class CompletionComponent implements OnInit {
     });
 
     dialogRef.afterClosed().subscribe((result) => {
-      this.inputUrl = result;
+      
     })
   }
 
