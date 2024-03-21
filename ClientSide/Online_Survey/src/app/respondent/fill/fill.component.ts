@@ -3,12 +3,12 @@ import { Answer, QuestionOption } from '../../shared/Models/Survey';
 import { RespondentserviceService } from '../respondentservice.service';
 import { Observable } from 'rxjs';
 import { FormBuilder, FormGroup } from '@angular/forms';
-import { throws } from 'assert';
 
 @Component({
   selector: 'app-fill',
   templateUrl: './fill.component.html',
   styleUrl: './fill.component.css',
+  // standalone: true,
 })
 
 export class FillComponent {
@@ -89,6 +89,35 @@ export class FillComponent {
           },
           {
             optionId: 6,
+            optionText: 'Others',
+          }
+        ],
+      },
+      {
+        questionId: 4,
+        questionText: 'What is Father Name?',
+        questionOptionType: 3,
+        options: [],
+      },
+      {
+        questionId: 5,
+        questionText: 'What is next plan?',
+        questionOptionType: 2,
+        options: [
+          {
+            optionId: 1,
+            optionText: 'Job',
+          },
+          {
+            optionId: 2,
+            optionText: 'Business',
+          },
+          {
+            optionId: 3,
+            optionText: 'Study',
+          },
+          {
+            optionId: 4,
             optionText: 'Others',
           }
         ],
