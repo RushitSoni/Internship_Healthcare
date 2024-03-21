@@ -50,5 +50,12 @@ namespace Online_Survey.Controllers
 
             return Ok(result);
         }
+
+        [HttpDelete("DeleteTemplate/{id}")]
+        public IActionResult DeleteTemplate(int id) 
+        {
+            _userRepository.DeleteTemplate(id);
+            return Ok();
+        }
     }
 }

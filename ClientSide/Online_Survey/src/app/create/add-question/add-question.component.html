@@ -4,15 +4,18 @@
 <form [formGroup]="form_question">
         <div class="question-input">
         <br>
-        <label>Enter Your Question</label>
-        <br>
-        <input type="text" class="input" formControlName="question_text" placeholder="Enter your question" style="margin-bottom: 2%;" required>
+        <mat-form-field class="input">
+            <mat-label>Enter Your Question</mat-label>
+            <input type="text" matInput formControlName="question_text" required>
+        </mat-form-field>
         <br>
         <label>Select the Question type:</label>
-        <label style="margin-left: 2%;"><input type="radio" value="1" formControlName="question_type">Multiple Choice Question</label>
-        <label style="margin-left: 2%;"><input type="radio" value="2" formControlName="question_type" >Multiple Select Question</label>
-        <label style="margin-left: 2%;"><input type="radio" value="3" formControlName="question_type" >Text Question</label>
         <br>
+        <mat-radio-group formControlName="question_type">
+            <mat-radio-button value="1">Multiple Choice Question</mat-radio-button>
+            <mat-radio-button value="2">Multiple Select Question</mat-radio-button>
+            <mat-radio-button value="3">Text Question</mat-radio-button>
+        </mat-radio-group>
         <div *ngIf="form_question.get('question_type')?.value === '1' || form_question.get('question_type')?.value === '2'">
         <button type="button" (click)="addDynamicField()" class="center">Add Dynamic Text Field</button>
         <div formArrayName="dynamicFields">

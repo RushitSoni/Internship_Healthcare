@@ -110,7 +110,13 @@ namespace Online_Survey.Data
         }
       
 
+        void IUserRepository.DeleteTemplate(int id)
+        {
+            var deleteData = _ef.TemplateDetails.FirstOrDefault(q => q.SurveyId == id);
 
-
+            _ef.TemplateDetails.Remove((TemplateDetail)deleteData);
+            _ef.SaveChanges();
+        }
+            
         }
 }

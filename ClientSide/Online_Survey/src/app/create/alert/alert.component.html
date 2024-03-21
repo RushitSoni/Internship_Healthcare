@@ -1,8 +1,11 @@
-<div>
-    <div>
-        <label>Fields are not Filled or Question Type is not selected.</label>
+<div class="title">
+    <div mat-dialog-title class="dialogTitle">
+        <mat-icon>error</mat-icon><span style="color: red;">Error!</span>
     </div>
-    <div>
-        <button (click)="close()" class="btn btn-alert">close</button>
-    </div>
+</div>
+<div mat-dialog-content style="width: 100%;">
+    <label>Fields are not Filled or Question Type is not selected.</label>
+</div>
+<div mat-dialog-actions style="width: 100%;">
+    <button mat-button (click)="close()">Close</button>
 </div>
