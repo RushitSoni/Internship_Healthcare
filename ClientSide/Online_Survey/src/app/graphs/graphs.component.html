@@ -1,6 +1,11 @@
-<!-- graphs.component.html -->
+<div class="sidebar2">
+  <app-sidebar2></app-sidebar2>
+</div>
 
-<div style="display: flex; justify-content: center; align-items: center; height: 500px;">
+<!-- Chart 1: Number of Surveys By Date -->
+<div class="chart-container">
+  
+  <div class="chart-wrapper">
     <ngx-charts-line-chart
       [view]="view"
       [scheme]="colorScheme"
@@ -17,4 +22,29 @@
     >
     </ngx-charts-line-chart>
   </div>
+  <h3>Number of Surveys By Date</h3>
+</div>
+
+<!-- Chart 2: Number of Surveys By Month -->
+<div class="chart-container">
   
+  <div class="chart-wrapper">
+    <ngx-charts-line-chart
+      *ngIf="surveyDataByMonth"
+      [view]="view"
+      [scheme]="colorScheme"
+      [results]="surveyDataByMonth"
+      [gradient]="gradient"
+      [xAxis]="showXAxis"
+      [yAxis]="showYAxis"
+      [legend]="showLegend"
+      [showXAxisLabel]="showXAxisLabel"
+      [showYAxisLabel]="showYAxisLabel"
+      [xAxisLabel]="xAxisLabel"
+      [yAxisLabel]="yAxisLabel"
+      (select)="onSelect($event)"
+    >
+    </ngx-charts-line-chart>
+  </div>
+  <h3>Number of Surveys By Month</h3>
+</div>
