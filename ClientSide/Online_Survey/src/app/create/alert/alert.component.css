@@ -1,0 +1,16 @@
+.title{
+    position: relative;
+    width: 100%;
+    box-shadow: 0px 2px 8px rgba(0.1, 0, 0, 0.1);
+    display: flex;
+}
+
+.dialogTitle{
+    display: flex;
+    align-items: center; /* Align items vertically */
+}
+
+.mat-icon {
+    color: red;
+    margin-right: 8px; /* Adjust the spacing between the icon and the text */
+}
