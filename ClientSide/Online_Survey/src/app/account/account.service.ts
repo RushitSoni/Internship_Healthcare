@@ -11,6 +11,7 @@ import { ConfirmEmail } from '../shared/Models/confirmEmailDto';
 import { LoginWithExternal } from '../shared/Models/loginWithExternal';
 import { RegisterWithExternal } from '../shared/Models/registerWithExternal';
 import { GlobalserviceService } from '../../globalservice/globalservice.service';
+import { NotificationServiceService } from '../shared/components/modals/notifications/notification-service.service';
 
 @Injectable({
   providedIn: 'root'
@@ -24,7 +25,8 @@ export class AccountService {
   userLoggedId :string | undefined 
   userSubscription: Subscription | undefined;
 
-  constructor(private http:HttpClient, private router: Router,private globalService: GlobalserviceService) { }
+  constructor(private http:HttpClient, private router: Router,private globalService: GlobalserviceService,
+    private notificatioService:NotificationServiceService) { }
 
   register(model:Register){
     return this.http.post(`${environment.appUrl}/api/account/register`,model)
@@ -112,10 +114,10 @@ export class AccountService {
           });
   
           this.globalService.SurveyorId = this.userLoggedId;
-
+          this.notificatioService.displayNotification(`${user.firstName} ${user.lastName} Login SuccessFully !!`, 'green')
 
         
-      
+           
           // return user
 
         }
@@ -130,7 +132,7 @@ export class AccountService {
     const jwt=this.getJWT()
     localStorage.removeItem(environment.userKey)
     this.globalService.Logged=false
-
+    this.notificatioService.displayNotification(`Logout SuccessFully !!`, 'red')
 
     // const subscription = this.user$.subscribe((user) => {
       
