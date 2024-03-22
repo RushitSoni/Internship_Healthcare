@@ -13,7 +13,6 @@ import { DisplayQuestionbankComponent } from '../display-questionbank/display-qu
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { AlertComponent } from '../alert/alert.component';
 import { Observable } from 'rxjs';
-import { SnackbarComponent } from '../snackbar/snackbar.component';
 import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({

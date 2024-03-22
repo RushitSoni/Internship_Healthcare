@@ -22,7 +22,8 @@
             <th mat-header-cell *matHeaderCellDef mat-sort-header> Actions </th>
             <td mat-cell *matCellDef="let row"> 
                 <button mat-icon-button color="primary" (click)="addQuestions(row.surveyId)"><mat-icon>edit</mat-icon></button>
-                <button mat-icon-button color="warn"(click)="delete(row.surveyId)"><mat-icon>delete</mat-icon></button>
+                <button mat-icon-button color="warn" (click)="delete(row.surveyId)"><mat-icon>delete</mat-icon></button>
+                <button mat-icon-button color="primary" (click)="preview(row.surveyId,row.surveyName)"><mat-icon>preview</mat-icon></button>
             </td>
         </div>
 

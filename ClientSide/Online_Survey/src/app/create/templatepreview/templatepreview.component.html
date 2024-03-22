@@ -1,0 +1,25 @@
+<div mat-dialog-title class="title">
+    <h3>{{templateName}}</h3>
+    <button mat-button class="top-left" (click)="close()"><mat-icon>close</mat-icon></button>
+</div>
+<div mat-dialog-content>
+    <div *ngFor="let question of question_list; let i =index;">
+        <div>
+            <b>Question {{ i+1 }}.</b>
+            <span>{{ question.questionText }}</span>
+            <div *ngIf="question.questionOptionType == 1">
+                <div *ngFor="let option of question.options">
+                    <input type="radio"  disabled>{{ option.optionText }}   
+                </div>
+            </div>
+            <div *ngIf="question.questionOptionType == 2">
+                <div *ngFor="let option of question.options">
+                    <input type="checkbox"  disabled>{{ option.optionText }} 
+                </div>
+            </div>
+            <div *ngIf="question.questionOptionType == 3">
+                <input type="text" disabled>
+            </div>
+        </div>
+    </div>
+</div>
