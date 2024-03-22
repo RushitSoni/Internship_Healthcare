@@ -9,6 +9,7 @@ using Online_Survey.Services;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace Online_Survey.Container
 {
@@ -17,12 +18,13 @@ namespace Online_Survey.Container
   
         private readonly InternshipOnlineSurveyContext context;
         private readonly IMapper mapper;
+        private readonly ILogger<CompanyServices> logger;
        
-        public CompanyServices(InternshipOnlineSurveyContext context, IMapper mapper)
+        public CompanyServices(InternshipOnlineSurveyContext context, IMapper mapper, ILogger<CompanyServices> logger)
         {
             this.context = context;
             this.mapper = mapper;
-           
+            this.logger = logger;
         }
 
         public async Task<APIResponse> Create(CompanyDto data)
@@ -30,7 +32,7 @@ namespace Online_Survey.Container
             APIResponse response = new APIResponse();
             try
             {
-
+               
                 var existingCompany = await context.Companies.FirstOrDefaultAsync(c => c.Name == data.Name);
                 if (existingCompany != null)
                 {
@@ -47,6 +49,7 @@ namespace Online_Survey.Container
 
                 response.ResponseCode = 201;
                 response.Result = data.Name;
+                this.logger.LogInformation($"Created Company {data.Name}.");
 
             }
             catch (DbUpdateException ex)
@@ -66,7 +69,7 @@ namespace Online_Survey.Container
             {
                 response.ResponseCode = 400;
                 response.ErrorMsg = ex.Message;
-
+                this.logger.LogError(ex.Message,ex);
 
             }
             return response;
@@ -83,7 +86,7 @@ namespace Online_Survey.Container
                 _response = this.mapper.Map<List<Company>, List<CompanyDto>>(_data);
             }
 
-
+            //this.logger.LogInformation($"Get All Company.");
             return _response;
         }
 
@@ -97,7 +100,7 @@ namespace Online_Survey.Container
                 _response = this.mapper.Map<Company, CompanyDto>(_data);
             }
 
-
+            this.logger.LogInformation($"Get Company By Code : {id}.");
             return _response;
         }
 
@@ -114,6 +117,7 @@ namespace Online_Survey.Container
                     await this.context.SaveChangesAsync();
                     response.ResponseCode = 200;
                     response.Result = "";
+                    this.logger.LogInformation($"Remove Company : {id}.");
                 }
                 else
                 {
@@ -127,6 +131,8 @@ namespace Online_Survey.Container
             {
                 response.ResponseCode = 400;
                 response.ErrorMsg = ex.Message;
+                this.logger.LogError(ex.Message, ex);
+
 
             }
             return response;
@@ -154,6 +160,7 @@ namespace Online_Survey.Container
                     await this.context.SaveChangesAsync();
                     response.ResponseCode = 200;
                     response.Result = "Updated !!";
+                    this.logger.LogInformation($"Updated Company {id} , New Name {data.Name}.");
                 }
                 else
                 {
@@ -167,6 +174,8 @@ namespace Online_Survey.Container
             {
                 response.ResponseCode = 400;
                 response.ErrorMsg = ex.Message;
+                this.logger.LogError(ex.Message, ex);
+
 
             }
             return response;

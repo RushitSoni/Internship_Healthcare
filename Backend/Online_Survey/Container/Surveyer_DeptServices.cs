@@ -7,6 +7,8 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using System;
 using Online_Survey.Services;
+using Google.Apis.Logging;
+using Microsoft.Extensions.Logging;
 
 namespace Online_Survey.Container
 {
@@ -15,11 +17,13 @@ namespace Online_Survey.Container
 
         private readonly InternshipOnlineSurveyContext context;
         private readonly IMapper mapper;
+        private readonly ILogger<Surveyer_DeptServices> logger;
 
-        public Surveyer_DeptServices(InternshipOnlineSurveyContext context, IMapper mapper)
+        public Surveyer_DeptServices(InternshipOnlineSurveyContext context, IMapper mapper,ILogger<Surveyer_DeptServices> logger)
         {
             this.context = context;
             this.mapper = mapper;
+            this.logger = logger;
 
         }
 
@@ -44,6 +48,7 @@ namespace Online_Survey.Container
 
                 response.ResponseCode = 201;
                 response.Result = $"{data.UserId}";
+                this.logger.LogInformation($"Surveyer Created : {data.UserId}");
 
             }
             catch (DbUpdateException ex)
@@ -58,12 +63,13 @@ namespace Online_Survey.Container
 
                 response.ResponseCode = 400;
                 response.ErrorMsg = ex.Message;
+                this.logger.LogError(ex.Message, ex);
             }
             catch (Exception ex)
             {
                 response.ResponseCode = 400;
                 response.ErrorMsg = ex.Message;
-
+                this.logger.LogError(ex.Message, ex);
 
             }
             return response;
@@ -111,6 +117,7 @@ namespace Online_Survey.Container
                     await this.context.SaveChangesAsync();
                     response.ResponseCode = 200;
                     response.Result = "";
+                    this.logger.LogInformation($"Surveyer Removed : {id} ");
                 }
                 else
                 {
@@ -124,7 +131,7 @@ namespace Online_Survey.Container
             {
                 response.ResponseCode = 400;
                 response.ErrorMsg = ex.Message;
-
+                this.logger.LogError(ex.Message, ex);
             }
             return response;
         }
@@ -154,6 +161,8 @@ namespace Online_Survey.Container
                     await this.context.SaveChangesAsync();
                     response.ResponseCode = 200;
                     response.Result = "";
+
+                    this.logger.LogInformation($"Surveyer Updated : {id} , New : {_surveyer.UserId} ");
                 }
                 else
                 {
@@ -167,7 +176,7 @@ namespace Online_Survey.Container
             {
                 response.ResponseCode = 400;
                 response.ErrorMsg = ex.Message;
-
+                this.logger.LogError(ex.Message, ex);
             }
             return response;
         }
