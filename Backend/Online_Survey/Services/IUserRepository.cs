@@ -16,14 +16,10 @@ namespace Online_Survey.Data
         public void AddEntity<T>(T data);
         public IQueryable<QuestionTable> QuestionOption();
         public IQueryable<TemplateDetail> Template(string id);
-
         public IQueryable<SurveyTable> GetAllSurveys();
         public IQueryable<TemplateQuestion> TemplateData();
-
+        public void DeleteTemplate(int id);
         Task<List<ResponseViaSurveyId>> GetSurveyResponseBySurveyId(int surveyId);
-
-
-
 
     }
 }

@@ -241,8 +241,12 @@ export class AddQuestionComponent implements OnInit {
       });
     } catch (error) {
       const dialog = this.dialogRef.open(AlertComponent, {
-        width: '100%',
-        height: '20%',
+        width: '80%',
+        height: '25%',
+        position: {
+          left: '10%',
+        },
+        disableClose : true
       });
       throw error;
     }
