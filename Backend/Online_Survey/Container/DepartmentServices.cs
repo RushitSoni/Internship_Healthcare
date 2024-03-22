@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using System;
 using Online_Survey.Services;
+using Microsoft.Extensions.Logging;
 
 namespace Online_Survey.Container
 {
@@ -16,11 +17,13 @@ namespace Online_Survey.Container
 
         private readonly InternshipOnlineSurveyContext context;
         private readonly IMapper mapper;
+        private readonly ILogger<DepartmentServices> logger;
 
-        public DepartmentServices(InternshipOnlineSurveyContext context, IMapper mapper)
+        public DepartmentServices(InternshipOnlineSurveyContext context, IMapper mapper, ILogger<DepartmentServices> logger)
         {
             this.context = context;
             this.mapper = mapper;
+            this.logger = logger;
 
         }
 
@@ -47,6 +50,7 @@ namespace Online_Survey.Container
 
                 response.ResponseCode = 201;
                 response.Result = _department.DepartmentId.ToString();
+                this.logger.LogInformation($"Department Created : {data.Name}");
 
             }
             catch (DbUpdateException ex)
@@ -61,12 +65,13 @@ namespace Online_Survey.Container
 
                 response.ResponseCode = 400;
                 response.ErrorMsg = ex.Message;
+                this.logger.LogError(ex.Message, ex);
             }
             catch (Exception ex)
             {
                 response.ResponseCode = 400;
                 response.ErrorMsg = ex.Message;
-
+                this.logger.LogError(ex.Message, ex);
 
             }
             return response;
@@ -114,11 +119,13 @@ namespace Online_Survey.Container
                     await this.context.SaveChangesAsync();
                     response.ResponseCode = 200;
                     response.Result = "";
+                    this.logger.LogInformation($"Department Removed : {id}");
                 }
                 else
                 {
                     response.ResponseCode = 404;
                     response.ErrorMsg = "Data Not Found";
+                  
                 }
 
 
@@ -127,6 +134,7 @@ namespace Online_Survey.Container
             {
                 response.ResponseCode = 400;
                 response.ErrorMsg = ex.Message;
+                this.logger.LogError(ex.Message, ex);
 
             }
             return response;
@@ -155,6 +163,7 @@ namespace Online_Survey.Container
                     await this.context.SaveChangesAsync();
                     response.ResponseCode = 200;
                     response.Result = "";
+                    this.logger.LogInformation($"Department {id} Updated ,New Name : {_department.Name}");
                 }
                 else
                 {
@@ -168,7 +177,7 @@ namespace Online_Survey.Container
             {
                 response.ResponseCode = 400;
                 response.ErrorMsg = ex.Message;
-
+                this.logger.LogError(ex.Message, ex);
             }
             return response;
         }

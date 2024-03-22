@@ -57,7 +57,7 @@
     width: 20.4rem;
     height: 3rem; /* Adjusted height for a more compact look */
     border: none;
-    border-radius: 1.5rem; /* Increased border-radius for a rounded look */
+    border-radius: 5px; /* Increased border-radius for a rounded look */
     font-size: 1.4rem;
     padding-left: 2rem; /* Reduced padding for a sleek appearance */
     box-shadow: 0.3rem 0.3rem 0.6rem #c8d0e7, -0.2rem -0.2rem 0.5rem #FFFFFF; /* Color codes directly used */

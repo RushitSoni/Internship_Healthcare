@@ -14,6 +14,8 @@ using Online_Survey.Data;
 using Online_Survey.Helper;
 using Online_Survey.Models;
 using Online_Survey.Services;
+using Serilog;
+using Serilog.Events;
 using System;
 using System.Linq;
 using System.Text;
@@ -109,6 +111,21 @@ builder.Services.Configure<ApiBehaviorOptions>(options =>
         return new BadRequestObjectResult(toReturn);
     };
 });
+
+
+
+//log
+
+var logpath = builder.Configuration.GetSection("Logging:Logpath").Value;
+var _logger = new LoggerConfiguration()
+    .MinimumLevel.Information()
+    .MinimumLevel.Override("Microsoft", LogEventLevel.Warning)
+    .Enrich.FromLogContext()
+    .WriteTo.Console(new Serilog.Formatting.Compact.RenderedCompactJsonFormatter())
+    .WriteTo.File(logpath)
+    .CreateLogger();
+
+builder.Logging.AddSerilog(_logger);
 
 // Add services to the container.
 
