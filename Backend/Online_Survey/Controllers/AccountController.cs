@@ -1,5 +1,7 @@
 ﻿using Google.Apis.Auth;
+using Google.Apis.Logging;
 using Mailjet.Client.Resources;
+using Mailjet.Client.Resources.SMS;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
@@ -7,7 +9,9 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.WebUtilities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Logging;
 using Online_Survey.Areas.Identity.Data;
+using Online_Survey.Container;
 using Online_Survey.DTOs.Account;
 using Online_Survey.Services;
 using System;
@@ -29,13 +33,15 @@ namespace Online_Survey.Controllers
         private readonly UserManager<Online_SurveyUser> _userManager;
         private readonly EmailService _emailService;
         private readonly IConfiguration _config;
-        public AccountController(JWTServices jwtServices, SignInManager<Online_SurveyUser> signInManager, UserManager<Online_SurveyUser> userManager,EmailService emailService,IConfiguration config)
+        private readonly ILogger<AccountController> _logger;
+        public AccountController(JWTServices jwtServices, SignInManager<Online_SurveyUser> signInManager, UserManager<Online_SurveyUser> userManager,EmailService emailService,IConfiguration config, ILogger<AccountController> logger)
         {
             _jwtService = jwtServices;
             _signInManager = signInManager;
             _userManager = userManager;
             _emailService = emailService;
             _config = config;
+            _logger=logger;
             
 
         }
@@ -47,6 +53,45 @@ namespace Online_Survey.Controllers
             var userDtos = users.Select(user => CreateApplicationUserDto(user)).ToList();
             return Ok(userDtos);
         }
+        [HttpPut("update-islogged/{userId}/{flag}")]
+        public async Task<IActionResult> UpdateIsLogged(string userId, int flag)
+        {
+            // Find the user by their ID
+            var user = await _userManager.FindByIdAsync(userId);
+            if (user == null)
+            {
+                return NotFound("User not found.");
+            }
+
+            // Update the user properties based on the provided input
+
+            if (flag==0)
+            {
+                user.IsLogged =0;
+            }
+            else
+            {
+                user.IsLogged = user.IsLogged + flag;
+            }
+          
+            this._logger.LogInformation($"{user.IsLogged} {flag}");
+           
+
+            // Save the changes to the database
+            var result = await _userManager.UpdateAsync(user);
+            if (!result.Succeeded)
+            {
+                return BadRequest("Failed to update user.");
+            }
+
+            // Return the updated user DTO
+            var updatedUserDto = CreateApplicationUserDto(user);
+
+            this._logger.LogInformation($"User {userId}  Log Status Updated To {updatedUserDto.IsLogged}.");
+            return Ok(updatedUserDto);
+            
+        }
+
         [HttpPut("update-user/{userId}")]
         public async Task<IActionResult> UpdateUser(string userId, UserDto model)
         {
@@ -60,7 +105,7 @@ namespace Online_Survey.Controllers
             // Update the user properties based on the provided input
             user.FirstName = model.FirstName.ToLower();
             user.LastName = model.LastName.ToLower();
-           
+
 
             // Save the changes to the database
             var result = await _userManager.UpdateAsync(user);
@@ -71,7 +116,10 @@ namespace Online_Survey.Controllers
 
             // Return the updated user DTO
             var updatedUserDto = CreateApplicationUserDto(user);
+
+            this._logger.LogInformation($"User {userId} Updated To {updatedUserDto.FirstName}{updatedUserDto.LastName}.");
             return Ok(updatedUserDto);
+
         }
 
 
@@ -92,6 +140,7 @@ namespace Online_Survey.Controllers
                 return Unauthorized("Invalid UserName or Password.");
             }
 
+            this._logger.LogInformation($"User {model.UserName} Logged-In.");
             return  CreateApplicationUserDto(user);
 
         }
@@ -112,7 +161,8 @@ namespace Online_Survey.Controllers
                 UserName = model.Email.ToLower(),
                 Email = model.Email.ToLower(),
                 Role="user",
-                Provider="Normal"
+                Provider="Normal",
+                IsLogged=0
 
             };
 
@@ -128,7 +178,10 @@ namespace Online_Survey.Controllers
                {
                    if (await SendConfirmEmailAsync(userToAdd))
                    {
-                       return Ok(new JsonResult(new { title = "Account Created", message = "Your Account Has Been Created, Confirm your Email." }));
+
+                    this._logger.LogInformation($"User {userToAdd.Email} Registered.");
+                    return Ok(new JsonResult(new { title = "Account Created", message = "Your Account Has Been Created, Confirm your Email." }));
+
                    }
                    return BadRequest("Failed to send mail.Try to contact Admin.");
                }
@@ -161,6 +214,8 @@ namespace Online_Survey.Controllers
                 var result = await _userManager.ConfirmEmailAsync(user, decodedToken);
                 if (result.Succeeded)
                 {
+
+                    this._logger.LogInformation($"User {model.Email} Email-Confirmed.");
                     return Ok(new JsonResult(new { title = "Email Confirmed", message = "You can Login now." }));
                 }
 
@@ -188,6 +243,7 @@ namespace Online_Survey.Controllers
             {
                 if (await SendConfirmEmailAsync(user))
                 {
+                    this._logger.LogInformation($"User {email} Confirmation link sent.");
                     return Ok(new JsonResult(new { title = "Confirmation link sent.", message = "Please confirm your email address." }));
                 }
 
@@ -215,6 +271,8 @@ namespace Online_Survey.Controllers
             {
                 if (await SendForgotUsernameOrPasswordEmail(user))
                 {
+
+                    this._logger.LogInformation($"User {email} Forgot username or password email sent.");
                     return Ok(new JsonResult(new { title = "Forgot username or password email sent", message = "Please check email." }));
 
                 }
@@ -247,6 +305,7 @@ namespace Online_Survey.Controllers
                 var result = await _userManager.ResetPasswordAsync(user, decodedToken, model.NewPassword);
                 if (result.Succeeded)
                 {
+                    this._logger.LogInformation($"User {model.Email} Password Reset Done.");
                     return Ok(new JsonResult(new { title = "password Reset Done.", message = "Your password has been changed." }));
                 }
 
@@ -299,6 +358,7 @@ namespace Online_Survey.Controllers
             var user = await _userManager.Users.FirstOrDefaultAsync(x => x.UserName == model.UserId && x.Provider == model.Provider);
             if (user == null) return Unauthorized("Unable to find your account");
 
+            this._logger.LogInformation($"User {model.UserId} Logged-In.");
             return  CreateApplicationUserDto(user);
         }
         [HttpPost("register-with-third-party")]
@@ -343,12 +403,15 @@ namespace Online_Survey.Controllers
                 UserName = model.UserId,
                 Email = model.Email.ToLower(), // Store email address
                 Provider = model.Provider,
-                Role="user"
+                Role="user",
+                IsLogged=0
             };
 
             var result = await _userManager.CreateAsync(userToAdd);
             if (!result.Succeeded) return BadRequest(result.Errors);
 
+
+            this._logger.LogInformation($"User {userToAdd.Email} Registered.");
             return CreateApplicationUserDto(userToAdd);
         }
 
@@ -370,6 +433,8 @@ namespace Online_Survey.Controllers
                 return NotFound("User not found.");
             }
 
+
+            this._logger.LogInformation($"User {userEmail} Token-Refreshed.");
             return CreateApplicationUserDto(user);
         }
 
@@ -387,7 +452,8 @@ namespace Online_Survey.Controllers
                 Id= user.Id,
                 JWT =  _jwtService.CreateJWT(user),
                 Provider = user.Provider,
-                DateCreated=user.DateCreated
+                DateCreated=user.DateCreated,
+                IsLogged=user.IsLogged,
 
             };
         }

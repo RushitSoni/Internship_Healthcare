@@ -6,7 +6,7 @@ import { RouterModule } from '@angular/router';
 import { ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { NotificationsComponent } from './components/modals/notifications/notifications.component';
-
+import { MatIconModule } from '@angular/material/icon';
 
 
 @NgModule({
@@ -20,6 +20,7 @@ import { NotificationsComponent } from './components/modals/notifications/notifi
     RouterModule,
     ReactiveFormsModule,
     HttpClientModule,
+    MatIconModule
 
    
   ],

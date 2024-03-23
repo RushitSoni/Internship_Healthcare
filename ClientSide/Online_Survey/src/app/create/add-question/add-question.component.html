@@ -1,38 +1,41 @@
 <div class="Upper">
-<h1 style="text-align: center;color: rgb(46, 29, 234)">Enter Survey Questions</h1>
-<br>
+    <div class="title">
+        <h1 style="text-align: center;">Enter Survey Questions</h1>
+        <button mat-button (click)="openQuestionBank()" class="top-left"><mat-icon>library_books</mat-icon>QuestionBank</button>
+    </div>
+
 <form [formGroup]="form_question">
-        <div class="question-input">
+    <div class="question-input">
+        <mat-form-field class="input">
+            <mat-label>Enter Your Question</mat-label>
+            <input type="text" matInput formControlName="question_text" required>
+        </mat-form-field>
         <br>
-        <label>Enter Your Question</label>
+        <mat-label>Select the Question type:</mat-label>
         <br>
-        <input type="text" class="input" formControlName="question_text" placeholder="Enter your question" style="margin-bottom: 2%;" required>
-        <br>
-        <label>Select the Question type:</label>
-        <label style="margin-left: 2%;"><input type="radio" value="1" formControlName="question_type">Multiple Choice Question</label>
-        <label style="margin-left: 2%;"><input type="radio" value="2" formControlName="question_type" >Multiple Select Question</label>
-        <label style="margin-left: 2%;"><input type="radio" value="3" formControlName="question_type" >Text Question</label>
-        <br>
+        <mat-radio-group formControlName="question_type">
+            <mat-radio-button value="1">Multiple Choice Question</mat-radio-button>
+            <mat-radio-button value="2">Multiple Select Question</mat-radio-button>
+            <mat-radio-button value="3">Text Question</mat-radio-button>
+        </mat-radio-group>
         <div *ngIf="form_question.get('question_type')?.value === '1' || form_question.get('question_type')?.value === '2'">
-        <button type="button" (click)="addDynamicField()" class="center">Add Dynamic Text Field</button>
-        <div formArrayName="dynamicFields">
-            <div *ngFor="let field of dynamicFields.controls; let i = index" style="display: flex;">
-                <input type="text" [formControlName]="i" placeholder="Add Options" class="input_options">
-                <button type="button" (click)="removeDynamicField(i)" class="center_remove"><mat-icon>remove</mat-icon></button>
+        <button mat-button (click)="addDynamicField()" class="center"><mat-icon>add</mat-icon>Add Field</button>
+        <div formArrayName="dynamicFields" style="margin-top: 1%;">
+            <div *ngFor="let field of dynamicFields.controls; let i = index" class="container">
+                <mat-form-field>
+                    <input matInput type="text" [formControlName]="i">
+                </mat-form-field>
+                <button mat-button (click)="removeDynamicField(i)" class="center_remove"><mat-icon>remove</mat-icon>Remove</button>
             </div>
         </div>
         </div>
         <div class="buttons">
-            <button *ngIf="!editingMode" (click)="reset()"  class="center btn btn-primary">Next_Question</button>
-            <button *ngIf="editingMode" (click)="reset()" class="center btn btn-primary">Update</button>
-            <button (click)="OnComplete()"  class="center btn btn-primary" style="margin-left: 31%;">Survey_Completed</button>
+            <button mat-button *ngIf="!editingMode" (click)="reset()"  class="center">Next_Question</button>
+            <button mat-button *ngIf="editingMode" (click)="reset()" class="center">Update</button>
+            <button mat-button (click)="OnComplete()"  class="center">Survey_Completed</button>
         </div>
         </div>  
 </form>
-
-<div>
-    <button (click)="openQuestionBank()"><mat-icon>library_books</mat-icon>QuestionBank</button>
-</div>
 <app-display *ngFor="let questionPreview of question_list; let i = index" [question]="questionPreview"
         [questionNumber]="i + 1" (editClicked)="editQuestion(i)">
 </app-display>

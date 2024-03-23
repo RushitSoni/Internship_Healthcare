@@ -32,6 +32,11 @@ export class TemplateDisplayComponent implements OnInit , AfterViewInit {
   }
 
   ngOnInit(){
+    this.load();
+  }    
+
+  load()
+  {
     this.template = this.service.getTemplate();
     this.template.subscribe(data => {
       this.templateData = data;
@@ -39,11 +44,14 @@ export class TemplateDisplayComponent implements OnInit , AfterViewInit {
       this.dataSource.sort = this.sort;
       this.dataSource.paginator = this.paginator;
     });
-  }    
+  }
 
-  delete(questionnumber : number)
+  delete(templateId : number)
   {
-    console.log(questionnumber);
+    console.log(templateId);
+    this.service.deleteTemplate(templateId).subscribe((data) => {
+      this.load();
+    });
   }
 
   addQuestions(questionNumber : number)

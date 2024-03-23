@@ -1,5 +1,7 @@
 ﻿using AutoMapper;
+using Google.Apis.Logging;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging;
 using Online_Survey.DTOs.Company;
 using Online_Survey.DTOs.QuestionBank;
 using Online_Survey.Helper;
@@ -15,11 +17,13 @@ namespace Online_Survey.Container
     {
         private readonly InternshipOnlineSurveyContext context;
         private readonly IMapper mapper;
+        private readonly ILogger<QuestionBankQuestionServices> logger;
 
-        public QuestionBankQuestionServices(InternshipOnlineSurveyContext context, IMapper mapper)
+        public QuestionBankQuestionServices(InternshipOnlineSurveyContext context, IMapper mapper,ILogger<QuestionBankQuestionServices> logger)
         {
             this.context = context;
             this.mapper = mapper;
+            this.logger = logger;
 
         }
 
@@ -38,6 +42,7 @@ namespace Online_Survey.Container
 
                 response.ResponseCode = 201;
                 response.Result = $"{_question.QuestionId}";
+                this.logger.LogInformation($"Question For QuestionBank Created : {data.QuestionText}");
 
             }
             catch (DbUpdateException ex)
@@ -57,7 +62,7 @@ namespace Online_Survey.Container
             {
                 response.ResponseCode = 400;
                 response.ErrorMsg = ex.Message;
-
+                this.logger.LogError(ex.Message, ex);
 
             }
             return response;

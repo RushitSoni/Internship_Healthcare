@@ -1,1 +1,9 @@
-<p>notifications works!</p>
+<div mat-dialog-content class="notification-content">
+    <div class="message-container"  [style.color]="data.color">
+      {{ data.message }}
+    </div>
+    <button mat-icon-button (click)="closeDialog()">
+      <mat-icon>close</mat-icon>
+    </button>
+</div>
+  

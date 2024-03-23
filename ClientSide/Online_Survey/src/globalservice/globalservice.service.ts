@@ -10,6 +10,8 @@ export class GlobalserviceService  {
   private surveyorId: string | undefined;
   private surveyId! : number;
   private frontendUrl! : string;
+  private logged=false
+
   constructor() { }
 
   
@@ -46,5 +48,17 @@ get SurveyorId(): string | undefined {
   get FrontendUrl()
   {
     return this.frontendUrl;
+  }
+
+
+  set Logged(value: boolean) {
+    this.logged = value;
+    localStorage.setItem('logged', JSON.stringify(this.logged));
+  
+  }
+
+  get Logged() {
+    const storedValue = localStorage.getItem('logged');
+    return storedValue ? JSON.parse(storedValue) : undefined;
   }
 }

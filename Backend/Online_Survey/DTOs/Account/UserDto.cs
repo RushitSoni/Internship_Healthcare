@@ -18,5 +18,7 @@ namespace Online_Survey.DTOs.Account
         public string Provider { get; set; }
 
         public DateTime DateCreated { get; set; } 
+
+        public int IsLogged { get; set; }
     }
 }

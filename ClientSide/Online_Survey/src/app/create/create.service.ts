@@ -97,4 +97,10 @@ export class CreateService {
     var params = new HttpParams().set('surveyorId',String(localStorage.getItem('surveyorId')));
     return this.http.get(`${environment.appUrl}/Respondent/Survey`,{params});
   }
+
+  deleteTemplate(templateId : number)
+  {
+    var params = new HttpParams().set('templateId',String(localStorage.getItem('templateId')));
+    return this.http.delete<any>(`${environment.appUrl}/Template/DeleteTemplate/${templateId}`);
+  }
 }

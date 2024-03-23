@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, Inject } from '@angular/core';
+import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-notifications',
@@ -7,9 +8,13 @@ import { Component } from '@angular/core';
 })
 export class NotificationsComponent {
 
-  isSuccess : boolean=true;
-  title : string =''
-  message:string = ''
+  constructor(@Inject(MAT_DIALOG_DATA) public data: any,
+  public dialogRef: MatDialogRef<NotificationsComponent>) {}
+
+
+  closeDialog(): void {
+    this.dialogRef.close();
+  }
 
  
 }
