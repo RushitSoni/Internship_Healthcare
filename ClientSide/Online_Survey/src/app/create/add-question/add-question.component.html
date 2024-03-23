@@ -23,7 +23,8 @@
         <div formArrayName="dynamicFields" style="margin-top: 1%;">
             <div *ngFor="let field of dynamicFields.controls; let i = index" class="container">
                 <mat-form-field>
-                    <input matInput type="text" [formControlName]="i">
+                    <mat-label>Option {{i+1}}</mat-label>
+                    <input matInput type="text" [formControlName]="i" required>
                 </mat-form-field>
                 <button mat-button (click)="removeDynamicField(i)" class="center_remove"><mat-icon>remove</mat-icon>Remove</button>
             </div>
@@ -37,6 +38,6 @@
         </div>  
 </form>
 <app-display *ngFor="let questionPreview of question_list; let i = index" [question]="questionPreview"
-        [questionNumber]="i + 1" (editClicked)="editQuestion(i)">
+        [questionNumber]="i + 1" (editClicked)="editQuestion(i)" (deleteClicked)="onDeleteQuestion($event)">
 </app-display>
 </div>

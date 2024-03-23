@@ -14,6 +14,7 @@ export class DisplayComponent implements OnInit{
   @Input() question!: Post_Question;
   @Input() questionNumber!: number;
   @Output() editClicked: EventEmitter<void> = new EventEmitter<void>();
+  @Output() deleteClicked: EventEmitter<number> = new EventEmitter<number>();
 
   constructor(private service : CreateService){
 
@@ -25,4 +26,8 @@ export class DisplayComponent implements OnInit{
   onEdit() {
     this.editClicked.emit();
   }
+
+  onDelete() {
+    this.deleteClicked.emit(this.questionNumber - 1);
+  }
 }

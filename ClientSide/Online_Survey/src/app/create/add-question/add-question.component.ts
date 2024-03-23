@@ -122,6 +122,8 @@ export class AddQuestionComponent implements OnInit {
     this.editedQuestionIndex = index; // Store the index of the edited question
   }
 
+  
+
   get dynamicFields() {
     return this.form_question.get('dynamicFields') as FormArray;
   }
@@ -318,5 +320,15 @@ export class AddQuestionComponent implements OnInit {
       
       console.log(this.question_list);
     });
+  }
+
+  onDeleteQuestion(questionIndex: number) {
+    // Remove the question from the question list based on its index
+    console.log();
+    this.question_list.splice(questionIndex, 1);
+    // Adjust question numbers
+    this.question_list.forEach((question, index) => {
+      question.questionId = index + 1;
+   });
   }
 }
