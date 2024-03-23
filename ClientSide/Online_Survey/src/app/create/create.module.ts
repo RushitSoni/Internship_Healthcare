@@ -27,7 +27,7 @@ import { PaginationComponent } from './pagination/pagination.component';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatTableModule } from '@angular/material/table';
 import { MatRadioModule } from '@angular/material/radio';
-import { SnackbarComponent } from './snackbar/snackbar.component';
+import { TemplatepreviewComponent } from './templatepreview/templatepreview.component';
 
 
 
@@ -45,7 +45,7 @@ import { SnackbarComponent } from './snackbar/snackbar.component';
     AlertComponent,
     TemplateDisplayComponent,
     PaginationComponent,
-    SnackbarComponent
+    TemplatepreviewComponent
   ],
   imports: [
     CommonModule,

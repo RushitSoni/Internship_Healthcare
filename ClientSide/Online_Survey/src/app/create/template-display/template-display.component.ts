@@ -6,6 +6,8 @@ import { Observable } from 'rxjs';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
+import { MatDialog } from '@angular/material/dialog';
+import { TemplatepreviewComponent } from '../templatepreview/templatepreview.component';
 
 @Component({
   selector: 'app-template-display',
@@ -25,7 +27,7 @@ export class TemplateDisplayComponent implements OnInit , AfterViewInit {
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort! : MatSort;
 
-  constructor(private globalservice : GlobalserviceService,private service : CreateService)
+  constructor(private globalservice : GlobalserviceService,private service : CreateService,private matDialog : MatDialog)
   {}
 
   ngAfterViewInit(): void {
@@ -57,5 +59,16 @@ export class TemplateDisplayComponent implements OnInit , AfterViewInit {
   addQuestions(questionNumber : number)
   {
     this.clicked.emit(questionNumber);
+  }
+
+  preview(templateId : number,templateName : string)
+  {
+    const dialogRef = this.matDialog.open(TemplatepreviewComponent,{
+      data : {templateId,templateName},
+      width: '100%',
+      height: '60%',
+      disableClose: true
+    });
+    
   }
 }

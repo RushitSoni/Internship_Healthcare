@@ -7,7 +7,6 @@ import { SendComponent } from './send/send.component';
 import { AuthorizationGuard } from '../shared/guards/authorization.guard';
 
 const routes: Routes = [
-  {path: 'generate' , component : GenerateSurveyComponent},
   {
     path:'',
     runGuardsAndResolvers:'always',
