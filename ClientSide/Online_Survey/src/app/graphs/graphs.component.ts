@@ -91,6 +91,7 @@ export class GraphsComponent {
   yAxisLabel = 'Number of Surveys By Companys';
   showXAxisLabel = true;
   showYAxisLabel = true;
+  xAxisLabel1 = 'Compnies';
 
   onSelect(event: any): void {
     console.log(event);
