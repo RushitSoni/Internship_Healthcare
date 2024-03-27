@@ -1,22 +1,23 @@
 <div class="card">
     <div class="card-header">
         <b>Question {{ questionNumber }}</b>
-        <button (click)="onEdit()" class="btn btn-sm btn-primary ml-2" style="margin-left: 30px;">Edit</button>
-    </div>
+            <button mat-icon-button (click)="onEdit()" color="primary" ><mat-icon>edit</mat-icon></button>
+            <button mat-icon-button (click)="onDelete()" color="alert" ><mat-icon>delete</mat-icon></button>
+        </div>
     <div class="card-body">
         <h3 class="card-title">{{ question.questionText }}</h3>
         <div *ngIf="question.questionOptionType == 1">
             <div *ngFor="let option of question.options">
-                <input type="radio" class="list-group-item" disabled>{{ option.optionText }}   
+                <input type="radio" disabled>{{ option.optionText }}   
             </div>
         </div>
         <div *ngIf="question.questionOptionType == 2">
             <div *ngFor="let option of question.options">
-                <input type="checkbox" class="list-group-item" disabled>{{ option.optionText }} 
+                <input type="checkbox" disabled>{{ option.optionText }} 
             </div>
         </div>
         <div *ngIf="question.questionOptionType == 3">
-            <input type="text" class="list-group-item" disabled>
+            <input type="text" disabled style="width: 100%;">
         </div>
     </div>
 </div>
