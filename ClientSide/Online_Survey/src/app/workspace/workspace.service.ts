@@ -145,6 +145,12 @@ export class WorkspaceService {
 
   //responses
 
+  getAllResponses(): Observable<any> {
+
+    return this.http.get<any>(`${environment.appUrl}/Home/GetAllResponses`);
+  }
+
+
   getResponseBySurveyId(surveyId: number): Observable<ResponseViaSurveyId> {
     console.log(surveyId)
       return this.http.get<ResponseViaSurveyId>(`${environment.appUrl}/Respondent/GetSurveyResponseBySurveyId/${surveyId}`);
