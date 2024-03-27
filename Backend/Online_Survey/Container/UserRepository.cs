@@ -56,6 +56,11 @@ namespace Online_Survey.Data
             return _ef.SurveyTables;
         }
 
+        IQueryable<RespondentDetail> IUserRepository.GetAllResponses()
+        {
+            return _ef.RespondentDetails;
+        }
+
 
         Task<List<ResponseViaSurveyId>> IUserRepository.GetSurveyResponseBySurveyId(int surveyId)
         {

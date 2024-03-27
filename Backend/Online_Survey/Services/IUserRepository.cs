@@ -17,6 +17,8 @@ namespace Online_Survey.Data
         public IQueryable<QuestionTable> QuestionOption();
         public IQueryable<TemplateDetail> Template(string id);
         public IQueryable<SurveyTable> GetAllSurveys();
+
+        public IQueryable<RespondentDetail> GetAllResponses();
         public IQueryable<TemplateQuestion> TemplateData();
         public void DeleteTemplate(int id);
         Task<List<ResponseViaSurveyId>> GetSurveyResponseBySurveyId(int surveyId);
