@@ -60,7 +60,7 @@
         </ng-container>
 
         <!-- Display question counts -->
-        <div class="question-counts">
+        <div class="question-counts" *ngIf="response.length>0">
           <h5>Question Counts :</h5>
           <ul>
             <li *ngFor="let key of questionCountMap | keyvalue">
@@ -84,6 +84,8 @@
               (select)="onSelect($event)"
               (activate)="onActivate($event)"
               (deactivate)="onDeactivate($event)"
+
+              *ngIf="response.length>0"
             >
             </ngx-charts-pie-chart>
 

@@ -205,5 +205,13 @@ namespace Online_Survey.Controllers
             return Ok(surveys);
         }
 
+        [HttpGet("GetAllResponses")]
+        public ActionResult GetAllResponses()
+        {
+            var responses = _userRepository.GetAllResponses();
+            
+            return Ok(responses);
+        }
+
     }
 }
