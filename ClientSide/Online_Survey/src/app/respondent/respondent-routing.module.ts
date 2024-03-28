@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { TakesurveyComponent } from './takesurvey/takesurvey.component';
 import { FillComponent } from './fill/fill.component';
+import { AuthorizationGuard } from '../shared/guards/authorization.guard';
 
 const routes: Routes = [
   {path:':surveyid' , component: TakesurveyComponent},

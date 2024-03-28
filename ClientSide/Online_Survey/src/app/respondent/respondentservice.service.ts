@@ -35,13 +35,23 @@ export class RespondentserviceService {
     if(this.surveyid !== undefined)
     {
       var params = new HttpParams().set('surveyid',this.surveyid);
-      const data = this.http.get<QuestionOption[]>(`${environment.appUrl}/Home/GetQuestionOption`,{params});
+      const data = this.http.get<QuestionOption[]>(`${environment.appUrl}/Respondent/GetQuestionOption`,{params});
       console.log(data);
       return data;
     }
 
     const quest : QuestionOption[] = []
     return quest;
+  }
+
+  checkSurveyAvailability(respondent : Respondent,surveyid : number)
+  {
+    
+    var params = new HttpParams().set('Email',respondent.Email).set('surveyid',surveyid);
+    console.log(respondent.Email);
+    console.log(surveyid);
+    const data = this.http.get<boolean>(`${environment.appUrl}/Respondent/CheckAccess`,{params});
+    return data;
   }
 
   addAnswer(answers : Answer[])

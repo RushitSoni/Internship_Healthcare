@@ -6,6 +6,7 @@ using Online_Survey.DTOs.Respondent;
 using Online_Survey.Models;
 using Online_Survey.Pococlass;
 using Online_Survey.PocoClass;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -56,6 +57,13 @@ namespace Online_Survey.Data
             return _ef.SurveyTables;
         }
 
+        List<string> IUserRepository.Check(string email,int surveyId)
+        {
+            return (from rd in _ef.RespondentDetails
+                           join rr in _ef.RespondentRecords on rd.Id equals rr.RespondentId
+                           where rd.Email == email && rr.SurveyId == surveyId
+                           select rd.Email).ToList();
+        }
 
         Task<List<ResponseViaSurveyId>> IUserRepository.GetSurveyResponseBySurveyId(int surveyId)
         {

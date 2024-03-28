@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Respondent, Respondent_Record } from '../../shared/Models/Survey';
 import { RespondentserviceService } from '../respondentservice.service';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-takesurvey',
@@ -38,19 +39,44 @@ export class TakesurveyComponent implements OnInit {
     })
   }
 
+  CheckDetails(respondent : Respondent) : Promise<void>
+  {
+    return new Promise<void>((resolve,reject) => {
+      
+      this.route.params.subscribe(params => {
+        this.service.surveyid = params['surveyid'] as number;
+      });
+
+      const data = this.service.checkSurveyAvailability(respondent, this.service.surveyid) as Observable<Boolean>;
+      
+      data.subscribe((data)=>{
+        console.log(data);
+        if(data == true)
+        {
+          reject();
+        }
+        else
+        {
+          resolve();
+        }
+      });
+    });
+  }
+
   AddDetails() : Promise<number>
   {
     return new Promise<number>((resolve,reject) => {
       const respondent : Respondent = {
-        Name : this.firstname + '' + this.middlename + '' + this.lastname,
-        Email : this.email,
-        PhoneNumber: this.phonenumber
+        Email : this.email
       };
 
-      console.log(respondent);
-      this.service.addRespondent(respondent).subscribe((data) => {
-        this.service.respondentid = data;
-        resolve(data);
+      this.CheckDetails(respondent).then((result) => {
+        this.service.addRespondent(respondent).subscribe((data) => {
+          this.service.respondentid = data;
+          resolve(data);
+        });  
+      }).catch((err) => {
+        
       });
     });
   }
@@ -58,9 +84,7 @@ export class TakesurveyComponent implements OnInit {
   AddRecord() : Promise<number>
   {
     return new Promise<number>((resolve,reject) => {
-      this.route.params.subscribe(params => {
-        this.service.surveyid = params['surveyid'] as number;
-      });
+      
       const record : Respondent_Record = {
         RespondentId : this.service.respondentid,
         SurveyId : this.service.surveyid 

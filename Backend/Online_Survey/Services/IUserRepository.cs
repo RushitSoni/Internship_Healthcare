@@ -3,8 +3,11 @@ using Online_Survey.DTOs;
 using Online_Survey.DTOs.Company;
 using Online_Survey.DTOs.Respondent;
 using Online_Survey.Models;
+using Online_Survey.Pococlass;
 using Online_Survey.PocoClass;
 using System.Collections.Generic;
+using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -18,6 +21,7 @@ namespace Online_Survey.Data
         public IQueryable<TemplateDetail> Template(string id);
         public IQueryable<SurveyTable> GetAllSurveys();
         public IQueryable<TemplateQuestion> TemplateData();
+        public List<string> Check(string email,int surveyId);
         public void DeleteTemplate(int id);
         Task<List<ResponseViaSurveyId>> GetSurveyResponseBySurveyId(int surveyId);
 
