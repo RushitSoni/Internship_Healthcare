@@ -20,6 +20,8 @@ namespace Online_Survey.Data
         public IQueryable<QuestionTable> QuestionOption();
         public IQueryable<TemplateDetail> Template(string id);
         public IQueryable<SurveyTable> GetAllSurveys();
+
+        public IQueryable<RespondentDetail> GetAllResponses();
         public IQueryable<TemplateQuestion> TemplateData();
         public int GetSurveyTables(int surveyId);
         public List<string> Check(string email,int surveyId);

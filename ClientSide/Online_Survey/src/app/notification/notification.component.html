@@ -1,0 +1,5 @@
+<div *ngIf="show" [ngClass]="'notification ' + color">
+    <span>{{ message }}</span>
+    <button (click)="closeNotification()">Close</button>
+  </div>
+  

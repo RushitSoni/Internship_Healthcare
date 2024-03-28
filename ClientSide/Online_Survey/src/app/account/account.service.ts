@@ -228,13 +228,13 @@ export class AccountService {
 
 
         
-          if(user.isLogged){
-            alert("Already Logged...")
-            return
-          }
-          this.globalService.Logged=true
+          // if(user.isLogged){
+          //   alert("Already Logged...")
+          //   return
+          // }
+          // this.globalService.Logged=true
           this.setUser(user);
-          this.updateIsLogged(user.id,1)
+          // this.updateIsLogged(user.id,1)
          
           
 
@@ -246,7 +246,7 @@ export class AccountService {
           });
   
           this.globalService.SurveyorId = this.userLoggedId;
-
+          this.notificatioService.displayNotification(`${user.firstName} ${user.lastName} Login SuccessFully !!`, 'green')
         }
       })
     )
