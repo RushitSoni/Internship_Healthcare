@@ -3,7 +3,7 @@ import { Answer, QuestionOption } from '../../shared/Models/Survey';
 import { RespondentserviceService } from '../respondentservice.service';
 import { Observable } from 'rxjs';
 import { FormBuilder, FormGroup } from '@angular/forms';
-import { throws } from 'assert';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-fill',
@@ -18,7 +18,8 @@ export class FillComponent {
 
   constructor(
     private service: RespondentserviceService,
-    private formBuilder: FormBuilder
+    private formBuilder: FormBuilder,
+    private router : Router
   ) {
     this.form = this.formBuilder.group({});
   }
@@ -94,7 +95,7 @@ export class FillComponent {
     });
 
     this.service.addAnswer(this.answer).subscribe((data) => {
-      console.log(data);
+      this.router.navigate(['respondent/:surveyid','complete']);
     });
   }
 }
