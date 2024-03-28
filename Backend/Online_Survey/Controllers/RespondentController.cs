@@ -7,6 +7,7 @@ using Online_Survey.Models;
 using System.Collections.Generic;
 using System;
 using System.Linq;
+using Microsoft.EntityFrameworkCore;
 
 namespace Online_Survey.Controllers
 {
@@ -117,24 +118,14 @@ namespace Online_Survey.Controllers
             TimeOnly startTime = (TimeOnly)surveyDetail.StartTime;
             TimeOnly endTime = (TimeOnly)surveyDetail.EndTime;
 
-            if(currentDate < startDate)
+            if(currentDate < startDate || (currentDate == startDate && currentTime < startTime))
             {
                 return Ok(1);
             }
-            else if(currentDate > endDate) {
+            else if(currentDate > endDate || (currentDate == endDate && currentTime > endTime)) {
                 return Ok(2);
             }
-            else
-            {
-                if (currentTime < startTime)
-                {
-                    return Ok(1);
-                }
-                else if (currentTime > endTime)
-                {
-                    return Ok(2);
-                }
-            }
+            
 
             return Ok(0);
         }
@@ -169,6 +160,45 @@ namespace Online_Survey.Controllers
                 return StatusCode(500, $"An error occurred while processing the request: {ex.Message}");
             }
 
+        }
+
+        [HttpGet("CheckAccess")]
+        public IActionResult GetSurveyAccess([FromQuery] int surveyId, [FromQuery] string Email)
+        {
+            var flag = _userRepository.Check(Email,surveyId);
+
+            Console.WriteLine(flag);
+
+            if(flag.Count == 0) {
+                return Ok(false);
+            }
+
+            return Ok(true);
+        }
+
+        [HttpGet("GetQuestionOption")]
+        public ActionResult GetQuestionwithOptions([FromQuery] int SurveyId)
+        {
+            var questionwithoptions = _userRepository.QuestionOption();
+
+            var result = questionwithoptions
+            .Where(q => q.SurveyId == SurveyId)
+            .Select(q => new
+            {
+                q.QuestionId,
+                q.QuestionText,
+                q.QuestionOptionType,
+                Options = q.OptionTables
+                .Where(o => o.QuestionId == q.QuestionId)
+                .Select(o => new
+                {
+                    o.OptionId,
+                    o.OptionText,
+
+                }).ToList()
+            }).ToList();
+
+            return Ok(result);
         }
     }
 

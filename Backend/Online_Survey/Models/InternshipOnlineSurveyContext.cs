@@ -13,7 +13,6 @@ public partial class InternshipOnlineSurveyContext : DbContext
         _configuration = config;
     }
 
-
     public virtual DbSet<Company> Companies { get; set; }
 
     public virtual DbSet<Department> Departments { get; set; }
@@ -47,7 +46,6 @@ public partial class InternshipOnlineSurveyContext : DbContext
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see https://go.microsoft.com/fwlink/?LinkId=723263.
         => optionsBuilder.UseSqlServer(_configuration.GetConnectionString("DefaultConnection"));
-
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         modelBuilder.Entity<Company>(entity =>
@@ -210,13 +208,6 @@ public partial class InternshipOnlineSurveyContext : DbContext
             entity.Property(e => e.Email)
                 .IsRequired()
                 .HasMaxLength(40);
-            entity.Property(e => e.Name)
-                .IsRequired()
-                .HasMaxLength(40);
-            entity.Property(e => e.PhoneNumber)
-                .IsRequired()
-                .HasMaxLength(40)
-                .HasColumnName("Phone_number");
         });
 
         modelBuilder.Entity<RespondentRecord>(entity =>
@@ -227,6 +218,10 @@ public partial class InternshipOnlineSurveyContext : DbContext
 
             entity.Property(e => e.RespondentId).HasColumnName("Respondent_id");
             entity.Property(e => e.SurveyId).HasColumnName("Survey_id");
+
+            entity.HasOne(d => d.Respondent).WithMany(p => p.RespondentRecords)
+                .HasForeignKey(d => d.RespondentId)
+                .HasConstraintName("FK__Responden__Respo__76818E95");
         });
 
         modelBuilder.Entity<SurveyTable>(entity =>
@@ -267,7 +262,9 @@ public partial class InternshipOnlineSurveyContext : DbContext
             entity.Property(e => e.UserId)
                 .IsRequired()
                 .HasMaxLength(450);
-
+            entity.Property(e => e.UserName)
+                .IsRequired()
+                .HasMaxLength(256);
 
             entity.HasOne(d => d.Company).WithMany(p => p.SurveyerDepts)
                 .HasForeignKey(d => d.CompanyId)
@@ -276,7 +273,7 @@ public partial class InternshipOnlineSurveyContext : DbContext
 
             entity.HasOne(d => d.Dept).WithMany(p => p.SurveyerDepts)
                 .HasForeignKey(d => d.DeptId)
-                .OnDelete(DeleteBehavior.Cascade)
+                .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("FK_Surveyer_Dept_DeptId");
         });
 

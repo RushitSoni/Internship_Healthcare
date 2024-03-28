@@ -11,5 +11,7 @@ public partial class RespondentRecord
 
     public int SurveyId { get; set; }
 
+    public virtual RespondentDetail Respondent { get; set; }
+
     public virtual ICollection<RespondentAnswer> RespondentAnswers { get; set; } = new List<RespondentAnswer>();
 }

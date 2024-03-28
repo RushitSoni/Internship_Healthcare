@@ -65,9 +65,7 @@ export interface SurveyTable{
 }
 
 export interface Respondent{
-    Name : string;
     Email: string;
-    PhoneNumber: string;
 }
 
 export interface Respondent_Record{
