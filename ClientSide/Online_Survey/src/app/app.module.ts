@@ -48,6 +48,7 @@ import { MySurveysComponent } from './my-surveys/my-surveys.component';
 
 import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatInputModule} from '@angular/material/input';
+import { NotificationComponent } from './notification/notification.component';
 
 
 
@@ -70,6 +71,7 @@ import {MatInputModule} from '@angular/material/input';
     TableComponent,
     GraphsComponent,
     MySurveysComponent,
+    NotificationComponent,
 
    
   ],
