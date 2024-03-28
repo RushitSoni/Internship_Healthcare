@@ -57,6 +57,11 @@ namespace Online_Survey.Data
             return _ef.SurveyTables;
         }
 
+        int IUserRepository.GetSurveyTables(int surveyId)
+        {
+            return _ef.SurveyTables.FirstOrDefault(r => r.SurveyId == surveyId).Count;
+        }
+
         List<string> IUserRepository.Check(string email,int surveyId)
         {
             return (from rd in _ef.RespondentDetails

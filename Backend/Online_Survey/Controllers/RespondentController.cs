@@ -165,15 +165,23 @@ namespace Online_Survey.Controllers
         [HttpGet("CheckAccess")]
         public IActionResult GetSurveyAccess([FromQuery] int surveyId, [FromQuery] string Email)
         {
-            var flag = _userRepository.Check(Email,surveyId);
+            int surveyaccess = _userRepository.GetSurveyTables(surveyId);
 
-            Console.WriteLine(flag);
+            if(surveyaccess == 0)
+            {
+                var flag = _userRepository.Check(Email, surveyId);
 
-            if(flag.Count == 0) {
-                return Ok(false);
+                Console.WriteLine(flag);
+
+                if (flag.Count == 0)
+                {
+                    return Ok(false);
+                }
+
+                return Ok(true);
             }
 
-            return Ok(true);
+            return Ok(false);
         }
 
         [HttpGet("GetQuestionOption")]

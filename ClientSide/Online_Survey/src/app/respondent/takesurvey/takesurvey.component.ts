@@ -53,6 +53,7 @@ export class TakesurveyComponent implements OnInit {
         console.log(data);
         if(data == true)
         {
+          this.router.navigate(['respondent/:surveyid','complete']);
           reject();
         }
         else

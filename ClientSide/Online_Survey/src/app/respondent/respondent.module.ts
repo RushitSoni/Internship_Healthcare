@@ -4,11 +4,13 @@ import { RespondentRoutingModule } from './respondent-routing.module';
 import { TakesurveyComponent } from './takesurvey/takesurvey.component';
 import { FillComponent } from './fill/fill.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { CompleteComponent } from './complete/complete.component';
 
 @NgModule({
   declarations: [
     TakesurveyComponent,
-    FillComponent
+    FillComponent,
+    CompleteComponent
   ],
   imports: [
     CommonModule,
