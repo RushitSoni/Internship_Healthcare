@@ -64,7 +64,7 @@
 <p-sidebar #sidebarRef [(visible)]="sidebarVisible">
     <div class="input">
       <a class="value"  
-      ><a class="folder icon" title="Folder" href="#"></a> Dashboard</a>
+      [routerLink]="['/admin']" ><a class="folder icon" title="Folder"  ></a> Dashboard</a>
       <a class="value" [routerLink]="['/admin/charts']"><a class="chart icon" title="Chart" ></a> Charts</a>
       <div class="profile-button">
         <a class="value">

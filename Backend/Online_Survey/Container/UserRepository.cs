@@ -57,6 +57,7 @@ namespace Online_Survey.Data
             return _ef.SurveyTables;
         }
 
+
         List<string> IUserRepository.Check(string email,int surveyId)
         {
             return (from rd in _ef.RespondentDetails
@@ -64,6 +65,13 @@ namespace Online_Survey.Data
                            where rd.Email == email && rr.SurveyId == surveyId
                            select rd.Email).ToList();
         }
+
+        IQueryable<RespondentDetail> IUserRepository.GetAllResponses()
+        {
+            return _ef.RespondentDetails;
+        }
+
+
 
         Task<List<ResponseViaSurveyId>> IUserRepository.GetSurveyResponseBySurveyId(int surveyId)
         {
