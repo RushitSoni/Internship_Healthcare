@@ -42,17 +42,17 @@
               <span
                 style="font-weight: bolder"
                 [ngClass]="{
-                  active: surveyStatus === 1,
+                  pending: surveyStatus === 1,
                   expired: surveyStatus === 2,
-                  ongoing: surveyStatus === 0
+                  active: surveyStatus === 0
                 }"
               >
                 {{
                   surveyStatus === 1
-                    ? "Active"
+                    ? "Will Be Start"
                     : surveyStatus === 2
                     ? "Expired"
-                    : "Ongoing"
+                    : "Active"
                 }}</span
               >
             </p>
