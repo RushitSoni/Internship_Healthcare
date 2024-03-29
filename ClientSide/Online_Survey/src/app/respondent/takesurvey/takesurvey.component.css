@@ -12,7 +12,7 @@
   }
 
   .full-width {
-    width: calc(100%-20); /* Make the input field fill the available space */
+    width: 100%; /* Make the input field fill the available space */
   }
   
   .button-container {

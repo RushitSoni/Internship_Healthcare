@@ -1,29 +1,29 @@
-<div class="create-content">
-  <form [formGroup]="form" class="form-group" mat-dialog-content>
-    <div *ngFor="let question of fillData; let i = index">
-      <label>{{i+1}}. {{question.questionText}}</label>
+<div class="create-content" *ngIf="fillData != undefined">
+  <form [formGroup]="form"  class="form-group" mat-dialog-content>
+      <div *ngFor="let question of fillData; let i = index">
 
-      <div *ngIf="question.questionOptionType == 1" class="question-div">
-        <mat-radio-group aria-label="Select an option" [formControlName]="question.questionId.toString()">
-          <mat-radio-button *ngFor="let option of question.options" [value]="option.optionId">{{option.optionText}}</mat-radio-button>
-        </mat-radio-group>
-      </div>
+        <label>{{i+1}}. {{question.questionText}}</label>
+        <div *ngIf="question.questionOptionType == 3">
+          <mat-form-field appearence="fill">
+          <input matInput placeholder="" [formControlName]="question.questionId.toString()" required>  
+          </mat-form-field>
+        </div>
+        <div *ngIf="question.questionOptionType == 1" class="question-div">
+          <mat-radio-group  [formControlName]="question.questionId.toString()">
+            <div *ngFor="let option of question.options" class="radio-flex">
+              <mat-radio-button value="{{option.optionId}}">{{option.optionText}}</mat-radio-button>
+            </div>
+          </mat-radio-group>
+        </div>
 
-     
-      <div *ngIf="question.questionOptionType == 2" class="question-div">
-        <div [formGroupName]="question.questionId.toString()">
-          <div *ngFor="let option of question.options">
-            <mat-checkbox [formControlName]="option.optionId">{{option.optionText}}</mat-checkbox>
+        <div *ngIf="question.questionOptionType == 2" class="question-div">
+          <div [formGroupName]="question.questionId.toString()">
+            <div *ngFor="let option of question.options">
+              <mat-checkbox [formControlName]="option.optionId" class="example-margin">{{option.optionText}}</mat-checkbox>
+            </div>
           </div>
         </div>
-      </div>
-
-      <div *ngIf="question.questionOptionType == 3">
-        <mat-form-field appearance="fill">
-          <input matInput placeholder="" [formControlName]="question.questionId.toString()" required>
-        </mat-form-field>
-      </div>
-    </div>
+      </div>    
   </form>
   <button mat-raised-button color="primary" class="btn btn-secondary mx-2 my-1" style="background-color: #1e90ff;color:white" (click)="OnSubmit()">Submit</button>
 </div>
