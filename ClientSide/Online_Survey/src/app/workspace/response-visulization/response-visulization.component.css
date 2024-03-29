@@ -137,7 +137,7 @@ th {
   border-radius: 3px;
 }
 
-.content .ongoing {
+.content .pending {
  background-color: blue;
  color: white;
  padding: 0.75%;
