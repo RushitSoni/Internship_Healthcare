@@ -52,6 +52,7 @@ export class SettimeComponent implements OnInit{
           surveyorId : this.globalservice.SurveyorId!,
           SurveyName : this.formData.get('surveyname')?.value,
           Description : this.formData.get('description')?.value,
+          dateCreated:'',
           StartDate : String(this.formData.get('selectedStartDate')!.value),
           EndDate : String(this.formData.get('selectedEndDate')!.value),
           startTime : String(this.formData.get('selectedTime')!.value),

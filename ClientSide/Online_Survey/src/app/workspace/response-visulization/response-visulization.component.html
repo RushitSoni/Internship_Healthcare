@@ -152,7 +152,7 @@
               <th mat-header-cell *matHeaderCellDef mat-sort-header>
                 Respondent
               </th>
-              <td mat-cell *matCellDef="let row">{{ row.respondentId }}</td>
+              <td mat-cell *matCellDef="let row">{{ getEmailByRespondentDetailId(row.respondentId)  }}</td>
             </ng-container>
 
             <!-- Action Column -->
