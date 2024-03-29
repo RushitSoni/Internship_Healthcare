@@ -3,7 +3,7 @@ import { Component, OnInit, ViewChild} from '@angular/core';
 import { Color, LegendPosition,  ScaleType } from '@swimlane/ngx-charts';
 import { WorkspaceService } from '../workspace.service';
 import { QuestionDTO, ResponseViaSurveyId } from '../../shared/Models/ResponseViaSurveyId';
-import { Question } from '../../shared/Models/Survey';
+import { Question, Respondent } from '../../shared/Models/Survey';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
@@ -28,6 +28,8 @@ export class ResponseVisulizationComponent implements OnInit{
   surveyId!:number
   surveyName!:string
   response!:ResponseViaSurveyId[]
+
+  allResponseDetails!:any[]
 
 
   questions:QuestionDTO[]=[]
@@ -98,6 +100,7 @@ export class ResponseVisulizationComponent implements OnInit{
   ngOnInit(): void {
     this.getResponseData()
     this.checkSurveyStatus(this.surveyId)
+    this.loadAllResponses()
 
     this.url = this.globalService.FrontendUrl + '/respondent/' + this.surveyId;
 
@@ -309,7 +312,7 @@ this.newData=newDataArray
 
    this.response.forEach(responseItem => {
     
-     const respondentData: { [key: string]: any } = { respondentId: responseItem.respondentId };
+     const respondentData: { [key: string]: any } = { respondentId: this.getEmailByRespondentDetailId(responseItem.respondentId) };
    
      // Iterate over the question list for each response
      responseItem.questionList.forEach(question => {
@@ -356,5 +359,20 @@ this.newData=newDataArray
 
   close(){
     this.dialogRef.close('saved');
+  }
+
+
+  loadAllResponses(){
+    this.workspaceService.getAllResponses().subscribe((res)=>{
+
+      this.allResponseDetails=res
+      console.log("All res", this.allResponseDetails)
+
+    })
+  }
+  getEmailByRespondentDetailId(id: number): string | null {
+    const record = this.allResponseDetails.find(item => item.id === 6);
+   
+    return record ? record.email : null;
   }
 }

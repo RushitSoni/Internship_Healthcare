@@ -56,6 +56,7 @@ export interface SurveyTable{
     SurveyName : string;
     surveyorId : string;
     Description : string;
+    dateCreated:string;
     StartDate : string;
     EndDate : string;
     startTime : string;
@@ -65,6 +66,7 @@ export interface SurveyTable{
 }
 
 export interface Respondent{
+    id:number
     Email: string;
 }
 

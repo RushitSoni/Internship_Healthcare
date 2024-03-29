@@ -68,6 +68,7 @@ export class TakesurveyComponent implements OnInit {
   {
     return new Promise<number>((resolve,reject) => {
       const respondent : Respondent = {
+        id:0,
         Email : this.email
       };
 
