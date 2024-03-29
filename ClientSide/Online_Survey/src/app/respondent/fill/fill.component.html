@@ -1,27 +1,27 @@
-<div class="create-content">
+<div class="create-content" *ngIf="fillData != undefined">
   <form [formGroup]="form"  class="form-group" mat-dialog-content>
-      <div *ngFor="let question of  fillData; let i = index">
+      <div *ngFor="let question of fillData; let i = index">
 
         <label>{{i+1}}. {{question.questionText}}</label>
-
+        <div *ngIf="question.questionOptionType == 3">
+          <mat-form-field appearence="fill">
+          <input matInput placeholder="" [formControlName]="question.questionId.toString()" required>  
+          </mat-form-field>
+        </div>
         <div *ngIf="question.questionOptionType == 1" class="question-div">
-          <div mat-radio-group aria-label="Select an option" *ngFor="let option of question.options" class="radio-flex">
-              <input mat-radio-button [value]="option.optionId" [formControlName]="question.questionId.toString()">{{option.optionText}}
-          </div>
+          <mat-radio-group  [formControlName]="question.questionId.toString()">
+            <div *ngFor="let option of question.options" class="radio-flex">
+              <mat-radio-button value="{{option.optionId}}">{{option.optionText}}</mat-radio-button>
+            </div>
+          </mat-radio-group>
         </div>
 
         <div *ngIf="question.questionOptionType == 2" class="question-div">
           <div [formGroupName]="question.questionId.toString()">
             <div *ngFor="let option of question.options">
-              <input mat-checkbox [formControlName]="option.optionId" class="example-margin">{{option.optionText}}
+              <mat-checkbox [formControlName]="option.optionId" class="example-margin">{{option.optionText}}</mat-checkbox>
             </div>
           </div>
-        </div>
-
-        <div *ngIf="question.questionOptionType == 3">
-          <mat-form-field appearence="fill">
-          <input matInput placeholder="" [formControlName]="question.questionId.toString()" required>  
-          </mat-form-field>
         </div>
       </div>    
   </form>
