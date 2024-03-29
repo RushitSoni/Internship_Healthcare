@@ -373,6 +373,8 @@ this.newData=newDataArray
   getEmailByRespondentDetailId(id: number): string | null {
     const record = this.allResponseDetails.find(item => item.id === 6);
    
+    
+
     return record ? record.email : null;
   }
 }
