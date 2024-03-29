@@ -1,11 +1,14 @@
-<app-navbar></app-navbar>
-
-
-
-
-<div class="container " style="min-height: 500px;" >
-
-    <router-outlet></router-outlet>
-</div>
-
-<app-footer></app-footer>
+<ng-container *ngIf="showNavbarAndFooter">
+    <app-navbar></app-navbar>
+    <div class="container" style="min-height: 500px;">
+      <router-outlet></router-outlet>
+    </div>
+    <app-footer></app-footer>
+  </ng-container>
+  
+  <ng-container *ngIf="!showNavbarAndFooter">
+    <div class="container" style="min-height: 500px;">
+      <router-outlet></router-outlet>
+    </div>
+  </ng-container>
+  

@@ -4,6 +4,7 @@ import { DOCUMENT } from '@angular/common';
 import { GlobalserviceService } from '../globalservice/globalservice.service';
 import { PrimeNGConfig } from 'primeng/api';
 import { Subscription } from 'rxjs';
+import { NavigationEnd, Router } from '@angular/router';
 
 @Component({
   selector: 'app-root',
@@ -14,9 +15,23 @@ export class AppComponent implements OnInit {
 
   user: any; // Change 'any' to the type of your user object if known
   userSubscription: Subscription | undefined;
+  showNavbarAndFooter: boolean = true;
   
   constructor(private accountService : AccountService,@Inject(DOCUMENT) private document: any,private globalservice : GlobalserviceService,
-  private primengConfig: PrimeNGConfig){}
+  private primengConfig: PrimeNGConfig,
+  private router: Router){
+
+    this.router.events.subscribe(event => {
+      if (event instanceof NavigationEnd) {
+        this.showNavbarAndFooter = !event.url.includes('respondent');
+      }
+    });
+  }
+
+
+
+
+
 
 
   ngOnInit(): void {

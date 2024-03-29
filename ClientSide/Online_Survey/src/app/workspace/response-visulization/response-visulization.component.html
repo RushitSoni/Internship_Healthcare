@@ -141,9 +141,9 @@
 
     <ng-container *ngIf="selectedBlock === 3">
       <div class="table-company">
-        <mat-form-field style="color: #1e90ff">
+        <!-- <mat-form-field style="color: #1e90ff">
           <input matInput (keyup)="applyFilter($event)" placeholder="Search" />
-        </mat-form-field>
+        </mat-form-field> -->
 
         <div class="mat-elevation-z8">
           <table mat-table [dataSource]="dataSource" matSort>
@@ -173,7 +173,7 @@
             <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
           </table>
 
-          <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>
+          <!-- <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator> -->
         </div>
       </div>
     </ng-container>
