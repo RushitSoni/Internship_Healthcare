@@ -5,6 +5,12 @@ import { TakesurveyComponent } from './takesurvey/takesurvey.component';
 import { FillComponent } from './fill/fill.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CompleteComponent } from './complete/complete.component';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { MatRadioModule } from '@angular/material/radio';
+import { MatCheckboxModule } from '@angular/material/checkbox';
+import { MatButtonModule } from '@angular/material/button';
+import { MatCardModule } from '@angular/material/card';
 
 @NgModule({
   declarations: [
@@ -16,7 +22,13 @@ import { CompleteComponent } from './complete/complete.component';
     CommonModule,
     RespondentRoutingModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatRadioModule,
+    MatCheckboxModule,
+    MatButtonModule,
+    MatCardModule
   ]
 })
 
