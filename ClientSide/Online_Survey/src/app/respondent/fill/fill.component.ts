@@ -28,38 +28,37 @@ export class FillComponent {
     const data = this.service.getData() as Observable<QuestionOption[]>;
     data.subscribe((filldata) => {
       this.fillData = filldata;
-      this.CreateForm();
+      this.fillData.forEach((question) => {
+        if (question.questionOptionType == 1) {
+          // For radio button questions
+          console.log(question.questionId.toString());
+          this.form.addControl(
+            question.questionId.toString(),
+            this.formBuilder.control(null)
+          );
+        } else if (question.questionOptionType == 2) {
+          // For checkbox button questions
+          const optionsGroup = this.formBuilder.group({});
+          question.options.forEach((option) => {
+            optionsGroup.addControl(
+              option.optionId.toString(),
+              this.formBuilder.control(false)
+            );
+          });
+          this.form.addControl(question.questionId.toString(), optionsGroup);
+        } else if (question.questionOptionType == 3) {
+          // For text field questions
+          this.form.addControl(
+            question.questionId.toString(),
+            this.formBuilder.control('')
+          );
+        }
+      });
     });
   }
 
   CreateForm() {
-    console.log('hi');
-    this.fillData.forEach((question) => {
-      if (question.questionOptionType == 1) {
-        // For radio button questions
-        console.log(question.questionId.toString());
-        this.form.addControl(
-          question.questionId.toString(),
-          this.formBuilder.control(null)
-        );
-      } else if (question.questionOptionType == 2) {
-        // For checkbox button questions
-        const optionsGroup = this.formBuilder.group({});
-        question.options.forEach((option) => {
-          optionsGroup.addControl(
-            option.optionId.toString(),
-            this.formBuilder.control(false)
-          );
-        });
-        this.form.addControl(question.questionId.toString(), optionsGroup);
-      } else if (question.questionOptionType == 3) {
-        // For text field questions
-        this.form.addControl(
-          question.questionId.toString(),
-          this.formBuilder.control('')
-        );
-      }
-    });
+    
   }
 
   addList(list : number) : number[]
