@@ -64,6 +64,7 @@ export class DepartmentComponent implements OnInit {
   loadDepartments(companyId: string, userId: string): void {
     const companyIdNumber: number = Number(companyId); // Parse the companyId to a number if necessary
   
+    console.log(companyId,userId);
     // Fetch all SurveyerViaDept entries for the given user and company
     this.workspaceService.getAllSurveyerDepts().subscribe(
       (surveyers: SurveyerViaDept[]) => {
@@ -72,6 +73,7 @@ export class DepartmentComponent implements OnInit {
           .filter(surveyer => surveyer.companyId === companyIdNumber && surveyer.userId === userId)
           .map(surveyer => surveyer.deptId);
   
+        console.log(departmentIds);
         // Fetch all departments and filter based on department IDs
         this.workspaceService.getAllDepartments().subscribe(
           (data: Department[]) => {

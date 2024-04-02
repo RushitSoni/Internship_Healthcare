@@ -365,16 +365,15 @@ this.newData=newDataArray
   loadAllResponses(){
     this.workspaceService.getAllResponses().subscribe((res)=>{
 
-      this.allResponseDetails=res
-      console.log("All res", this.allResponseDetails)
+      this.allResponseDetails=res;
+      console.log("All res", this.allResponseDetails);
 
     })
   }
   getEmailByRespondentDetailId(id: number): string | null {
-    const record = this.allResponseDetails.find(item => item.id === 6);
+    const record = this.allResponseDetails.find(item => item.id === id);
    
-    
-
+    console.log(record);
     return record ? record.email : null;
   }
 }
