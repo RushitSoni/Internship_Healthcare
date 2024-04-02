@@ -13,6 +13,7 @@ public partial class InternshipOnlineSurveyContext : DbContext
         _configuration = config;
     }
 
+
     public virtual DbSet<Company> Companies { get; set; }
 
     public virtual DbSet<Department> Departments { get; set; }
@@ -46,6 +47,7 @@ public partial class InternshipOnlineSurveyContext : DbContext
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see https://go.microsoft.com/fwlink/?LinkId=723263.
         => optionsBuilder.UseSqlServer(_configuration.GetConnectionString("DefaultConnection"));
+
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         modelBuilder.Entity<Company>(entity =>
@@ -262,9 +264,6 @@ public partial class InternshipOnlineSurveyContext : DbContext
             entity.Property(e => e.UserId)
                 .IsRequired()
                 .HasMaxLength(450);
-            entity.Property(e => e.UserName)
-                .IsRequired()
-                .HasMaxLength(256);
 
             entity.HasOne(d => d.Company).WithMany(p => p.SurveyerDepts)
                 .HasForeignKey(d => d.CompanyId)

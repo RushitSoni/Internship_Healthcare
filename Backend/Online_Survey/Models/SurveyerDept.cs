@@ -11,8 +11,6 @@ public partial class SurveyerDept
 
     public string UserId { get; set; }
 
-    public string UserName { get; set; }
-
     public int CompanyId { get; set; }
 
     public virtual Company Company { get; set; }
