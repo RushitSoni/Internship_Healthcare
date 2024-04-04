@@ -3,6 +3,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Respondent, Respondent_Record } from '../../shared/Models/Survey';
 import { RespondentserviceService } from '../respondentservice.service';
 import { Observable } from 'rxjs';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-takesurvey',
@@ -20,7 +21,7 @@ export class TakesurveyComponent implements OnInit {
   respondentid! : number;
   availablitiy! : number;
 
-  constructor(private route: ActivatedRoute,private router: Router,private service : RespondentserviceService)
+  constructor(private route: ActivatedRoute,private router: Router,private service : RespondentserviceService,private snackbar : MatSnackBar)
   {
 
   }
@@ -72,14 +73,24 @@ export class TakesurveyComponent implements OnInit {
         Email : this.email
       };
 
-      this.CheckDetails(respondent).then((result) => {
-        this.service.addRespondent(respondent).subscribe((data) => {
-          this.service.respondentid = data;
-          resolve(data);
-        });  
-      }).catch((err) => {
-        
-      });
+      if(respondent.Email != undefined && this.CheckEmail(respondent.Email))
+      {
+        this.CheckDetails(respondent).then((result) => {
+          this.service.addRespondent(respondent).subscribe((data) => {
+            this.service.respondentid = data;
+            resolve(data);
+          });  
+        }).catch((err) => {
+          
+        });
+      }
+      else
+      {
+        this.snackbar.open("Please Enter proper Email!",'X',{
+          duration : 2000
+        });
+        reject();
+      }
     });
   }
 
@@ -109,6 +120,12 @@ export class TakesurveyComponent implements OnInit {
     }).catch((err) => {
       console.log(err);
     });
+  }
+
+  CheckEmail(email : string) : boolean
+  {
+    const emailRegex: RegExp = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return emailRegex.test(email);
   }
 
 }
