@@ -63,8 +63,8 @@ export class GenerateSurveyComponent implements OnInit {
 
   openDialog(): void {
     const dialogRef = this.dialog.open(SettimeComponent, {
-      width: '50%',
-      disableClose: true
+        width: '50%',
+        disableClose: true
     });
     
     dialogRef.componentInstance.departmentId=Number(this.departmentId)
