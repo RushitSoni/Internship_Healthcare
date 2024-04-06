@@ -13,30 +13,73 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 })
 
 export class FillComponent {
-  answer : Answer[] = [];
+  answer: Answer[] = [];
   fillData: QuestionOption[] = [];
-  form: FormGroup; 
+  form: FormGroup;
 
   constructor(
     private service: RespondentserviceService,
     private formBuilder: FormBuilder,
-    private router : Router,
-    private snackbar : MatSnackBar
+    private router: Router,
+    private snackbar: MatSnackBar
   ) {
     this.form = this.formBuilder.group({});
   }
 
   ngOnInit() {
     const data = this.service.getData() as Observable<QuestionOption[]>;
+    this.fillData = [
+      {
+        questionId: 1,
+        questionText: 'Question 1',
+        questionOptionType: 3,
+        options: []
+      },
+      {
+        questionId: 2,
+        questionText: 'Question 2',
+        questionOptionType: 2,
+        options: [
+          {
+            optionId: 1,
+            optionText: 'Option 1'
+          },
+          { optionId: 2, optionText: 'Option 2' }]
+      },
+      { questionId: 3, questionText: 'Question 3', questionOptionType: 3, options: [] },
+      {
+        questionId: 4,
+        questionText: 'Question 4',
+        questionOptionType: 3,
+        options: []
+      },
+      {
+        questionId: 5,
+        questionText: 'Question 5',
+        questionOptionType: 1,
+        options: [
+          {
+            optionId: 3,
+            optionText: 'Option 3'
+          },
+          { optionId: 4, optionText: 'Option 4' }
+        ]
+      },
+      {
+        questionId: 6,
+        questionText: 'Question 6',
+        questionOptionType: 3,
+        options: []
+      }
+    ];
     data.subscribe((filldata) => {
-      this.fillData = filldata;
       this.fillData.forEach((question) => {
         if (question.questionOptionType == 1) {
           // For radio button questions
           console.log(question.questionId.toString());
           this.form.addControl(
             question.questionId.toString(),
-            this.formBuilder.control(null,Validators.required)
+            this.formBuilder.control(null, Validators.required)
           );
         } else if (question.questionOptionType == 2) {
           // For checkbox button questions
@@ -54,28 +97,25 @@ export class FillComponent {
           // For text field questions
           this.form.addControl(
             question.questionId.toString(),
-            this.formBuilder.control('',Validators.required)
+            this.formBuilder.control('', Validators.required)
           );
         }
       });
     });
   }
 
-  addList(list : number) : number[]
-  {
-    const list2 : number[] = [];
-    
+  addList(list: number): number[] {
+    const list2: number[] = [];
+
     list2.push(list);
-    
+
     return list2;
   }
 
-  addDict(list : any) : number[]
-  {
-    const list2 : number[] = [];
+  addDict(list: any): number[] {
+    const list2: number[] = [];
     Object.keys(list).forEach(key => {
-      if(list[key] == true)
-      {
+      if (list[key] == true) {
         list2.push(Number(key));
       }
     })
@@ -83,26 +123,24 @@ export class FillComponent {
   }
 
   OnSubmit() {
-    if(this.form.valid)
-    {
+    if (this.form.valid) {
       this.fillData.forEach((question) => {
-        const data : Answer = {
-          Id : Number(localStorage.getItem('primaryId')),
-          QuestionId : Number(question.questionId),
-          OptionId : question.questionOptionType == 1 ? this.addList(this.form.get(question.questionId.toString())?.value) : question.questionOptionType == 2 ?  this.addDict(this.form.get(question.questionId.toString())?.value) : [],
-          AnswerText : question.questionOptionType == 3 ? String(this.form.get(question.questionId.toString())?.value) :  "" 
+        const data: Answer = {
+          Id: Number(localStorage.getItem('primaryId')),
+          QuestionId: Number(question.questionId),
+          OptionId: question.questionOptionType == 1 ? this.addList(this.form.get(question.questionId.toString())?.value) : question.questionOptionType == 2 ? this.addDict(this.form.get(question.questionId.toString())?.value) : [],
+          AnswerText: question.questionOptionType == 3 ? String(this.form.get(question.questionId.toString())?.value) : ""
         }
         this.answer.push(data);
       });
-  
+
       this.service.addAnswer(this.answer).subscribe((data) => {
-        this.router.navigate(['respondent/:surveyid','complete']);
+        this.router.navigate(['respondent/:surveyid', 'complete']);
       });
     }
-    else
-    {
-      this.snackbar.open("Some Fields are Empty!",'X',{
-        duration : 2000
+    else {
+      this.snackbar.open("Some Fields are Empty!", 'X', {
+        duration: 2000
       });
     }
   }
