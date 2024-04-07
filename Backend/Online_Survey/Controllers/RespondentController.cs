@@ -208,6 +208,15 @@ namespace Online_Survey.Controllers
 
             return Ok(result);
         }
+
+        [HttpGet("Description")]
+        public IActionResult GetDescription([FromQuery] int surveyId)
+        {
+
+            string description = _userRepository.GetDescription(surveyId);
+
+            return Ok(new { Description = description });
+        }
     }
 
 }

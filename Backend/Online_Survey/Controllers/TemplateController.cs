@@ -29,6 +29,7 @@ namespace Online_Survey.Controllers
             return Ok(data);
         }
 
+        
         [HttpGet("TemplateData")]
         public ActionResult GetTData([FromQuery] int templateId)
         {
