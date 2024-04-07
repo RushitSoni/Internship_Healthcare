@@ -116,8 +116,6 @@ export class TakesurveyComponent implements OnInit {
             disableClose: true
           });
 
-          dialogRef.componentInstance.surveyId=Number(this.service.surveyid);
-          
           dialogRef.afterClosed().subscribe((result) => {
             this.router.navigate(['respondent/:surveyid', 'fill']);
           });
