@@ -1,9 +1,7 @@
-.upper-class{
-    margin: 5%;
-    display: flex;
-}
-
-button{
-    margin-top: 2%;
-    width: 100px;
+.custom-btn{
+    background-color: #1e90ff;
+    color: white;
+    width: 138px;
+    height: 50px;
+    margin: 10px;
 }
