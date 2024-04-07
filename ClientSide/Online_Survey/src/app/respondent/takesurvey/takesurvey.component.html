@@ -1,27 +1,30 @@
-
-<div *ngIf="availablitiy == 0" class="card">
-    <mat-card>
-        <mat-card-content>
-            <mat-form-field appearance="fill" class="full-width">
-                <mat-label>Email:</mat-label>
-                <input matInput type="text" [(ngModel)]="email" required>
-            </mat-form-field>
-            <br>
-            <div class="button-conatiner">
-                <button mat-raised-button color="primary" (click)="TakeSurvey()">Take Survey</button>
-            </div>
-        </mat-card-content>
-      </mat-card>
-</div>
-<div *ngIf="availablitiy == 1" class="card">
-    <mat-card>
-        <mat-card-content>
-          <label>Survey Not Started Yet.</label>
-        </mat-card-content>
-    </mat-card>
-</div>
-<div *ngIf="availablitiy == 2" class="survey-closed-container">
-    <div class="message-box">
-          <label>Survey Finished. No More Responses can be taken.</label>
+<div class="outer">
+    <div *ngIf="availablitiy == 0" class="card">
+        <mat-card>
+            <mat-card-content>
+                <mat-form-field appearance="fill" class="full-width">
+                    <mat-label>Email:</mat-label>
+                    <input matInput type="text" [(ngModel)]="email" required>
+                </mat-form-field>
+                <br>
+                <div class="button-conatiner">
+                    <button mat-raised-button color="primary" (click)="TakeSurvey()">Take Survey</button>
+                </div>
+            </mat-card-content>
+        </mat-card>
+    </div>
+    <div *ngIf="availablitiy == 1" class="not-started card">
+        <mat-card>
+            <mat-card-content>
+            <label>Survey Not Started Yet.</label>
+            </mat-card-content>
+        </mat-card>
+    </div>
+    <div *ngIf="availablitiy == 2" class="not-started card">
+        <mat-card>
+            <mat-card-content>
+            <label>Survey Finished. No More Responses can be taken.</label>
+            </mat-card-content>
+        </mat-card>
     </div>
 </div>
