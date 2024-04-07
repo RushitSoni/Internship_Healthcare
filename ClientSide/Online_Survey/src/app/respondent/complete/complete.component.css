@@ -1,0 +1,17 @@
+.card {
+    width: 100%;
+    max-width: 800px;
+    display: flex;
+    color: #ffffff;
+  }
+.outer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 70vh;
+    min-width: 237px;
+    background-color: #ffffff;
+  }
+  .not-started .mat-mdc-card {
+    background-color: #34c3eb;
+  }
