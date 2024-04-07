@@ -40,6 +40,6 @@
         [questionNumber]="i + 1" (editClicked)="editQuestion(i)" (deleteClicked)="onDeleteQuestion($event)">
 </app-display>
 <div class="button" *ngIf="question_list.length != 0">
-    <button mat-button (click)="OnComplete()"  class="center">Survey_Completed</button>
+    <button mat-button (click)="OnComplete()"  class="center">Generate Survey</button>
 </div>
 </div>
