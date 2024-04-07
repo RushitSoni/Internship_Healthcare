@@ -11,18 +11,20 @@
                     <button mat-raised-button color="primary" (click)="TakeSurvey()">Take Survey</button>
                 </div>
             </mat-card-content>
-          </mat-card>
+        </mat-card>
     </div>
-    <div *ngIf="availablitiy == 1" class="card">
+    <div *ngIf="availablitiy == 1" class="not-started card">
         <mat-card>
             <mat-card-content>
-              <label>Survey Not Started Yet.</label>
+                <label>Survey Not Started Yet.</label>
             </mat-card-content>
         </mat-card>
     </div>
-    <div *ngIf="availablitiy == 2" class="survey-closed-container">
-        <div class="message-box">
-              <label>Survey Finished. No More Responses can be taken.</label>
-        </div>
+    <div *ngIf="availablitiy == 2" class="not-started card">
+        <mat-card>
+            <mat-card-content>
+                <label>Survey Finished. No More Responses can be taken.</label>
+            </mat-card-content>
+        </mat-card>
     </div>
 </div>

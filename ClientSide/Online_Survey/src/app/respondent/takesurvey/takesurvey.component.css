@@ -4,12 +4,17 @@
   align-items: center;
   height: 70vh;
   min-width: 237px;
+  background-color: #ffffff;
 }
 
 .card {
   width: 100%;
   max-width: 800px;
   display: flex;
+  color: #ffffff;
+}
+ .not-started .mat-mdc-card {
+  background-color: #34c3eb;
 }
 
 .full-width {
@@ -20,20 +25,4 @@
   margin-top: 20px;
   display: flex;
   justify-content: center;
-}
-
-.survey-closed-container {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100vh;
-  background-color: #34c3eb;
-}
-
-.message-box {
-  background-color: #ffffff;
-  padding: 20px;
-  border-radius: 10px;
-  text-align: center;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
