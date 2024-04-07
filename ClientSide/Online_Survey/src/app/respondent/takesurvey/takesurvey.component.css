@@ -1,57 +1,39 @@
-.card-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 70vh; /* Make the container full height */
+.outer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 70vh;
+  min-width: 237px;
 }
 
 .card {
-    width: 100%; /* Initial width */
-    margin: 10px;
-    display: flex;
-  }
+  width: 100%;
+  max-width: 800px;
+  display: flex;
+}
 
-  .full-width {
-    width: 100%; /* Make the input field fill the available space */
-  }
-  
-  .button-container {
-    margin-top: 20px; /* Adjust margin as needed */
-    display: flex;
-    justify-content: center;
-  }
-  
-  /* Adjust card size based on screen width */
-  @media screen and (max-width: 600px) {
-    .card {
-      width: 90%;
-    }
-  }
-  
-  @media screen and (min-width: 601px) {
-    .card {
-      width: 70%;
-    }
-  }
-  
-  @media screen and (min-width: 993px) {
-    .card {
-      width: 50%;
-    }
-  }
+.full-width {
+  width: 100%;
+}
 
-  .survey-closed-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-    background-color: #34c3eb; 
-  }
-  
-  .message-box {
-    background-color: #ffffff;
-    padding: 20px;
-    border-radius: 10px;
-    text-align: center;
-    box-shadow: 0 0 10px rgba(0,0,0,0.1);
-  }
+.button-container {
+  margin-top: 20px;
+  display: flex;
+  justify-content: center;
+}
+
+.survey-closed-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background-color: #34c3eb;
+}
+
+.message-box {
+  background-color: #ffffff;
+  padding: 20px;
+  border-radius: 10px;
+  text-align: center;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
