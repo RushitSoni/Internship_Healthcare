@@ -34,9 +34,7 @@
   display: flex;
   color: #ffffff;
 }
-  .not-started .mat-mdc-card {
-  background-color: #34c3eb;
-}
+
 
 .full-width {
   width: 100%;
@@ -46,4 +44,32 @@
   margin-top: 20px;
   display: flex;
   justify-content: center;
+  width: 100%;
+}
+
+.not-started-container {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  padding-top: 20px; /* Optional: Adjust top padding as needed */
+}
+
+
+.not-started {
+  width: 100%;
+}
+
+.card2{
+  background-color: #fff;
+  box-shadow: 1px 2px 4px rgba(0, 0, 0, 0.05);
+  border-radius: 8px;
+  height: 50%;
+}
+
+.mat-card {
+  width: 100%;
+}
+
+.mat-card-content {
+  padding: 16px;
 }

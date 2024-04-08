@@ -1,10 +1,14 @@
 <div class="title">
     <h2 mat-dialog-title>Description</h2>
 </div>
-<div mat-dialog-content style="width: 100%;">  
+<div mat-dialog-content style="width: 100%; padding: 2%;">  
     <div>
         <span>{{description}}</span>
-    </div>
-    <button mat-button style="width: 100%;" (click)="close()"><mat-icon>chevron_right</mat-icon>Next</button>  
+    </div>  
+</div>
+<div mat-dialog-actions style="width: 100%; position: absolute; padding: 2%; bottom: 0;">
+    <button mat-button style="width: 100%;" (click)="close()">
+        <mat-icon>chevron_right</mat-icon> Next
+    </button>  
 </div>
 
