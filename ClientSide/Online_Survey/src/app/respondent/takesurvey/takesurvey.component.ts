@@ -113,6 +113,7 @@ export class TakesurveyComponent implements OnInit {
         this.AddRecord().then((result) => {
           const dialogRef = this.matDialog.open(DescriptionComponent,{
             width: '50%',
+            height: '50%',
             disableClose: true
           });
 

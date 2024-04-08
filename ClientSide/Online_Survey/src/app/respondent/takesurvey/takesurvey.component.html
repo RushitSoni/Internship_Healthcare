@@ -1,5 +1,5 @@
-<div class="outer">
-    <div *ngIf="availablitiy == 0" class="card">
+<div class="outer" *ngIf="availablitiy == 0">
+    <div  class="card">
         <mat-card>
             <mat-card-content>
                 <mat-form-field appearance="fill" class="full-width">
@@ -8,22 +8,24 @@
                 </mat-form-field>
                 <br>
                 <div class="button-conatiner">
-                    <button mat-raised-button color="primary" (click)="TakeSurvey()">Take Survey</button>
+                    <button mat-raised-button style="background-color: #3f51b5; width: 100%;" (click)="TakeSurvey()">Take Survey</button>
                 </div>
             </mat-card-content>
         </mat-card>
     </div>
-    <div *ngIf="availablitiy == 1" class="not-started card">
+</div>
+<div class="not-started-container" *ngIf="availablitiy != 0">
+    <div *ngIf="availablitiy == 1" class="not-started card2">
         <mat-card>
             <mat-card-content>
-            <label>Survey Not Started Yet.</label>
+            <h1 style="color: green; text-align: center;">Survey Not Started Yet.</h1>
             </mat-card-content>
         </mat-card>
     </div>
-    <div *ngIf="availablitiy == 2" class="not-started card">
+    <div *ngIf="availablitiy == 2" class="not-started card2">
         <mat-card>
             <mat-card-content>
-            <label>Survey Finished. No More Responses can be taken.</label>
+            <h1 style="color: red; text-align: center;">Survey Finished. No More Responses can be taken.</h1>
             </mat-card-content>
         </mat-card>
     </div>
