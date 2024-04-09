@@ -30,6 +30,12 @@ export class RespondentserviceService {
     return this.http.get<number>(`${environment.appUrl}/Respondent/CheckDate`,{params});
   }
 
+  getDescription(surveyId : number)
+  {
+    var params = new HttpParams().set('surveyId',surveyId);
+    return this.http.get<any>(`${environment.appUrl}/Respondent/Description`,{params});
+  }
+
   getData()
   {
     if(this.surveyid !== undefined)

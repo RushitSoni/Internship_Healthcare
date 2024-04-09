@@ -222,6 +222,7 @@ export class AddQuestionComponent implements OnInit {
 
   Upload(): Promise<void> {
     return new Promise((resolve, reject) => {
+      console.log(this.question_list);
       this.service.addQuestionOption(this.question_list).subscribe((data) => {
         resolve();
         console.log('Done');
@@ -255,15 +256,13 @@ export class AddQuestionComponent implements OnInit {
 
   OnComplete() {
     try {
-      this.reset();
+      // this.reset();
       this.Upload()
         .then((result) => {
           this.snackbar.open("Successfull!",'X',{
             duration : 2000
           });
-          this.router.navigate(['create/generate', 'complete'], {
-            skipLocationChange: true,
-          });
+          this.router.navigate(['create/generate', 'complete']);
         })
         .catch((err) => {
           this.snackbar.open("Oops Failed to Upload Survey!",'X',{

@@ -32,12 +32,14 @@
         </div>
         <div class="buttons">
             <button mat-button *ngIf="!editingMode" (click)="reset()"  class="center">Next_Question</button>
-            <button mat-button *ngIf="editingMode" (click)="reset()" class="center">Update</button>
-            <button mat-button (click)="OnComplete()"  class="center">Survey_Completed</button>
+            <button mat-button *ngIf="editingMode" (click)="reset()" class="center">Update</button>  
         </div>
         </div>  
 </form>
 <app-display *ngFor="let questionPreview of question_list; let i = index" [question]="questionPreview"
         [questionNumber]="i + 1" (editClicked)="editQuestion(i)" (deleteClicked)="onDeleteQuestion($event)">
 </app-display>
+<div class="button" *ngIf="question_list.length != 0">
+    <button mat-button (click)="OnComplete()"  class="center">Generate Survey</button>
+</div>
 </div>

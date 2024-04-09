@@ -2,8 +2,9 @@ import { Component } from '@angular/core';
 import { Answer, QuestionOption } from '../../shared/Models/Survey';
 import { RespondentserviceService } from '../respondentservice.service';
 import { Observable } from 'rxjs';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { AbstractControl, FormBuilder, FormGroup, ValidationErrors, ValidatorFn, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-fill',
@@ -19,7 +20,8 @@ export class FillComponent {
   constructor(
     private service: RespondentserviceService,
     private formBuilder: FormBuilder,
-    private router : Router
+    private router : Router,
+    private snackbar : MatSnackBar
   ) {
     this.form = this.formBuilder.group({});
   }
@@ -34,10 +36,11 @@ export class FillComponent {
           console.log(question.questionId.toString());
           this.form.addControl(
             question.questionId.toString(),
-            this.formBuilder.control(null)
+            this.formBuilder.control(null,Validators.required)
           );
         } else if (question.questionOptionType == 2) {
           // For checkbox button questions
+          const checkboxValidator: ValidatorFn = this.atLeastOneCheckboxCheckedValidator();
           const optionsGroup = this.formBuilder.group({});
           question.options.forEach((option) => {
             optionsGroup.addControl(
@@ -45,20 +48,17 @@ export class FillComponent {
               this.formBuilder.control(false)
             );
           });
+          optionsGroup.setValidators(checkboxValidator);
           this.form.addControl(question.questionId.toString(), optionsGroup);
         } else if (question.questionOptionType == 3) {
           // For text field questions
           this.form.addControl(
             question.questionId.toString(),
-            this.formBuilder.control('')
+            this.formBuilder.control('',Validators.required)
           );
         }
       });
     });
-  }
-
-  CreateForm() {
-    
   }
 
   addList(list : number) : number[]
@@ -83,18 +83,35 @@ export class FillComponent {
   }
 
   OnSubmit() {
-    this.fillData.forEach((question) => {
-      const data : Answer = {
-        Id : Number(localStorage.getItem('primaryId')),
-        QuestionId : Number(question.questionId),
-        OptionId : question.questionOptionType == 1 ? this.addList(this.form.get(question.questionId.toString())?.value) : question.questionOptionType == 2 ?  this.addDict(this.form.get(question.questionId.toString())?.value) : [],
-        AnswerText : question.questionOptionType == 3 ? String(this.form.get(question.questionId.toString())?.value) :  "" 
-      }
-      this.answer.push(data);
-    });
+    if(this.form.valid)
+    {
+      this.fillData.forEach((question) => {
+        const data : Answer = {
+          Id : Number(localStorage.getItem('primaryId')),
+          QuestionId : Number(question.questionId),
+          OptionId : question.questionOptionType == 1 ? this.addList(this.form.get(question.questionId.toString())?.value) : question.questionOptionType == 2 ?  this.addDict(this.form.get(question.questionId.toString())?.value) : [],
+          AnswerText : question.questionOptionType == 3 ? String(this.form.get(question.questionId.toString())?.value) :  "" 
+        }
+        this.answer.push(data);
+      });
+  
+      this.service.addAnswer(this.answer).subscribe((data) => {
+        this.router.navigate(['respondent/:surveyid','complete']);
+      });
+    }
+    else
+    {
+      this.snackbar.open("Some Fields are Empty!",'X',{
+        duration : 2000
+      });
+    }
+  }
 
-    this.service.addAnswer(this.answer).subscribe((data) => {
-      this.router.navigate(['respondent/:surveyid','complete']);
-    });
+  private atLeastOneCheckboxCheckedValidator(): ValidatorFn {
+    return (control: AbstractControl): ValidationErrors | null => {
+      const checkboxes = Object.values(control.value);
+      const isChecked = checkboxes.some((value: any) => value);
+      return isChecked ? null : { 'atLeastOneCheckboxChecked': true };
+    };
   }
 }

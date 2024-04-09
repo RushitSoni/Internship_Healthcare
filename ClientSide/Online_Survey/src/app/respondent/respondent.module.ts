@@ -11,12 +11,15 @@ import { MatRadioModule } from '@angular/material/radio';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
+import { DescriptionComponent } from './description/description.component';
+import { MatIcon } from '@angular/material/icon';
 
 @NgModule({
   declarations: [
     TakesurveyComponent,
     FillComponent,
-    CompleteComponent
+    CompleteComponent,
+    DescriptionComponent
   ],
   imports: [
     CommonModule,
@@ -28,7 +31,8 @@ import { MatCardModule } from '@angular/material/card';
     MatRadioModule,
     MatCheckboxModule,
     MatButtonModule,
-    MatCardModule
+    MatCardModule,
+    MatIcon
   ]
 })
 
