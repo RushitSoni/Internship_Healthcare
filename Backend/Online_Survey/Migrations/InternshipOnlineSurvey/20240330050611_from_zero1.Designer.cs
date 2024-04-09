@@ -12,8 +12,8 @@ using Online_Survey.Models;
 namespace Online_Survey.Migrations.InternshipOnlineSurvey
 {
     [DbContext(typeof(InternshipOnlineSurveyContext))]
-    [Migration("20240328142440_responses")]
-    partial class responses
+    [Migration("20240330050611_from_zero1")]
+    partial class from_zero1
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -370,11 +370,6 @@ namespace Online_Survey.Migrations.InternshipOnlineSurvey
                         .HasMaxLength(450)
                         .HasColumnType("nvarchar(450)");
 
-                    b.Property<string>("UserName")
-                        .IsRequired()
-                        .HasMaxLength(256)
-                        .HasColumnType("nvarchar(256)");
-
                     b.HasKey("SurveyerDeptId");
 
                     b.HasIndex("CompanyId");
@@ -600,12 +595,14 @@ namespace Online_Survey.Migrations.InternshipOnlineSurvey
                     b.HasOne("Online_Survey.Models.Company", "Company")
                         .WithMany("SurveyerDepts")
                         .HasForeignKey("CompanyId")
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired()
                         .HasConstraintName("FK_Surveyer_Dept_CompanyId");
 
                     b.HasOne("Online_Survey.Models.Department", "Dept")
                         .WithMany("SurveyerDepts")
                         .HasForeignKey("DeptId")
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired()
                         .HasConstraintName("FK_Surveyer_Dept_DeptId");
 

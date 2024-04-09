@@ -5,25 +5,18 @@
 namespace Online_Survey.Migrations.InternshipOnlineSurvey
 {
     /// <inheritdoc />
-    public partial class ts : Migration
+    public partial class from_zero1 : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.AddColumn<byte[]>(
-                name: "Timestamp",
-                table: "Company",
-                type: "rowversion",
-                rowVersion: true,
-                nullable: true);
+
         }
 
         /// <inheritdoc />
         protected override void Down(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.DropColumn(
-                name: "Timestamp",
-                table: "Company");
+
         }
     }
 }
