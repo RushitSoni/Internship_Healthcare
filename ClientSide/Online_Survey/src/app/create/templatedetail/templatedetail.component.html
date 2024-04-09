@@ -1,11 +1,10 @@
-<h2 mat-dialog-title>Set Limits</h2>
-<div mat-dialog-content style="width: 100%;">
-    <div class="description_text">
-        <label>Your Survey Id:</label><br>
-        <span></span>
-    </div>
-    <div>
-        <label>Template name:</label>
-        <input type="text" matInput [(ngModel)]="templateName">
-    <button (click)="close()">Save Changes</button>
+<div class="title">
+    <h2 mat-dialog-title>Save as Template</h2>
+</div>
+<div mat-dialog-content style="width: 100%; margin-left: 5%;">
+    <label>Template name:</label>
+    <input type="text" matInput [(ngModel)]="templateName">
+</div>
+<div mat-dialog-actions style="width: 100%;">
+    <button mat-raised-button (click)="close()" style="width: 100%;">Save as Template</button>
 </div>

@@ -50,7 +50,6 @@ export class TemplateDisplayComponent implements OnInit , AfterViewInit {
 
   delete(templateId : number)
   {
-    console.log(templateId);
     this.service.deleteTemplate(templateId).subscribe((data) => {
       this.load();
     });
@@ -65,7 +64,7 @@ export class TemplateDisplayComponent implements OnInit , AfterViewInit {
   {
     const dialogRef = this.matDialog.open(TemplatepreviewComponent,{
       data : {templateId,templateName},
-      width: '100%',
+      width: '50%',
       height: '60%',
       disableClose: true
     });
