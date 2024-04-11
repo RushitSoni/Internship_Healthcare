@@ -12,8 +12,8 @@ using Online_Survey.Data;
 namespace Online_Survey.Migrations
 {
     [DbContext(typeof(Online_SurveyContext))]
-    [Migration("20240320135948_logged")]
-    partial class logged
+    [Migration("20240409044348_user")]
+    partial class user
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -187,9 +187,6 @@ namespace Online_Survey.Migrations
                     b.Property<string>("FirstName")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
-
-                    b.Property<bool>("IsLogged")
-                        .HasColumnType("bit");
 
                     b.Property<string>("LastName")
                         .IsRequired()

@@ -76,6 +76,7 @@ public partial class InternshipOnlineSurveyContext : DbContext
 
             entity.HasOne(d => d.Company).WithMany(p => p.Departments)
                 .HasForeignKey(d => d.CompanyId)
+                .OnDelete(DeleteBehavior.Cascade)
                 .HasConstraintName("FK_Department_Company");
         });
 
@@ -267,12 +268,12 @@ public partial class InternshipOnlineSurveyContext : DbContext
 
             entity.HasOne(d => d.Company).WithMany(p => p.SurveyerDepts)
                 .HasForeignKey(d => d.CompanyId)
-                .OnDelete(DeleteBehavior.ClientSetNull)
+                .OnDelete(DeleteBehavior.Cascade)
                 .HasConstraintName("FK_Surveyer_Dept_CompanyId");
 
             entity.HasOne(d => d.Dept).WithMany(p => p.SurveyerDepts)
                 .HasForeignKey(d => d.DeptId)
-                .OnDelete(DeleteBehavior.ClientSetNull)
+                .OnDelete(DeleteBehavior.Cascade)
                 .HasConstraintName("FK_Surveyer_Dept_DeptId");
         });
 

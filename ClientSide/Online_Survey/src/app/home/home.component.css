@@ -12,9 +12,10 @@
 }
 
 .home-content {
-  width: 80%;
+  min-width: 87.5%;
   padding: 20px;
   overflow: auto; /* Add overflow to the home-content to allow scrolling */
+  
 }
 
 h1 {
@@ -26,6 +27,8 @@ h1 {
   border-collapse: separate;
   border-spacing: 0 8px; /* Add spacing between rows */
   margin-top: 20px;
+  
+  
 }
 
 .mat-header-cell, .mat-cell {
@@ -67,6 +70,8 @@ a:hover {
   justify-content: space-between;
   margin-bottom: 20px;
   margin-top: 30px;
+  padding: 15px;
+  margin-left:3px
 }
 
 .dashboard-box {
@@ -75,20 +80,52 @@ a:hover {
   flex: 1;
   margin-right: 10px;
 }
+.dashboard-title{
+  font-weight: 800;
+  color: #3498db;
+}
+
 
 .dashboard-value {
   font-size: 24px;
-  color: #ffffff;
+  color: #3498db;
 }
 
 
 
 /* Background colors for dashboard boxes */
 .blue-box {
-  background-color: #4a90e2; /* Blue color */
+  border-radius: 10px;
+  box-shadow: 0 5px 10px rgba(23, 152, 207, 0.8);
+
+  background-color: white;
+  /* background-color:#3498db; */
+  /* color:#007bff */
+  /* background-color: #1e90ff; */
+
+  /* background-color: #4a90e2;  */
+}
+.blue-box:hover {
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(23, 152, 207, 0.65);
+
+  
+  background-color:#3498db;
+  /* color:#007bff */
+  /* background-color: #1e90ff; */
+
+  /* background-color: #4a90e2;  */
 }
 
+.blue-box:hover .dashboard-title,
+.blue-box:hover .dashboard-value {
+  color: white;
+}
+
+
 .green-box {
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
   background-color: #6ab344; /* Green color */
 }
 
@@ -98,4 +135,10 @@ a:hover {
 
 .purple-box {
   background-color: #8058a5; /* Purple color */
+}
+
+.activeSurveys{
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+  padding:20px;
 }

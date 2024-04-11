@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace Online_Survey.Migrations.InternshipOnlineSurvey
 {
     /// <inheritdoc />
-    public partial class _18_3 : Migration
+    public partial class final : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -31,27 +31,11 @@ namespace Online_Survey.Migrations.InternshipOnlineSurvey
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Name = table.Column<string>(type: "nvarchar(40)", maxLength: 40, nullable: false),
-                    Email = table.Column<string>(type: "nvarchar(40)", maxLength: 40, nullable: false),
-                    Phone_number = table.Column<string>(type: "nvarchar(40)", maxLength: 40, nullable: false)
+                    Email = table.Column<string>(type: "nvarchar(40)", maxLength: 40, nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK__Responde__3214EC07D5D5904C", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Respondent_Record",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Respondent_id = table.Column<int>(type: "int", nullable: false),
-                    Survey_id = table.Column<int>(type: "int", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK__Responde__3214EC07EB3BA6FE", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -118,6 +102,26 @@ namespace Online_Survey.Migrations.InternshipOnlineSurvey
                         column: x => x.company_id,
                         principalTable: "Company",
                         principalColumn: "CompanyId");
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Respondent_Record",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Respondent_id = table.Column<int>(type: "int", nullable: false),
+                    Survey_id = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK__Responde__3214EC07EB3BA6FE", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK__Responden__Respo__76818E95",
+                        column: x => x.Respondent_id,
+                        principalTable: "Respondent_Details",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -357,6 +361,11 @@ namespace Online_Survey.Migrations.InternshipOnlineSurvey
                 column: "Question_id");
 
             migrationBuilder.CreateIndex(
+                name: "IX_Respondent_Record_Respondent_id",
+                table: "Respondent_Record",
+                column: "Respondent_id");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Survey_table_deptId",
                 table: "Survey_table",
                 column: "deptId");
@@ -392,9 +401,6 @@ namespace Online_Survey.Migrations.InternshipOnlineSurvey
                 name: "Respondent_Answer");
 
             migrationBuilder.DropTable(
-                name: "Respondent_Details");
-
-            migrationBuilder.DropTable(
                 name: "Surveyer_Dept");
 
             migrationBuilder.DropTable(
@@ -417,6 +423,9 @@ namespace Online_Survey.Migrations.InternshipOnlineSurvey
 
             migrationBuilder.DropTable(
                 name: "Question_table");
+
+            migrationBuilder.DropTable(
+                name: "Respondent_Details");
 
             migrationBuilder.DropTable(
                 name: "Template_Details");

@@ -7,6 +7,6 @@ export interface User{
     jwt:string
     provider:string
     dateCreated: Date,
-    isLogged:number
+    
 
 }

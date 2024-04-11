@@ -67,14 +67,14 @@ namespace Online_Survey.Controllers
 
             if (flag==0)
             {
-                user.IsLogged =0;
+                //user.IsLogged =0;
             }
             else
             {
-                user.IsLogged = user.IsLogged + flag;
+                //user.IsLogged = user.IsLogged + flag;
             }
           
-            this._logger.LogInformation($"{user.IsLogged} {flag}");
+            //this._logger.LogInformation($"{user.IsLogged} {flag}");
            
 
             // Save the changes to the database
@@ -162,7 +162,7 @@ namespace Online_Survey.Controllers
                 Email = model.Email.ToLower(),
                 Role="user",
                 Provider="Normal",
-                IsLogged=0
+                //IsLogged=0
 
             };
 
@@ -404,7 +404,7 @@ namespace Online_Survey.Controllers
                 Email = model.Email.ToLower(), // Store email address
                 Provider = model.Provider,
                 Role="user",
-                IsLogged=0
+               // IsLogged=0
             };
 
             var result = await _userManager.CreateAsync(userToAdd);
@@ -453,7 +453,7 @@ namespace Online_Survey.Controllers
                 JWT =  _jwtService.CreateJWT(user),
                 Provider = user.Provider,
                 DateCreated=user.DateCreated,
-                IsLogged=user.IsLogged,
+                //IsLogged=user.IsLogged,
 
             };
         }

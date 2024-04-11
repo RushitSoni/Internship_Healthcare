@@ -22,6 +22,6 @@ public class Online_SurveyUser : IdentityUser
 
     public string Role { get; set; }
 
-    public int IsLogged { get; set; }
+    
 }
 
