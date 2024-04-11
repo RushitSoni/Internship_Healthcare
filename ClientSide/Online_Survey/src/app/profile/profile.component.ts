@@ -88,7 +88,7 @@ export class ProfileComponent  implements OnInit{
       jwt:this.user.jwt,
       provider:this.user.provider,
       dateCreated: this.user.dateCreated,
-      isLogged:this.user.isLogged
+      //isLogged:this.user.isLogged
 
     };
 

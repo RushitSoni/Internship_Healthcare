@@ -12,8 +12,8 @@ using Online_Survey.Models;
 namespace Online_Survey.Migrations.InternshipOnlineSurvey
 {
     [DbContext(typeof(InternshipOnlineSurveyContext))]
-    [Migration("20240330045704_from_zero")]
-    partial class from_zero
+    [Migration("20240409044620_final")]
+    partial class final
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -602,6 +602,7 @@ namespace Online_Survey.Migrations.InternshipOnlineSurvey
                     b.HasOne("Online_Survey.Models.Department", "Dept")
                         .WithMany("SurveyerDepts")
                         .HasForeignKey("DeptId")
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired()
                         .HasConstraintName("FK_Surveyer_Dept_DeptId");
 

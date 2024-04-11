@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace Online_Survey.Migrations.InternshipOnlineSurvey
 {
     /// <inheritdoc />
-    public partial class from_zero : Migration
+    public partial class final : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -189,13 +189,13 @@ namespace Online_Survey.Migrations.InternshipOnlineSurvey
                         name: "FK_Surveyer_Dept_CompanyId",
                         column: x => x.CompanyId,
                         principalTable: "Company",
-                        principalColumn: "CompanyId",
-                        onDelete: ReferentialAction.Cascade);
+                        principalColumn: "CompanyId");
                     table.ForeignKey(
                         name: "FK_Surveyer_Dept_DeptId",
                         column: x => x.DeptId,
                         principalTable: "Department",
-                        principalColumn: "DepartmentId");
+                        principalColumn: "DepartmentId",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
