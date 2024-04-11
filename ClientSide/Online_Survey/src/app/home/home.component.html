@@ -2,40 +2,64 @@
   <app-sidebar></app-sidebar>
   <div class="home-content">
     <div class="dashboard-container">
-    <div class="dashboard-box blue-box">
-      <div class="dashboard-title">Total Surveys</div>
-      <div class="dashboard-value">{{totalSurveys}}</div>
+      <div class="dashboard-box blue-box">
+        <div class="dashboard-title">Total Surveys Generated</div>
+        <div class="dashboard-value">{{ totalSurveys }}</div>
+      </div>
+      <div class="dashboard-box blue-box">
+        <div class="dashboard-title">Total Companies Created</div>
+        <div class="dashboard-value">{{ totalCompany }}</div>
+      </div>
     </div>
-    <div class="dashboard-box green-box">
-      <div class="dashboard-title">Total Companys</div>
-      <div class="dashboard-value">{{totalCompany}}</div>
-    </div>
-    </div>
-    <!-- user ID : {{this.userLoggedId}} --><div class="container">
-  <mat-table class="mat-elevation-z8" [dataSource]="surveys">
-    <ng-container matColumnDef="name">
-      <mat-header-cell style="background-color: aqua;" *matHeaderCellDef> Survey Name </mat-header-cell>
-      <mat-cell *matCellDef="let survey"> {{ survey.SurveyName }} </mat-cell>
-    </ng-container>
-    <ng-container matColumnDef="status">
-      <mat-header-cell   style="background-color: aqua;" *matHeaderCellDef> Status </mat-header-cell>
-      <mat-cell *matCellDef="let survey"> {{ survey.status }} </mat-cell>
-    </ng-container>
-    <ng-container matColumnDef="responses">
-      <mat-header-cell style="background-color: aqua;" *matHeaderCellDef> Responses </mat-header-cell>
-      <mat-cell *matCellDef="let survey"> {{ survey.Count }} </mat-cell>
-    </ng-container>
-    <ng-container matColumnDef="view">
-      <mat-header-cell style="background-color: aqua;" *matHeaderCellDef> View </mat-header-cell>
-      <mat-cell *matCellDef="let survey">
-        <a [routerLink]="['/survey', survey.id]">View</a>
-      </mat-cell>
-    </ng-container>
-    
-    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
-    <mat-row *matRowDef="let row; columns: displayedColumns;" [style.backgroundColor]="row.even ? 'aqua' : 'inherit'"></mat-row>
-  </mat-table>
-</div>
 
+    <div class="activeSurveys">
+
+      <h3 style="color: #007bff;">Active Surveys : </h3>
+    
+    <div class="mat-elevation-z8">
+      <mat-table [dataSource]="activeSurveys" matSort>
+
+        <!-- Define your columns -->
+        <ng-container matColumnDef="name">
+          <mat-header-cell *matHeaderCellDef mat-sort-header style="background-color:#3498db;color:white"> Survey Name </mat-header-cell>
+          <mat-cell *matCellDef="let survey"> {{ survey.surveyName }} </mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="end date">
+          <mat-header-cell *matHeaderCellDef mat-sort-header style="background-color:#3498db;color:white"> End Date </mat-header-cell>
+          <mat-cell *matCellDef="let survey"> {{ survey.endDate | date:'MMM d, y' }} </mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="end time">
+          <mat-header-cell *matHeaderCellDef mat-sort-header style="background-color:#3498db;color:white"> End Time </mat-header-cell>
+          <mat-cell *matCellDef="let survey"> {{ survey.endTime }} </mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="responses">
+          <mat-header-cell *matHeaderCellDef mat-sort-header style="background-color:#3498db;color:white">Responses</mat-header-cell>
+          <mat-cell *matCellDef="let survey"> {{getTotalResponses(survey.surveyId)}}</mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="action">
+          <mat-header-cell *matHeaderCellDef style="background-color:#3498db;color:white"> Actions </mat-header-cell>
+          <mat-cell *matCellDef="let survey">
+            <!-- Define your action cell content -->
+            <button mat-icon-button color="accent" (click)="openVisulization(survey.surveyId,survey.surveyName)">
+              <mat-icon>launch</mat-icon>
+            </button>
+          </mat-cell>
+        </ng-container>
+
+        <!-- Define the header row -->
+        <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+        <!-- Define the row -->
+        <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+      </mat-table>
+    </div>
 
   </div>
+
+    </div>
+
+    
+</div>
