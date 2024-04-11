@@ -1,24 +1,41 @@
-<!-- <div class="container">
-  
-
-  <div class="sidebar">
-    <ul>
-      <li><a [routerLink]="['/workspace', 'company']">Workspace</a></li>
-      <li><a [routerLink]="['/create','generate']">Create</a></li>
-    </ul>
-
-  </div>
-
-  <div class="home-content">
-      
-  </div>
-</div> -->
-
 <div class="container">
- <app-sidebar></app-sidebar>
+  <app-sidebar></app-sidebar>
   <div class="home-content">
-     <!-- user ID : {{this.userLoggedId}} -->
-
-   </div>
-   
+    <div class="dashboard-container">
+    <div class="dashboard-box blue-box">
+      <div class="dashboard-title">Total Surveys</div>
+      <div class="dashboard-value">{{totalSurveys}}</div>
+    </div>
+    <div class="dashboard-box green-box">
+      <div class="dashboard-title">Total Companys</div>
+      <div class="dashboard-value">{{totalCompany}}</div>
+    </div>
+    </div>
+    <!-- user ID : {{this.userLoggedId}} --><div class="container">
+  <mat-table class="mat-elevation-z8" [dataSource]="surveys">
+    <ng-container matColumnDef="name">
+      <mat-header-cell style="background-color: aqua;" *matHeaderCellDef> Survey Name </mat-header-cell>
+      <mat-cell *matCellDef="let survey"> {{ survey.SurveyName }} </mat-cell>
+    </ng-container>
+    <ng-container matColumnDef="status">
+      <mat-header-cell   style="background-color: aqua;" *matHeaderCellDef> Status </mat-header-cell>
+      <mat-cell *matCellDef="let survey"> {{ survey.status }} </mat-cell>
+    </ng-container>
+    <ng-container matColumnDef="responses">
+      <mat-header-cell style="background-color: aqua;" *matHeaderCellDef> Responses </mat-header-cell>
+      <mat-cell *matCellDef="let survey"> {{ survey.Count }} </mat-cell>
+    </ng-container>
+    <ng-container matColumnDef="view">
+      <mat-header-cell style="background-color: aqua;" *matHeaderCellDef> View </mat-header-cell>
+      <mat-cell *matCellDef="let survey">
+        <a [routerLink]="['/survey', survey.id]">View</a>
+      </mat-cell>
+    </ng-container>
+    
+    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+    <mat-row *matRowDef="let row; columns: displayedColumns;" [style.backgroundColor]="row.even ? 'aqua' : 'inherit'"></mat-row>
+  </mat-table>
 </div>
+
+
+  </div>

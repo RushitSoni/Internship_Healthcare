@@ -1,6 +1,7 @@
 .container {
   display: flex;
   height: 100vh;
+  padding: 20px;
 }
 
 .sidebar {
@@ -13,4 +14,88 @@
 .home-content {
   width: 80%;
   padding: 20px;
+  overflow: auto; /* Add overflow to the home-content to allow scrolling */
+}
+
+h1 {
+  color: #007bff; /* Blue color */
+}
+
+.mat-table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0 8px; /* Add spacing between rows */
+  margin-top: 20px;
+}
+
+.mat-header-cell, .mat-cell {
+  padding: 12px 16px;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.12);
+  background-color: #f0f8ff; /* Light blue background color */
+  color: #333; /* Text color */
+}
+
+.mat-header-cell {
+  font-weight: bold; /* Make header cells bold */
+}
+
+.mat-cell {
+  background-color: #ffffff; /* White background color for cells */
+}
+
+.mat-row:nth-child(even) .mat-cell {
+  background-color: #cce5ff; /* Blue background color for even rows */
+}
+
+.mat-row:hover {
+  background-color: #f0f0f0; /* Light gray background color on hover */
+}
+
+a {
+  color: #007bff; /* Blue color for links */
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+
+
+.dashboard-container {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 20px;
+  margin-top: 30px;
+}
+
+.dashboard-box {
+  padding: 20px;
+  border-radius: 10px; /* Increase border-radius for rounded corners */
+  flex: 1;
+  margin-right: 10px;
+}
+
+.dashboard-value {
+  font-size: 24px;
+  color: #ffffff;
+}
+
+
+
+/* Background colors for dashboard boxes */
+.blue-box {
+  background-color: #4a90e2; /* Blue color */
+}
+
+.green-box {
+  background-color: #6ab344; /* Green color */
+}
+
+.orange-box {
+  background-color: #f7941d; /* Orange color */
+}
+
+.purple-box {
+  background-color: #8058a5; /* Purple color */
 }
