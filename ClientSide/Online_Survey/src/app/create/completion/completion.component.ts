@@ -8,64 +8,66 @@ import { TemplatedetailComponent } from '../templatedetail/templatedetail.compon
 import { Observable } from 'rxjs';
 import { LinkComponent } from '../link/link.component';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { NavigateserviceService } from '../navigateservice.service';
 
 @Component({
   selector: 'app-completion',
   templateUrl: './completion.component.html',
-  styleUrl: './completion.component.css'
+  styleUrl: './completion.component.css',
 })
 export class CompletionComponent implements OnInit {
-  
-  questions! : QuestionOption[]; 
-  inputUrl : string = '';
-  
-  constructor( private globalservice : GlobalserviceService , private service : CreateService,private dialog : MatDialog,private snackbar:MatSnackBar) {}
-  
+  questions!: QuestionOption[];
+  inputUrl: string = '';
+
+  constructor(
+    private globalservice: GlobalserviceService,
+    private service: CreateService,
+    private dialog: MatDialog,
+    private snackbar: MatSnackBar,
+    private navigateService : NavigateserviceService
+  ) {}
+
   ngOnInit(): void {
+    this.navigateService.setSourcePage('complete');
     const data = this.service.getData() as Observable<QuestionOption[]>;
-    data.subscribe(data => {
+    data.subscribe((data) => {
       this.questions = data;
     });
   }
 
-  AddTemplate(result : string)
-  {
+  AddTemplate(result: string) {
     const Id = localStorage.getItem('surveyorId');
 
-    const survey_detail : template_detail = {
-      surveyorid : Id ? JSON.parse(Id) : undefined,
-      surveyid : Number(localStorage.getItem('surveyId')),
-      surveyname : result,
-      questions : this.questions
+    const survey_detail: template_detail = {
+      surveyorid: Id ? JSON.parse(Id) : undefined,
+      surveyid: Number(localStorage.getItem('surveyId')),
+      surveyname: result,
+      questions: this.questions,
     };
     this.service.setQuestionOption(survey_detail);
     this.service.addTemplate().subscribe((data) => {
       console.log(data);
-      this.snackbar.open("Saved as Template!",'X',{
-        duration : 2000
+      this.snackbar.open('Saved as Template!', 'X', {
+        duration: 2000,
       });
     });
   }
 
-  Link()
-  {
-    const dialogRef = this.dialog.open(LinkComponent ,{
+  Link() {
+    const dialogRef = this.dialog.open(LinkComponent, {
       width: '80%',
       height: '20%',
-      disableClose: true
+      disableClose: true,
     });
 
-    dialogRef.afterClosed().subscribe((result) => {
-      
-    })
+    dialogRef.afterClosed().subscribe((result) => {});
   }
 
-  SaveTemplate()
-  {
+  SaveTemplate() {
     const dialogRef = this.dialog.open(TemplatedetailComponent, {
       width: '80%',
       height: '30%',
-      disableClose: true
+      disableClose: true,
     });
 
     dialogRef.afterClosed().subscribe((result) => {
