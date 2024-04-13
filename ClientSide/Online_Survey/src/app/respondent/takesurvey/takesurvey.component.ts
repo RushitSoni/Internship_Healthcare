@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, HostListener, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Respondent, Respondent_Record } from '../../shared/Models/Survey';
 import { RespondentserviceService } from '../respondentservice.service';
@@ -6,6 +6,7 @@ import { Observable } from 'rxjs';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatDialog } from '@angular/material/dialog';
 import { DescriptionComponent } from '../description/description.component';
+import { RespondentNavigateService } from '../respondent-navigate.service';
 
 @Component({
   selector: 'app-takesurvey',
@@ -27,13 +28,15 @@ export class TakesurveyComponent implements OnInit {
     private router: Router,
     private service: RespondentserviceService,
     private snackbar: MatSnackBar,
-    private matDialog : MatDialog
+    private matDialog : MatDialog,
+    private navigateService : RespondentNavigateService
   ) {}
-
+  
   ngOnInit(): void {
     this.route.params.subscribe((params) => {
       this.service.surveyid = params['surveyid'] as number;
     });
+
 
     this.service.checkDate(this.service.surveyid).subscribe((data) => {
       console.log(data);
@@ -118,7 +121,8 @@ export class TakesurveyComponent implements OnInit {
           });
 
           dialogRef.afterClosed().subscribe((result) => {
-            this.router.navigate(['respondent/:surveyid', 'fill']);
+            this.navigateService.setLogin();
+            this.router.navigate(['respondent/:surveyid','fill'],{replaceUrl : true});
           });
         });
       })

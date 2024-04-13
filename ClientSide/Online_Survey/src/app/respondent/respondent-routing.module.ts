@@ -4,11 +4,13 @@ import { TakesurveyComponent } from './takesurvey/takesurvey.component';
 import { FillComponent } from './fill/fill.component';
 import { AuthorizationGuard } from '../shared/guards/authorization.guard';
 import { CompleteComponent } from './complete/complete.component';
+import { respondentPreventGuard } from '../shared/guards/respondent-prevent.guard';
+import { repondenpreventBackGuard } from '../shared/guards/repondenprevent-back.guard';
 
 const routes: Routes = [
   {path:':surveyid' , component: TakesurveyComponent},
-  {path:':surveyid/fill',component: FillComponent},
-  {path:':surveyid/complete',component: CompleteComponent}
+  {path:':surveyid/fill',component: FillComponent,canActivate : [respondentPreventGuard,repondenpreventBackGuard]},
+  {path:':surveyid/complete',component: CompleteComponent,canActivate : [respondentPreventGuard]}
 ];
 
 @NgModule({
