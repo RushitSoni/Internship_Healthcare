@@ -6,18 +6,21 @@ import { CreateService } from '../create.service';
 @Component({
   selector: 'app-pagination',
   templateUrl: './pagination.component.html',
-  styleUrl: './pagination.component.css'
+  styleUrl: './pagination.component.css',
 })
-export class PaginationComponent implements AfterViewInit{
-  
-  displayedColumns: string[] = ['SurveyorId', 'SurveyName', 'CreateDate', 'StartDate', 'EndDate', 'DepartmentId'];
+export class PaginationComponent implements AfterViewInit {
+  displayedColumns: string[] = [
+    'SurveyorId',
+    'SurveyName',
+    'CreateDate',
+    'StartDate',
+    'EndDate',
+    'DepartmentId',
+  ];
   dataSource = new MatTableDataSource<SurveyTable>();
   @ViewChild(MatPaginator) paginator: MatPaginator | undefined;
 
-  constructor(private service : CreateService)
-  {
-
-  }
+  constructor(private service: CreateService) {}
 
   ngAfterViewInit() {
     if (this.paginator) {
@@ -34,4 +37,3 @@ export interface SurveyTable {
   EndDate: string;
   DepartmentId: number;
 }
-

@@ -9,20 +9,30 @@ import { preventBackGuard } from '../shared/guards/prevent-back.guard';
 
 const routes: Routes = [
   {
-    path:'',
-    runGuardsAndResolvers:'always',
-    canActivate:[AuthorizationGuard],
-    children:[
-      {path: 'generate',component:GenerateSurveyComponent},
-      {path: 'generate/addquestion',component:AddQuestionComponent,data : {source : 'generate'} , canActivate:[preventBackGuard]},
-      {path: 'generate/complete',component:CompletionComponent,data : {source : 'complete'} , canActivate:[preventBackGuard]},
-      {path: 'send',component:SendComponent}
-    ]
+    path: '',
+    runGuardsAndResolvers: 'always',
+    canActivate: [AuthorizationGuard],
+    children: [
+      { path: 'generate', component: GenerateSurveyComponent },
+      {
+        path: 'generate/addquestion',
+        component: AddQuestionComponent,
+        data: { source: 'generate' },
+        canActivate: [preventBackGuard],
+      },
+      {
+        path: 'generate/complete',
+        component: CompletionComponent,
+        data: { source: 'complete' },
+        canActivate: [preventBackGuard],
+      },
+      { path: 'send', component: SendComponent },
+    ],
   },
 ];
 
-@NgModule({  
+@NgModule({
   imports: [RouterModule.forChild(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
 })
-export class CreateRoutingModule { }
+export class CreateRoutingModule {}

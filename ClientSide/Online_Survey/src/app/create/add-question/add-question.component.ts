@@ -47,7 +47,6 @@ export class AddQuestionComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.navigateService.setSourcePage('generate');
     this.route.queryParams.subscribe((params) => {
       this.companyId = Number(params['companyID']);
       this.templateId = params['templateId'];

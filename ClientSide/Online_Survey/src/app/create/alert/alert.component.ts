@@ -4,16 +4,12 @@ import { MatDialogRef } from '@angular/material/dialog';
 @Component({
   selector: 'app-alert',
   templateUrl: './alert.component.html',
-  styleUrl: './alert.component.css'
+  styleUrl: './alert.component.css',
 })
 export class AlertComponent {
-  constructor(private dialogRef : MatDialogRef<AlertComponent>)
-  {
+  constructor(private dialogRef: MatDialogRef<AlertComponent>) {}
 
-  }
-
-  close()
-  {
+  close() {
     this.dialogRef.close();
   }
 }

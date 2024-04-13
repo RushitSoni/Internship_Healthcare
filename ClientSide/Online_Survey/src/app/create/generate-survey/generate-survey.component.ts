@@ -6,6 +6,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { SettimeComponent } from '../settime/settime.component';
 import { SurveyTable } from '../../shared/Models/Survey';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { NavigateserviceService } from '../navigateservice.service';
 
 @Component({
   selector: 'app-generate-survey',
@@ -31,12 +32,14 @@ export class GenerateSurveyComponent implements OnInit {
     private service: CreateService,
     private globalService: GlobalserviceService,
     private router: Router,
-    private snackbar : MatSnackBar
+    private snackbar : MatSnackBar,
+    private navigateService : NavigateserviceService
   ) {
     this.mindate = this.formatDate(new Date());
   }
 
   ngOnInit(): void {
+    this.navigateService.setSourcePage('generate');
     this.route.queryParams.subscribe((params) => {
       this.departmentId = params['deptID'];
       this.companyId = params['companyID'];
