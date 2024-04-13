@@ -1,10 +1,11 @@
-import { Component } from '@angular/core';
+import { Component, HostListener } from '@angular/core';
 import { Answer, QuestionOption } from '../../shared/Models/Survey';
 import { RespondentserviceService } from '../respondentservice.service';
 import { Observable } from 'rxjs';
 import { AbstractControl, FormBuilder, FormGroup, ValidationErrors, ValidatorFn, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { RespondentNavigateService } from '../respondent-navigate.service';
 
 @Component({
   selector: 'app-fill',
@@ -12,21 +13,25 @@ import { MatSnackBar } from '@angular/material/snack-bar';
   styleUrl: './fill.component.css',
 })
 
+
+
 export class FillComponent {
   answer : Answer[] = [];
   fillData: QuestionOption[] = [];
   form: FormGroup; 
-
+  
   constructor(
     private service: RespondentserviceService,
     private formBuilder: FormBuilder,
     private router : Router,
-    private snackbar : MatSnackBar
+    private snackbar : MatSnackBar,
+    private navigateService : RespondentNavigateService
   ) {
     this.form = this.formBuilder.group({});
   }
 
   ngOnInit() {
+    this.navigateService.setFillRoute('fill');
     const data = this.service.getData() as Observable<QuestionOption[]>;
     data.subscribe((filldata) => {
       this.fillData = filldata;
@@ -96,7 +101,7 @@ export class FillComponent {
       });
   
       this.service.addAnswer(this.answer).subscribe((data) => {
-        this.router.navigate(['respondent/:surveyid','complete']);
+        this.router.navigate(['respondent/:surveyid','complete'],{replaceUrl : true});
       });
     }
     else
