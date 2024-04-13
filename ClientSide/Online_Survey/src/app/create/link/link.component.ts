@@ -6,35 +6,34 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 @Component({
   selector: 'app-link',
   templateUrl: './link.component.html',
-  styleUrl: './link.component.css'
+  styleUrl: './link.component.css',
 })
-export class LinkComponent implements OnInit{
-  
+export class LinkComponent implements OnInit {
+  Frontendurl!: string;
+  inputUrl: string = '';
 
-  Frontendurl! : string;
-  inputUrl : string = '';
-
-  constructor(private globalservice : GlobalserviceService,private dialogRef : MatDialogRef<LinkComponent>,private snackbar : MatSnackBar)
-  {
-
-  }
+  constructor(
+    private globalservice: GlobalserviceService,
+    private dialogRef: MatDialogRef<LinkComponent>,
+    private snackbar: MatSnackBar
+  ) {}
 
   ngOnInit(): void {
-    this.Frontendurl = this.globalservice.FrontendUrl + '/respondent/' + this.globalservice.SurveyId;
+    this.Frontendurl =
+      this.globalservice.FrontendUrl +
+      '/respondent/' +
+      this.globalservice.SurveyId;
     this.inputUrl = this.Frontendurl;
   }
 
-  copied()
-  {
-    this.snackbar.open("Copied!",'X',{
-      duration : 2000
+  copied() {
+    this.snackbar.open('Copied!', 'X', {
+      duration: 2000,
     });
     this.close();
   }
 
-  close()
-  {
+  close() {
     this.dialogRef.close();
   }
-
 }

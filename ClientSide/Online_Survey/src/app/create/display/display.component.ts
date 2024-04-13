@@ -1,4 +1,12 @@
-import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
+import {
+  Component,
+  EventEmitter,
+  Input,
+  OnChanges,
+  OnInit,
+  Output,
+  SimpleChanges,
+} from '@angular/core';
 import { CreateService } from '../create.service';
 import { Post_Question, QuestionOption } from '../../shared/Models/Survey';
 import { Observable } from 'rxjs';
@@ -6,22 +14,17 @@ import { Observable } from 'rxjs';
 @Component({
   selector: 'app-display',
   templateUrl: './display.component.html',
-  styleUrl: './display.component.css'
+  styleUrl: './display.component.css',
 })
-
-export class DisplayComponent implements OnInit{
-  
+export class DisplayComponent implements OnInit {
   @Input() question!: Post_Question;
   @Input() questionNumber!: number;
   @Output() editClicked: EventEmitter<void> = new EventEmitter<void>();
   @Output() deleteClicked: EventEmitter<number> = new EventEmitter<number>();
 
-  constructor(private service : CreateService){
+  constructor(private service: CreateService) {}
 
-  }
-
-  ngOnInit(): void {
-  }
+  ngOnInit(): void {}
 
   onEdit() {
     this.editClicked.emit();
@@ -29,5 +32,5 @@ export class DisplayComponent implements OnInit{
 
   onDelete() {
     this.deleteClicked.emit(this.questionNumber - 1);
-  }
+  }
 }

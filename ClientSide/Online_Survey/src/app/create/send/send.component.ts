@@ -1,4 +1,4 @@
-import {Component, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import * as XLSX from 'xlsx';
 import { CreateService } from '../create.service';
 import { ActivatedRoute } from '@angular/router';
@@ -6,23 +6,25 @@ import { ActivatedRoute } from '@angular/router';
 @Component({
   selector: 'app-send',
   templateUrl: './send.component.html',
-  styleUrls: ['./send.component.css']
+  styleUrls: ['./send.component.css'],
 })
 export class SendComponent implements OnInit {
-
   excelData: any;
   inputUrl: string = '';
-  recipients: { Email_IDs: string, selected: boolean }[] = [];
+  recipients: { Email_IDs: string; selected: boolean }[] = [];
   subject: string = 'Survey';
   body: string = '';
 
-  isEmailCol:boolean=false
+  isEmailCol: boolean = false;
 
-  constructor(private createService: CreateService, private route: ActivatedRoute) {}
+  constructor(
+    private createService: CreateService,
+    private route: ActivatedRoute
+  ) {}
 
   ngOnInit(): void {
     // Retrieve URL from query parameters
-    this.route.queryParams.subscribe(params => {
+    this.route.queryParams.subscribe((params) => {
       this.inputUrl = params['url'];
       //console.log(this.inputUrl)
       // Set the body with the inputUrl value
@@ -32,7 +34,7 @@ export class SendComponent implements OnInit {
 
   readExcel(event: any) {
     this.excelData = [];
-    
+
     let file = event.target.files[0];
 
     let fileReader = new FileReader();
@@ -46,20 +48,22 @@ export class SendComponent implements OnInit {
       this.excelData = XLSX.utils.sheet_to_json(workSheet, { raw: true });
 
       // Populate recipients array with email IDs from the excel data
-     
+
       const firstRow = this.excelData[0];
       if (firstRow) {
         // Iterate through all keys (columns) in the first row
         const keys = Object.keys(firstRow);
-        const emailColumn = keys.find(key => this.isEmail(firstRow[key]));
-  
+        const emailColumn = keys.find((key) => this.isEmail(firstRow[key]));
+
         if (emailColumn) {
           // Populate recipients array with email IDs from the excel data
-          this.isEmailCol=true
-          this.recipients = this.excelData.map((row: any) => ({ Email_IDs: row[emailColumn], selected: false }));
+          this.isEmailCol = true;
+          this.recipients = this.excelData.map((row: any) => ({
+            Email_IDs: row[emailColumn],
+            selected: false,
+          }));
         } else {
-
-          this.isEmailCol=false
+          this.isEmailCol = false;
           console.error('Email column not found in the Excel data.');
           // Handle case where email column is not found
         }
@@ -76,15 +80,18 @@ export class SendComponent implements OnInit {
 
   sendEmailList() {
     // Filter selected email addresses
-    let selectedRecipients = this.recipients.filter(recipient => recipient.selected).map(recipient => recipient.Email_IDs);
+    let selectedRecipients = this.recipients
+      .filter((recipient) => recipient.selected)
+      .map((recipient) => recipient.Email_IDs);
     console.log('Selected recipients:', selectedRecipients);
 
-    this.createService.sendEmailList(selectedRecipients, this.subject, this.body)
+    this.createService
+      .sendEmailList(selectedRecipients, this.subject, this.body)
       .subscribe(
-        response => {
+        (response) => {
           console.log('Emails sent successfully:', response);
         },
-        error => {
+        (error) => {
           console.error('Failed to send emails:', error);
         }
       );
@@ -94,10 +101,8 @@ export class SendComponent implements OnInit {
     const target = event.target as HTMLInputElement;
     const checked = target.checked;
     // console.log('Checkbox checked:', checked);
-  
+
     // Update the selected property of each recipient
-    this.recipients.forEach(recipient => recipient.selected = checked);
-    
+    this.recipients.forEach((recipient) => (recipient.selected = checked));
   }
-  
 }

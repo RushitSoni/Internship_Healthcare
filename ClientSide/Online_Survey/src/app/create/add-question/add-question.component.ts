@@ -14,6 +14,7 @@ import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { AlertComponent } from '../alert/alert.component';
 import { Observable } from 'rxjs';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { NavigateserviceService } from '../navigateservice.service';
 
 @Component({
   selector: 'app-add-question',
@@ -39,7 +40,8 @@ export class AddQuestionComponent implements OnInit {
     private dialog: MatDialog,
     private route: ActivatedRoute,
     private dialogRef: MatDialog,
-    private snackbar : MatSnackBar
+    private snackbar : MatSnackBar,
+    private navigateService : NavigateserviceService
   ) {
     this.questionnumber = 1;
   }

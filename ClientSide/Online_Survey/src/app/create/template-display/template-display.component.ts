@@ -1,4 +1,11 @@
-import { AfterViewInit, Component, EventEmitter, OnInit, Output, ViewChild } from '@angular/core';
+import {
+  AfterViewInit,
+  Component,
+  EventEmitter,
+  OnInit,
+  Output,
+  ViewChild,
+} from '@angular/core';
 import { Template } from '../../shared/Models/Respondent';
 import { GlobalserviceService } from '../../../globalservice/globalservice.service';
 import { CreateService } from '../create.service';
@@ -12,35 +19,35 @@ import { TemplatepreviewComponent } from '../templatepreview/templatepreview.com
 @Component({
   selector: 'app-template-display',
   templateUrl: './template-display.component.html',
-  styleUrl: './template-display.component.css'
+  styleUrl: './template-display.component.css',
 })
-export class TemplateDisplayComponent implements OnInit , AfterViewInit {
+export class TemplateDisplayComponent implements OnInit, AfterViewInit {
+  @Output() clicked: EventEmitter<number> = new EventEmitter<number>();
 
-  @Output() clicked : EventEmitter<number> = new EventEmitter<number>();
-
-  surveyId! : number;
-  template : Observable<Template[]> = new Observable<Template[]>;
-  templateData : Template[] = [];
-  displayedColumns: string[] = ['Index','surveyId','surveyName','action'];
+  surveyId!: number;
+  template: Observable<Template[]> = new Observable<Template[]>();
+  templateData: Template[] = [];
+  displayedColumns: string[] = ['Index', 'surveyId', 'surveyName', 'action'];
   dataSource = new MatTableDataSource<any>();
-  
+
   @ViewChild(MatPaginator) paginator!: MatPaginator;
-  @ViewChild(MatSort) sort! : MatSort;
+  @ViewChild(MatSort) sort!: MatSort;
 
-  constructor(private globalservice : GlobalserviceService,private service : CreateService,private matDialog : MatDialog)
-  {}
+  constructor(
+    private globalservice: GlobalserviceService,
+    private service: CreateService,
+    private matDialog: MatDialog
+  ) {}
 
-  ngAfterViewInit(): void {
+  ngAfterViewInit(): void {}
+
+  ngOnInit() {
+    this.load();
   }
 
-  ngOnInit(){
-    this.load();
-  }    
-
-  load()
-  {
+  load() {
     this.template = this.service.getTemplate();
-    this.template.subscribe(data => {
+    this.template.subscribe((data) => {
       this.templateData = data;
       this.dataSource = new MatTableDataSource<any>(this.templateData);
       this.dataSource.sort = this.sort;
@@ -48,26 +55,22 @@ export class TemplateDisplayComponent implements OnInit , AfterViewInit {
     });
   }
 
-  delete(templateId : number)
-  {
+  delete(templateId: number) {
     this.service.deleteTemplate(templateId).subscribe((data) => {
       this.load();
     });
   }
 
-  addQuestions(questionNumber : number)
-  {
+  addQuestions(questionNumber: number) {
     this.clicked.emit(questionNumber);
   }
 
-  preview(templateId : number,templateName : string)
-  {
-    const dialogRef = this.matDialog.open(TemplatepreviewComponent,{
-      data : {templateId,templateName},
+  preview(templateId: number, templateName: string) {
+    const dialogRef = this.matDialog.open(TemplatepreviewComponent, {
+      data: { templateId, templateName },
       width: '50%',
       height: '60%',
-      disableClose: true
+      disableClose: true,
     });
-    
   }
 }
