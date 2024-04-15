@@ -70,8 +70,8 @@ export class TakesurveyComponent implements OnInit {
     });
   }
 
-  AddDetails(): Promise<number> {
-    return new Promise<number>((resolve, reject) => {
+  AddDetails(): Promise<void> {
+    return new Promise<void>((resolve, reject) => {
       const respondent: Respondent = {
         id: 0,
         Email: this.email,
@@ -80,10 +80,12 @@ export class TakesurveyComponent implements OnInit {
       if (respondent.Email != undefined && this.CheckEmail(respondent.Email)) {
         this.CheckDetails(respondent)
           .then((result) => {
-            this.service.addRespondent(respondent).subscribe((data) => {
-              this.service.respondentid = data;
-              resolve(data);
-            });
+            this.service.setRespondent(respondent);
+            // this.service.addRespondent(respondent).subscribe((data) => {
+            //   this.service.respondentid = data;
+            //   resolve(data);
+            // });
+            resolve();
           })
           .catch((err) => {});
       } else {
@@ -95,18 +97,18 @@ export class TakesurveyComponent implements OnInit {
     });
   }
 
-  AddRecord(): Promise<number> {
-    return new Promise<number>((resolve, reject) => {
-      const record: Respondent_Record = {
-        RespondentId: this.service.respondentid,
-        SurveyId: this.service.surveyid,
-      };
-
-      this.service.addRecord(record).subscribe((data) => {
-        this.service.primaryid = data;
-        localStorage.setItem('primaryId', String(data));
-        resolve(data);
-      });
+  AddRecord(): Promise<void> {
+    return new Promise<void>((resolve, reject) => {
+      // const record: Respondent_Record = {
+      //   RespondentId: this.service.respondentid,
+      //   SurveyId: this.service.surveyid,
+      // };
+      // this.service.addRecord(record).subscribe((data) => {
+      //   this.service.primaryid = data;
+      //   localStorage.setItem('primaryId', String(data));
+      //   resolve(data);
+      // });
+      resolve();
     });
   }
 
