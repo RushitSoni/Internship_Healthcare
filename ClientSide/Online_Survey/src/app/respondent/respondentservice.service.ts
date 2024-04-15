@@ -12,7 +12,30 @@ export class RespondentserviceService {
   respondentid! : number;
   primaryid! : number;
 
+  private respondent! : Respondent;
+  private record! : Respondent_Record;
+
   constructor(private http: HttpClient) { }
+
+  setRespondent(respondent : Respondent)
+  {
+    this.respondent = respondent;
+  }
+
+  getRespondent()
+  {
+    return this.respondent;
+  }
+
+  setRespondentRecord(record : Respondent_Record)
+  {
+    this.record = record;
+  }
+
+  getRespondentRecord()
+  {
+    return this.record;
+  }
 
   addRespondent(respondent : Respondent)
   {
