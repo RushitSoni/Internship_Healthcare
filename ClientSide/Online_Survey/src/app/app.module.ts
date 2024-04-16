@@ -49,6 +49,8 @@ import { MySurveysComponent } from './my-surveys/my-surveys.component';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatInputModule} from '@angular/material/input';
 import { NotificationComponent } from './notification/notification.component';
+import { HelpModuleComponent } from './help-module/help-module.component';
+import { NgxExtendedPdfViewerModule } from 'ngx-extended-pdf-viewer';
 
 
 
@@ -72,6 +74,7 @@ import { NotificationComponent } from './notification/notification.component';
     GraphsComponent,
     MySurveysComponent,
     NotificationComponent,
+    HelpModuleComponent,
 
    
   ],
@@ -89,7 +92,8 @@ import { NotificationComponent } from './notification/notification.component';
     MatSortModule,
     MatFormFieldModule,
     MatInputModule,
- 
+
+    NgxExtendedPdfViewerModule
    
     
 ],

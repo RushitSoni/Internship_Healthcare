@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {MatIconModule} from '@angular/material/icon';
 import { WorkspaceService } from '../workspace/workspace.service';
+import { HelpModuleService } from '../help-module/help-module.service';
 
 @Component({
   selector: 'app-admin',
@@ -13,7 +14,7 @@ export class AdminComponent implements OnInit{
   totalUsers: number = 0;
   totalCompany: number = 0;
 
-  constructor(private workspaceService:WorkspaceService) { }
+  constructor(private workspaceService:WorkspaceService,private helpService:HelpModuleService) { }
 
  ngOnInit(): void {
 
@@ -37,5 +38,24 @@ loadData(){
   this.workspaceService.getAllResponses().subscribe((res)=>{
     this.totalResponses=res.length
   })
+}
+
+
+
+
+onFileSelected(event: any) {
+  const file: File = event.target.files[0];
+  if (file) {
+    this.helpService.uploadFile(file).subscribe(
+      (response) => {
+        console.log('File uploaded successfully:', response);
+        // Handle success, e.g., show a success message
+      },
+      (error) => {
+        console.error('Error uploading file:', error);
+        // Handle error, e.g., show an error message
+      }
+    );
+  }
 }
 }
