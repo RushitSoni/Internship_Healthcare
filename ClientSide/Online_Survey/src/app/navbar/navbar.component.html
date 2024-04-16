@@ -28,6 +28,14 @@
               >Home</a
             >
           </li>
+
+          <li class="nav-item">
+            <a routerLink="/help" class="nav-link mx-2" routerLinkActive="active"
+           
+              >Help</a
+            >
+          </li>
+
           <li class="nav-item">
             <a routerLink="/admin" class="nav-link mx-2" routerLinkActive="active"
             *ngIf="(accountService.user$ | async)?.role === 'superadmin'"

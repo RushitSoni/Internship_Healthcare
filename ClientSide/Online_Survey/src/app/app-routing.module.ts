@@ -9,6 +9,7 @@ import { AuthorizationGuard } from './shared/guards/authorization.guard';
 import { adminAuthGuard } from './shared/guards/admin-auth.guard';
 import { MySurveysComponent } from './my-surveys/my-surveys.component';
 import { GraphsComponent } from './graphs/graphs.component';
+import { HelpModuleComponent } from './help-module/help-module.component';
 
 
 const routes: Routes = [
@@ -21,7 +22,9 @@ const routes: Routes = [
   {
     path:'home',component:HomeComponent, canActivate:[AuthorizationGuard]
   },
-  
+  {
+    path:'help',component:HelpModuleComponent 
+  },
   {
     path:'profile', component:ProfileComponent, canActivate:[AuthorizationGuard]
   },
