@@ -1,0 +1,73 @@
+
+
+.container {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .upper-section {
+    background-color: #007bff; /* blue color */
+    height: 40vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #fff;
+  }
+  
+  .lower-section {
+    background-color: #fff; /* white color */
+    height: 60vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+.download-section {
+    text-align: center;
+    margin-top: 20px;
+  }
+  
+  .download-text {
+    font-size: 24px;
+    margin-bottom: 10px;
+  }
+  
+  .download-options {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .download-button, .qr-code-button {
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    padding: 10px 20px;
+    margin: 0 10px;
+    text-decoration: none;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .download-button:hover, .qr-code-button:hover {
+    background-color: #0056b3;
+  }
+  
+  .or-text {
+    font-size: 16px;
+    margin: 0 10px;
+  }
+  
+  .button-text {
+    margin-left: 5px;
+  }
+  
+  .download-icon, .qr-code-icon {
+    width: 20px;
+    height: 20px;
+    vertical-align: middle;
+    margin-right: 5px;
+  }
+  
