@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Online_Survey.Audit;
 using Online_Survey.Data;
 using Online_Survey.DTO;
 using Online_Survey.DTOs.Survey;
@@ -23,6 +24,7 @@ namespace Online_Survey.Controllers
         private readonly IUserRepository _userRepository;
         IMapper mapper;
         private readonly IHttpContextAccessor _httpContextAccessor;
+        private readonly AuditClass _as = new AuditClass();
 
         public HomeController(IUserRepository userRepository,IHttpContextAccessor httpContextAccessor)
         {
@@ -89,6 +91,7 @@ namespace Online_Survey.Controllers
             _userRepository.AddEntity(templateDetail);
 
             _userRepository.SaveChange();
+            
 
             int surveyId = templateDetail.SurveyId;
 
@@ -121,6 +124,7 @@ namespace Online_Survey.Controllers
                 }                
             }
 
+            _as.AddAudit(templateDetails.surveyorId, "Template Created with ID: " + surveyId);
             return Ok();
         }
 
@@ -145,11 +149,13 @@ namespace Online_Survey.Controllers
                 Count = surveyorid.Count
             };
 
+
             SurveyTable surveyTable = mapper.Map<SurveyTable>(surveyDTO);
             _userRepository.AddEntity<SurveyTable>(surveyTable);
 
             if (_userRepository.SaveChange())
             {
+                _as.AddAudit(surveyorid.SurveyorId,"Survey Created With ID: "+surveyTable.SurveyId);
                 return surveyTable.SurveyId;
             }
 
