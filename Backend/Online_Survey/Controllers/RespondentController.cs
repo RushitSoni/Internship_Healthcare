@@ -8,6 +8,9 @@ using System.Collections.Generic;
 using System;
 using System.Linq;
 using Microsoft.EntityFrameworkCore;
+using Online_Survey.DTOs.Account;
+using Online_Survey.Services;
+using System.Threading.Tasks;
 
 namespace Online_Survey.Controllers
 {
@@ -18,16 +21,19 @@ namespace Online_Survey.Controllers
         private readonly IUserRepository _userRepository;
         IMapper mapper;
         private readonly IHttpContextAccessor _httpContextAccessor;
+        private readonly EmailService _emailService ;
 
-        public RespondentController(IUserRepository userRepository, IHttpContextAccessor httpContextAccessor)
+        public RespondentController(IUserRepository userRepository, IHttpContextAccessor httpContextAccessor, EmailService emailService)
         {
-            mapper = new Mapper(new MapperConfiguration(cfg => {
+            mapper = new Mapper(new MapperConfiguration(cfg =>
+            {
                 cfg.CreateMap<RespondentDTO, RespondentDetail>();
                 cfg.CreateMap<RecordDTOcs, RespondentRecord>();
                 cfg.CreateMap<AnswerDTO, RespondentAnswer>();
             }));
             _httpContextAccessor = httpContextAccessor;
             _userRepository = userRepository;
+            _emailService = emailService;
         }
 
         [HttpPost("AddRespondent")]
@@ -216,6 +222,35 @@ namespace Online_Survey.Controllers
             string description = _userRepository.GetDescription(surveyId);
 
             return Ok(new { Description = description });
+        }
+
+        [HttpGet("Name")]
+        public IActionResult GetName([FromQuery] int surveyId)
+        {
+
+            string name = _userRepository.GetName(surveyId);
+
+            return Ok(new { SurveyName = name });
+        }
+
+        [HttpPost("thank-you-email")]
+        public async Task<IActionResult> SendEmail([FromBody] EmailSendDto emailSendDto)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            bool emailSent = await _emailService.SendEmailAsync(emailSendDto);
+
+            if (emailSent)
+            {
+                return Ok(new { message = "Thank you Email sent successfully." });
+            }
+            else
+            {
+                return StatusCode(500, new { error = "Failed to send Thank you email." });
+            }
         }
     }
 

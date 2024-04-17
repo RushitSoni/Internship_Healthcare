@@ -124,7 +124,7 @@ export class TakesurveyComponent implements OnInit {
 
           dialogRef.afterClosed().subscribe((result) => {
             this.navigateService.setLogin();
-            this.router.navigate(['respondent/:surveyid','fill'],{replaceUrl : true});
+            this.router.navigate(['respondent/:surveyid','fill'],{replaceUrl : true, queryParams: { email: this.email }});
           });
         });
       })

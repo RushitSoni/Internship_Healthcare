@@ -53,7 +53,8 @@ namespace Online_Survey.Controllers
             var userDtos = users.Select(user => CreateApplicationUserDto(user)).ToList();
             return Ok(userDtos);
         }
-        [HttpPut("update-islogged/{userId}/{flag}")]
+
+       /* [HttpPut("update-islogged/{userId}/{flag}")]
         public async Task<IActionResult> UpdateIsLogged(string userId, int flag)
         {
             // Find the user by their ID
@@ -90,7 +91,7 @@ namespace Online_Survey.Controllers
             this._logger.LogInformation($"User {userId}  Log Status Updated To {updatedUserDto.IsLogged}.");
             return Ok(updatedUserDto);
             
-        }
+        }*/
 
         [HttpPut("update-user/{userId}")]
         public async Task<IActionResult> UpdateUser(string userId, UserDto model)
