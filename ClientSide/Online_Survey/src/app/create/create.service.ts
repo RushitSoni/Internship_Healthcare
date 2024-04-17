@@ -69,6 +69,7 @@ export class CreateService {
   }
 
   getTemplate() {
+    console.log(localStorage.getItem('surveyorId'));
     var id = String(this.globalservice.SurveyorId);
     var params = new HttpParams().set('id', id);
     const template_data = this.http.get<Template[]>(
@@ -89,10 +90,10 @@ export class CreateService {
   }
 
   getData() {
-    if (this.globalservice.SurveyId !== undefined) {
+    if (localStorage.getItem('surveyId') !== undefined) {
       var params = new HttpParams().set(
         'surveyid',
-        this.globalservice.SurveyId
+        Number(localStorage.getItem('surveyId'))
       );
       const data = this.http.get<QuestionOption[]>(
         `${environment.appUrl}/Home/GetQuestionOption`,
@@ -134,5 +135,9 @@ export class CreateService {
     return this.http.delete<any>(
       `${environment.appUrl}/Template/DeleteTemplate/${templateId}`
     );
+  }
+
+  getAllSurveys(): Observable<SurveyTable[]> {
+    return this.http.get<SurveyTable[]>(`${environment.appUrl}/Home/GetAllSurveys`);
   }
 }

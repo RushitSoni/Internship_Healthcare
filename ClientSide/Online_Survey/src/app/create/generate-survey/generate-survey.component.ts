@@ -25,6 +25,7 @@ export class GenerateSurveyComponent implements OnInit {
   companyId: string = '';
   from_template : boolean = false;
   templateId! : number;
+  surveyList: string[] = [];
 
   constructor(
     private route: ActivatedRoute,
@@ -33,7 +34,7 @@ export class GenerateSurveyComponent implements OnInit {
     private globalService: GlobalserviceService,
     private router: Router,
     private snackbar : MatSnackBar,
-    private navigateService : NavigateserviceService
+    private navigateService : NavigateserviceService,
   ) {
     this.mindate = this.formatDate(new Date());
   }
@@ -44,6 +45,8 @@ export class GenerateSurveyComponent implements OnInit {
       this.departmentId = params['deptID'];
       this.companyId = params['companyID'];
     });
+
+    this.check();
 
     // localStorage.setItem('departmentId', this.departmentId);
   }
@@ -64,6 +67,20 @@ export class GenerateSurveyComponent implements OnInit {
       .padStart(2, '0')}`;
   }
 
+  check() 
+  {
+    this.surveyList = [];
+    this.service.getAllSurveys().subscribe((data) => {
+      data.forEach(element => {
+        if(element.surveyorId == this.globalService.SurveyorId)
+        {
+          this.surveyList.push(element.surveyName);
+        }
+      });
+      console.log(this.surveyList);
+    });
+  }
+
   openDialog(): void {
     const dialogRef = this.dialog.open(SettimeComponent, {
         width: '50%',
@@ -71,6 +88,7 @@ export class GenerateSurveyComponent implements OnInit {
     });
     
     dialogRef.componentInstance.departmentId=Number(this.departmentId)
+    dialogRef.componentInstance.surveyList = this.surveyList;
     
 
     dialogRef.afterClosed().subscribe((result) => {

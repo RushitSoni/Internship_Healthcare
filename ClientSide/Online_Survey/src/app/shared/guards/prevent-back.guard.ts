@@ -21,7 +21,8 @@ export class preventBackGuard {
     state: RouterStateSnapshot
   ): boolean {
     if (this.navigateService.getSourcePage() == 'complete') {
-      this.router.navigate(['create/generate']);
+      localStorage.removeItem('surveyId');
+      this.router.navigate(['create/generate'],{replaceUrl : true});
       return false;
     }
     return true;
