@@ -4,18 +4,31 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
+using Newtonsoft.Json;
 using OfficeOpenXml;
 using Online_Survey.Areas.Identity.Data;
 using Online_Survey.Data;
 using Online_Survey.Models;
 using Online_Survey.Services;
+using System.Collections.Generic;
+using System;
 using System.IO;
 using System.Linq;
+using Microsoft.AspNetCore.Hosting;
 
 namespace Online_Survey.Controllers
 {
+    public class ActivityReportData
+    {
+        public string SurveyorId { get; set; }
+        public DateTime Date { get; set; }
+        public TimeSpan Time { get; set; }
+        public string Action { get; set; }
 
-    
+        public string Email { get; set; }
+        public string Name { get; set; }
+    }
+
     [Route("api/[controller]")]
     [ApiController]
     public class ReportController : ControllerBase
@@ -24,11 +37,14 @@ namespace Online_Survey.Controllers
         private readonly Online_SurveyContext context;
         private readonly InternshipOnlineSurveyContext _context2;
 
-        public ReportController(Online_SurveyContext context, InternshipOnlineSurveyContext context2)
+        private readonly IWebHostEnvironment _hostingEnvironment;
+
+        public ReportController(Online_SurveyContext context, InternshipOnlineSurveyContext context2, IWebHostEnvironment hostingEnvironment)
         {
            
             this.context = context;
             this._context2 = context2;
+            this._hostingEnvironment = hostingEnvironment;
         }
 
 
@@ -229,6 +245,78 @@ namespace Online_Survey.Controllers
                 stream.Position = 0;
 
                 return File(stream, "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", "Respondent.xlsx");
+            }
+        }
+
+        [HttpGet("generate/activity")]
+        public IActionResult GenerateActivityReport()
+        {
+            
+           
+
+            string rootPath = _hostingEnvironment.ContentRootPath;
+
+            // Navigate to the "Audit" folder from the root path
+            string auditFolderPath = Path.Combine(rootPath, "Audit");
+
+            // Construct the file path to the JSON file
+            string jsonFilePath = Path.Combine(auditFolderPath, "audit.json");
+
+            List<ActivityReportData> activityData;
+
+            try
+            {
+                string jsonData = System.IO.File.ReadAllText(jsonFilePath);
+                activityData = JsonConvert.DeserializeObject<List<ActivityReportData>>(jsonData);
+            }
+            catch (Exception ex)
+            {
+                // Handle file read or deserialization errors
+                return StatusCode(500, $"Error reading JSON data: {ex.Message}");
+            }
+
+            // Replace Surveyor ID with email using user data
+            foreach (var activity in activityData)
+            {
+                var user = context.Users.FirstOrDefault(u => u.Id == activity.SurveyorId);
+                activity.Email =user.Email;
+                activity.Name = $"{user.FirstName} {user.LastName}"; 
+            }
+
+            // Generate Excel report based on activity data
+            ExcelPackage.LicenseContext = LicenseContext.NonCommercial;
+
+            using (ExcelPackage package = new ExcelPackage())
+            {
+                ExcelWorksheet worksheet = package.Workbook.Worksheets.Add("Activity Report");
+
+                // Add header row
+                worksheet.Cells[1, 1].Value = "User Name";
+                worksheet.Cells[1, 2].Value = "Email";
+                worksheet.Cells[1, 3].Value = "Date";
+                worksheet.Cells[1, 4].Value = "Time";
+                worksheet.Cells[1, 5].Value = "Action";
+
+                // Add data rows
+                int row = 2;
+                foreach (var activity in activityData)
+                {
+                    worksheet.Cells[row, 1].Value = activity.Name;
+                    worksheet.Cells[row, 2].Value = activity.Email;
+                    worksheet.Cells[row, 3].Value = activity.Date.ToString("dd-MM-yyyy");
+                    worksheet.Cells[row, 4].Value = activity.Time.ToString(@"hh\:mm\:ss");
+                    worksheet.Cells[row, 5].Value = activity.Action;
+
+                    row++;
+                }
+
+                // Save the Excel file to a MemoryStream
+                MemoryStream stream = new MemoryStream();
+                package.SaveAs(stream);
+                stream.Position = 0;
+
+                // Return the Excel file as a response
+                return File(stream, "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", "AuditReport.xlsx");
             }
         }
 
