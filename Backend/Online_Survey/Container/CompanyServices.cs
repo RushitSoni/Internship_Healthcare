@@ -33,7 +33,7 @@ namespace Online_Survey.Container
             try
             {
                
-                var existingCompany = await context.Companies.FirstOrDefaultAsync(c => c.Name == data.Name);
+                var existingCompany = await context.Companies.FirstOrDefaultAsync(c => c.Name == data.Name && c.AdminId==data.AdminId);
                 if (existingCompany != null)
                 {
                     response.ResponseCode = 400;
@@ -143,7 +143,7 @@ namespace Online_Survey.Container
             APIResponse response = new APIResponse();
             try
             {
-                var existingCompany = await context.Companies.FirstOrDefaultAsync(c => c.Name == data.Name && c.CompanyId != id);
+                var existingCompany = await context.Companies.FirstOrDefaultAsync(c => c.Name == data.Name && c.CompanyId != id && c.AdminId == data.AdminId);
                 if (existingCompany != null)
                 {
                     response.ResponseCode = 400;

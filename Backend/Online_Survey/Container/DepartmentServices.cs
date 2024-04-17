@@ -33,7 +33,7 @@ namespace Online_Survey.Container
             try
             {
 
-                var existingDepartment = await context.Departments.FirstOrDefaultAsync(d => d.Name == data.Name);
+                var existingDepartment = await context.Departments.FirstOrDefaultAsync(d => d.Name == data.Name && d.CompanyId==data.CompanyId);
                 if (existingDepartment != null)
                 {
                     response.ResponseCode = 400;
@@ -146,7 +146,7 @@ namespace Online_Survey.Container
             try
             {
 
-                var existingDepartment = await context.Departments.FirstOrDefaultAsync(d => d.Name == data.Name && d.DepartmentId != id);
+                var existingDepartment = await context.Departments.FirstOrDefaultAsync(d => d.Name == data.Name && d.DepartmentId != id &&  d.CompanyId == data.CompanyId);
                 if (existingDepartment != null)
                 {
                     response.ResponseCode = 400;

@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {MatIconModule} from '@angular/material/icon';
 import { WorkspaceService } from '../workspace/workspace.service';
 import { HelpModuleService } from '../help-module/help-module.service';
+import { AdminService } from './admin.service';
 
 @Component({
   selector: 'app-admin',
@@ -14,7 +15,7 @@ export class AdminComponent implements OnInit{
   totalUsers: number = 0;
   totalCompany: number = 0;
 
-  constructor(private workspaceService:WorkspaceService,private helpService:HelpModuleService) { }
+  constructor(private workspaceService:WorkspaceService,private helpService:HelpModuleService,private adminService:AdminService) { }
 
  ngOnInit(): void {
 
@@ -41,7 +42,7 @@ loadData(){
 }
 
 
-
+/*cut from below */
 
 onFileSelected(event: any) {
   const file: File = event.target.files[0];
@@ -57,5 +58,78 @@ onFileSelected(event: any) {
       }
     );
   }
+}
+
+generateUserReport() {
+  this.adminService.generateUserReport()
+    .subscribe(
+      (reportFile: Blob) => {
+        // Download the generated Excel file
+        const blobUrl = window.URL.createObjectURL(reportFile);
+        const anchor = document.createElement('a');
+        anchor.href = blobUrl;
+        anchor.download = 'Users.xlsx';
+        anchor.click();
+        window.URL.revokeObjectURL(blobUrl);
+      },
+      error => {
+        console.error('Error generating report:', error);
+        // Handle error
+      }
+    );
+}
+generateWorkspaceReport() {
+  this.adminService.generateWorkspaceReport()
+    .subscribe(
+      (reportFile: Blob) => {
+        // Download the generated Excel file
+        const blobUrl = window.URL.createObjectURL(reportFile);
+        const anchor = document.createElement('a');
+        anchor.href = blobUrl;
+        anchor.download = 'Workspace.xlsx';
+        anchor.click();
+        window.URL.revokeObjectURL(blobUrl);
+      },
+      error => {
+        console.error('Error generating report:', error);
+        // Handle error
+      }
+    );
+}
+generateSurveyReport() {
+  this.adminService.generateSurveyReport()
+    .subscribe(
+      (reportFile: Blob) => {
+        // Download the generated Excel file
+        const blobUrl = window.URL.createObjectURL(reportFile);
+        const anchor = document.createElement('a');
+        anchor.href = blobUrl;
+        anchor.download = 'Surveys.xlsx';
+        anchor.click();
+        window.URL.revokeObjectURL(blobUrl);
+      },
+      error => {
+        console.error('Error generating report:', error);
+        // Handle error
+      }
+    );
+}
+generateRespondentReport() {
+  this.adminService.generateRespondentReport()
+    .subscribe(
+      (reportFile: Blob) => {
+        // Download the generated Excel file
+        const blobUrl = window.URL.createObjectURL(reportFile);
+        const anchor = document.createElement('a');
+        anchor.href = blobUrl;
+        anchor.download = 'Responses.xlsx';
+        anchor.click();
+        window.URL.revokeObjectURL(blobUrl);
+      },
+      error => {
+        console.error('Error generating report:', error);
+        // Handle error
+      }
+    );
 }
 }
