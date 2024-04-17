@@ -37,6 +37,11 @@ export class TemplatedetailComponent {
     });
   }
 
+  Dialogclose()
+  {
+    this.dialogRef.close(null);
+  }
+
   close() {
     this.check().then((data) => {
       if (this.templateName == null) {

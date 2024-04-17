@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Online_Survey.Audit;
 using Online_Survey.Data;
 using Online_Survey.Models;
 using System;
@@ -16,6 +17,7 @@ namespace Online_Survey.Controllers
     {
         private readonly IUserRepository _userRepository;
         IMapper mapper;
+        private readonly AuditClass _as = new AuditClass();
         public TemplateController(IUserRepository userRepository, IHttpContextAccessor httpContextAccessor)
         {
             _userRepository = userRepository;
@@ -53,9 +55,10 @@ namespace Online_Survey.Controllers
         }
 
         [HttpDelete("DeleteTemplate/{id}")]
-        public IActionResult DeleteTemplate(int id) 
+        public IActionResult DeleteTemplate(int id,[FromQuery] string templateId,[FromQuery] string surveyorId) 
         {
             _userRepository.DeleteTemplate(id);
+            _as.AddAudit(surveyorId, "Deleted Template with Id: " + id);
             return Ok();
         }
     }
