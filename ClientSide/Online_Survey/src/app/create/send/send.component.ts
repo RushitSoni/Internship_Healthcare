@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import * as XLSX from 'xlsx';
 import { CreateService } from '../create.service';
 import { ActivatedRoute } from '@angular/router';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-send',
@@ -19,7 +20,8 @@ export class SendComponent implements OnInit {
 
   constructor(
     private createService: CreateService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private snackbar : MatSnackBar
   ) {}
 
   ngOnInit(): void {
@@ -28,7 +30,15 @@ export class SendComponent implements OnInit {
       this.inputUrl = params['url'];
       //console.log(this.inputUrl)
       // Set the body with the inputUrl value
-      this.body = `<p><a href="http://${this.inputUrl}">Click Here</a></p>`;
+      this.body = `
+      <p>Dear Participant,</p>
+      <p>We hope this email finds you well. As a valued member of our community, we would like to invite you to participate in a survey. Your feedback is invaluable to us as we strive to enhance our services and better meet your needs.</p>
+      <p>Your opinion matters, and this survey provides you with an opportunity to share your thoughts and experiences. Your responses will help us understand how we can improve our healthcare services to serve you better.</p>
+      <p>To begin the survey, simply click on the "Start Survey" button below:</p>
+      <button class="primary-button"><a href="http://${this.inputUrl}">Start Survey</a></button>
+      <p>Your participation is voluntary, and all responses will be kept confidential.</p>
+      <p>We appreciate your time and input. Thank you for helping us continue to provide high-quality solutions.</p>
+      `;
     });
   }
 
@@ -65,6 +75,9 @@ export class SendComponent implements OnInit {
         } else {
           this.isEmailCol = false;
           console.error('Email column not found in the Excel data.');
+          this.snackbar.open('Email column not found in the Excel data.', 'X', {
+            duration: 2000,
+          });
           // Handle case where email column is not found
         }
       }
@@ -90,9 +103,15 @@ export class SendComponent implements OnInit {
       .subscribe(
         (response) => {
           console.log('Emails sent successfully:', response);
+          this.snackbar.open('Emails sent successfully:', 'X', {
+            duration: 2000,
+          });
         },
         (error) => {
           console.error('Failed to send emails:', error);
+          this.snackbar.open('Failed to send emails:', 'X', {
+            duration: 2000,
+          });
         }
       );
   }
