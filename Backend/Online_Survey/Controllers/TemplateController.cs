@@ -22,9 +22,8 @@ namespace Online_Survey.Controllers
         }
 
         [HttpGet("GetTemplate")]
-        public ActionResult GetTemplate([FromQuery] string id)
+        public IActionResult GetTemplate([FromQuery] string id)
         {
-            Console.WriteLine(id);
             var data = _userRepository.Template(id).ToList();
             return Ok(data);
         }
