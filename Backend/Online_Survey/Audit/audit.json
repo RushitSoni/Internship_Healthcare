@@ -10,5 +10,29 @@
     "DATE": "2024-04-17T00:00:00+05:30",
     "TIME": "17:00:17.3717175",
     "ACTION": "Template Created with ID: 10"
+  },
+  {
+    "SURVEYORID": null,
+    "DATE": "2024-04-17",
+    "TIME": "18:07:48.4527254",
+    "ACTION": "Deleted Template with Id: 1"
+  },
+  {
+    "SURVEYORID": null,
+    "DATE": "2024-04-17",
+    "TIME": "18:14:19.6534251",
+    "ACTION": "Deleted Template with Id: 4"
+  },
+  {
+    "SURVEYORID": null,
+    "DATE": "2024-04-17",
+    "TIME": "18:18:36.4716362",
+    "ACTION": "Deleted Template with Id: 6"
+  },
+  {
+    "SURVEYORID": "\"d5130593-6bf2-451c-a19e-06341d7f213b\"",
+    "DATE": "2024-04-17",
+    "TIME": "18:20:31.1561917",
+    "ACTION": "Deleted Template with Id: 7"
   }
 ]

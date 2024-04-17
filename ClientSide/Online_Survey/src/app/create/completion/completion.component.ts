@@ -76,13 +76,17 @@ export class CompletionComponent implements OnInit, OnDestroy {
   SaveTemplate() {
     const dialogRef = this.dialog.open(TemplatedetailComponent, {
       width: '80%',
-      height: '30%',
+      height: '35%',
       disableClose: true,
     });
 
     dialogRef.afterClosed().subscribe((result) => {
       console.log('Dialog result:', result); // Data passed back from dialog
-      this.AddTemplate(result);
+      if(result!=null || result!= undefined)
+      {
+        this.AddTemplate(result);
+      }
+      
     });
   }
 }
