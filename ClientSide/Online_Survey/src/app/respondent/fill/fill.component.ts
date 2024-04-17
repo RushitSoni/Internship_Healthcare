@@ -14,7 +14,7 @@ import {
   ValidatorFn,
   Validators,
 } from '@angular/forms';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { RespondentNavigateService } from '../respondent-navigate.service';
 
@@ -28,12 +28,19 @@ export class FillComponent {
   fillData: QuestionOption[] = [];
   form: FormGroup;
 
+  surveyId : number = this.service.surveyid;
+  description!:string
+  surveyName!:string
+  body!:string
+  to!:string
+
   constructor(
     private service: RespondentserviceService,
     private formBuilder: FormBuilder,
     private router: Router,
     private snackbar: MatSnackBar,
-    private navigateService: RespondentNavigateService
+    private navigateService: RespondentNavigateService,
+    private route: ActivatedRoute,
   ) {
     this.form = this.formBuilder.group({});
   }
@@ -73,6 +80,11 @@ export class FillComponent {
         }
       });
     });
+
+
+
+    
+
   }
 
   addList(list: number): number[] {
@@ -151,6 +163,10 @@ export class FillComponent {
           });
         });
       });
+
+
+this.sendThankyouEmail()
+
     } else {
       this.snackbar.open('Some Fields are Empty!', 'X', {
         duration: 2000,
@@ -165,4 +181,50 @@ export class FillComponent {
       return isChecked ? null : { atLeastOneCheckboxChecked: true };
     };
   }
+
+ // Inside sendThankyouEmail method
+async sendThankyouEmail() {
+  try {
+    // Fetch survey name and description concurrently
+    const [descriptionData, surveyNameData] = await Promise.all([
+      this.service.getDescription(this.surveyId).toPromise(),
+      this.service.getName(this.surveyId).toPromise()
+    ]);
+
+    // Populate survey name and description
+    this.description = descriptionData.description;
+    this.surveyName = surveyNameData.surveyName;
+
+    // Construct email body
+    this.body = `
+      <p>Dear Participant,</p>
+      <p>Thank You ! For Providing Your Valuable Response To , </p>
+      <p>Survey : ${this.surveyName} </p>
+      <p>(${this.description})</p>
+    `;
+
+   
+    this.route.queryParams.subscribe((params) => {
+      this.to = params['email'];
+    });
+
+   
+    const emailData = {
+      to: this.to,
+      subject: 'Thank You Email',
+      body: this.body
+    };
+
+    console.log(emailData);
+
+    // Send email
+    const response = await this.service.sendThankyouEmail(emailData).toPromise();
+    console.log('Email sent successfully:', response);
+   
+  } catch (error) {
+    console.error('Failed to send email:', error);
+    
+  }
+}
+
 }

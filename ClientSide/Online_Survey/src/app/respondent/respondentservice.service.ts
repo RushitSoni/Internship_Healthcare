@@ -2,6 +2,7 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from '../../environments/environment';
 import { Answer, QuestionOption, Respondent, Respondent_Record } from '../shared/Models/Survey';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -59,6 +60,12 @@ export class RespondentserviceService {
     return this.http.get<any>(`${environment.appUrl}/Respondent/Description`,{params});
   }
 
+  getName(surveyId : number)
+  {
+    var params = new HttpParams().set('surveyId',surveyId);
+    return this.http.get<any>(`${environment.appUrl}/Respondent/Name`,{params});
+  }
+
   getData()
   {
     if(this.surveyid !== undefined)
@@ -87,5 +94,10 @@ export class RespondentserviceService {
   {
     console.log(answers);
     return this.http.post(`${environment.appUrl}/Respondent/AddAnswers`,answers);
+  }
+
+  sendThankyouEmail(emailSendDto: any): Observable<any> {
+    return this.http.post<any>(`${environment.appUrl}/Respondent/thank-you-email`, emailSendDto)
+      
   }
 }

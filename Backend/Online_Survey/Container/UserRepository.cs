@@ -27,6 +27,11 @@ namespace Online_Survey.Data
         {
             return _ef.SurveyTables.FirstOrDefault(s => s.SurveyId == id).Description;
         }
+
+        string IUserRepository.GetName(int id)
+        {
+            return _ef.SurveyTables.FirstOrDefault(s => s.SurveyId == id).SurveyName;
+        }
         bool IUserRepository.SaveChange()
         {
             return _ef.SaveChanges() > 0;
