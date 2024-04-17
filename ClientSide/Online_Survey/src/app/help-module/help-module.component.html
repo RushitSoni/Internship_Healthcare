@@ -1,8 +1,29 @@
 <!-- <iframe *ngIf="fileUrl" [src]="fileUrl" toolbar="0" [width]="'500px'" [height]="'600px'" frameborder="0"></iframe> -->
 
 
-<div *ngIf="fileUrl">
-    <!-- <iframe [src]="fileUrl" width="100%" height="600px" frameborder="0"></iframe> -->
+<!-- <div *ngIf="fileUrl">
+     <iframe [src]="fileUrl" width="100%" height="600px" frameborder="0"></iframe> 
     <button (click)="downloadFile()">Download</button>
 </div>
+   -->
+   <div class="container">
+    <div class="upper-section">
+      <h1>Welcome to SurveyMaster</h1>
+    </div>
+    <div class="lower-section">
+        <div class="download-section">
+            <p class="download-text">Trouble creating surveys? Download our guide for step-by-step instructions and helpful tips to streamline your survey creation process.</p>
+            <div class="download-options">
+              <a href="path/to/your/pdf.pdf" class="download-button" (click)="downloadFile()">
+                <img src="assets/download-icon.png" alt="Download Icon" class="download-icon">
+                <span class="button-text">Download PDF</span>
+              </a>
+              
+            </div>
+          </div>
+    </div>
+  </div>
+  
+
+
   

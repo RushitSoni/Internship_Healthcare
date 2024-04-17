@@ -128,16 +128,16 @@ export class CreateService {
   }
 
   deleteTemplate(templateId: number) {
-    var params = new HttpParams().set(
-      'templateId',
-      String(localStorage.getItem('templateId'))
-    );
+    var params = new HttpParams()
+      .set('templateId', String(localStorage.getItem('templateId')))
+      .set('surveyorId', String(localStorage.getItem('surveyorId')));
     return this.http.delete<any>(
-      `${environment.appUrl}/Template/DeleteTemplate/${templateId}`
+      `${environment.appUrl}/Template/DeleteTemplate/${templateId}`,{params}
     );
   }
-
   getAllSurveys(): Observable<SurveyTable[]> {
-    return this.http.get<SurveyTable[]>(`${environment.appUrl}/Home/GetAllSurveys`);
+    return this.http.get<SurveyTable[]>(
+      `${environment.appUrl}/Home/GetAllSurveys`
+    );
   }
 }

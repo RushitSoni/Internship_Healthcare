@@ -169,7 +169,7 @@ namespace Online_Survey.Controllers
         }
 
         [HttpGet("CheckAccess")]
-        public IActionResult GetSurveyAccess([FromQuery] int surveyId, [FromQuery] string Email)
+        public IActionResult GetSurveyAccess([FromQuery] int surveyId,[FromQuery] string Email)
         {
             int surveyaccess = _userRepository.GetSurveyTables(surveyId);
 
