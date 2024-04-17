@@ -2,8 +2,10 @@
     <h2 mat-dialog-title>Save as Template</h2>
 </div>
 <div mat-dialog-content style="width: 100%; margin-left: 5%;">
-    <label>Template name:</label>
-    <input type="text" matInput [(ngModel)]="templateName">
+    <mat-form-field>
+        <mat-label>Template name:</mat-label>
+        <input type="text" matInput [(ngModel)]="templateName">
+    </mat-form-field>
 </div>
 <div mat-dialog-actions style="width: 100%;">
     <button mat-raised-button (click)="close()" style="width: 100%;">Save as Template</button>
