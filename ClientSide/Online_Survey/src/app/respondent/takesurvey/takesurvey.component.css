@@ -1,5 +1,7 @@
 
-  
+body{
+  background-color: #f2f2f2; 
+}
   /* Adjust card size based on screen width */
 @media screen and (max-width: 600px) {
   .card {
@@ -23,7 +25,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 70vh;
+  height: 90vh;
   min-width: 237px;
   background-color: #ffffff;
 }
@@ -54,6 +56,13 @@
   padding-top: 20px; /* Optional: Adjust top padding as needed */
 }
 
+.red-shadow-card{
+  box-shadow: -15px 0px 30px -15px rgba(255, 0, 0, 0.5);
+}
+
+.green-shadow-card {
+  box-shadow: 15px 0px 30px -15px rgba(0, 255, 0, 0.5); /* Adjust values as needed */
+}
 
 .not-started {
   width: 100%;

@@ -61,7 +61,7 @@ export class TakesurveyComponent implements OnInit {
       data.subscribe((data) => {
         console.log(data);
         if (data == true) {
-          this.router.navigate(['respondent/:surveyid', 'complete']);
+          this.router.navigate(['respondent/:surveyid', 'filled'],{replaceUrl: true});
           reject();
         } else {
           resolve();
