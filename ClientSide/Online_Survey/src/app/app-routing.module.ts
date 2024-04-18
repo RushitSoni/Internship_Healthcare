@@ -10,6 +10,8 @@ import { adminAuthGuard } from './shared/guards/admin-auth.guard';
 import { MySurveysComponent } from './my-surveys/my-surveys.component';
 import { GraphsComponent } from './graphs/graphs.component';
 import { HelpModuleComponent } from './help-module/help-module.component';
+import { DownloadComponent } from './download/download.component';
+import { UploadComponent } from './upload/upload.component';
 
 
 const routes: Routes = [
@@ -38,6 +40,19 @@ const routes: Routes = [
     path: 'admin/charts',
     component:GraphsComponent,
     canActivate:[adminAuthGuard]
+    
+  },
+  {
+    path: 'admin/download',
+    component:DownloadComponent,
+    canActivate:[adminAuthGuard]
+    
+  },
+  {
+    path: 'admin/upload',
+    component:UploadComponent,
+    canActivate:[adminAuthGuard]
+    
   },
   {
     path: 'mysurveys',

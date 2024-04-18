@@ -273,3 +273,9 @@ a.folder:after {
 a.folder:before {
   border: none;
 }
+
+img{
+ height: 18px;
+  top: 6px;
+  width: 27px;
+}

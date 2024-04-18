@@ -51,6 +51,8 @@ import {MatInputModule} from '@angular/material/input';
 import { NotificationComponent } from './notification/notification.component';
 import { HelpModuleComponent } from './help-module/help-module.component';
 import { NgxExtendedPdfViewerModule } from 'ngx-extended-pdf-viewer';
+import { DownloadComponent } from './download/download.component';
+import { UploadComponent } from './upload/upload.component';
 
 
 
@@ -75,6 +77,8 @@ import { NgxExtendedPdfViewerModule } from 'ngx-extended-pdf-viewer';
     MySurveysComponent,
     NotificationComponent,
     HelpModuleComponent,
+    DownloadComponent,
+    UploadComponent,
 
    
   ],
