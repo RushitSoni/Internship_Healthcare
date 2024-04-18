@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 using System;
 using Online_Survey.Services;
 using Microsoft.Extensions.Logging;
+using Online_Survey.Audit;
 
 namespace Online_Survey.Container
 {
@@ -18,16 +19,18 @@ namespace Online_Survey.Container
         private readonly InternshipOnlineSurveyContext context;
         private readonly IMapper mapper;
         private readonly ILogger<DepartmentServices> logger;
+        private AuditClass _audit;
 
         public DepartmentServices(InternshipOnlineSurveyContext context, IMapper mapper, ILogger<DepartmentServices> logger)
         {
             this.context = context;
             this.mapper = mapper;
             this.logger = logger;
+            _audit = new AuditClass();
 
         }
 
-        public async Task<APIResponse> Create(DepartmentDto data)
+        public async Task<APIResponse> Create(DepartmentDto data,string surveyorId)
         {
             APIResponse response = new APIResponse();
             try
@@ -45,6 +48,7 @@ namespace Online_Survey.Container
                 Department _department = this.mapper.Map<DepartmentDto, Department>(data);
                 await this.context.Departments.AddAsync(_department);
                 await this.context.SaveChangesAsync();
+                this._audit.AddAudit(surveyorId, "Department Created With ID: " + _department.DepartmentId);
 
 
 
@@ -106,7 +110,7 @@ namespace Online_Survey.Container
             return _response;
         }
 
-        public async Task<APIResponse> Remove(int id)
+        public async Task<APIResponse> Remove(int id, string surveyorId)
         {
             APIResponse response = new APIResponse();
             try
@@ -120,6 +124,7 @@ namespace Online_Survey.Container
                     response.ResponseCode = 200;
                     response.Result = "";
                     this.logger.LogInformation($"Department Removed : {id}");
+                    this._audit.AddAudit(surveyorId, "Department Removed with Id: " + id);
                 }
                 else
                 {
@@ -140,7 +145,7 @@ namespace Online_Survey.Container
             return response;
         }
 
-        public async Task<APIResponse> Update(DepartmentDto data, int id)
+        public async Task<APIResponse> Update(DepartmentDto data, int id,string surveyorId)
         {
             APIResponse response = new APIResponse();
             try
@@ -164,6 +169,7 @@ namespace Online_Survey.Container
                     response.ResponseCode = 200;
                     response.Result = "";
                     this.logger.LogInformation($"Department {id} Updated ,New Name : {_department.Name}");
+                    this._audit.AddAudit(surveyorId,"Departemt Updated with Id: "+id);
                 }
                 else
                 {

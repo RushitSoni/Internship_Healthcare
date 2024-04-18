@@ -164,6 +164,7 @@ export class CompanyComponent implements OnInit {
         this.compsniesAsSurveyer=[]
         this.loadCompanies(this.user.id);
         this.loadCompaniesAsSurveyer(this.user.id);
+        
       }
     });
 

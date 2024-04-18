@@ -3,7 +3,7 @@ import { Company } from '../shared/Models/company';
 
 import { Observable } from 'rxjs';
 import { environment } from '../../environments/environment.development';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { APIResponse } from '../shared/Models/APIResponse';
 import { Department } from '../shared/Models/department';
 import { User } from '../shared/Models/user';
@@ -34,7 +34,8 @@ export class WorkspaceService {
   }
 
   deleteCompany(id: number): Observable<APIResponse> {
-    return this.http.delete<APIResponse>(`${environment.appUrl}/api/company/remove/${id}`);
+    var params = new HttpParams().set('surveyorId',String(localStorage.getItem('surveyorId')));
+    return this.http.delete<APIResponse>(`${environment.appUrl}/api/company/remove/${id}`,{params});
   }
 
   //department
@@ -46,17 +47,19 @@ export class WorkspaceService {
   }
 
   createDepartment(department:Department): Observable<APIResponse> {
-    return this.http.post<APIResponse>(`${environment.appUrl}/api/department/create`, department);
+    var params = new HttpParams().set('surveyorId',String(localStorage.getItem('surveyorId')));
+    return this.http.post<APIResponse>(`${environment.appUrl}/api/department/create`, department , {params});
   }
 
   updateDepartment(department: Department, id: number): Observable<APIResponse> {
-    return this.http.put<APIResponse>(`${environment.appUrl}/api/department/update/${id}`, department);
+    var params = new HttpParams().set('surveyorId',String(localStorage.getItem('surveyorId')));
+    return this.http.put<APIResponse>(`${environment.appUrl}/api/department/update/${id}`, department,{params});
   }
 
   deleteDepartment(id: number): Observable<APIResponse> {
-
+    var params = new HttpParams().set('surveyorId',String(localStorage.getItem('surveyorId')));
     console.log("ID",id)
-    return this.http.delete<APIResponse>(`${environment.appUrl}/api/department/remove/${id}`);
+    return this.http.delete<APIResponse>(`${environment.appUrl}/api/department/remove/${id}`,{params});
   }
 
   ////
@@ -72,6 +75,7 @@ export class WorkspaceService {
   }
 
   createSurveyerDept(surveyer:SurveyerViaDept): Observable<APIResponse> {
+
     return this.http.post<APIResponse>(`${environment.appUrl}/api/surveyer_dept/create`, surveyer);
   }
 
@@ -80,9 +84,9 @@ export class WorkspaceService {
   }
 
   deleteSurveyerDept(id: number): Observable<APIResponse> { 
-
+    var params = new HttpParams().set('surveyorId',String(localStorage.getItem('surveyorId')));
     // console.log("heyyyy",id)
-    return this.http.delete<APIResponse>(`${environment.appUrl}/api/surveyer_dept/remove/${id}`);
+    return this.http.delete<APIResponse>(`${environment.appUrl}/api/surveyer_dept/remove/${id}`,{params});
   }
 
 

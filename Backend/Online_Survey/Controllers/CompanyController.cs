@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.RateLimiting;
+using Online_Survey.Audit;
 using Online_Survey.DTOs.Company;
 using Online_Survey.Services;
 using System.Threading.Tasks;
@@ -12,15 +13,12 @@ namespace Online_Survey.Controllers
     [Route("api/[controller]")]
     [ApiController]
 
-
     public class CompanyController : ControllerBase
     {
-
-
         private readonly ICompanyServices service;
+
         public CompanyController(ICompanyServices services)
         {
-
             this.service = services;
 
         }
@@ -66,9 +64,9 @@ namespace Online_Survey.Controllers
         }
 
         [HttpDelete("Remove/{id}")]
-        public async Task<IActionResult> Remove(int id)
+        public async Task<IActionResult> Remove(int id, [FromQuery] string surveyorId)
         {
-            var data = await this.service.Remove(id);
+            var data = await this.service.Remove(id,surveyorId);
             return Ok(data);
         }
     }

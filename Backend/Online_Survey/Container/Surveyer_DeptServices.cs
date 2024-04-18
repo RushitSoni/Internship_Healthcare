@@ -9,6 +9,7 @@ using System;
 using Online_Survey.Services;
 using Google.Apis.Logging;
 using Microsoft.Extensions.Logging;
+using Online_Survey.Audit;
 
 namespace Online_Survey.Container
 {
@@ -18,13 +19,13 @@ namespace Online_Survey.Container
         private readonly InternshipOnlineSurveyContext context;
         private readonly IMapper mapper;
         private readonly ILogger<Surveyer_DeptServices> logger;
-
+        private AuditClass _audit;
         public Surveyer_DeptServices(InternshipOnlineSurveyContext context, IMapper mapper,ILogger<Surveyer_DeptServices> logger)
         {
             this.context = context;
             this.mapper = mapper;
             this.logger = logger;
-
+            this._audit = new AuditClass();
         }
 
         public async Task<APIResponse> Create(Surveyer_DeptDto data)
@@ -49,6 +50,7 @@ namespace Online_Survey.Container
                 response.ResponseCode = 201;
                 response.Result = $"{data.UserId}";
                 this.logger.LogInformation($"Surveyer Created : {data.UserId}");
+                this._audit.AddAudit(data.UserId, "Surveyer Created with Id: " + data.SurveyerDeptId + "For Department: " + data.DeptId + "in Company With Id: " + data.CompanyId);
 
             }
             catch (DbUpdateException ex)
@@ -104,7 +106,7 @@ namespace Online_Survey.Container
             return _response;
         }
 
-        public async Task<APIResponse> Remove(int id)
+        public async Task<APIResponse> Remove(int id,string surveyorId)
         {
             APIResponse response = new APIResponse();
             try
@@ -163,6 +165,7 @@ namespace Online_Survey.Container
                     response.Result = "";
 
                     this.logger.LogInformation($"Surveyer Updated : {id} , New : {_surveyer.UserId} ");
+                    this._audit.AddAudit(data.UserId, "Surveyer Created with Id: " + id + "For Department: " + data.DeptId + "in Company With Id: " + data.CompanyId);
                 }
                 else
                 {

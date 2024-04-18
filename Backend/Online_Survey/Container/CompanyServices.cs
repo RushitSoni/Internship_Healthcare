@@ -2,6 +2,7 @@
 using Microsoft.CodeAnalysis.Elfie.Diagnostics;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
+using Online_Survey.Audit;
 using Online_Survey.DTOs.Company;
 using Online_Survey.Helper;
 using Online_Survey.Models;
@@ -19,12 +20,14 @@ namespace Online_Survey.Container
         private readonly InternshipOnlineSurveyContext context;
         private readonly IMapper mapper;
         private readonly ILogger<CompanyServices> logger;
+        private AuditClass _auditClass;
        
         public CompanyServices(InternshipOnlineSurveyContext context, IMapper mapper, ILogger<CompanyServices> logger)
         {
             this.context = context;
             this.mapper = mapper;
             this.logger = logger;
+            this._auditClass = new AuditClass();
         }
 
         public async Task<APIResponse> Create(CompanyDto data)
@@ -44,7 +47,7 @@ namespace Online_Survey.Container
                 Company _company = this.mapper.Map<CompanyDto, Company>(data);
                 await this.context.Companies.AddAsync(_company);
                 await this.context.SaveChangesAsync();
-
+                _auditClass.AddAudit(_company.AdminId, "Company Created With Id: " + _company.CompanyId);
 
 
                 response.ResponseCode = 201;
@@ -104,7 +107,7 @@ namespace Online_Survey.Container
             return _response;
         }
 
-        public async Task<APIResponse> Remove(int id)
+        public async Task<APIResponse> Remove(int id,string surveyorId)
         {
             APIResponse response = new APIResponse();
             try
@@ -118,6 +121,7 @@ namespace Online_Survey.Container
                     response.ResponseCode = 200;
                     response.Result = "";
                     this.logger.LogInformation($"Remove Company : {id}.");
+                    _auditClass.AddAudit(surveyorId,"Comapny Remove with ID: "+id);
                 }
                 else
                 {
@@ -161,6 +165,7 @@ namespace Online_Survey.Container
                     response.ResponseCode = 200;
                     response.Result = "Updated !!";
                     this.logger.LogInformation($"Updated Company {id} , New Name {data.Name}.");
+                    _auditClass.AddAudit(_company.AdminId,"Comapany Update with ID : "+id);
                 }
                 else
                 {

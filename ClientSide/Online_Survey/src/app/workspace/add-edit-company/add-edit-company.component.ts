@@ -86,7 +86,7 @@ export class AddEditCompanyComponent implements OnInit{
           console.log('Company Updated successfully. Result:', response.result);
           // Refresh the list of companies
           // this.loadCompanies(this.user.id);
-
+          
            this.dialogRef.close('saved');
 
           
