@@ -1,11 +1,11 @@
-.download-container {
+/* .download-container {
     max-width: 500px;
     margin: 0 auto;
     padding: 20px;
-    border: 2px solid #3498db; /* Border color */
+    border: 2px solid #3498db;
     border-radius: 10px;
-    background-color: #f5f5f5; /* Background color */
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Box shadow */
+    background-color: #f5f5f5; 
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); 
   }
   
   .button-row {
@@ -33,4 +33,51 @@
     color: #666;
     margin-bottom: 20px;
   }
-  
+   */
+
+   .download-container {
+    max-width: 80%;
+    margin: 0 auto;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+    padding: 5%;
+}
+
+.button-row {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.report-info {
+    flex: 1;
+}
+
+.report-button {
+    margin-left: 10px;
+}
+
+.report-button button {
+  padding: 8px 20px;
+  background-color: #1e90ff;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s, transform 0.1s;
+
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+
+.report-button button:active {
+  background-color:blue; 
+  transform: scale(0.98); 
+}
+
+
+
+.description {
+    text-align: center;
+    margin-top: 20px;
+}

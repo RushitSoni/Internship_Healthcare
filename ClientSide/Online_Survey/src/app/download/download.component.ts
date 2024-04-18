@@ -105,4 +105,23 @@ export class DownloadComponent {
      );
  }
 
+ generateActivityReport() {
+  this.adminService.generateActivityReport()
+    .subscribe(
+      (reportFile: Blob) => {
+        // Download the generated Excel file
+        const blobUrl = window.URL.createObjectURL(reportFile);
+        const anchor = document.createElement('a');
+        anchor.href = blobUrl;
+        anchor.download = 'UserActivity.xlsx';
+        anchor.click();
+        window.URL.revokeObjectURL(blobUrl);
+      },
+      error => {
+        console.error('Error generating report:', error);
+        // Handle error
+      }
+    );
+}
+
 }

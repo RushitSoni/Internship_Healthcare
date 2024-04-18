@@ -30,4 +30,10 @@ export class AdminService {
       responseType: 'blob'
     });
   }
+
+  generateActivityReport(): Observable<Blob> {
+    return this.http.get(`${environment.appUrl}/api/report/generate/activity`, {
+      responseType: 'blob'
+    });
+  }
 }

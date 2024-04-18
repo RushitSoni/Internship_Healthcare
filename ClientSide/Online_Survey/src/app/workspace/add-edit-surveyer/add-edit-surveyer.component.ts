@@ -116,7 +116,7 @@ export class AddEditSurveyerComponent  implements OnInit{
           
         } else {
           console.error('Error updating surveyer:', response.errorMsg);
-          
+          alert(response.errorMsg)
         }
       });
 
@@ -131,11 +131,13 @@ export class AddEditSurveyerComponent  implements OnInit{
             
           } else {
             console.error('Error creating surveyer:', response.errorMsg);
+            alert(response.errorMsg)
           }
         });
        }
   } else {
     console.error('User Not Found...!');
+    alert("User Not Found")
     // Handle error, maybe show an error message to the user
 }
 }

@@ -1,17 +1,88 @@
-<div class="download-container">
+<!-- <div class="download-container">
     <h2>Download Reports</h2>
     <p>Select the type of report you want to generate:</p>
   
     <div class="button-row">
       <button (click)="generateUserReport()">Generate User Report</button>
+      
+    </div>
+
+    <div class="button-row">
+    
       <button (click)="generateWorkspaceReport()">Generate Workspace Report</button>
     </div>
   
+   
+
     <div class="button-row">
       <button (click)="generateSurveyReport()">Generate Survey Report</button>
+     
+    </div>
+
+    <div class="button-row">
+      
       <button (click)="generateRespondentReport()">Generate Response Report</button>
+    </div>
+
+    <div class="button-row">
+      <button (click)="generateActivityReport()">Generate Activity Report</button>
+      
     </div>
   
     <p class="description">Click on a button to generate the respective report.</p>
 
-    </div>
+    </div> -->
+
+    <div class="download-container">
+      <h2 style="color: #1e90ff">Download Reports</h2>
+      <hr>
+    
+      <div class="button-row">
+          <div class="report-info">
+              <span>User Report</span>
+          </div>
+          <div class="report-button">
+              <button (click)="generateUserReport()">Generate</button>
+          </div>
+      </div>
+  
+      <div class="button-row">
+          <div class="report-info">
+              <span>Workspace Report</span>
+          </div>
+          <div class="report-button">
+              <button (click)="generateWorkspaceReport()">Generate</button>
+          </div>
+      </div>
+  
+      <div class="button-row">
+          <div class="report-info">
+              <span>Survey Report</span>
+          </div>
+          <div class="report-button">
+              <button (click)="generateSurveyReport()">Generate</button>
+          </div>
+      </div>
+  
+      <div class="button-row">
+          <div class="report-info">
+              <span>Response Report</span>
+          </div>
+          <div class="report-button">
+              <button (click)="generateRespondentReport()">Generate</button>
+          </div>
+      </div>
+  
+      <div class="button-row">
+          <div class="report-info">
+              <span>User Activity Report</span>
+          </div>
+          <div class="report-button">
+              <button (click)="generateActivityReport()">Generate</button>
+          </div>
+      </div>
+    
+      <hr>
+      <p class="description">Click on the "Generate" button to generate the respective report.</p>
+  </div>
+  
