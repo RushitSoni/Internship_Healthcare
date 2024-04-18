@@ -93,6 +93,7 @@ export class AddEditCompanyComponent implements OnInit{
           
         } else {
           console.error('Error Updating company:', response.errorMsg);
+          alert(response.errorMsg)
           // Handle error, maybe show an error message to the user
         }
       });
@@ -113,6 +114,7 @@ export class AddEditCompanyComponent implements OnInit{
           
         } else {
           console.error('Error creating company:', response.errorMsg);
+          alert(response.errorMsg)
           // Handle error, maybe show an error message to the user
         }
       });

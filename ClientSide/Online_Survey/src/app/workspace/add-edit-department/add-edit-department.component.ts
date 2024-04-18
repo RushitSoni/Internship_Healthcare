@@ -82,6 +82,7 @@ export class AddEditDepartmentComponent implements OnInit {
             this.dialogRef.close('saved');
           } else {
             console.error('Error updating department:', response.errorMsg);
+            alert(response.errorMsg)
           }
         });
     } else {
@@ -114,6 +115,7 @@ export class AddEditDepartmentComponent implements OnInit {
             this.dialogRef.close('saved');
           } else {
             console.error('Error creating department:', response.errorMsg);
+            alert(response.errorMsg)
             // Handle error, maybe show an error message to the user
           }
         });
@@ -134,6 +136,7 @@ export class AddEditDepartmentComponent implements OnInit {
           // this.loadDepartments(this.companyId, this.user.id);
         } else {
           console.error('Error creating SurveyerViaDept:', response.errorMsg);
+          
         }
       });
   }
