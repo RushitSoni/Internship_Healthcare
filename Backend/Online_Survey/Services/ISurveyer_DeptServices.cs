@@ -11,7 +11,7 @@ namespace Online_Survey.Services
 
         Task<Surveyer_DeptDto> GetbyCode(int id);
 
-        Task<APIResponse> Remove(int id);
+        Task<APIResponse> Remove(int id,string surveyorId);
         Task<APIResponse> Create(Surveyer_DeptDto data);
 
         Task<APIResponse> Update(Surveyer_DeptDto data, int id);

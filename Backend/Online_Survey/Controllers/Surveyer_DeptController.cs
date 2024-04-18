@@ -60,9 +60,9 @@ namespace Online_Survey.Controllers
         }
 
         [HttpDelete("Remove/{id}")]
-        public async Task<IActionResult> Remove(int id)
+        public async Task<IActionResult> Remove(int id, [FromQuery] string surveyorId)
         {
-            var data = await this.service.Remove(id);
+            var data = await this.service.Remove(id,surveyorId);
             return Ok(data);
         }
     }

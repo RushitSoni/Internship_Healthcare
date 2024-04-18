@@ -86,7 +86,6 @@ export class CompletionComponent implements OnInit, OnDestroy {
       {
         this.AddTemplate(result);
       }
-      
     });
   }
 }

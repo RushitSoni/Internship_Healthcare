@@ -2,6 +2,7 @@
     <div  class="card">
         <mat-card>
             <mat-card-content>
+                <img src="src/assets/HealthcareInformatics.png" class="me-3">
                 <mat-form-field appearance="fill" class="full-width">
                     <mat-label>Email:</mat-label>
                     <input matInput type="text" [(ngModel)]="email" required>
@@ -18,6 +19,7 @@
     <div *ngIf="availablitiy == 1" class="not-started card2">
         <mat-card>
             <mat-card-content>
+            <img src="src/assets/HealthcareInformatics.png">
             <h1 style="color: green; text-align: center;">Survey Not Started Yet.</h1>
             </mat-card-content>
         </mat-card>
@@ -25,6 +27,7 @@
     <div *ngIf="availablitiy == 2" class="not-started card2">
         <mat-card>
             <mat-card-content>
+            <img src="src/assets/HealthcareInformatics.png">
             <h1 style="color: red; text-align: center;">Survey Finished. No More Responses can be taken.</h1>
             </mat-card-content>
         </mat-card>

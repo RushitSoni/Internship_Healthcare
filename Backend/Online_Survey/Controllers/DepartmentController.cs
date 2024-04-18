@@ -48,23 +48,23 @@ namespace Online_Survey.Controllers
         }
 
         [HttpPost("Create")]
-        public async Task<IActionResult> Create(DepartmentDto _data)
+        public async Task<IActionResult> Create(DepartmentDto _data, [FromQuery] string surveyorId)
         {
-            var data = await this.service.Create(_data);
+            var data = await this.service.Create(_data,surveyorId);
             return Ok(data);
         }
 
         [HttpPut("Update/{id}")]
-        public async Task<IActionResult> Update(DepartmentDto _data, int id)
+        public async Task<IActionResult> Update(DepartmentDto _data, int id, [FromQuery] string surveyorId)
         {
-            var data = await this.service.Update(_data, id);
+            var data = await this.service.Update(_data, id,surveyorId);
             return Ok(data);
         }
 
         [HttpDelete("Remove/{id}")]
-        public async Task<IActionResult> Remove(int id)
+        public async Task<IActionResult> Remove(int id, [FromQuery] string surveyorId)
         {
-            var data = await this.service.Remove(id);
+            var data = await this.service.Remove(id, surveyorId);
             return Ok(data);
         }
     }
