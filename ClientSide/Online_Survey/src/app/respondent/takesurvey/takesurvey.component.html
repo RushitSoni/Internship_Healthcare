@@ -2,14 +2,19 @@
     <div  class="card">
         <mat-card>
             <mat-card-content>
-                <img src="./assets/HealthcareInformatics.png" class="me-3 mb-3" style="width: 15%;height: 10%;">
+                <div style="display: flex; flex-direction: column; justify-content: center; align-items: center;">
+                <img src="./assets/HealthcareInformatics.png" class="me-3 mb-3" style="width: 250px; height: 100px;">
+                <blockquote style="font-style: italic; margin-bottom: 20px; color: black; font-size: 25px;">
+                    "Your opinion matters. Take the survey and make a difference."
+                </blockquote>
+                </div>
                 <mat-form-field appearance="fill" class="full-width">
                     <mat-label>Email:</mat-label>
                     <input matInput type="text" [(ngModel)]="email" required>
                 </mat-form-field>
                 <br>
                 <div class="button-conatiner">
-                    <button mat-raised-button style="background-color: #3f51b5; width: 100%;" (click)="TakeSurvey()">Take Survey</button>
+                    <button class="btn btn-primary" style="width: 100%;" (click)="TakeSurvey()">Take Survey</button>
                 </div>
             </mat-card-content>
         </mat-card>
@@ -17,18 +22,28 @@
 </div>
 <div class="not-started-container" *ngIf="availablitiy != 0">
     <div *ngIf="availablitiy == 1" class="not-started card2">
-        <mat-card>
+        <mat-card class="green-shadow-card">
             <mat-card-content>
-            <img src="src/assets/HealthcareInformatics.png">
+            <div style="display: flex; flex-direction: column; justify-content: center; align-items: center;">
+            <img src="./assets/HealthcareInformatics.png" class="me-3 mb-3" style="width: 250px; height: 100px;">
+            <blockquote style="font-style: italic; margin-bottom: 20px; color: black; font-size: 30px;">
+                "The survey hasn't started yet. Please check back later to provide your valuable insights."
+            </blockquote>
+            </div>
             <h1 style="color: green; text-align: center;">Survey Not Started Yet.</h1>
             </mat-card-content>
         </mat-card>
     </div>
     <div *ngIf="availablitiy == 2" class="not-started card2">
-        <mat-card>
+        <mat-card class="red-shadow-card">
             <mat-card-content>
-            <img src="src/assets/HealthcareInformatics.png">
-            <h1 style="color: red; text-align: center;">Survey Finished. No More Responses can be taken.</h1>
+            <div style="display: flex; flex-direction: column; justify-content: center; align-items: center;">
+            <img src="./assets/HealthcareInformatics.png" class="me-3 mb-3" style="width: 250px; height: 100px;">
+            </div>
+            <h1 style="color: red; text-align: center;">Survey Ended!!</h1>
+            <blockquote style="font-style: italic; margin-bottom: 20px; color: black; text-align: center; font-size: 30px;">
+                "Sorry, the survey has ended. Your feedback is valuable to us. Stay tuned for future opportunities."
+            </blockquote>
             </mat-card-content>
         </mat-card>
     </div>
