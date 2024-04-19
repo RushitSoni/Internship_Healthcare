@@ -102,7 +102,7 @@ export class AppComponent implements OnInit {
         },
 
         error:_=>{
-            this.accountService.logout()
+           // this.accountService.logout()
         }
       })
 

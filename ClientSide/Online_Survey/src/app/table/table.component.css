@@ -1,6 +1,7 @@
 
 .mat-elevation-z8 {
     margin: 20px;
+    margin-left: 0;
     border-radius: 5px;
     overflow: hidden;
     transition: box-shadow 0.3s ease;
@@ -12,8 +13,8 @@
     border-collapse: collapse;
     margin-top: 20px;
     transition: box-shadow 0.3s ease;
-    margin-right: 20px;
-  
+    /* margin-right: 20px; */
+    
   }
   
   th,
@@ -49,7 +50,7 @@
     display: flex;
     align-items: center;
     padding-top: 20px;
-    padding-left: 20px;
+    /* padding-left: 20px; */
     
   }
   
@@ -59,7 +60,7 @@
     border: none;
     border-radius: 5px; /* Increased border-radius for a rounded look */
     font-size: 1.4rem;
-    padding-left: 2rem; /* Reduced padding for a sleek appearance */
+    padding-left: 2rem; 
     box-shadow: 0.3rem 0.3rem 0.6rem #c8d0e7, -0.2rem -0.2rem 0.5rem #FFFFFF; /* Color codes directly used */
     background-color: #E4EBF5; /* Lighter background color for contrast */
     font-family: inherit;
