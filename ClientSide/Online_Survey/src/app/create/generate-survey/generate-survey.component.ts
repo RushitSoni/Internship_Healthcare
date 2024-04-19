@@ -94,32 +94,44 @@ export class GenerateSurveyComponent implements OnInit {
     dialogRef.afterClosed().subscribe((result) => {
       if(result != null)
       {
-        this.CreateSurvey(result);
+        this.AddSurvey(result);
       }
     });
   }
 
-  CreateSurvey(surveyTable: SurveyTable) {
-    this.service.createSurvey(surveyTable).subscribe((data) => {
-      this.globalService.SurveyId = data;
-      localStorage.setItem('surveyId', String(data));
+  AddSurvey(surveyTable : SurveyTable)
+  {
+    this.CreateSurvey(surveyTable).then((result) => {
+      this.settime = !this.settime;
+
+      //queryParams
+
+      const queryParams: NavigationExtras = {
+        queryParams: {
+          deptID: this.departmentId,
+          companyID: this.companyId,
+          fromTemplate: this.from_template,
+          templateId : this.templateId
+        },
+      };
+
+      this.snackbar.open("Description Added!",'Close',{
+        duration : 2000
+      });
+      this.router.navigate(['/create/generate', 'addquestion'], queryParams);
     });
-    this.settime = !this.settime;
+    
+  }
 
-    //queryParams
+  CreateSurvey(surveyTable: SurveyTable) : Promise<SurveyTable>{
+    return new Promise<SurveyTable>((resolve,reject) => {
+      this.service.createSurvey(surveyTable).subscribe((data) => {
+        this.globalService.SurveyId = data;
+        localStorage.setItem('surveyId', String(data));
+        resolve(surveyTable);
+      });
+    })
+    
 
-    const queryParams: NavigationExtras = {
-      queryParams: {
-        deptID: this.departmentId,
-        companyID: this.companyId,
-        fromTemplate: this.from_template,
-        templateId : this.templateId
-      },
-    };
-
-    this.snackbar.open("Description Added!",'Close',{
-      duration : 2000
-    });
-    this.router.navigate(['/create/generate', 'addquestion'], queryParams);
   }
 }

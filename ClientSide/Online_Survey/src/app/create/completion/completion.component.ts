@@ -29,7 +29,9 @@ export class CompletionComponent implements OnInit, OnDestroy {
     private navigateService: NavigateserviceService
   ) {}
 
-  ngOnDestroy(): void {}
+  ngOnDestroy(): void {
+    localStorage.removeItem('surveyId');
+  }
 
   ngOnInit(): void {
     this.navigateService.setSourcePage('complete');
