@@ -29,6 +29,7 @@ export class AccountService {
     private notificatioService:NotificationServiceService) { }
 
   register(model:Register){
+    this.notificatioService.displayNotification(` Registered SuccessFully !! Please Confirm Your Email.`, 'green')
     return this.http.post(`${environment.appUrl}/api/account/register`,model)
   }
 
@@ -114,7 +115,7 @@ export class AccountService {
           });
   
           this.globalService.SurveyorId = this.userLoggedId;
-          this.notificatioService.displayNotification(`${user.firstName} ${user.lastName} Login SuccessFully !!`, 'green')
+          this.notificatioService.displayNotification(` Login SuccessFully !!`, 'green')
 
         
            
@@ -132,7 +133,7 @@ export class AccountService {
     const jwt=this.getJWT()
     localStorage.removeItem(environment.userKey)
     this.globalService.Logged=false
-    this.notificatioService.displayNotification(`Logout SuccessFully !!`, 'red')
+    this.notificatioService.displayNotification(`Logout SuccessFully !!`, 'green')
 
     // const subscription = this.user$.subscribe((user) => {
       
@@ -214,8 +215,11 @@ export class AccountService {
       map((user: User) => {
         if (user) {
           this.setUser(user);
+          this.notificatioService.displayNotification(` Registered SuccessFully !!`, 'green')
         }
       })
+
+      
     );
   }
 
@@ -246,7 +250,7 @@ export class AccountService {
           });
   
           this.globalService.SurveyorId = this.userLoggedId;
-          this.notificatioService.displayNotification(`${user.firstName} ${user.lastName} Login SuccessFully !!`, 'green')
+          this.notificatioService.displayNotification(` Login SuccessFully !!`, 'green')
         }
       })
     )

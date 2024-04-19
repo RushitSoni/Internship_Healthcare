@@ -1,9 +1,8 @@
-<div mat-dialog-content class="notification-content">
-    <div class="message-container"  [style.color]="data.color">
+<div mat-dialog-content class="notification-content" >
+  <div class="message-container" [style.color]="data.color">
       {{ data.message }}
-    </div>
-    <button mat-icon-button (click)="closeDialog()">
+  </div>
+  <button mat-icon-button class="close-button" (click)="closeDialog()">
       <mat-icon>close</mat-icon>
-    </button>
+  </button>
 </div>
-  

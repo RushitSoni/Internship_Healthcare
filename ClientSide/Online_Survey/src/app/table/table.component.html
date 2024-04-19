@@ -1,5 +1,5 @@
 
-<div class="mat-elevation-z8">
+<div class="mat-elevation-z8" style="padding: 3%">
     <div class="search">
       <input type="text" class="search__input" (input)="applyFilter($event)" placeholder="Search">
     </div>
@@ -8,7 +8,7 @@
      
       <ng-container *ngFor="let col of displayedColumns" [matColumnDef]="col">
         <th mat-header-cell *matHeaderCellDef mat-sort-header>{{ col | titlecase }}</th>
-        <td mat-cell *matCellDef="let element">{{ element[col] }}</td>
+        <td mat-cell *matCellDef="let element">{{ col === 'dateCreated' ? (element[col]  | date:'MMM d, y') : element[col] }}</td>
       </ng-container>
   
       <!-- Add extra columns for actions, if needed -->
@@ -19,13 +19,13 @@
     </table>
   
     <!-- Paginator -->
-    <mat-paginator 
+    <!-- <mat-paginator 
       [pageSize]="10"
       [pageSizeOptions]="[5, 10, 25, 100]"
       [showFirstLastButtons]="true"
       aria-label="Select page"
       (page)="onPageChange($event)">
-    </mat-paginator>
+    </mat-paginator> -->
   </div>
   
   
