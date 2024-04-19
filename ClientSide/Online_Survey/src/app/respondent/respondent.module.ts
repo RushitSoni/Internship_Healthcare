@@ -13,13 +13,15 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { DescriptionComponent } from './description/description.component';
 import { MatIcon } from '@angular/material/icon';
+import { AlreadyFilledComponent } from './already-filled/already-filled.component';
 
 @NgModule({
   declarations: [
     TakesurveyComponent,
     FillComponent,
     CompleteComponent,
-    DescriptionComponent
+    DescriptionComponent,
+    AlreadyFilledComponent
   ],
   imports: [
     CommonModule,
