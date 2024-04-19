@@ -8,7 +8,7 @@
     <div class="question-input">
         <mat-form-field class="input">
             <mat-label>Enter Your Question</mat-label>
-            <input type="text" matInput formControlName="question_text" required>
+            <input type="text" matInput formControlName="question_text">
         </mat-form-field>
         <br>
         <mat-label>Select the Question type:</mat-label>
@@ -24,7 +24,7 @@
             <div *ngFor="let field of dynamicFields.controls; let i = index" class="container">
                 <mat-form-field>
                     <mat-label>Option {{i+1}}</mat-label>
-                    <input matInput type="text" [formControlName]="i" required>
+                    <input matInput type="text" [formControlName]="i">
                 </mat-form-field>
                 <button mat-button (click)="removeDynamicField(i)" class="center_remove"><mat-icon>remove</mat-icon>Remove</button>
             </div>
