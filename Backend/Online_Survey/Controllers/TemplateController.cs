@@ -57,8 +57,9 @@ namespace Online_Survey.Controllers
         [HttpDelete("DeleteTemplate/{id}")]
         public IActionResult DeleteTemplate(int id,[FromQuery] string templateId,[FromQuery] string surveyorId) 
         {
+            
             _userRepository.DeleteTemplate(id);
-            _as.AddAudit(surveyorId, "Deleted Template with Id: " + id);
+            _as.AddAudit(surveyorId.Replace("\"","").Replace("\\",""), "Deleted Template with Id: " + id);
             return Ok();
         }
     }
