@@ -48,7 +48,7 @@ namespace Online_Survey.Container
                 Department _department = this.mapper.Map<DepartmentDto, Department>(data);
                 await this.context.Departments.AddAsync(_department);
                 await this.context.SaveChangesAsync();
-                this._audit.AddAudit(surveyorId, "Department Created With ID: " + _department.DepartmentId);
+                this._audit.AddAudit(surveyorId.Replace("\"", "").Replace("\\", ""), "Department Created With ID: " + _department.DepartmentId);
 
 
 
@@ -124,7 +124,7 @@ namespace Online_Survey.Container
                     response.ResponseCode = 200;
                     response.Result = "";
                     this.logger.LogInformation($"Department Removed : {id}");
-                    this._audit.AddAudit(surveyorId, "Department Removed with Id: " + id);
+                    this._audit.AddAudit(surveyorId.Replace("\"", "").Replace("\\", ""), "Department Removed with Id: " + id);
                 }
                 else
                 {
@@ -169,7 +169,7 @@ namespace Online_Survey.Container
                     response.ResponseCode = 200;
                     response.Result = "";
                     this.logger.LogInformation($"Department {id} Updated ,New Name : {_department.Name}");
-                    this._audit.AddAudit(surveyorId,"Departemt Updated with Id: "+id);
+                    this._audit.AddAudit(surveyorId.Replace("\"", "").Replace("\\", ""),"Departemt Updated with Id: "+id);
                 }
                 else
                 {

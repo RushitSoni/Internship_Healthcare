@@ -121,7 +121,7 @@ namespace Online_Survey.Container
                     response.ResponseCode = 200;
                     response.Result = "";
                     this.logger.LogInformation($"Remove Company : {id}.");
-                    _auditClass.AddAudit(surveyorId,"Comapny Remove with ID: "+id);
+                    _auditClass.AddAudit(surveyorId.Replace("\"", "").Replace("\\", ""), "Comapny Remove with ID: "+id);
                 }
                 else
                 {
