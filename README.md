@@ -44,32 +44,61 @@ This Online Survey System application is designed to streamline the survey proce
 | Gaurav Makawana | Frontend Developer | UI design, frontend implementation |
 
 ## Results
-### Landing Page:
-<img width="526" height="278" alt="image" src="https://github.com/user-attachments/assets/95d6f4fb-df45-4e93-90bd-b30384387c39" />
-### Company:
-<img width="570" height="382" alt="image" src="https://github.com/user-attachments/assets/dfa16f82-2c4f-49ff-8268-c49eac424f1e" />
-### 
-<img width="520" height="361" alt="image" src="https://github.com/user-attachments/assets/1caeeef9-8cef-43e5-ac22-d04d355bf56a" />
-### Survey List Under Specific Department:
-<img width="597" height="321" alt="image" src="https://github.com/user-attachments/assets/844c4d02-7770-4d5c-9406-ebfba884dd21" />
-### Surveyor List:
-<img width="592" height="325" alt="image" src="https://github.com/user-attachments/assets/86656aec-7293-49eb-86e1-f42cbd2cbebf" />
-### Survey Creation:
-<img width="596" height="299" alt="image" src="https://github.com/user-attachments/assets/56213653-34de-417a-b554-5646f9b29081" />
-<img width="599" height="301" alt="image" src="https://github.com/user-attachments/assets/839a6cc6-3457-48fe-8ab1-6d6779b11fc7" />
-### Distribution Of Survey Link Via Email Broadcast:
-<img width="940" height="425" alt="image" src="https://github.com/user-attachments/assets/d922cfd9-01c7-4bcf-ab41-7b9a89dcab2d" />
-### Question Bank:
-<img width="573" height="326" alt="image" src="https://github.com/user-attachments/assets/123bed1f-df6b-49d4-afd9-373f95b0661a" />
-### Analysis:
-<img width="601" height="319" alt="image" src="https://github.com/user-attachments/assets/2cfed05a-4bcb-4933-8813-9fc644adeb67" />
-<img width="940" height="499" alt="image" src="https://github.com/user-attachments/assets/28e7d2c6-ec94-443a-9716-b2e4329edbb5" />
-<img width="940" height="289" alt="image" src="https://github.com/user-attachments/assets/464f8bd9-fe2a-48cd-a78a-33bfcf32fa0c" />
-<img width="940" height="450" alt="image" src="https://github.com/user-attachments/assets/aa0f43ab-f3bc-43e4-8ebc-de2959847882" />
-<img width="940" height="436" alt="image" src="https://github.com/user-attachments/assets/5502dcf0-2aea-4422-91a7-b5827a94ebf3" />
-<img width="940" height="469" alt="image" src="https://github.com/user-attachments/assets/16a8d26a-e22b-4244-9394-3010a8719dce" />
-### SuperAdmin:
-<img width="603" height="290" alt="image" src="https://github.com/user-attachments/assets/907bcae3-29a4-48dd-868e-fc972ae620c8" />
+## Application Screenshots
+
+### Landing Page
+<img src="https://github.com/user-attachments/assets/95d6f4fb-df45-4e93-90bd-b30384387c39" width="700"/>
+
+---
+
+### Company Management
+<img src="https://github.com/user-attachments/assets/dfa16f82-2c4f-49ff-8268-c49eac424f1e" width="700"/>
+
+---
+
+### Department-wise Survey Listing
+<img src="https://github.com/user-attachments/assets/844c4d02-7770-4d5c-9406-ebfba884dd21" width="700"/>
+
+---
+
+### Surveyor Management
+<img src="https://github.com/user-attachments/assets/86656aec-7293-49eb-86e1-f42cbd2cbebf" width="700"/>
+
+---
+
+### Survey Creation
+
+| Survey Details | Question Configuration |
+|---------------|------------------------|
+| <img src="https://github.com/user-attachments/assets/56213653-34de-417a-b554-5646f9b29081" width="450"/> | <img src="https://github.com/user-attachments/assets/839a6cc6-3457-48fe-8ab1-6d6779b11fc7" width="450"/> |
+
+---
+
+### Survey Distribution (Email Broadcast)
+<img src="https://github.com/user-attachments/assets/d922cfd9-01c7-4bcf-ab41-7b9a89dcab2d" width="800"/>
+
+---
+
+### Question Bank
+<img src="https://github.com/user-attachments/assets/123bed1f-df6b-49d4-afd9-373f95b0661a" width="700"/>
+
+---
+
+### Survey Analytics & Reports
+
+| Overview | Response Distribution |
+|--------|----------------------|
+| <img src="https://github.com/user-attachments/assets/2cfed05a-4bcb-4933-8813-9fc644adeb67" width="450"/> | <img src="https://github.com/user-attachments/assets/28e7d2c6-ec94-443a-9716-b2e4329edbb5" width="450"/> |
+
+| Trend Analysis | Detailed Metrics |
+|---------------|------------------|
+| <img src="https://github.com/user-attachments/assets/464f8bd9-fe2a-48cd-a78a-33bfcf32fa0c" width="450"/> | <img src="https://github.com/user-attachments/assets/aa0f43ab-f3bc-43e4-8ebc-de2959847882" width="450"/> |
+
+---
+
+### Super Admin Dashboard
+<img src="https://github.com/user-attachments/assets/907bcae3-29a4-48dd-868e-fc972ae620c8" width="700"/>
+
 
 
 
